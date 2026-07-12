@@ -1,0 +1,779 @@
+
+\lecturechapter{Dienstag}{10. Mär}{10. März 2026}{Gödelscher Vollständigkeitssatz und Konsistenz}
+
+\begin{nice-box}[Syllabus \& Übersicht]
+In dieser Vorlesung beschäftigen wir uns mit den folgenden zentralen Themen:
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item \textbf{Philosophischer Exkurs:} Konstruktivismus, Intuitionismus und der Satz vom ausgeschlossenen Dritten.
+    \item \textbf{Semantik der Prädikatenlogik:} Wiederholung von Strukturen, Interpretationen und Modellen.
+    \item \textbf{Korrektheit und Konsistenz:} Der Korrektheitssatz und der Begriff der Widerspruchsfreiheit.
+    \item \textbf{Gödelscher Vollständigkeitssatz:} Die fundamentale Äquivalenz von syntaktischer Konsistenz und semantischer Modell-Existenz.
+    \item \textbf{Unabhängigkeit und Unvollständigkeit:} Die Grenzen formaler Systeme und Gödels Unvollständigkeitssätze.
+    \item \textbf{Zermelo-Fraenkel-Mengenlehre (ZF):} Historischer Hintergrund (Russellsche Antinomie) und die ersten Axiome (Leere Menge, Extensionalität, Paarmenge).
+\end{enumerate}
+\end{nice-box}
+
+\section{Philosophischer Exkurs: Konstruktivismus und Existenzbeweise}
+
+\begin{spoken-clean}[00:00:00 - 00:00:39]
+Okay, hallo zusammen und willkommen zu einer weiteren Woche in Grundstrukturen.
+
+Zuerst noch ein kurzer Hinweis: Cornelia Busch war nochmals kurz hier. Sie war die Dozentin, die letzte Woche da war, um Werbung für ihre Studie zu machen. Sie hat mir erzählt, dass sie bisher noch keine Rückmeldung bekommen hat. Sie hat diejenigen, die sich eingeschrieben haben, zwar kontaktiert, aber noch keine Antwort erhalten. Sie bittet Sie daher darum, sich doch bitte bei ihr zu melden. Genau, das wäre das.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:00:39 - 00:01:08]
+Bevor wir mit der Vorlesung fortfahren, möchte ich noch einen kleinen Exkurs in die Philosophie der Mathematik machen --- nur ganz kurz.
+
+Zuerst diese Frage: Existieren irrationale Zahlen $a$ und $b$, sodass $a^b$ eine rationale Zahl ist? Das haben Sie vielleicht schon einmal gesehen. Die Antwort lautet: Ja, das kann sein! Und es gibt dafür einen sehr einfachen, eleganten Beweis.
+
+Wir wissen bereits, dass $\sqrt{2}$ irrational ist. Nun betrachten wir die Zahl $\sqrt{2}^{\sqrt{2}}$. Hier gibt es zwei Möglichkeiten: Entweder diese Zahl ist rational oder sie ist irrational. Falls sie rational ist, sind wir fertig und die Behauptung ist bewiesen. Falls sie jedoch irrational ist, betrachten wir $\left(\sqrt{2}^{\sqrt{2}}\right)^{\sqrt{2}}$. Das ist nach den Potenzgesetzen gleich $\sqrt{2}^2$, also genau $2$. In diesem Fall haben wir also eine irrationale Zahl hoch eine irrationale Zahl genommen und eine rationale Zahl erhalten. Das ist ein sehr schöner, klassischer Beweis.
+\end{spoken-clean}
+
+\begin{math-stroke}[Existenzbeweis für irrationale Potenzen]
+\begin{proposition}\label[proposition]{prop:existenz-irrational}
+Existieren irrationale Zahlen $a$ und $b$, so dass $a^b$ eine rationale Zahl ist?
+\end{proposition}
+
+\begin{short-proof}
+Wir wissen, dass $\sqrt{2}$ irrational ist. Betrachte die reelle Zahl:
+\[ x = \sqrt{2}^{\sqrt{2}} \]
+Es gibt zwei sich gegenseitig ausschließende Fälle:
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item \textbf{Fall 1:} $\sqrt{2}^{\sqrt{2}}$ ist rational. In diesem Fall wählen wir $a = \sqrt{2}$ und $b = \sqrt{2}$. Da beide irrational sind, ist die Behauptung bewiesen.
+    \item \textbf{Fall 2:} $\sqrt{2}^{\sqrt{2}}$ ist irrational. In diesem Fall wählen wir $a = \sqrt{2}^{\sqrt{2}}$ und $b = \sqrt{2}$. Beide Zahlen sind nach Annahme irrational. Es gilt:
+    \[ a^b = \left(\sqrt{2}^{\sqrt{2}}\right)^{\sqrt{2}} = \sqrt{2}^{\sqrt{2} \cdot \sqrt{2}} = \sqrt{2}^2 = 2 \]
+    Da $2 \in \mathbb{Q}$ rational ist, ist die Behauptung auch in diesem Fall bewiesen.
+\end{enumerate}
+Da einer der beiden Fälle zutreffen muss, existieren solche irrationalen Zahlen $a$ und $b$.
+\end{short-proof}
+
+\begin{explanation-of-steps}[Nicht-konstruktiver Charakter des Beweises]
+Dieser Beweis ist ein klassisches Beispiel für einen \newterm{nicht-konstruktiven Existenzbeweis}. Wir haben die Existenz von zwei irrationalen Zahlen $a, b$ mit rationaler Potenz $a^b$ bewiesen, ohne tatsächlich zu wissen, welches der beiden Paare ($a=b=\sqrt{2}$ oder $a=\sqrt{2}^{\sqrt{2}}, b=\sqrt{2}$) die Bedingung erfüllt. Wir nutzen hierbei die logische Struktur des Satzes vom ausgeschlossenen Dritten.
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:01:08 - 00:02:25]
+Das ist zwar nicht direkt Teil dieser Vorlesung, aber die idea dahinter ist spannend. Inzwischen kann man übrigens zeigen, dass $\sqrt{2}^{\sqrt{2}}$ tatsächlich irrational ist --- man weiß das also heute ganz sicher. Aber angenommen, wir wüssten das nicht:
+
+Dann könnte man einwenden, dass dieser Beweis in gewisser Weise unbefriedigend ist. Wir konstruieren nämlich keine konkreten irrationalen Zahlen $a$ und $b$, sodass $a^b$ rational ist. Stattdessen sagen wir nur: Entweder ist der eine Fall wahr oder der andere. Am Ende des Beweises haben wir immer noch kein konkretes Paar von irrationalen Zahlen vorliegen, von dem wir sicher wissen, dass es die Bedingung erfüllt.
+\end{spoken-clean}
+
+\begin{didactic-insight}[Nicht-konstruktive Beweise und der Konstruktivismus]
+In der Philosophie der Mathematik gibt es eine Strömung namens \newterm{Konstruktivismus} (eng verwandt mit dem Intuitionismus von L.E.J. Brouwer). Konstruktivisten fordern, dass ein mathematisches Objekt nur dann als existent gilt, wenn eine explizite Methode zu seiner Konstruktion angegeben werden kann. Reine Existenzbeweise, die auf dem Satz vom ausgeschlossenen Dritten basieren, ohne ein konkretes Beispiel zu liefern, werden von dieser Schule abgelehnt.
+\end{didactic-insight}
+
+\begin{spoken-clean}[00:02:25 - 00:03:12]
+Es gibt in der Philosophie der Mathematik eine bekannte Strömung, die sich mit dieser Frage beschäftigt: den Konstruktivismus. Die Vertreter dieser Richtung argumentieren, dass ein mathematisches Objekt nur dann existiert, wenn man es auch explizit konstruieren kann. Solche reinen Existenzbeweise, bei denen man lediglich zeigt, dass ein Objekt existieren muss, ohne ein konkretes Beispiel anzugeben, werden vom konstruktivistischen Standpunkt aus abgelehnt.
+
+Es gibt noch verwandte Strömungen wie den Intuitionismus, der eine etwas andere philosophische Grundlage hat, aber auch dieser würde einen solchen nicht-konstruktiven Beweis nicht akzeptieren. Genau.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:03:12 - 00:04:41]
+Eine der zentralen Säulen, die der Konstruktivismus ablehnt, ist der Satz vom ausgeschlossenen Dritten --- also die Aussage, dass eine Behauptung entweder wahr oder falsch sein muss. Nach diesem Prinzip gilt: Wenn wir zeigen, dass etwas nicht wahr ist, dann ist es falsch; und wenn wir zeigen, dass es nicht falsch ist, dann ist es wahr.
+
+Wir haben dieses Prinzip in unserer Vorlesung einfach als Axiom vorausgesetzt --- das war, glaube ich, $L_0$. Da haben wir festgelegt, dass für jede Formel gilt: $\varphi$ oder $\neg\varphi$. Für uns ist das ein Axiom. Und ein Axiom ist ja --- wie man völlig zu Recht sagt --- einfach eine Setzung, die man an den Anfang stellt. Wir haben also nicht bewiesen, dass der Satz vom ausgeschlossenen Dritten in der Realität \qt{stimmt}. Es ist schlicht die Grundlage der klassischen Mainstream-Mathematik, bei der man davon ausgeht, dass dieses Prinzip gilt.
+
+Man könnte a priori aber genauso gut sagen, dass man dieses Axiom nicht annimmt. Dann kann man allerdings keine klassischen Widerspruchsbeweise mehr führen, und es gibt viele Resultate, die sich nicht mehr oder zumindest nicht mehr auf dieselbe Weise beweisen lassen. Aber letztlich gibt es eben verschiedene philosophische Ansätze und unterschiedliche Axiomensysteme. Man kann untersuchen, was sich unter anderen Bedingungen noch beweisen lässt und was nicht. Das ist eine mathematisch völlig legitime Beschäftigung.
+
+Wir wollen das hier nicht vertiefen, sondern es nur als ein interessantes Beispiel stehen lassen. Man kann durchaus die Position vertreten, dass ein mathematisches Objekt nur dann existiert, wenn man es tatsächlich konstruieren kann, und man sich ansonsten auf metaphysisches Glatteis begibt. Aber das führt uns zu der tiefen Frage, was \qt{Existenz} in der Mathematik überhaupt bedeutet. Wir arbeiten in dieser Vorlesung mit den klassischen Hilbert-Axiomen --- das ist the Standard in der modernen Mathematik ---, aber es ist gut zu wissen, dass es auch andere Wege gibt. Diese sind meist restriktiver, weshalb die meisten Mathematiker die klassische Methode bevorzugen, da man mit ihr einfach viel mehr nützliche Resultate beweisen kann.
+\end{spoken-clean}
+
+\begin{math-stroke}[Der Satz vom ausgeschlossenen Dritten]
+\begin{notation}[Satz vom ausgeschlossenen Dritten / Tertium non datur]\label[notation]{not:tertium-non-datur}
+In unserer formalen Prädikatenlogik erster Stufe ist der \newterm{Satz vom ausgeschlossenen Dritten} als logisches Axiom $\text{L}_0$ verankert:
+\[ \text{L}_0 \colon \quad \varphi \lor \neg \varphi \]
+\end{notation}
+\end{math-stroke}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:06:00
+% topic: Philosophischer Exkurs zum Konstruktivismus und Existenzbeweisen
+% board_state: prop:existenz-irrational, not:tertium-non-datur
+% next_goal: Wiederholung der Semantik (L-Strukturen, Interpretationen)
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\begin{lecture-break}[Tafelreinigung und Vorbereitung]
+Der Dozent wischt die Tafel und bereitet den nächsten Abschnitt der Vorlesung vor, in dem die semantischen Grundbegriffe der letzten Woche wiederholt werden.
+\end{lecture-break}
+
+\section{Rückblick: Semantik, Strukturen und Interpretationen}
+
+\begin{spoken-clean}[00:06:48 - 00:07:47]
+Gut, okay. Dann machen wir jetzt weiter mit dem eigentlichen Stoff unserer Vorlesung.
+
+Beim letzten Mal haben wir sich mit Modellen beschäftigt. Dafür haben wir $\mathcal{L}$-Strukturen eingeführt, wobei $\mathcal{L}$ eine Signatur bezeichnet. Wissen Sie noch, woraus eine $\mathcal{L}$-Struktur besteht? Sie besteht zum einen aus einem Bereich --- das ist einfach eine nicht-leere Menge, nennen wir sie $A$. Zum anderen ordnen wir den Konstanten-Symbolen Elemente aus $A$ zu, den Funktions-Symbolen entsprechende Funktionen auf $A$ und den Relations-Symbolen Relationen über $A$.
+
+Zudem haben wir definiert, was eine Variablenbelegung ist: Sie ordnet jeder Variablen ein konkretes Objekt aus dem Bereich $A$ zu. Eine $\mathcal{L}$-Interpretation ist dann einfach das Paar bestehend aus einer solchen $\mathcal{L}$-Struktur und einer Variablenbelegung.
+\end{spoken-clean}
+
+\begin{math-stroke}[Rückblick: Semantische Grundbegriffe]
+\textbf{Gesehen:}
+\begin{itemize}
+    \item \textbf{$\mathcal{L}$-Struktur $\mathcal{M}$:} Besteht aus einem nicht-leeren Bereich $A$ (einer Menge) und Interpretationen für die Symbole der Signatur:
+    \begin{itemize}
+        \item \textbf{Konstanten:} $c^{\mathcal{M}} \in A$
+        \item \textbf{Funktionen:} $F^{\mathcal{M}} \colon A^n \to A$
+        \item \textbf{Relationen:} $R^{\mathcal{M}} \subseteq A^n$
+    \end{itemize}
+    \item \textbf{Variablenbelegung $j$:} Eine Abbildung, die jeder Variablen ein Objekt aus dem Bereich $A$ zuordnet:
+    \[ j \colon \text{Var} \to A \]
+    \item \textbf{$\mathcal{L}$-Interpretation $I = (\mathcal{M}, j)$:} Ein geordnetes Paar bestehend aus einer Struktur und einer Variablenbelegung.
+\end{itemize}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:07:47 - 00:09:40]
+Wenn wir eine solche $\mathcal{L}$-Interpretation $I$ haben, dann ordnet diese jedem Term $\tau$ ein konkretes Objekt in $A$ zu. Das ist genau die Aufgabe einer Interpretation.
+
+Da wir hier mit dem klassischen, intuitiven Wahrheitsbegriff arbeiten, gilt für uns insbesondere der Satz vom ausgeschlossenen Dritten auf der semantischen Ebene. Das bedeutet: Wenn $\varphi$ eine beliebige $\mathcal{L}$-Formel und $I$ eine Interpretation ist, dann gilt in dieser Interpretation immer entweder $\varphi$ oder $\neg\varphi$. Das ist genau der Punkt, an dem die Konstruktivisten spätestens nicht mehr einverstanden wären.
+\end{spoken-clean}
+
+\begin{math-stroke}[Auswertung von Termen und Formeln]
+\begin{itemize}
+    \item \textbf{Termauswertung:} Eine Interpretation $I$ ordnet jedem $\mathcal{L}$-Term $\tau$ ein Objekt $I(\tau) \in A$ zu.
+    \item \textbf{Gültigkeit von Formeln:} Für eine $\mathcal{L}$-Formel $\varphi$ schreiben wir:
+    \[ I \models \varphi \]
+    falls $\varphi$ unter der Interpretation $I$ wahr ist.
+    \item \textbf{Satz vom ausgeschlossenen Dritten (Semantisch):} Für jede $\mathcal{L}$-Formel $\varphi$ und jede Interpretation $I$ gilt:
+    \[ I \models \varphi \quad \text{oder} \quad I \models \neg \varphi \]
+\end{itemize}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:09:40 - 00:10:38]
+Darauf aufbauend haben wir definiert, was ein Modell ist. Wenn $\varphi$ eine $\mathcal{L}$-Formel und $\mathcal{M}$ eine $\mathcal{L}$-Struktur ist, dann sagen wir, dass $\mathcal{M}$ ein Modell von $\varphi$ ist --- geschrieben als $\mathcal{M} \models \varphi$ ---, falls die Formel $\varphi$ unter dieser Struktur für jede beliebige Variablenbelegung wahr ist.
+\end{spoken-clean}
+
+\begin{math-stroke}[Der Modellbegriff]
+\begin{definition}[Modell einer Formel]\label[definition]{def:modell-formel}
+Sei $\varphi$ eine $\mathcal{L}$-Formel und $\mathcal{M}$ eine $\mathcal{L}$-Struktur. Wir sagen, $\mathcal{M}$ ist ein \newterm{Modell} von $\varphi$ (geschrieben $\mathcal{M} \models \varphi$), falls für alle Variablenbelegungen $j$ gilt:
+\[ (\mathcal{M}, j) \models \varphi \]
+\end{definition}
+\end{math-stroke}
+
+\begin{student-interaction}[Studentenfrage: Struktur vs. Modell]
+Ist eine $\mathcal{L}$-Struktur nicht auch ein Modell? Wie kann man das irgendwie unterscheiden?
+\end{student-interaction}
+
+\begin{spoken-clean}[continued]
+Eine $\mathcal{L}$-Struktur wird dann als Modell bezeichnet, wenn sie die entsprechende Bedingung erfüllt. Eine Struktur ist also immer ein Modell \emph{für eine bestimmte Formel} oder eine Menge von Formeln. Ein Modell ist somit eine $\mathcal{L}$-Struktur mit ganz bestimmten Eigenschaften.
+\end{spoken-clean}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:13:00
+% topic: Wiederholung der Semantik und Modellbegriff
+% board_state: def:modell-formel, ex:gruppenstruktur
+% next_goal: Gruppenaxiome und deren Modelle
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\begin{spoken-clean}[00:11:55 - 00:12:15]
+Schauen wir uns dazu ein konkretes Beispiel an. Es ist in der formalen Logik manchmal etwas knifflig mit Beispielen, weil man aufpassen muss, sich nicht im Kreis zu drehen oder falsche Intuitionen zu wecken.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:12:15 - 00:12:55]
+Nehmen wir die Signatur der Gruppentheorie. Diese besteht aus dem neutralen Konstanten-Symbol $e$ und einem zweistelligen, binären Funktions-Symbol --- dem Kringel $\circ$.
+
+Wenn wir nun eine klassische Gruppe $G$ betrachten, wie Sie sie aus der Analysis oder der Linearen Algebra kennen --- also eine Menge mit einem neutralen Element $1$ und einer Verknüpfung $\circ_G$ ---, dann ist diese Struktur nach unserer Definition nichts anderes als ein Modell der Gruppentheorie-Axiome.
+\end{spoken-clean}
+
+\begin{math-stroke}[Beispiel: Gruppentheorie]
+\begin{example}[Gruppenstruktur]\label[example]{ex:gruppenstruktur}
+Wir betrachten die Signatur der Gruppentheorie:
+\[ \mathcal{L}_{\text{GT}} = \{e, \circ\} \]
+wobei $e$ ein Konstanten-Symbol und $\circ$ ein binäres Funktions-Symbol ist.
+
+Sei $G$ eine Gruppe mit neutralem Element $1_G$ und Verknüpfung $\circ_G$. Wir definieren die $\mathcal{L}_{\text{GT}}$-Struktur $\mathcal{M}$ mit Bereich $G$ durch:
+\begin{align*}
+    e^{\mathcal{M}} &:= 1_G \\
+    \circ^{\mathcal{M}} \colon G \times G &\to G \\
+    (g, h) &\mapsto g \circ_G h
+\end{align*}
+\end{example}
+\end{math-stroke}
+
+\begin{lecture-break}[Tafelreinigung]
+Der Dozent wischt Teile der Tafel, um Platz für die Gruppenaxiome zu schaffen.
+\end{lecture-break}
+
+\begin{spoken-clean}[00:13:50 - 00:15:47]
+Okay, das ist jetzt eine $\mathcal{L}_{\text{GT}}$-Struktur, also eine Gruppenstruktur $\mathcal{M}$. Das heißt, wir haben einen Bereich, und wir haben dem Konstanten-Symbol tatsächlich eine Konstante zugeordnet und dem binären Funktions-Symbol eine zweistellige Funktion.
+
+Und gut, dann haben wir diese Axiome --- nennen wir sie $\text{GT}$ ---, das sind unsere drei bekannten Axiome der Gruppentheorie.
+
+Gemäß der Definition einer Gruppe sind diese drei Sätze natürlich in der Gruppe $G$ erfüllt --- und zwar völlig unabhängig davon, wie wir die Variablen belegen. Wir können beliebige Elemente aus $G$ einsetzen: Die Verknüpfung ist assoziativ, das neutrale Element ist tatsächlich neutral, und es existieren linke Inverse.
+
+Das bedeutet, dass diese Struktur ein Modell der Gruppentheorie ist. In anderen Worten: Eine Gruppe können wir definieren als ein Modell der Gruppentheorie. Und ganz ähnlich funktioniert das natürlich auch für Ringe, Körper, dichte Anordnungen und so weiter.
+\end{spoken-clean}
+
+\begin{math-stroke}[Gruppenaxiome und Modelle]
+Sei $\text{GT} = \{\text{GT}_0, \text{GT}_1, \text{GT}_2\}$ die Menge der Gruppenaxiome. Es gilt:
+\[ \mathcal{M} \models \text{GT} \iff \mathcal{M} \models \text{GT}_0 \land \mathcal{M} \models \text{GT}_1 \land \mathcal{M} \models \text{GT}_2 \]
+Eine Gruppe ist somit genau ein Modell der Gruppenaxiome. Analog gilt dies für Ringe, Körper, dichte Anordnungen etc.
+\end{math-stroke}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:19:00
+% topic: Gruppenaxiome und Einführung des Korrektheitssatzes
+% board_state: thm:korrektheitssatz
+% next_goal: Beweisidee des Korrektheitssatzes und Begriff der Konsistenz
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\begin{lecture-break}[Tafelreinigung]
+Der Dozent wischt die Tafel, um den Korrektheitssatz vorzubereiten.
+\end{lecture-break}
+
+\section{Der Korrektheitssatz und Konsistenz}
+
+\begin{spoken-clean}[00:17:40 - 00:20:06]
+Und jetzt gibt es einen sehr wichtigen, großen Satz aus der Logik erster Ordnung. Das ist auch der Grund, weshalb wir alle die Logik erster Ordnung so gerne mögen: Es ist der Korrektheitssatz --- deswegen heute an der Tafel auch mit Großbuchstaben geschrieben.
+
+Der Satz sagt aus: Sei $\mathcal{L}$ eine Signatur, $T$ eine Menge von $\mathcal{L}$-Formeln und $\sigma$ eine $\mathcal{L}$-Formel, die wir aus $T$ beweisen können. Wenn wir nun ein beliebiges Modell $\mathcal{M}$ von $T$ betrachten, dann gilt, dass $\sigma$ in diesem Modell $\mathcal{M}$ wahr ist.
+
+In anderen Worten: Wenn wir $\sigma$ aus $T$ beweisen können, dann is $\sigma$ auch wahr in jedem Modell von $T$. Das ist der Korrektheitssatz. Er besagt im Prinzip, dass wir unsere Axiome und unsere Schlussregeln genau so gewählt haben, wie wir es auch intuitiv für wahr und richtig halten.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{theorem}[Korrektheitssatz]\label[theorem]{thm:korrektheitssatz}
+Sei $\mathcal{L}$ eine Signatur, $T$ eine Menge von $\mathcal{L}$-Formeln und $\sigma$ eine $\mathcal{L}$-Formel. Falls gilt:
+\[ T \vdash \sigma \]
+dann gilt für jedes Modell $\mathcal{M}$ von $T$:
+\[ \mathcal{M} \models T \implies \mathcal{M} \models \sigma \]
+\end{theorem}
+
+\begin{explanation-of-steps}[Bedeutung des Korrektheitssatzes]
+Der Korrektheitssatz schlägt eine Brücke zwischen der Syntax und der Semantik. Er besagt, dass alles, was syntaktisch aus einer Theorie $T$ ableitbar (beweisbar) ist, auch semantisch in jedem Modell dieser Theorie wahr sein muss. Unsere formalen Schlussregeln sind also \newterm{korrekt} und führen nicht zu falschen Aussagen.
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:20:06 - 00:22:28]
+Das ist auch die grundlegende Idee des Beweises. Wir werden ihn hier nicht im Detail durchgehen, weil er etwas mühsam, wenn auch nicht schwierig ist. Man muss im Wesentlichen zeigen, dass in jedem Modell $\mathcal{M}$ sowohl die logischen Axiome als auch die Formeln in $T$ wahr sind. Das lässt sich leicht überprüfen, denn die logischen Axiome entsprechen ja genau unserem intuitiven Wahrheitsempfinden.
+
+Zudem muss man zeigen, dass die Schlussregeln --- also die Regeln, nach denen wir logische Folgerungen ziehen --- aus wahren Aussagen in $\mathcal{M}$ stets wieder wahre Aussagen erzeugen. Das ist der Kern des Beweises.
+\end{spoken-clean}
+
+\begin{math-stroke}[Beweisidee des Korrektheitssatzes]
+\begin{short-proof}[Beweisidee]
+Der Beweis erfolgt durch Induktion über die Länge der formalen Ableitung von $\sigma$ aus $T$:
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item \textbf{Induktionsanfang:} Wenn die Ableitung die Länge 1 hat, ist $\sigma$ entweder ein logisches Axiom oder ein Element von $T$.
+    \begin{itemize}
+        \item \textbf{Logische Axiome:} Diese sind in jeder Interpretation (und damit in jedem Modell) wahr.
+        \item \textbf{Falls $\sigma \in T$:} In diesem Fall gilt $\mathcal{M} \models \sigma$ per Definition, da $\mathcal{M}$ ein Modell von $T$ ist.
+    \end{itemize}
+    \item \textbf{Induktionsschritt:} Wenn die Ableitung länger ist, wurde der letzte Schritt durch eine Schlussregel (z.B. Modus Ponens oder Generalisierung) generiert. Da die Schlussregeln die Wahrheit bewahren, folgt aus der Wahrheit der Voraussetzungen auch die Wahrheit der Konklusion.
+\end{enumerate}
+\end{short-proof}
+\end{math-stroke}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:25:00
+% topic: Beweisidee des Korrektheitssatzes und Definition der Konsistenz
+% board_state: def:konsistenz
+% next_goal: Charakterisierung der Konsistenz und Satz über Modell-Existenz
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\begin{lecture-break}[Tafelreinigung]
+Der Dozent wischt die Tafel, um die Definition der Konsistenz vorzubereiten.
+\end{lecture-break}
+
+\begin{spoken-clean}[00:24:41 - 00:26:35]
+Gut, okay. Dann machen wir noch die folgende Definition: Eine Menge $T$ von $\mathcal{L}$-Formeln heißt konsistent --- oder widerspruchsfrei ---, falls es keine Formel $\psi$ gibt, sodass wir aus $T$ beweisen können, dass sowohl $\psi$ als auch $\neg\psi$ gilt.
+
+Falls $T$ nicht konsistent ist, heißt sie natürlich inkonsistent. Das ist der Begriff der Widerspruchsfreiheit oder Konsistenz. Es kann natürlich sein, dass man die Menge $T$ so wählt, dass man einen Widerspruch beweisen kann --- dann ist man verloren.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{definition}[Konsistenz / Widerspruchsfreiheit]\label[definition]{def:konsistenz}
+Eine Menge $T$ von $\mathcal{L}$-Formeln heißt \newterm{konsistent} (oder \newterm{widerspruchsfrei}), falls es keine Formel $\psi$ gibt, so dass gilt:
+\[ T \vdash \psi \land \neg \psi \]
+Falls $T$ nicht konsistent ist, so heißt $T$ \newterm{inkonsistent}.
+\end{definition}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:26:35 - 00:28:32]
+In diesem Fall gilt, dass aus $T$ alles bewiesen werden kann --- also für jede beliebige Formel $\sigma$ gilt $T \vdash \sigma$. Mit dieser Bemerkung können wir festhalten: $T$ ist genau dann konsistent, wenn es mindestens eine Formel $\sigma$ gibt, die man aus $T$ nicht beweisen kann.
+
+Ist klar, weshalb? Wenn $T$ nicht konsistent ist, dann kann man alles aus $T$ beweisen --- diese Richtung kennen wir bereits. Das heißt im Umkehrschluss: Wenn es eine Formel gibt, die man aus $T$ nicht beweisen kann, dann kann $T$ nicht inkonsistent sein, muss also konsistent sein. Wenn $T$ umgekehrt konsistent ist, dann gibt es eine Formel $\sigma$, die nicht beweisbar ist --- ich schreibe das gleich noch an die Tafel.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{proposition}[Charakterisierung der Konsistenz]\label[proposition]{prop:char-konsistenz}
+Eine Menge $T$ von $\mathcal{L}$-Formeln ist konsistent genau dann, wenn es eine Formel $\sigma$ gibt, so dass gilt:
+\[ T \not\vdash \sigma \]
+\end{proposition}
+
+\begin{short-proof}
+Wir beweisen die Kontraposition beider Richtungen:
+\begin{itemize}
+    \item \textbf{Hinrichtung ($\implies$):} Angenommen, es gibt keine solche Formel $\sigma$, d.h. für alle Formeln $\sigma$ gilt $T \vdash \sigma$. Dann gilt insbesondere für eine beliebige Formel $\psi$, dass $T \vdash \psi$ und $T \vdash \neg \psi$. Daraus folgt $T \vdash \psi \land \neg \psi$, was bedeutet, dass $T$ inkonsistent ist.
+    \item \textbf{Rückrichtung ($\impliedby$):} Angenommen, $T$ ist inkonsistent. Dann gilt $T \vdash \psi \land \neg \psi$ für eine Formel $\psi$. Nach dem logischen Axiom (Ex Falso Quodlibet):
+    \[ \vdash (\psi \land \neg \psi) \rightarrow \sigma \]
+    gilt für jede beliebige Formel $\sigma$, dass $T \vdash \sigma$. Somit gibt es keine Formel $\sigma$ mit $T \not\vdash \sigma$.
+\end{itemize}
+\end{short-proof}
+
+\begin{remark}[Ex Falso Quodlibet]
+In einer Übung wurde gezeigt, dass für alle Formeln $\psi$ und $\chi$ gilt:
+\[ \vdash (\psi \land \neg \psi) \rightarrow \chi \]
+Dies bedeutet, dass aus einem Widerspruch jede beliebige Aussage logisch folgt.
+\end{remark}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:28:32 - 00:31:10]
+Und jetzt kommen wir zum Gödelschen Vollständigkeitssatz.
+
+Der sagt aus: Sei $\mathcal{L}$ eine Signatur und $T$ eine Menge von $\mathcal{L}$-Formeln. Falls $T$ konsistent ist, so besitzt $T$ ein Modell. Das ist ein sehr, sehr wichtiger Satz in der mathematischen Logik. Er schlägt die Brücke zwischen der Syntax --- also der Konsistenz, dass man keinen Widerspruch beweisen kann --- und der Semantik --- also der Tatsache, dass es eine Struktur gibt, in der die Axiome wahr sind.
+
+Wir werden diesen Satz in den nächsten Wochen ausführlich beweisen. Das ist das große Ziel für diesen Teil der Vorlesung. Okay, gibt es dazu Fragen? Wenn nicht, dann machen wir jetzt eine kurze Pause und sehen uns gleich wieder.
+\end{spoken-clean}
+
+\begin{math-stroke}[Existenz eines Modells impliziert Konsistenz]
+\begin{theorem}\label[theorem]{thm:modell-impliziert-konsistenz}
+Falls $T$ ein Modell besitzt, so ist $T$ konsistent.
+\end{theorem}
+
+\begin{short-proof}
+Wir führen einen Widerspruchsbeweis. Angenommen, $T$ besitzt ein Modell $\mathcal{M}$ (d.h. $\mathcal{M} \models T$), aber $T$ ist inkonsistent.
+        
+Da $T$ inkonsistent ist, existiert eine Formel $\psi$, so dass:
+\[ T \vdash \psi \land \neg \psi \]
+Nach dem Korrektheitssatz (\cref{thm:korrektheitssatz}) muss diese Formel auch in jedem Modell von $T$ wahr sein. Da $\mathcal{M} \models T$, folgt:
+\[ \mathcal{M} \models \psi \land \neg \psi \]
+Dies bedeutet semantisch:
+\[ \mathcal{M} \models \psi \quad \text{und} \quad \mathcal{M} \models \neg \psi \]
+Dies widerspricht jedoch direkt der Definition der semantischen Gültigkeit der Negation (eine Formel und ihre Negation können in einer Struktur nicht gleichzeitig wahr sein). Somit muss $T$ konsistent sein.
+\end{short-proof}
+\end{math-stroke}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:31:00
+% topic: Charakterisierung der Konsistenz und Satz über Modell-Existenz
+% board_state: prop:char-konsistenz, thm:modell-impliziert-konsistenz
+% next_goal: Gödelscher Vollständigkeitssatz
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\begin{math-stroke}
+\begin{theorem}[Gödelscher Vollständigkeitssatz]\label[theorem]{thm:goedelscher-vollstaendigkeitssatz}
+Sei $\mathcal{L}$ eine Signatur und $T$ eine Menge von $\mathcal{L}$-Formeln. Falls $T$ konsistent ist, so besitzt $T$ ein Modell.
+\end{theorem}
+
+\begin{explanation-of-steps}[Bedeutung des Vollständigkeitssatzes]
+Der Gödelsche Vollständigkeitssatz ist die Umkehrung von \cref{thm:modell-impliziert-konsistenz}. Zusammen ergeben diese beiden Sätze ein fundamentales Resultat der mathematischen Logik: Eine Theorie $T$ ist genau dann konsistent (syntaktische Eigenschaft: kein Widerspruch beweisbar), wenn sie ein Modell besitzt (semantische Eigenschaft). Dies schließt die fundamentale Lücke zwischen Syntax (Beweisen) und Semantik (Wahrheit).
+\end{explanation-of-steps}
+\end{math-stroke}
+
+% --- TEIL 2 ---
+
+\begin{meta-note}[Tafelreinigung]
+Der Dozent wischt die Tafel und bereitet den nächsten Abschnitt vor.
+\end{meta-note}
+
+\begin{spoken-clean}[00:35:10 - 00:37:10]
+Okay, wir machen weiter. Bitte begeben Sie sich an Ihre Plätze und beenden Sie Ihre Gespräche.
+\end{spoken-clean}
+
+\section*{Semantisches Beweisen}
+
+\begin{spoken-clean}[00:37:10 - 00:40:05]
+Okay, jetzt machen wir eben genau das, was wir vorhin besprochen haben. Eine Formel $\sigma$ ist aus $T$ formal beweisbar genau dann, wenn $\sigma$ in jedem Modell von $T$ gilt. Was wir jetzt tun wollen, ist zu zeigen, dass das tatsächlich ausreicht.
+
+Damit sieht man nämlich: Wenn wir eine Formel haben, die wir formal beweisen wollen, dann können wir stattdessen auch einfach zeigen, dass sie in jedem Modell von $T$ gilt. Dann wissen wir sofort, dass ein formaler Beweis existiert, ohne dass wir diesen mühsamen formalen Beweis tatsächlich selbst konstruieren müssen. Wir können eine Aussage stattdessen einfach allgemein für alle Gruppen beweisen, und dann sind wir fertig. Aber das besprechen wir im Detail nach der Pause. Jetzt machen wir erst einmal eine Viertelstunde Pause.
+\end{spoken-clean}
+
+\begin{math-stroke}[Semantischer Beweisweg]
+Anordnungssystem $T$, formal $\sigma$.
+
+Möchten zeigen: $T \vdash \sigma$.
+
+Anstelle eines formalen Beweises zeigen wir, dass falls $\mathcal{M} \models T$, so ist auch $\mathcal{M} \models \sigma$.
+\end{math-stroke}
+
+\begin{lecture-break}[Pause]
+Es findet eine 15-minütige Pause statt.
+\end{lecture-break}
+
+\begin{spoken-clean}[00:45:10 - 00:47:10]
+Okay, wir machen weiter. Bitte begeben Sie sich wieder an Ihre Plätze und beenden Sie Ihre Gespräche.
+\end{spoken-clean}
+
+\section*{Mathematisches Beweisen}
+
+\begin{spoken-clean}[00:47:10 - 00:50:05]
+Okay, jetzt setzen wir genau das um, was wir vor der Pause besprochen haben. Eine Formel $\sigma$ ist aus $T$ formal beweisbar genau dann, wenn $\sigma$ in jedem Modell von $T$ gilt. Wir wollen zeigen, dass dieser semantische Weg völlig ausreicht.
+
+Das bedeutet: Wenn wir eine Formel formal beweisen wollen, können wir stattdessen einfach zeigen, dass sie in jedem Modell von $T$ gilt. Dann wissen wir, dass es einen formalen Beweis geben muss, ohne ihn explizit hinschreiben zu müssen. Wir haben also ein Axiomensystem $T$ und eine Formel $\sigma$. Um zu zeigen, dass $T \vdash \sigma$ gilt, weichen wir auf die Semantik aus und zeigen: Wenn $\mathcal{M} \models T$ gilt, dann gilt auch $\mathcal{M} \models \sigma$.
+\end{spoken-clean}
+
+\begin{math-stroke}[Semantischer Beweisweg (Fortsetzung)]
+Axiomensystem $T$, Formel $\sigma$.
+
+Möchten zeigen: $T \vdash \sigma$.
+
+Anstelle eines formalen Beweises zeigen wir, dass falls $\mathcal{M} \models T$, so ist auch $\mathcal{M} \models \sigma$.
+\end{math-stroke}
+
+\begin{spoken-clean}[00:50:05 - 00:53:36]
+Okay, wir wollen zeigen, dass man in der Gruppentheorie aus den Gruppenaxiomen die Formel $\sigma$ beweisen kann. Wir nehmen dazu an, dass wir eine beliebige Gruppe $(G, e, \circ)$ gegeben haben, und wollen zeigen: Jedes Linksinverse von $x$ ist automatisch auch ein Rechtsinverse.
+
+In den Gruppenaxiomen haben wir ja explizit nur die Existenz eines Linksinversen gefordert. Wenn wir nun aber semantisch beweisen, dass in jeder Gruppe jedes Linksinverse auch ein Rechtsinverse ist, dann wissen wir dank unseres Vollständigkeitssatzes, dass sich diese Aussage auch formal aus den Axiomen beweisen lässt.
+\end{spoken-clean}
+
+\begin{math-stroke}[Beispiel: Linksinverse und Rechtsinverse in Gruppen]
+\textbf{Bsp:} $\sigma \equiv \forall x \forall y (x \cdot y = e \rightarrow y \cdot x = e)$.
+
+Wir wollen zeigen: $\text{GT} \vdash \sigma$.
+
+Sei nun $(G, e, \circ)$ eine Gruppe.
+
+Wir wollen zeigen: Jedes Linksinverse von $x$ ist auch ein Rechtsinverse.
+\end{math-stroke}
+
+\begin{spoken-clean}[00:53:36 - 00:57:27]
+Okay, wir beweisen das jetzt wie folgt: Da wir in einem Modell der Gruppenaxiome arbeiten, wissen wir nach Axiom $\text{GT}_2$, dass ein Linksinverses existiert. Das heißt, zu jedem $x \in G$ gibt es ein $x' \in G$ mit $x' \cdot x = e$. Da $x'$ selbst ein Element der Gruppe ist, besitzt auch $x'$ ein Linksinverses $x'' \in G$ mit $x'' \cdot x' = e$.
+
+Nun betrachten wir den Ausdruck $x'' \cdot x' \cdot x$. Einerseits gilt nach Assoziativität:
+\[ (x'' \cdot x') \cdot x = e \cdot x = x. \]
+Andererseits gilt aber auch:
+\[ x'' \cdot (x' \cdot x) = x'' \cdot e = x''. \]
+Daraus folgt sofort $x'' = x$. Wenn wir dies nun einsetzen, erhalten wir:
+\[ x \cdot x' = x'' \cdot x' = e. \]
+Damit haben wir erfolgreich gezeigt, dass das Linksinverse $x'$ auch ein Rechtsinverse von $x$ ist.
+\end{spoken-clean}
+
+\begin{math-stroke}[Beweis: Linksinverse ist Rechtsinverse]
+\begin{short-proof}
+Sei $x \in G, x' \in G$ s.d. $x' \cdot x = e$ und ein $x'' \in G$ s.d. $x'' \cdot x' = e$.
+
+Dann gilt:
+\[ (x'' \cdot x') \cdot x = e \cdot x = x \]
+und
+\[ x'' \cdot (x' \cdot x) = x'' \cdot e = x'' \]
+Aus der Assoziativität folgt:
+\[ x'' = x \]
+Daraus folgt:
+\[ x \cdot x' = x'' \cdot x' = e \]
+\end{short-proof}
+\end{math-stroke}
+
+% --- TEIL 3 ---
+
+\section{Unabhängigkeit und die Grenzen formaler Systeme}
+\subsection{Definition der Unabhängigkeit}
+
+\begin{spoken-clean}[00:57:27 - 00:59:17]
+Okay, jetzt kommen wir zu einer weiteren wichtigen Definition, nämlich der Unabhängigkeit. Eine Formel $\sigma$ heißt unabhängig von einer Theorie $T$, falls man aus $T$ weder $\sigma$ noch $\neg\sigma$ beweisen kann. Semantisch bedeutet das: Es gibt ein Modell $\mathcal{M}_1$ von $T$, in dem $\sigma$ wahr ist, und ein anderes Modell $\mathcal{M}_2$ von $T$, in dem $\sigma$ nicht wahr ist. Das zeigt uns direkt, dass weder die Formel selbst noch ihre Negation aus den Axiomen ableitbar sein kann.
+
+Ein klassisches Beispiel dafür, das ich vorhin schon kurz erwähnt habe, ist die Kommutativität in Gruppen: Die Aussage, dass für alle $x$ und $y$ gilt $x \circ y = y \circ x$. Das ist eine wohlgeformte $\mathcal{L}_{\text{GT}}$-Formel, aber sie ist völlig unabhängig von den Gruppenaxiomen --- es gibt schließlich sowohl kommutative als auch nicht-kommutative Gruppen.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{definition}[Unabhängigkeit]\label[definition]{def:unabhaengigkeit}
+Eine $\mathcal{L}$-Formel $\sigma$ heißt \newterm{unabhängig} von einer Theorie $T$, falls es Modelle $\mathcal{M}_1, \mathcal{M}_2 \models T$ gibt, so dass gilt:
+\[ \mathcal{M}_1 \models \sigma \quad \text{und} \quad \mathcal{M}_2 \not\models \sigma \]
+Es folgt, dass:
+\[ T \not\vdash \sigma \quad \text{und} \quad T \not\vdash \neg \sigma \]
+\end{definition}
+
+\begin{example}[Kommutativität in der Gruppentheorie]\label[example]{ex:kommutativitaet-unabhaengig}
+Sei $\text{GT}$ die Theorie der Gruppen. Die Formel:
+\[ \sigma \equiv \forall x \forall y \, (x \circ y = y \circ x) \]
+ist unabhängig von $\text{GT}$.
+\end{example}
+\end{math-stroke}
+
+\subsection{Die Gödelschen Unvollständigkeitssätze}
+
+\begin{spoken-clean}[00:59:17 - 01:01:38]
+An dieser Stelle möchte ich noch kurz eine Bemerkung zu den berühmten Gödelschen Unvollständigkeitssätzen machen. Diese sind in der Öffentlichkeit oft noch bekannter als der Gödelsche Vollständigkeitssatz. Während der Vollständigkeitssatz ein sehr positives Resultat ist --- er zeigt, dass die Logik erster Ordnung in sich stimmig und vollständig ist ---, zeigen uns die Unvollständigkeitssätze die prinzipiellen Grenzen formaler Systeme auf. Sie machen deutlich, dass nicht alles so perfekt aufgeht, wie David Hilbert sich das damals gewünscht hatte.
+
+Die Unvollständigkeitssätze sind nicht direkt Teil dieser Vorlesung, und uns fehlt hier auch das technische Vokabular, um sie mathematisch präzise zu formulieren. Aber die Grundidee ist faszinierend: Hilberts großes Ziel war es, die gesamte Mathematik auf ein unumstößliches, hieb- und stichfestes Fundament aus Axiomen zu stellen. Er wünschte sich ein System, das vollständig ist. Das bedeutet --- bezugnehmend auf Ihre Frage von vorhin ---, dass man jede mathematische Aussage über die natürlichen Zahlen entweder formal beweisen oder formal widerlegen kann. Bei der Gruppentheorie ist das natürlich nicht der Fall, da die Axiome viel zu allgemein sind. Aber für ein System, das die Arithmetik der ganzen Zahlen vollständig beschreiben soll, sollte jede wahre Aussage auch beweisbar sein. Das war Hilberts feste Überzeugung.
+
+Kurt Gödel hat jedoch bewiesen, dass dies prinzipiell unmöglich ist, sobald ein formales System mächtig genug ist, um zumindest die Grundrechenarten der natürlichen Zahlen zu beschreiben. Ich schreibe das als Bemerkung an die Tafel: Der Erste Gödelsche Unvollständigkeitssatz besagt, dass jedes konsistente formale System, welches die Arithmetik enthält --- wie etwa die Peano-Arithmetik $\text{PA}$ ---, unvollständig sein muss. Es gibt in solchen Systemen immer wahre Sätze, die sich innerhalb des Systems weder beweisen noch widerlegen lassen. Und dieses Problem lässt sich auch nicht dadurch lösen, dass man einfach neue Axiome hinzufügt --- das System bleibt unvollständig, es geht prinzipiell nie.
+\end{spoken-clean}
+
+\begin{math-stroke}[Gödelsche Unvollständigkeitssätze]
+\begin{remark}[Gödelsche Unvollständigkeitssätze]\label[remark]{rem:goedelsche-unvollstaendigkeit}
+\begin{itemize}
+    \item \textbf{1. Unvollständigkeitssatz:} Falls die Peano-Arithmetik ($\text{PA}$) konsistent ist, so ist $\text{PA}$ unvollständig, d.h. es gibt Sätze, die weder bewiesen noch widerlegt werden können.
+    \item \textbf{2. Unvollständigkeitssatz:} $\text{PA}$ kann nicht ihre eigene Konsistenz beweisen.
+\end{itemize}
+\end{remark}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:01:38 - 01:03:50]
+Natürlich könnte man einwenden: \qt{Dann fügen wir die unentscheidbare Aussage einfach als neues Axiom hinzu und machen unsere Theorie größer.} Das funktioniert zwar für diese eine Aussage, aber Gödel hat gezeigt, dass in der neuen, größeren Theorie sofort wieder neue unentscheidbare Sätze entstehen. Das ist ein prinzipielles, unüberwindbares Hindernis. Das war der erste große Rückschlag für Hilberts Programm.
+
+Der zweite Punkt, den Hilbert leidenschaftlich gehofft hatte, war die Möglichkeit, die Konsistenz eines mathematischen Systems innerhalb des Systems selbst zu beweisen. Wir wollen ja unbedingt, dass unsere Mathematik widerspruchsfrei ist! Wenn wir die gesamte Mathematik auf einem inkonsistenten Axiomensystem aufbauen würden, wäre alles wertlos --- aus einem Widerspruch lässt sich schließlich jede beliebige Aussage herleiten. Hilberts Traum war es daher, ein formales System zu finden, das stark genug ist, um die gesamte Mathematik zu formalisieren, und dessen Konsistenz sich mit rein finiten Methoden innerhalb des Systems beweisen lässt.
+
+Aber auch diese Hoffnung wurde durch Gödels Zweiten Unvollständigkeitssatz zunichte gemacht: Kein hinreichend starkes, konsistentes formales System kann seine eigene Konsistenz beweisen. Sobald ein System mächtig genug ist, um die Arithmetik der natürlichen Zahlen zu beschreiben, is es prinzipiell unmöglich, innerhalb dieses Systems dessen eigene Widerspruchsfreiheit zu beweisen.
+\end{spoken-clean}
+
+\begin{math-stroke}[Grenzen der Axiomatisierung]
+\textbf{Eigene Konsistenz beweisen:}
+
+Ein formales System $T$, welches mächtig genug ist, um die Arithmetik der natürlichen Zahlen zu beschreiben, kann seine eigene Konsistenz nicht beweisen (sofern es konsistent ist).
+\end{math-stroke}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:06:00
+% topic: Gödelsche Unvollständigkeitssätze und Hilberts Programm
+% board_state: rem:goedelsche-unvollstaendigkeit
+% next_goal: Einführung der Mengenlehre und Zermelo-Fraenkel-Axiome
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\begin{spoken-clean}[01:03:50 - 01:06:50]
+Auch hier kann man die Theorie natürlich künstlich erweitern: In einer umfassenderen Theorie lässt sich die Konsistenz der Peano-Arithmetik problemlos beweisen --- etwa indem man die Widerspruchsfreiheit von $\text{PA}$ einfach als neues Axiom hinzunimmt. Aber dann wissen wir wiederum nicht, ob diese neue, größere Theorie konsistent ist. Das Problem verschiebt sich nur immer weiter nach oben. Man kann das System beliebig erweitern und noch so intelligente Kniffe anwenden --- das prinzipielle Problem lässt sich nicht umgehen. Das war letztlich das Todesurteil für Hilberts optimistisches Programm.
+
+Das bedeutet für uns in der Praxis: Wir betreiben tagtäglich Mathematik, und das funktioniert auch wunderbar, aber wir können niemals absolut sicher sein, ob unser System wirklich widerspruchsfrei ist. Wir wissen es schlicht nicht, und wir können es prinzipiell nicht beweisen. Es könnte theoretisch sein, dass morgen jemand einen fundamentalen Widerspruch in der Mengenlehre findet --- dann wüssten wir mit Sicherheit, dass das System inkonsistent ist. Aber solange niemand einen solchen Widerspruch findet, bleibt uns der absolute Beweis verwehrt. Vielleicht hat es ja auch etwas Tröstliches, sich immer wieder bewusst zu machen, dass wir in der Mathematik letztlich nicht auf absolut unumstößlichen, hundertprozentig bewiesenen Fundamenten stehen.
+\end{spoken-clean}
+
+\begin{spoken-clean}[01:06:50 - 01:09:50]
+Für mich persönlich ist das auch philosophisch ein sehr schöner und anregender Gedanke. Man kann sich fragen: Inwiefern ist man eigentlich Strukturalist, Formalist oder Platonist? Wenn morgen tatsächlich jemand beweisen würde, dass aus den Zermelo-Fraenkel-Axiomen der Mengenlehre ein Widerspruch folgt, dann wäre formal gesehen die gesamte Mathematik kollabiert. Aber die pragmatische Reaktion der allermeisten Mathematiker wäre wohl: \qt{Das ist uns egal. Die Sätze, die wir beweisen, und die Strukturen, die wir untersuchen, sind trotzdem sinnvoll und richtig --- die Logiker sollen einfach ein neues, besseres Axiomensystem für uns entwerfen.} Das zeigt, dass viele von uns im Herzen wohl doch eher Platonisten sind und an die reale Existenz mathematischer Wahrheiten glauben. Man befindet sich eben immer ein wenig in der Schwebe --- selbst wenn man noch so präzise an die Fundamente der Mathematik vordringen möchte, eine absolute, lückenlose Letztbegründung gibt es nicht.
+
+Es gibt übrigens eine berühmte historische Tonaufnahme von Hilberts Rede aus dem Jahr 1930, in der er über sein Programm spricht. Es ist sehr amüsant anzuhören, da Hilbert mit einem herrlich rollenden, ostpreußischen \qt{R} spricht und seine Rede mit den berühmten Worten schließt: \qt{Wir müssen wissen, wir werden wissen!} Er hatte sich damals über den Physiologen Emil du Bois-Reymond geärgert, der in Bezug auf die Naturwissenschaften das resignative Motto \qt{Ignoramus et ignorabimus} --- \qt{Wir wissen es nicht und wir werden es niemals wissen} --- geprägt hatte. Hilbert hielt dem leidenschaftlich entgegen, dass es in der Mathematik kein Unlösbares gibt. Und nur ein Jahr später erschütterte Kurt Gödel diese Gewissheit zutiefst.
+\end{spoken-clean}
+
+\begin{didactic-insight}[Hilberts Programm und Gödels Antwort]
+David Hilberts optimistisches Credo \qt{Wir müssen wissen, wir werden wissen} (1930) drückte den Glauben aus, dass jedes mathematische Problem einer definitiven Klärung (Beweis oder Widerlegung) zugänglich sein müsse. Kurt Gödels Unvollständigkeitssätze zeigten jedoch prinzipielle Grenzen formaler Systeme auf: Jedes hinreichend mächtige, konsistente formale System enthält unentscheidbare Sätze. Dies markierte das Ende von Hilberts Hoffnung auf eine vollständige und in sich selbst als konsistent beweisbare Axiomatisierung der gesamten Mathematik.
+\end{didactic-insight}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:12:00
+% topic: Historischer Hintergrund der Mengenlehre und Russellsche Antinomie
+% board_state: none
+% next_goal: Definition der Signatur von ZF
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\section{Die Zermelo-Fraenkel-Axiome}
+\subsection{Historischer Hintergrund und Motivation}
+
+\begin{spoken-clean}[01:09:50 - 01:12:50]
+Das nächste Kapitel widmet sich nun den Zermelo-Fraenkel-Axiomen der Mengenlehre.
+
+Wir haben bisher spezielle Theorien wie die Gruppentheorie oder die Peano-Arithmetik kennengelernt. Die Zermelo-Fraenkel-Axiome hingegen bilden die fundamentale, universelle Theorie der modernen Mathematik. Nahezu die gesamte zeitgenössische Mathematik lässt sich formal auf diese Axiome der Mengenlehre zurückführen. Es sind insgesamt neun Axiome, die das unumstößliche Fundament unserer mathematischen Praxis bilden.
+
+Werfen wir einen kurzen Blick auf die Entstehungsgeschichte: Wir haben bisher ganz unbefangen mit Mengen gearbeitet --- allerdings immer im naiven Sinne von Georg Cantor. In der zweiten Hälfte des 19. und zu Beginn des 20. Jahrhunderts haben sich viele herausragende Denker intensiv mit den Grundlagen der Mathematik beschäftigt. Gottlob Frege versuchte in einem monumentalen Werk, die gesamte Arithmetik logisch auf dem Begriff der Menge aufzubauen. Doch kurz vor der Veröffentlichung stieß Bertrand Russell auf einen fatalen Widerspruch --- das berühmte Russellsche Paradoxon ---, welches Freges mühsam errichtetes System im Kern erschütterte. Frege war darüber so tief getroffen, dass er seine wissenschaftliche Arbeit an den Grundlagen weitgehend einstellte.
+\end{spoken-clean}
+
+\begin{spoken-clean}[01:12:50 - 01:15:50]
+Das Grundprinzip dieses Paradoxons ist sehr anschaulich und vielen von Ihnen vielleicht als Barbier-Paradoxon bekannt: Ein Friseur rasiert genau all jene Männer im Dorf, die sich nicht selbst rasieren. Die Frage lautet nun: Rasiert der Friseur sich selbst? Wenn er es tut, darf er es nicht tun; wenn er es nicht tut, muss er es tun. Das ist ein logischer Widerspruch.
+
+In der Mengenlehre lässt sich dieses Paradoxon formal rekonstruieren, indem wir die naive Definition von Georg Cantor verwenden und die Menge aller Mengen betrachten, die sich nicht selbst als Element enthalten. Es gibt Mengen, die sich nicht selbst enthalten --- wie etwa die Menge aller Äpfel, die selbst kein Apfel ist. Und es gibt Mengen, die sich selbst enthalten --- wie die Menge aller abstrakten Begriffe, die selbst wieder ein abstrakter Begriff ist. Wenn wir nun die Menge $R$ aller Mengen definieren, die sich nicht selbst enthalten, und annehmen, dass $R$ wieder eine ganz normale Menge ist, stoßen wir auf denselben Widerspruch: Enthält sich $R$ selbst oder nicht? Beide Annahmen führen direkt zu einem logischen Widerspruch.
+
+Ein solches Paradoxon ist in einer exakten Wissenschaft wie der Mathematik natürlich absolut inakzeptabel. Es zeigte sich, dass die naive Mengenlehre, in der man beliebig Mengen über Eigenschaften definieren kann, mathematisch nicht haltbar ist. Man musste einen anderen Weg einschlagen: Anstatt naiv zu definieren, was eine Menge \qt{ist}, legt man axiomatisch fest, welche präzisen Eigenschaften Mengen haben müssen und wie man sie konstruieren darf. Ernst Zermelo formulierte dazu im Jahr 1908 sieben fundamentale Axiome. Adolf Fraenkel wies später darauf hin, dass diese noch nicht ausreichen, und fügte 1921 zwei weitere Axiome hinzu. Diese insgesamt neun Axiome bilden die Zermelo-Fraenkel-Mengenlehre, kurz $\text{ZF}$. Später werden wir noch das Auswahlaxiom hinzunehmen, aber wir beginnen zunächst mit diesen Grundlagen.
+\end{spoken-clean}
+
+\begin{didactic-insight}[Die Russellsche Antinomie]
+Die Russellsche Antinomie (oft veranschaulicht durch das Barbier-Paradoxon) zeigt, dass die naive Annahme, man könne zu jeder beliebigen Eigenschaft $P(x)$ die Menge $\{x \mid P(x)\}$ bilden, zu Widersprüchen führt. Definiert man $R := \{x \mid x \notin x\}$, so gilt $R \in R \iff R \notin R$. Um diesen Widerspruch aufzulösen, schränkt die Zermelo-Fraenkel-Mengenlehre die Mengenbildung drastisch ein: Mengen können nicht mehr \qt{aus dem Nichts} gebildet werden, sondern nur noch durch Aussonderung aus bereits existierenden Mengen oder durch explizite Konstruktionsaxiome.
+\end{didactic-insight}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:18:00
+% topic: Russellsche Antinomie und Axiomatisierung durch Zermelo und Fraenkel
+% board_state: none
+% next_goal: Signatur und erste Axiome von ZF
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\subsection{Signatur und Notation}
+
+\begin{spoken-clean}[01:15:50 - 01:18:40]
+Gut, wir wollen nun diese Axiome als formale Theorie erster Ordnung aufschreiben. Dazu benötigen wir als Erstes eine passende Signatur. Die Signatur der Zermelo-Fraenkel-Mengenlehre ist extrem einfach: Sie besteht aus einem einzigen Symbol, dem Elementbeziehungs-Symbol $\in$. Das ist ein zweistelliges Relationssymbol.
+
+Wenn für zwei Mengen $x$ und $y$ gilt, dass $y$ in Relation $\in$ zu $x$ steht --- also $y \in x$ ---, dann sagen wir: $y$ ist ein Element von $x$. Und anstatt der etwas sperrigen Schreibweise $\neg(y \in x)$ schreiben wir abkürzend einfach $y \notin x$. Das macht es im Alltag wesentlich einfacher.
+\end{spoken-clean}
+
+\begin{math-stroke}[Die Zermelo-Fraenkel Axiome (ZF)]
+\textbf{Die Zermelo-Fraenkel Axiome:}
+\begin{itemize}
+    \item \textbf{Zermelo (1908):} 7 Axiome
+    \item \textbf{Fraenkel (1921):} 2 Axiome
+\end{itemize}
+
+\begin{definition}[Signatur von ZF]\label[definition]{def:signatur-zf}
+Die Signatur der Zermelo-Fraenkel-Mengenlehre ($\text{ZF}$) ist gegeben durch:
+\[ \mathcal{L}_{\text{ZF}} = \{\in\} \]
+wobei $\in$ ein zweistelliges (binäres) Relationssymbol ist.
+\end{definition}
+
+% Vorher stand \textbf{Notation:}
+\begin{notation}
+\begin{itemize}
+    \item \textbf{Elementbeziehung:} Falls $y \in x$, so sagen wir: \newterm{$y$ ist Element von $x$}.
+    \item \textbf{Negation:} Anstatt $\neg(y \in x)$ schreiben wir: $y \notin x$.
+\end{itemize}
+\end{notation}
+\end{math-stroke}
+
+\subsection{Die Axiome von Zermelo}
+
+\begin{spoken-clean}[01:18:40 - 01:20:18]
+Schauen wir uns nun diese Axiome im Detail an. Wir beginnen mit den ursprünglichen Axiomen von Zermelo. Wir werden heute wahrscheinlich nicht alle Axiome von 0 bis 6 schaffen, aber wir sollten zumindest bis zum dritten Axiom kommen.
+
+Das erste Axiom ist das Axiom der leeren Menge. Formal lautet es: Es existiert ein $x$, sodass für alle $z$ gilt, dass $z$ kein Element von $x$ ist. Das besagt schlicht und ergreifend, dass die leere Menge existiert --- also eine Menge, die absolut kein Element enthält. Das ist ein ganz wesentlicher Schritt, denn dieses Axiom sichert uns überhaupt erst die Existenz mindestens einer Menge in unserem mathematischen Universum.
+\end{spoken-clean}
+
+\subsubsection{Axiom der leeren Menge (Axiom 0)}
+\begin{math-stroke}
+\begin{axiom}[Axiom der leeren Menge]\label[axiom]{ax:leere-menge}
+\[ \exists x \forall z \, (z \notin x) \]
+\end{axiom}
+
+\begin{explanation-of-steps}[Bedeutung des Axioms]
+Dieses Axiom sichert zweierlei:
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item \textbf{Existenz überhaupt:} Es existiert mindestens eine Menge im Universum. Ohne dieses Axiom könnte unser Universum leer sein.
+    \item \textbf{Eigenschaft der Leere:} Es existiert eine Menge $x$, die absolut kein Element $z$ enthält.
+\end{enumerate}
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:20:18 - 01:22:20]
+Das nächste Axiom hat einen eleganten Namen: das Extensionalitätsaxiom. Formal lautet es: Für alle $x$ und alle $y$ gilt: Wenn für alle $z$ gilt, dass $z \in x$ äquivalent ist zu $z \in y$, dann folgt daraus $x = y$.
+
+Während ich die Tafel wische, können Sie sich kurz überlegen, was dieses Axiom anschaulich bedeutet.
+\end{spoken-clean}
+
+\subsubsection{Extensionalitätsaxiom (Axiom 1)}
+\begin{math-stroke}
+\begin{axiom}[Extensionalitätsaxiom]\label[axiom]{ax:extensionalitaet}
+\[ \forall x \forall y \, \bigl( \forall z \, (z \in x \leftrightarrow z \in y) \rightarrow x = y \bigr) \]
+\end{axiom}
+\end{math-stroke}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:24:00
+% topic: Extensionalitätsaxiom und Eindeutigkeit der leeren Menge
+% board_state: ax:leere-menge, ax:extensionalitaet
+% next_goal: Definition der Teilmengenbeziehung
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\begin{spoken-clean}[01:22:20 - 01:24:10]
+\inlinemetanote{Der Dozent wischt die Tafel und wendet sich wieder den Studenten zu.}
+Okay, was besagt dieses Axiom? Ja?
+\inlinemetanote{Ein Student antwortet leise.}
+Genau! Zwei Mengen, die dieselben Elemente besitzen, sind identisch. Die Umkehrung --- dass identische Mengen dieselben Elemente haben --- ist übrigens ein rein logisches Theorem, das wir nicht extra fordern müssen. Das lässt sich direkt aus dem logischen Gleichheitsaxiom $L_{15}$ beweisen: Wenn zwei Objekte identisch sind, erfüllen sie dieselben Relationen --- und die Elementbeziehung ist ja eine solche Relation.
+
+Das Extensionalitätsaxiom --- nennen wir es abkürzend Axiom 1 --- hat eine fundamentale Konsequenz: Es impliziert die Eindeutigkeit der leeren Menge. Wenn es nämlich zwei Mengen gäbe, die beide keine Elemente enthalten, dann haben sie trivialerweise dieselben Elemente (nämlich gar keine). Nach Axiom 1 müssen sie also identisch sein. Es gibt folglich genau eine leere Menge, und wir bezeichnen sie ab jetzt mit dem vertrauten Symbol $\emptyset$.
+\end{spoken-clean}
+
+\begin{math-stroke}[Konsequenzen des Extensionalitätsaxioms]
+Zwei Mengen sind genau dann gleich, wenn sie dieselben Elemente enthalten:
+\begin{itemize}
+    \item \textbf{Hinrichtung ($\implies$):} Falls $\forall z \, (z \in x \leftrightarrow z \in y)$, so gilt $x = y$ (Axiom \ref{ax:extensionalitaet}).
+    \item \textbf{Rückrichtung ($\impliedby$):} Falls $x = y$, so gilt $\forall z \, (z \in x \leftrightarrow z \in y)$. Dies ist ein rein logisches Theorem, welches aus dem Substitutivitätsaxiom der Gleichheit ($\text{L}_{15}$) folgt.
+\end{itemize}
+
+\textbf{Eindeutigkeit der leeren Menge:}
+Das Extensionalitätsaxiom impliziert direkt, dass die leere Menge eindeutig ist. Falls $x_1$ und $x_2$ beide leere Mengen sind, so gilt:
+\[ \forall z \, (z \notin x_1 \land z \notin x_2) \implies \forall z \, (z \in x_1 \leftrightarrow z \in x_2) \implies x_1 = x_2 \]
+Wir bezeichnen diese eindeutige Menge fortan mit dem Symbol $\emptyset$.
+\end{math-stroke}
+
+\begin{spoken-clean}[01:24:10 - 01:26:22]
+Okay, und jetzt können wir eine weitere Definition einführen. Wir definieren das binäre Relationssymbol der Teilmenge, geschrieben als $\subseteq$, wie folgt: Wir sagen, $y$ ist eine Teilmenge von $x$ --- geschrieben $y \subseteq x$ --- genau dann, wenn für alle $z$ gilt: Wenn $z \in y$, dann folgt daraus $z \in x$.
+
+Ebenso können wir die echte Teilmenge definieren, geschrieben als $\subsetneq$. Wir sagen, $y$ ist eine echte Teilmenge von $x$, falls $y \subseteq x$ gilt und $y \neq x$ ist. Eine unmittelbare und wichtige Konsequenz aus dieser Definition ist: Die leere Menge $\emptyset$ ist Teilmenge jeder beliebigen Menge.
+\end{spoken-clean}
+
+\subsubsection{Teilmengenbeziehung}
+\begin{math-stroke}[Definition der Teilmengenbeziehung]
+
+\begin{definition}[Teilmenge]\label[definition]{def:teilmenge}
+Wir definieren das binäre Relationssymbol \newterm{Teilmenge} ($\subseteq$) durch:
+\[ y \subseteq x :\iff \forall z \, (z \in y \rightarrow z \in x) \]
+\end{definition}
+
+\begin{definition}[Echte Teilmenge]\label[definition]{def:echte-teilmenge}
+Wir definieren das Relationssymbol \newterm{echte Teilmenge} ($\subsetneq$ bzw. $\subset$) durch:
+\[ y \subsetneq x :\iff y \subseteq x \land y \neq x \]
+\end{definition}
+
+\begin{remark}[Die leere Menge als Teilmenge]\label[remark]{rem:leere-menge-teilmenge}
+Für jede Menge $x$ gilt:
+\[ \emptyset \subseteq x \]
+\end{remark}
+\begin{short-proof}
+Die Aussage $\emptyset \subseteq x$ ist äquivalent zu $\forall z \, (z \in \emptyset \rightarrow z \in x)$. Da die Prämisse $z \in \emptyset$ für jedes $z$ stets falsch ist, ist die Implikation $z \in \emptyset \rightarrow z \in x$ ex falso vacuously wahr.
+\end{short-proof}
+\end{math-stroke}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:30:00
+% topic: Teilmengenbeziehung und Einführung des Paarmengenaxioms
+% board_state: def:teilmenge, def:echte-teilmenge, rem:leere-menge-teilmenge
+% next_goal: Paarmengenaxiom und geordnete Paare
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\begin{spoken-clean}[01:26:22 - 01:29:00]
+Als Nächstes betrachten wir das Paarmengenaxiom --- damit haben wir dann heute zumindest die ersten drei Axiome beisammen. Dieses Axiom besagt: Für alle $x$ und alle $y$ existiert ein $u$, sodass für alle $z$ gilt: $z \in u$ genau dann, wenn $z = x$ oder $z = y$.
+
+Was bedeutet dieses Axiom anschaulich? Ja?
+\inlinemetanote{Ein Student antwortet.}
+Nicht ganz, nein. Es beschreibt nicht die Vereinigung der beiden Mengen. Es besagt vielmehr: Wenn wir zwei Mengen $x$ und $y$ haben, dann existiert eine neue Menge $u$, die genau diese beiden Mengen als Elemente enthält --- es ist also eine zweielementige Menge von Mengen.
+
+Nach dem Extensionalitätsaxiom --- also unserem Axiom 1 --- ist diese Menge $u$ wiederum völlig eindeutig bestimmt. Wegen dieser Eindeutigkeit können wir eine feste Notation einführen und schreiben für diese Menge einfach $\{x, y\}$.
+\end{spoken-clean}
+
+\subsubsection{Paarmengenaxiom (Axiom 2)}
+\begin{math-stroke}
+\begin{axiom}[Paarmengenaxiom]\label[axiom]{ax:paarmenge}
+\[ \forall x \forall y \exists u \forall z \, (z \in u \leftrightarrow z = x \lor z = y) \]
+\end{axiom}
+
+\begin{explanation-of-steps}[Bedeutung des Axioms]
+Für beliebige Mengen $x$ und $y$ existiert eine Menge $u$, welche genau $x$ und $y$ als Elemente enthält. Gemäß dem Extensionalitätsaxiom (\ref{ax:extensionalitaet}) ist diese Menge $u$ eindeutig bestimmt. Wir schreiben dafür:
+\[ u = \{x, y\} \]
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:29:00 - 01:30:45]
+Eine kurze Bemerkung dazu: Wegen des Extensionalitätsaxioms ist die Reihenfolge in der Notation irrelevant, es gilt also $\{x, y\} = \{y, x\}$. Und im Spezialfall $x = y$ erhalten wir $\{x, x\} = \{x\}$, was genau die Einermenge oder das Singleton von $x$ ist. Das Paarmengenaxiom garantiert uns also auch, dass zu jeder Menge $x$ die Einermenge $\{x\}$ existiert. Wir können also zu jeder Menge eine neue Menge konstruieren, die diese als ihr einziges Element enthält.
+
+Darauf aufbauend können wir nun geordnete Paare definieren. Wir schreiben dafür $\langle x, y \rangle$ und definieren dieses geordnete Paar nach Kuratowski als die Menge, die aus der Einermenge $\{x\}$ und der Paarmenge $\{x, y\}$ besteht. Man kann nun formal beweisen, dass diese Definition genau die charakteristische Eigenschaft eines geordneten Paares erfüllt: Es gilt $\langle x, y \rangle = \langle x', y' \rangle$ genau dann, wenn $x = x'$ und $y = y'$ ist. Das ist eine wunderschöne Konstruktion, mit der wir die intuitive Idee einer geordneten Paarung rein mengentheoretisch präzise fassen können.
+
+Gut! Vielen Dank fürs Kommen, eine erfolgreiche Woche und bis zum nächsten Mal!
+\end{spoken-clean}
+
+\subsubsection{Eigenschaften von Paarmengen und geordneten Paaren}
+\begin{math-stroke}[Paarmengen]
+\begin{remark}[Symmetrie und Einermengen]\label[remark]{rem:paarmengen-eigenschaften}
+Gemäß dem Extensionalitätsaxiom gilt:
+\begin{itemize}
+    \item \textbf{Symmetrie:} $\{x, y\} = \{y, x\}$
+    \item \textbf{Einermenge (Singleton):} $\{x, x\} = \{x\}$
+\end{itemize}
+Somit liefert das Paarmengenaxiom für $x = y$ auch die Existenz der Einermenge $\{x\}$ für jede Menge $x$.
+\end{remark}
+
+\begin{definition}[Geordnetes Paar]\label[definition]{def:geordnetes-paar}
+Wir definieren das \newterm{geordnetes Paar} $\langle x, y \rangle$ nach Kuratowski durch:
+\[ \langle x, y \rangle := \bigl\{ \{x\}, \{x, y\} \bigr\} \]
+\end{definition}
+
+\begin{proposition}[Charakteristische Eigenschaft geordneter Paare]\label[proposition]{prop:geordnetes-paar-charakteristik}
+Für beliebige Mengen $x, y, x', y'$ gilt:
+\[ \langle x, y \rangle = \langle x', y' \rangle \iff x = x' \land y = y' \]
+\end{proposition}
+\end{math-stroke}
+
+\begin{nice-box}[Zusammenfassung der Schlüsselkonzepte]
+Wir haben in dieser Vorlesung die folgenden fundamentalen Konzepte erarbeitet:
+\begin{itemize}
+    \item \textbf{Korrektheitssatz:} Wenn eine Formel $\sigma$ aus einer Theorie $T$ formal beweisbar ist ($T \vdash \sigma$), dann ist sie in jedem Modell von $T$ wahr ($T \models \sigma$).
+    \item \textbf{Konsistenz (Widerspruchsfreiheit):} Eine Theorie $T$ ist konsistent, wenn kein Widerspruch aus ihr ableitbar ist. Dies ist äquivalent dazu, dass mindestens eine Formel nicht beweisbar ist.
+    \item \textbf{Gödelscher Vollständigkeitssatz:} Jede konsistente Theorie erster Stufe besitzt ein Modell. Dies zeigt die Vollständigkeit unseres Kalküls.
+    \item \textbf{Unabhängigkeit:} Eine Aussage ist unabhängig von einer Theorie, wenn weder sie noch ihre Negation beweisbar ist (semantisch: es gibt Modelle für beide Fälle).
+    \item \textbf{Gödelsche Unvollständigkeitssätze:} Jedes konsistente System, das die Arithmetik enthält, ist unvollständig und kann seine eigene Konsistenz nicht beweisen.
+    \item \textbf{Zermelo-Fraenkel-Mengenlehre (ZF):} Ein axiomatisches System zur Vermeidung von Antinomien (wie der Russellschen Antinomie). Wir haben das Axiom der leeren Menge, das Extensionalitätsaxiom (Gleichheit durch Elementgleichheit) und das Paarmengenaxiom (Existenz von $\{x,y\}$) formalisiert.
+\end{itemize}
+\end{nice-box}
+
+% [SYSTEM] Refinement complete

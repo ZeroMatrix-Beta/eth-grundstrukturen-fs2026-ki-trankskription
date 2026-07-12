@@ -1,0 +1,899 @@
+% ==========================================
+% LatexRefinement Step Output: step4-05-19-25-tuesday-all-offset-final.tex
+% Model: gemini-3-flash-preview
+% Temperature: 0.36
+% TopP: 0.95
+% TopK: 40
+% MaxOutputTokens: 65535
+% ThinkingBudget: 32765
+% ThinkingLevel: HIGH
+% Prompt Tokens: 35'498
+% Candidates Tokens: 17'998 (inkl. Thinking Tokens)
+% Cached Tokens: 0
+% Processed on: 2026-07-11 13:07:08
+% ==========================================
+
+% Primary Language: German
+
+\lecturechapter{Dienstag}{19. Mai}{19. Mai 2026}{Äquivalenzrelationen und Kryptographie}
+
+\section{Äquivalenzrelationen modulo \texorpdfstring{$n$}{n}}
+
+\begin{nice-box}[Syllabus der heutigen Vorlesung]
+In der heutigen Vorlesung beschäftigen wir uns mit den folgenden Themen:
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item \textbf{Äquivalenzrelationen modulo $n$:} Definition der Kongruenz und Struktur des Rings $\mathbb{Z}_n$.
+    \item \textbf{Einführung in die Kryptographie:} Alice, Bob und das Problem des diskreten Logarithmus.
+    \item \textbf{Diffie-Hellman-Schlüsselaustausch:} Ein erstes Verfahren zur sicheren Schlüsselvereinbarung.
+    \item \textbf{Invertierbarkeit in $\mathbb{Z}_n$:} Charakterisierung der Einheiten und die Eulersche $\varphi$-Funktion.
+    \item \textbf{Satz von Euler und kleiner Satz von Fermat:} Fundamentale Sätze der modularen Arithmetik.
+    \item \textbf{Der Chinesische Restsatz:} Lösung simultaner Kongruenzen und Ringisomorphismen.
+    \item \textbf{Das RSA-Verfahren:} Asymmetrische Verschlüsselung in der Praxis.
+\end{enumerate}
+\end{nice-box}
+
+\begin{spoken-clean}[00:00:00 - 00:01:08]
+Hallo zusammen, wir fangen an. Wir hatten letzte Woche zum Ende hin noch die Äquivalenzrelation modulo $n$ gesehen. \inlinemetanote{schreibt an die Tafel} Das heißt, wir haben gesehen: $a$ ist kongruent zu $b$ modulo $n$, falls $n$ ein Teiler von $a - b$ ist. In anderen Worten: Falls wir denselben Rest erhalten, wenn wir $a$ und $b$ durch $n$ teilen. Wir schauen uns alle Zahlen an, die denselben Rest ergeben, wenn wir durch $n$ teilen.
+
+Gut, und wir haben gesehen: Das ist eine Äquivalenzrelation. Das heißt, wenn wir eine Äquivalenzrelation haben, dann gibt uns das Äquivalenzklassen --- wir erhalten also eine Partition der ganzen Zahlen in ihre Äquivalenzklassen.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{definition}[Äquivalenzrelation modulo $n$]\label[definition]{def:aequi-mod-n}
+Sei $n \in \mathbb{N}$ mit $n \ge 2$. Zwei ganze Zahlen $a, b \in \mathbb{Z}$ heißen \newterm{kongruent modulo $n$}, geschrieben als
+\[
+a \equiv b \pmod n,
+\]
+falls $n$ die Differenz $a - b$ teilt ($n \mid (a - b)$).
+\end{definition}
+
+\begin{explanation-of-steps}
+Die Relation $\equiv \pmod n$ ist eine Äquivalenzrelation auf $\mathbb{Z}$ (vgl. die allgemeine Definition einer Äquivalenzrelation aus Woche 2, \cref{def:aequivalenzrelation}). Dies bedeutet:
+\begin{itemize}
+    \item \textbf{Reflexivität:} $a \equiv a \pmod n$ für alle $a \in \mathbb{Z}$.
+    \item \textbf{Symmetrie:} Falls $a \equiv b \pmod n$, dann gilt auch $b \equiv a \pmod n$.
+    \item \textbf{Transitivität:} Falls $a \equiv b \pmod n$ und $b \equiv c \pmod n$, dann gilt auch $a \equiv c \pmod n$.
+\end{itemize}
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:01:08 - 00:03:14]
+Das heißt, wir erhalten Äquivalenzklassen; das gibt uns eine Partition von $\mathbb{Z}$. Man ist oft unsicher, wie viel Sie davon bereits gesehen haben. Äquivalenzrelationen haben Sie aber offensichtlich --- hoffentlich --- in der Linearen Algebra und/oder der Analysis gesehen. Das ist ein wichtiges Konzept.
+
+Es ist wichtig, gut zu verstehen, was genau das heißt: Wenn wir eine Äquivalenzrelation haben, dann definiert uns das immer eine Partition der entsprechenden Menge. Und umgekehrt, wenn wir eine Partition haben, gibt uns das immer eine Äquivalenzrelation. Sie sehen also, dass das dasselbe ist. Auch wenn Sie eine Abbildung von einer Menge in eine andere Menge haben, bilden die Fasern eine Partition und somit eine Äquivalenzrelation. Umgekehrt gibt Ihnen jede Partition respektive Äquivalenzrelation eine Art Abbildung auf die Äquivalenzklassen.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{notation}[Äquivalenzklasse]\label[notation]{not:aequi-klasse}
+Die Äquivalenzklasse eines Elements $a \in \mathbb{Z}$ bezüglich der Kongruenz modulo $n$ wird notiert als $[a]$ (oder $[a]_n$) und ist definiert als:
+\[
+[a] := \{ k \in \mathbb{Z} \mid k \equiv a \pmod n \}
+\]
+\end{notation}
+
+\begin{explanation-of-steps}
+Die Menge aller Äquivalenzklassen bildet eine \newterm{Partition} von $\mathbb{Z}$. Das bedeutet, dass jedes Element von $\mathbb{Z}$ in genau einer Äquivalenzklasse liegt und die Vereinigung aller Klassen ganz $\mathbb{Z}$ ergibt. Für ein festes $n$ gibt es genau $n$ verschiedene Äquivalenzklassen, die durch die möglichen Reste bei der Division durch $n$ repräsentiert werden:
+\[
+[0], [1], \dots, [n-1]
+\]
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:03:14 - 00:05:33]
+Einfach um sicher zu sein, dass Sie das gut verstanden haben, haben wir das diese Woche nochmals als Übungsaufgabe auf das Übungsblatt gepackt. Wenn Sie also etwas Wichtiges in der Mathematik verstehen wollen, dann lösen Sie bitte diese Übungsaufgabe. Auch wenn man es einmal verstanden hat, ist es auch gut, wenn man es noch einmal versteht. Ab dem zweiten Jahr nehmen Sie dann laufend Quotienten bezüglich irgendetwas, und früher oder später werden Sie das auch gut verstehen. Wenn Sie es aber jetzt schon gut verstehen, dann haben Sie es nachher einfacher --- zum Beispiel in der Linearen Algebra, wenn Sie Quotienten von Vektorräumen nehmen oder solche Sachen.
+
+Wir schauen uns jetzt also die Äquivalenzklassen an. Die Menge schreiben wir so: Das ist die Menge aller Zahlen in $\mathbb{Z}$, die bezüglich dieser Relation äquivalent zu $0$ sind. Und das sind genau diejenigen, die durch $n$ teilbar sind. Dann haben wir diejenigen, die äquivalent zu $1$ sind, und das Ganze geht bis $n - 1$. Das sind dann schon alle.
+\end{spoken-clean}
+
+\begin{math-stroke}[Die Menge der Äquivalenzklassen]
+Die Menge der Äquivalenzklassen modulo $n$ wird bezeichnet als:
+\[
+\mathbb{Z}_n := \mathbb{Z} / n\mathbb{Z} := \{ [0], [1], \dots, [n-1] \}
+\]
+wobei für $k \in \{0, \dots, n-1\}$ gilt:
+\[
+[k] = \{ a \in \mathbb{Z} \mid a \equiv k \pmod n \}
+\]
+
+\begin{explanation-of-steps}
+Davon gibt es genau $n$ Stück, weil es bei der Division durch $n$ genau $n$ mögliche Reste gibt. Jede ganze Zahl $a$ lässt sich eindeutig schreiben als $a = q \cdot n + r$ mit einem Rest $r \in \{0, \dots, n-1\}$. Dann gilt $a \equiv r \pmod n$, also $[a] = [r]$.
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:05:33 - 00:06:04]
+Hier ist $[k]$ also einfach die Menge aller Elemente $a \in \mathbb{Z}$, so dass $a$ kongruent zu $k$ modulo $n$ ist. Manchmal schreibt man hier auch noch ein kleines $n$ dazu, damit man genau weiß, von welcher Zahl man spricht. Davon gibt es jetzt genau $n$, weil es nur $n$ mögliche Reste gibt, die man haben kann.
+\end{spoken-clean}
+
+\begin{math-stroke}[Quotientenabbildung]
+Wir haben auch die \newterm{Quotientenabbildung} (oder kanonische Projektion):
+\begin{align*}
+\pi: \mathbb{Z} &\to \mathbb{Z}_n \\
+a &\mapsto [a]
+\end{align*}
+Diese Abbildung ordnet jeder ganzen Zahl ihre entsprechende Äquivalenzklasse zu.
+\end{math-stroke}
+
+\begin{spoken-clean}[00:06:04 - 00:08:20]
+Gut, das sind die Äquivalenzklassen. Wir schreiben sie oft als $\mathbb{Z}$ modulo $n\mathbb{Z}$. Das ist die Menge der Äquivalenzklassen. Oft schreibt man das auch einfach als $\mathbb{Z}_n$ --- mit einem kleinen $n$ hier.
+
+Das ist ein bisschen verwirrend --- wir machen das jetzt auch so, es steht auch im Skript so ---, aber man darf sich nicht beirren lassen: In anderen Bereichen der Mathematik, etwa in der Zahlentheorie, bezeichnet man damit die $p$-adischen ganzen Zahlen, wenn $p$ eine Primzahl ist. Das ist etwas anderes als das hier. Nicht komplett anders, aber doch recht verschieden. Diese Schreibweise ist im Kontext also nicht ganz eindeutig definiert, aber es ist klar, was gemeint ist.
+
+Wir haben also diese $n$ Elemente in $\mathbb{Z}_n$, der Menge der Äquivalenzklassen. Und wir haben auch die Quotientenabbildung $\pi \colon \mathbb{Z} \to \mathbb{Z}_n$. Diese ordnet jeder Zahl $a$ einfach ihre Äquivalenzklasse zu. Das ist die Quotientenabbildung.
+\end{spoken-clean}
+
+\begin{math-stroke}[Operationen auf $\mathbb{Z}_n$]
+Wir definieren eine Addition und eine Multiplikation auf $\mathbb{Z}_n$ durch:
+\begin{align}
+[a] + [b] &:= [a + b] \label{eq:add-zn} \\
+[a] \cdot [b] &:= [a \cdot b] \label{eq:mul-zn}
+\end{align}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:08:20 - 00:10:21]
+Gut, und was wir jetzt tun können: Wir können auf dieser Menge Addition und Multiplikation definieren. Wir definieren eine Addition und Multiplikation auf $\mathbb{Z}_n$ einfach durch: Die Klasse von $a$ plus die Klasse von $b$ definieren wir als die Äquivalenzklasse von $a + b$. Ähnlich definieren wir $[a] \cdot [b]$, das Produkt dieser zwei Äquivalenzklassen, als die Äquivalenzklasse des Produkts.
+
+Da müssen wir natürlich aufpassen,weil es nicht eindeutig ist, welches $a$ hier drin steht. Man könnte ja irgendetwas nehmen, was äquivalent zu $a$ ist. Es ist also a priori nicht klar, dass das wohldefiniert ist. Aber wir haben letzte Woche gesehen, dass das gar nicht davon abhängt, welche Repräsentanten man hier wählt. Es ergibt immer dieselbe Äquivalenzklasse. Das heißt, diese Addition und Multiplikation sind wohldefiniert.
+\end{spoken-clean}
+
+\begin{math-stroke}[Wohldefiniertheit der Operationen]
+\begin{lemma}[Wohldefiniertheit]\label[lemma]{lem:wohldefiniertheit}
+Die in \eqref{eq:add-zn} und \eqref{eq:mul-zn} definierten Operationen hängen nicht von der Wahl der Repräsentanten ab.
+\end{lemma}
+
+\begin{short-proof}
+Dies folgt direkt aus den entsprechenden Eigenschaften im Ring der ganzen Zahlen $\mathbb{Z}$. Seien $a \equiv a' \pmod n$ und $b \equiv b' \pmod n$. Dann existieren $k, \ell \in \mathbb{Z}$ mit $a - a' = k \cdot n$ und $b - b' = \ell \cdot n$.
+
+\begin{itemize}
+    \item \textbf{Addition:} 
+    \[
+    \begin{aligned}
+        (a + b) - (a' + b') &= (a - a') + (b - b') \\
+        &= (k + \ell) \cdot n \\
+        &\implies a + b \equiv a' + b' \pmod n.
+    \end{aligned}
+    \]
+    \item \textbf{Multiplikation:} 
+    \[
+    \begin{aligned}
+        a \cdot b - a' \cdot b' &= a \cdot b - a' \cdot b + a' \cdot b - a' \cdot b' \\
+        &= (a - a') \cdot b + a' \cdot (b - b') \\
+        &= (k \cdot b + a' \cdot \ell) \cdot n \\
+        &\implies a \cdot b \equiv a' \cdot b' \pmod n.
+    \end{aligned}
+    \]
+\end{itemize}
+
+In beiden Fällen erhalten wir dieselbe Äquivalenzklasse.
+\end{short-proof}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:13:04 - 00:14:17]
+Wie gesehen: Das war das letzte Lemma letzte Woche. Diese Operationen sind wohldefiniert, das heißt, sie hängen nicht von der Wahl der Repräsentanten ab.
+
+Wir haben jetzt hier also Operationen definiert und --- wenig erstaunlich --- man kann nun zeigen, dass $\mathbb{Z}_n$ mit dieser Addition und dieser Multiplikation die Struktur eines Rings hat. Das ist das folgende Lemma: $\mathbb{Z}_n$ mit diesen Operationen ist ein Ring. Die neutralen Elemente sind durch die Klassen $[0]$ und $[1]$ gegeben. $[0]$ ist also das neutrale Element bezüglich der Addition und $[1]$ das neutrale Element bezüglich der Multiplikation.
+
+Gut, für Ringe muss man natürlich noch einige Axiome nachprüfen. Das werden wir jetzt nicht alles an die Tafel schreiben; ich überlasse es Ihnen, diese zu überprüfen. Es folgt im Wesentlichen daraus, dass wir bereits wissen, dass $\mathbb{Z}$ ein Ring ist. Die ganzen Zahlen sind ein Ring bezüglich Addition und Multiplikation, und per Definition werden hier alle diese Ringeigenschaften auch auf $\mathbb{Z}_n$ vererbt.
+\end{spoken-clean}
+
+\begin{math-stroke}[Ringstruktur von $\mathbb{Z}_n$]
+\begin{lemma}\label[lemma]{lem:zn-ring}
+Die Menge $\mathbb{Z}_n$ bildet mit den oben definierten Operationen einen kommutativen Ring mit Einselement.
+\begin{itemize}
+    \item Das neutrale Element der Addition ist $[0]$.
+    \item Das neutrale Element der Multiplikation ist $[1]$.
+\end{itemize}
+\end{lemma}
+
+\begin{short-proof}
+Die Ringaxiome (Assoziativität, Kommutativität, Distributivität) vererben sich direkt von $\mathbb{Z}$ auf $\mathbb{Z}_n$. Zum Beispiel für die Assoziativität der Addition:
+\begin{align*}
+([a] + [b]) + [c] &= [a + b] + [c] = [(a + b) + c] \\
+&= [a + (b + c)] \quad (\text{Assoziativität in } \mathbb{Z}) \\
+&= [a] + [b + c] = [a] + ([b] + [c])
+\end{align*}
+Analog lassen sich alle anderen Ringaxiome nachprüfen.
+\end{short-proof}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:14:17 - 00:17:11]
+Dadurch, dass diese Abbildung hier surjektiv ist und so konstruiert wurde, dass sie diese Operationen erhält, muss --- wenn $\mathbb{Z}$ ein Ring ist --- auch $\mathbb{Z}_n$ wieder ein Ring sein. Das ist die Idee, aber um das allgemein zu zeigen, muss man natürlich alles nachprüfen.
+
+Sie können das selbst machen. Bei der Uhr ist es doch übersichtlich. Wenn Sie etwa $3^3 \pmod{12}$ rechnen, sieht man direkt: Das ergibt $27 \pmod{12}$, also $3$. Aber wenn ich jetzt frage... nein, das ist ein bisschen zu einfach. Versuchen Sie es mal: Es ist relativ schnell auszurechnen, aber andersherum im Kopf eine Zahl zu finden, so dass man den Logarithmus ziehen kann, ist relativ schwierig.
+\end{spoken-clean}
+
+\begin{didactic-insight}[Uhrzahl-Arithmetik]
+Die Arithmetik in $\mathbb{Z}_n$ wird oft als \qt{Uhrzahl-Arithmetik} bezeichnet. Man rechnet einfach mit dem Rest. Bei einer Uhr mit $12$ Stunden gilt zum Beispiel: Wenn es $8$ Uhr ist, dann ist es $5$ Stunden später $1$ Uhr, da $8 + 5 = 13 \equiv 1 \pmod{12}$.
+\end{didactic-insight}
+
+\section{Einführung in die Kryptographie}
+
+\begin{spoken-clean}[00:17:11 - 00:20:04]
+Wir machen später noch einen kleinen Exkurs in die Kryptographie. In der zweiten Hälfte des 20. Jahrhunderts gab es große Errungenschaften dabei, wie man Zahlentheorie für die Kryptographie verwenden kann. Das sind ganz elementare Eigenschaften, für die man gar nicht so viel braucht.
+
+Das erste Beispiel ist der Diffie-Hellman-Schlüsselaustausch. Das war eines der ersten Proof-of-Concepts dafür, dass man da spannende Sachen machen kann. Das Problem ist das folgende: In der Kryptographie haben wir Alice, die eine Nachricht an Bob schicken möchte. Da ist ein ungesicherter Kanal, und meistens gibt es noch eine dritte Person, Eve, welche alles abhört --- oder abhören möchte ---, obwohl sie das eigentlich nicht tun sollte.
+
+Die Frage ist: Wie kann Alice jetzt eine geheime Nachricht an Bob schicken, ohne dass Eve diese Nachricht versteht? Das ist natürlich ein uraltes Problem, das gab es schon immer --- bei den Römern und noch viel früher ---, dass man Nachrichten in Geheimschriften verschlüsselt hat. Was im Informationszeitalter wirklich neu war, ist Folgendes: Für Geheimagenten ist das kein Problem, da gibt man einfach das Buch mit dem geheimen Schlüssel weiter, verschlüsselt damit und kann es wieder entschlüsseln.
+
+Das Problem hier ist, dass diese zwei den Schlüssel vorher nicht haben. Wenn Sie Internet-Banking machen --- gut, da geht es vielleicht noch ---, aber wenn Sie sich ein Buch bei einem Händler in New York bestellen, dann haben Sie den... können Sie dem nicht vorher den geheimen Schlüssel bringen, um Ihre Kreditkartendaten sicher zu übermitteln. Und wenn Sie das könnten, dann könnten Sie ja die Daten direkt sicher übermitteln. Das Problem ist also: Man muss alles in der Öffentlichkeit machen.
+\end{spoken-clean}
+
+\begin{meta-note}[Szenario: Alice, Bob und Eve]
+Der Dozent skizziert das klassische Szenario der Kryptographie an der Tafel: Alice möchte über einen unsicheren Kanal mit Bob kommunizieren, während Eve die Kommunikation belauscht.
+
+\begin{center}
+\begin{tikzpicture}[node distance=2cm, thick]
+    \node[draw, rectangle, minimum width=1.5cm, minimum height=1cm] (Alice) {Alice};
+    \node[draw, rectangle, minimum width=1.5cm, minimum height=1cm, right=4cm of Alice] (Bob) {Bob};
+    \node[draw, circle, minimum size=1cm, below=1.5cm of $(Alice)!0.5!(Bob)$] (Eve) {Eve};
+
+    \draw[->] (Alice) -- node[midway, above] {Kanal} (Bob);
+    \draw[dashed, ->] (Eve) -- ($(Alice)!0.5!(Bob)$);
+    \node[below=0.2cm of Eve] {Abhörerin};
+\end{tikzpicture}
+\end{center}
+\end{meta-note}
+
+\begin{spoken-clean}[00:20:04 - 00:22:30]
+Die Frage ist jetzt: Wie können Alice und Bob einen geheimen Schlüssel vereinbaren? Ein Schlüssel ist natürlich einfach eine Zahl. Das allererste Verfahren in dieser Richtung ist der Diffie-Hellman-Schlüsseltausch. Was man sich da zunutze macht, ist der folgende Fakt: Es ist sehr einfach, $a^b \pmod n$ zu berechnen, wenn man zwei Zahlen $a, b > 0$ hat.
+
+Das geht schnell. Allgemein ist es natürlich schwierig, $a^b$ zu berechnen, weil das sehr rasch sehr groß wird. Wenn man es aber modulo $n$ macht, ist das kein Problem, da das Ergebnis immer klein bleibt. Wenn man dann das $b$ geschickt zerlegt, kann man das sehr effizient machen. Das ist überhaupt kein Problem.
+
+Umgekehrt ist es aber sehr schwierig, wenn man $a^b$ und $a$ kennt, das $b$ wieder herauszufinden. Das dauert sehr lange. Man denkt zwar... es könnte durchaus sein, dass es einen sehr cleveren Algorithmus gibt, den man noch nicht kennt, um aus der Restklasse von $a^b$ und der von $a$ ein geeignetes $b$ zu finden. Das ist das Problem des diskreten Logarithmus.
+\end{spoken-clean}
+
+\begin{math-stroke}[Das Problem des diskreten Logarithmus]
+\textbf{Fakt:} Es ist sehr einfach, $a^b \pmod n$ zu berechnen.
+
+\textbf{Problem:} Umgekehrt ist es sehr schwierig, aus $a^b \pmod n$ und $a$ die Zahl $b$ zu finden. Dies wird als das \newterm{Problem des diskreten Logarithmus} bezeichnet.
+
+\begin{explanation-of-steps}
+Während die Potenzierung modulo $n$ (z.\,B. durch \qt{Square and Multiply}) sehr effizient ist, gibt es für die Umkehrung (den diskreten Logarithmus) in allgemeinen Gruppen keine effizienten Algorithmen. Dies bildet die Grundlage für viele kryptographische Verfahren.
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:22:30 - 00:24:54]
+Dieser Diffie-Hellman-Schlüsselaustausch macht sich genau das zunutze. \inlinemetanote{wischt die Tafel und bereitet den nächsten Abschnitt vor} Ich schreibe jetzt einfach auf... es lässt sich direkt nachprüfen, wirklich sehr direkt über die entsprechenden Eigenschaften des Rings der ganzen Zahlen.
+
+Machen wir einfach ein Beispiel: Wir wollen zeigen, dass die Addition assoziativ ist. Da muss man zeigen, dass $[a] + [b]$ plus $[c]$ dasselbe ist wie $[a] + ([b] + [c])$. Das ist direkt, denn das ist ja per Definition die Klasse von $a + b$ plus die Klasse von $c$. Und das wiederum ist per Definition die Klasse von $(a + b) + c$. Da wissen wir jetzt eben: $\mathbb{Z}$ ist ein Ring, das heißt, das ist dasselbe wie die Klasse von $a + (b + c)$. Hier verwenden wir wirklich, dass diese Assoziativität in $\mathbb{Z}$ gilt.
+
+Und jetzt gehen wir wieder zurück: Das ist $[a] + [b + c]$ und somit wiederum dasselbe wie $[a] + ([b] + [c])$. Gut. Dann kann man die ganze Liste von Axiomen durchgehen --- ähnlich für alle anderen Ringaxiome. Der wesentliche Punkt ist wirklich, dass diese Operationen wohldefiniert sind und dass diese Quotientenabbildung existiert, welche per Definition die Multiplikation und Addition erhält. Dann kann man zeigen, dass in dieser Situation das Resultat automatisch auch wieder ein Ring ist. Diese Eigenschaften sind also erfüllt.
+\end{spoken-clean}
+
+\section{Diffie-Hellman-Schlüsselaustausch}
+
+\begin{spoken-clean}[00:24:54 - 00:26:59]
+Diffie-Hellman-Schlüsselaustausch: Das geht so: Zuerst vereinbaren Alice und Bob öffentlich zwei Zahlen $n$ und $a$. Als Nächstes wählt Alice eine geheime Zahl, sagen wir $r \in \mathbb{N}$, und Bob wählt eine geheime Zahl $s \in \mathbb{N}$.
+
+Alice sendet nun natürlich nicht die geheime Zahl, sondern $a^r \pmod n$. $n$ haben sie ja gemeinsam abgemacht. Sie sendet das an Bob, und Bob sendet $a^s \pmod n$ an Alice. Das heißt, Eve weiß $a, n, a^r$ und $a^s$. Aber daraus kann Eve weder $r$ noch $s$ ableiten.
+
+Im nächsten Schritt rechnet Alice nun $(a^s)^r$. Das ist einfach die Klasse von $a^{s \cdot r}$. Bob macht dasselbe mit $s$: Er rechnet $(a^r)^s$, und das ergibt auch wieder $a^{s \cdot r}$. Das ist jetzt der gemeinsame geheime Schlüssel.
+\end{spoken-clean}
+
+\begin{math-stroke}[Diffie-Hellman-Schlüsselaustausch]
+\textbf{Vorgehensweise:}
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item \textbf{Öffentliche Vereinbarung:} Alice und Bob vereinbaren öffentlich eine große Primzahl $n$ und eine Basis $a$.
+    \item \textbf{Geheime Wahl:}
+    \begin{itemize}
+        \item Alice wählt eine geheime Zahl $r \in \mathbb{N}$.
+        \item Bob wählt eine geheime Zahl $s \in \mathbb{N}$.
+    \end{itemize}
+    \item \textbf{Öffentlicher Austausch:}
+    \begin{itemize}
+        \item Alice sendet $A := a^r \pmod n$ an Bob.
+        \item Bob sendet $B := a^s \pmod n$ an Alice.
+    \end{itemize}
+    \item \textbf{Schlüsselberechnung:}
+    \begin{itemize}
+        \item Alice berechnet $K := B^r \equiv (a^s)^r \equiv a^{sr} \pmod n$.
+        \item Bob berechnet $K := A^s \equiv (a^r)^s \equiv a^{rs} \pmod n$.
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Ergebnis:} Alice und Bob besitzen nun den gemeinsamen geheimen Schlüssel $K = [a^{rs}] \in \mathbb{Z}_n$.
+\end{math-stroke}
+
+\begin{spoken-clean}[00:26:59 - 00:29:03]
+Genau. Und obwohl dieser Austausch komplett über einen öffentlichen Kanal stattgefunden hat, haben Alice und Bob am Schluss eine gemeinsame geheime Zahl, die nur sie kennen. Das Ganze beruht wirklich auf dem Fakt, dass man die eine Richtung einfach berechnen kann, die andere jedoch nicht.
+
+Das ist relativ elegant und war eine revolutionäre Idee, obwohl es mathematisch natürlich sehr einfach ist. Aber es zeigt einfach: Es geht. Es gibt Möglichkeiten, über ungesicherte Kanäle einen gemeinsamen geheimen Schlüssel zu vereinbaren, auch wenn man vorher keinen abgemacht hat.
+
+Relativ elegant. Aber jetzt wieder zurück zur Theorie: Wir haben gesagt, dass diese $\mathbb{Z}_n$ Ringe sind. In Ringen gibt es Elemente, die ein multiplikatives Inverses haben, und andere, bei denen das nicht der Fall ist. In einem Körper wissen wir, dass jedes Element außer der $0$ ein multiplikatives Inverses hat. In Ringen muss das nicht unbedingt der Fall sein. Die Frage ist jetzt: Welche Elemente haben ein multiplikatives Inverses?
+\end{spoken-clean}
+
+\section{Invertierbare Elemente in \texorpdfstring{$\mathbb{Z}_n$}{Zn}}
+
+\begin{spoken-clean}[00:29:03 - 00:30:44]
+Für $12$ zum Beispiel sehen wir: $[0]$ hat natürlich kein multiplikatives Inverses, aber $[2]$ hat ebenfalls kein multiplikatives Inverses. Sie finden kein Element, keine Zahl $a$, so dass $2 \cdot a$ kongruent zu $1$ modulo $12$ ist. Das geht nicht. Wir haben $2, 4, 6, 8, 10, 12$ --- bevor Sie also zur $1$ kommen, sind Sie schon wieder bei der $0$, und dann beginnt es von vorne. Hingegen funktioniert $[5]$ schon, weil $5 \cdot 5 = 25$ ist, was kongruent zu $1$ modulo $12$ ist. $[5]$ hat also ein multiplikatives Inverses.
+
+Die nächste Proposition zeigt uns jetzt diese Bemerkung. Sei $n \ge 2$, und wir schauen uns eine Restklasse $[a] \in \mathbb{Z}_n$ an. Die Proposition besagt nun: Es existiert eine Klasse $[b] \in \mathbb{Z}_n$ mit $[a] \cdot [b] = [1]$ genau dann, wenn der $\operatorname{ggT}$ von $a$ und $n$ gleich $1$ ist --- also genau dann, wenn die zwei Zahlen teilerfremd sind. Das erklärt, weshalb das bei $[2]$ und $12$ beziehungsweise $[5]$ und $12$ so funktioniert.
+
+Machen wir den Beweis; das ist relativ direkt. Sei $d$ der $\operatorname{ggT}$ von $a$ und $n$. Wir nehmen zuerst an, dass es ein solches $[b]$ gibt, und wollen beweisen, dass daraus $d = 1$ folgt. Falls es also ein $[b] \in \mathbb{Z}_n$ mit $[a] \cdot [b] = [1]$ gibt, dann wissen wir, dass $a \cdot b \equiv 1 \pmod n$ ist. Das heißt, $a \cdot b$ ist ein Vielfaches von $n$ plus $1$ für irgendeine Zahl $k$. Da $d$ der größte gemeinsame Teiler ist, teilt $d$ sowohl $a$ als auch $n$. Somit folgt, dass $d$ auch $a \cdot b - k \cdot n$ teilt. Das ist aber genau $1$. Das heißt, $d$ ist ein Teiler von $1$ und somit $d = 1$.
+
+Das ist die eine Richtung. Für die andere Richtung: Falls dieser $\operatorname{ggT} = 1$ ist, dann wissen wir --- wie letzte Woche gesehen ---, dass Zahlen $b, \ell \in \mathbb{Z}$ existieren, so dass $a \cdot b + n \cdot \ell = 1$ ist. Das war dieser Beweis von letzter Woche: Wir finden immer ganze Zahlen $b$ und $\ell$, so dass $a \cdot b + n \cdot \ell$ der $\operatorname{ggT}$ ist. Das heißt direkt: $a \cdot b \equiv 1 \pmod n$, also $a \cdot b = -n \cdot \ell + 1$. Somit gilt $[a] \cdot [b] = [1]$."
+\end{spoken-clean}
+
+\begin{math-stroke}[Invertierbarkeit in $\mathbb{Z}_n$]
+\begin{proposition}\label[proposition]{prop:invertierbarkeit-zn}
+Sei $n \in \mathbb{Z}, n \ge 2$ und $[a] \in \mathbb{Z}_n$. Dann existiert ein $[b] \in \mathbb{Z}_n$ mit
+\[
+[a] \cdot [b] = [1]
+\]
+genau dann, wenn $\operatorname{ggT}(a, n) = 1$.
+\end{proposition}
+
+\begin{explanation-of-steps}
+Ein Element $[a]$ ist genau dann invertierbar im Ring $\mathbb{Z}_n$, wenn der Repräsentant $a$ teilerfremd zum Modul $n$ ist. In diesem Fall nennt man $[a]$ eine \newterm{Einheit} des Rings.
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\begin{math-stroke}[Beweis der Proposition \ref{prop:invertierbarkeit-zn}]
+\begin{short-proof}
+Sei $d := \operatorname{ggT}(a, n)$.
+
+\begin{itemize}
+    \item \textbf{Hinrichtung ($\Rightarrow$):} Angenommen, es existiert ein $[b] \in \mathbb{Z}_n$ mit $[a] \cdot [b] = [1]$. Dann gilt $a \cdot b \equiv 1 \pmod n$, also existiert ein $k \in \mathbb{Z}$ mit $a \cdot b = k \cdot n + 1$, bzw. $a \cdot b - k \cdot n = 1$. Da $d \mid a$ und $d \mid n$, muss $d$ auch die Linearkombination $a \cdot b - k \cdot n$ teilen. Also $d \mid 1$, woraus $d = 1$ folgt.
+    \item \textbf{Rückrichtung ($\Leftarrow$):} Sei $\operatorname{ggT}(a, n) = 1$. Nach dem Lemma von Bézout (\cref{prop:ggt-existenz} in Woche 12) existieren $b, \ell \in \mathbb{Z}$ mit $a \cdot b + n \cdot \ell = 1$. Dies impliziert $a \cdot b = 1 - n \cdot \ell$, also $a \cdot b \equiv 1 \pmod n$. Somit gilt $[a] \cdot [b] = [1]$ in $\mathbb{Z}_n$.
+\end{itemize}
+\end{short-proof}
+\end{math-stroke}
+
+\section{Körperstruktur in \texorpdfstring{$\mathbb{Z}_n$}{Zn}}
+
+\begin{spoken-clean}[00:30:44 - 00:32:41]
+Wir verstehen die invertierbaren Elemente in diesen Ringen jetzt also sehr gut. Ein direktes Korollar ist: Der Ring $\mathbb{Z}_n$ ist genau dann ein Körper, wenn $n$ eine Primzahl ist.
+
+Der Beweis folgt direkt aus diesem Satz. Wir wissen: $\mathbb{Z}_n$ ist genau dann ein Körper, wenn für jedes $[a] \neq [0]$ ein $[b]$ existiert, so dass $[a] \cdot [b] = [1]$ ist. Das ist die Definition eines Körpers. Das ist äquivalent zu der Aussage, dass der $\operatorname{ggT}$ von $a$ and $n$ für alle Zahlen zwischen $1$ und $n - 1$ gleich $1$ ist. Das ist genau dann der Fall, wenn $n$ eine Primzahl ist.
+\end{spoken-clean}
+
+\begin{math-stroke}[Körperstruktur von $\mathbb{Z}_n$]
+\begin{corollary}\label[corollary]{cor:zn-koerper}
+Der Ring $\mathbb{Z}_n$ ist genau dann ein Körper, wenn $n$ eine Primzahl ist.
+\end{corollary}
+
+\begin{short-proof}
+Ein kommutativer Ring mit Eins ist ein Körper, wenn jedes von Null verschiedene Element ein multiplikatives Inverses besitzt.
+\begin{align*}
+    \mathbb{Z}_n \text{ ist ein Körper} &\iff \forall [a] \in \mathbb{Z}_n \setminus \{[0]\} \ \exists [b] \in \mathbb{Z}_n \colon [a] \cdot [b] = [1] \\
+    &\iff \forall a \in \{1, \dots, n-1\} \colon \operatorname{ggT}(a, n) = 1 \\
+    &\iff n \text{ ist eine Primzahl.}
+\end{align*}
+\end{short-proof}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:32:41 - 00:34:43]
+Genau. Das sind wichtige Körper. Wir nennen diese --- und da gibt es eine andere Notation --- Primkörper: Falls $p$ prim ist, schreiben wir $\mathbb{F}_p$ anstelle von $\mathbb{Z}_p$. Das ist der Körper mit $p$ Elementen.
+
+Das heißt, für jede Primzahl --- also für jede Primordnung --- existiert ein endlicher Körper. Wir werden nächste Woche noch sehen, dass es auch endliche Körper gibt, die nicht von dieser Form sind. Nicht alle endlichen Körper sind also von der Form $\mathbb{Z}_p$. Das ist eine wichtige Bemerkung. In der Algebra-Vorlesung dieses Herbstsemester hatte ich den Eindruck, dass am Anfang eine wesentliche Mehrheit der Studierenden dachte, alle endlichen Körper seien von der Form $\mathbb{Z}_p$. Das ist aber nicht der Fall. Wir wissen das jetzt also schon einmal.
+\end{spoken-clean}
+
+\begin{math-stroke}[Endliche Körper]
+\begin{notation}[Endlicher Körper $\mathbb{F}_p$]\label[notation]{not:fp-koerper}
+Falls $p$ eine Primzahl ist, bezeichnen wir den Körper $\mathbb{Z}_p$ oft als $\mathbb{F}_p$ (von engl. \emph{field}). Er wird auch als \newterm{Primkörper} bezeichnet.
+\end{notation}
+\end{math-stroke}
+
+\begin{didactic-insight}[Existenz anderer endlicher Körper]
+Es ist ein häufiger Irrtum, dass alle endlichen Körper von der Form $\mathbb{Z}_p$ sind. Tatsächlich existiert für jede Primzahlpotenz $q = p^k$ (mit $k \in \mathbb{N}$) ein eindeutiger endlicher Körper $\mathbb{F}_q$ mit $q$ Elementen. Die Körper $\mathbb{Z}_p$ sind lediglich der Spezialfall für $k=1$.
+\end{didactic-insight}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:06:00
+% topic: Invertierbarkeit in Zn und Primkörper Fp
+% board_state: prop:invertierbarkeit-zn, cor:zn-koerper, not:fp-koerper
+% next_goal: Definition der Einheiten und der Einheitengruppe
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\section{Die Einheitengruppe \texorpdfstring{$\mathbb{Z}_n^*$}{Zn*}}
+
+\begin{spoken-clean}[00:34:43 - 00:36:26]
+Das ist eine Definition, die man allgemein in Ringen macht. Wir machen sie jetzt einfach für diese $\mathbb{Z}_n$: Ein Element $a \in \mathbb{Z}_n$ ist eine Einheit, falls es invertierbar ist --- das heißt, falls es ein $b$ gibt, so dass $a \cdot b = 1$ ist.
+
+Die Notation dafür ist $\mathbb{Z}_n^*$. Das ist die Menge aller Einheiten in $\mathbb{Z}_n$. Eine Bemerkung, die relativ direkt ist: $\mathbb{Z}_n^*$ ist zusammen mit der Multiplikation eine Gruppe.
+\end{spoken-clean}
+
+\begin{math-stroke}[Einheiten in $\mathbb{Z}_n$]
+\begin{definition}[Einheit]\label[definition]{def:einheit}
+Ein Element $[a] \in \mathbb{Z}_n$ heißt eine \newterm{Einheit}, falls es multiplikativ invertierbar ist, d.\,h. falls ein $[b] \in \mathbb{Z}_n$ existiert mit
+\[
+[a] \cdot [b] = [1].
+\]
+Die Menge aller Einheiten in $\mathbb{Z}_n$ bezeichnen wir mit $\mathbb{Z}_n^*$:
+\[
+\mathbb{Z}_n^* := \{ [a] \in \mathbb{Z}_n \mid [a] \text{ ist eine Einheit} \}.
+\]
+\end{definition}
+
+\begin{remark}[Einheitengruppe]\label[remark]{rem:einheitengruppe}
+Die Menge $\mathbb{Z}_n^*$ bildet bezüglich der Multiplikation eine Gruppe, die sogenannte \newterm{Einheitengruppe} von $\mathbb{Z}_n$.
+\end{remark}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:36:26 - 00:39:41]
+Beweis: Dass es eine Gruppe ist, ist nicht schwer zu beweisen, da wir bereits wissen, dass die Multiplikation im Ring assoziativ ist. Wir wissen auch, dass es ein neutrales Element gibt, nämlich die $1$. Und wir wissen schon, dass jedes Element ein Inverses hat. Das Einzige, was wir überhaupt zeigen müssen, ist also, dass $\mathbb{Z}_n^*$ unter der Multiplikation abgeschlossen ist. Wenn wir zwei Elemente daraus miteinander multiplizieren, landen wir also wieder in $\mathbb{Z}_n^*$.
+
+Zu zeigen ist also: Falls $a$ und $a'$ Elemente in $\mathbb{Z}_n^*$ sind, so ist auch $a \cdot a'$ in $\mathbb{Z}_n^*$. Alle anderen Gruppenaxiome folgen dann direkt aus den Ringaxiomen für $\mathbb{Z}_n$ und daraus, dass alle Elemente in $\mathbb{Z}_n^*$ invertierbar sind.
+
+Um das zu zeigen: Wir nehmen einfach $b$ und $b'$ in $\mathbb{Z}_n$, so dass $a \cdot b = 1$ und $a' \cdot b' = 1$ ist. Dann folgt: Wenn wir $a \cdot a'$ mit $b' \cdot b$ multiplizieren, dann ist das $1$ in der Mitte. Dann haben wir $a \cdot 1 \cdot b$, und das wiederum ist einfach $1$. Auch $a \cdot a'$ hat also ein Inverses.
+
+Nein, die Null eben nicht. Wir betrachten das neutrale Element bezüglich der Multiplikation, und das ist die $1$. Die $1$ ist invertierbar. Die Null ist nie darin; sie ist nie ein Element in $\mathbb{Z}_n^*$.
+\end{spoken-clean}
+
+\begin{math-stroke}[Gruppeneigenschaft der Einheiten]
+\begin{short-proof}[Beweis der Gruppeneigenschaft]
+Die Assoziativität und die Existenz des neutralen Elements $[1]$ vererben sich direkt vom Ring $\mathbb{Z}_n$. Da jedes Element in $\mathbb{Z}_n^*$ nach Definition invertierbar ist, bleibt nur die Abgeschlossenheit zu zeigen:
+
+Seien $[a], [a'] \in \mathbb{Z}_n^*$. Dann existieren $[b], [b'] \in \mathbb{Z}_n$ mit $[a] \cdot [b] = [1]$ und $[a'] \cdot [b'] = [1]$. Für das Produkt $[a] \cdot [a']$ gilt:
+\[
+([a] \cdot [a']) \cdot ([b'] \cdot [b]) = [a] \cdot ([a'] \cdot [b']) \cdot [b] = [a] \cdot [1] \cdot [b] = [a] \cdot [b] = [1].
+\]
+Somit ist auch $[a] \cdot [a']$ invertierbar, also $[a] \cdot [a'] \in \mathbb{Z}_n^*$.
+\end{short-proof}
+\end{math-stroke}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:12:00
+% topic: Einheitengruppe und Eulersche Phi-Funktion
+% board_state: def:einheit, rem:einheitengruppe
+% next_goal: Definition und Eigenschaften der Eulerschen Phi-Funktion
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\section{Die Eulersche \texorpdfstring{$\varphi$}{phi}-Funktion}
+
+\begin{spoken-clean}[00:40:18 - 00:42:37]
+Letzte Woche hatten wir die Eulersche $\varphi$-Funktion eingeführt. Erinnern Sie sich? \inlinemetanote{wischt die Tafel} Wissen Sie noch, was $\varphi$ von einer ganzen Zahl zählt? Ja? Genau, die Anzahl teilerfremder Zahlen zwischen $0$ und $n$. Und da sehen wir, das ist genau die Anzahl der Elemente in $\mathbb{Z}_n^*$.
+
+Das heißt, die Anzahl der Elemente in $\mathbb{Z}_n^*$ ist genau $\varphi(n)$. Das war ja die Anzahl der Elemente $k \in \mathbb{Z}$ mit $1 \le k \le n$ und $\operatorname{ggT}(k, n) = 1$. Das sind genau die Elemente in $\mathbb{Z}_n$, die invertierbar sind. Das ist es, was uns die Eulersche $\varphi$-Funktion gibt. Das folgt auch wieder direkt aus dieser Proposition.
+
+Beispiel: Wenn $p$ eine Primzahl ist, dann ist $\varphi(p)$ die Anzahl der Elemente in $\mathbb{Z}_p^*$, und das ist... Ja? $p - 1$, genau. Weil alle Zahlen größer gleich $1$, die nicht $p$ sind, teilerfremd sind. Und $\mathbb{F}_p$ ist ja ein Körper.
+\end{spoken-clean}
+
+\begin{math-stroke}[Eulersche $\varphi$-Funktion und Einheiten]
+\begin{definition}[Eulersche $\varphi$-Funktion]\label[definition]{def:euler-phi-w13}
+Die \newterm{Eulersche $\varphi$-Funktion} ordnet jeder natürlichen Zahl $n \in \mathbb{N}$ die Anzahl der zu $n$ teilerfremden natürlichen Zahlen $k$ mit $1 \le k \le n$ zu:
+\[
+\varphi(n) := \bigl| \{ k \in \mathbb{N} \mid 1 \le k \le n \land \operatorname{ggT}(k, n) = 1 \} \bigr|.
+\]
+\end{definition}
+
+\begin{remark}[Ordnung der Einheitengruppe]\label[remark]{rem:ordnung-einheitengruppe}
+Nach Proposition \ref{prop:invertierbarkeit-zn} gilt für die Anzahl der Elemente in der Einheitengruppe:
+\[
+|\mathbb{Z}_n^*| = \varphi(n).
+\]
+\end{remark}
+
+\begin{example}[Primzahlen]\label[example]{ex:phi-prim}
+Falls $p$ eine Primzahl ist, gilt:
+\[
+\varphi(p) = p - 1.
+\]
+Dies liegt daran, dass alle Zahlen $\{1, 2, \dots, p-1\}$ teilerfremd zu $p$ sind.
+\end{example}
+\end{math-stroke}
+
+\section{Der Satz von Euler und der kleine Satz von Fermat}
+
+\begin{spoken-clean}[00:42:37 - 00:44:59]
+Gut, dann werde ich noch den nächsten Satz hinschreiben; den beweisen wir nach der Pause. Das ist etwas, das werden Sie in der Gruppentheorie jeden Tag machen. Die einfachste Form des Satzes hier lautet: Sei $G$ eine endliche abelsche Gruppe mit neutralem Element $e \in G$. Dann gilt, dass $g$ hoch die Gruppenordnung --- also $g$ genau $|G|$-mal mit sich selbst multipliziert --- das neutrale Element ergibt.
+
+Abelsche Gruppe bedeutet --- ich sage es noch einmal ---, dass $a \cdot b = b \cdot a$ für alle Elemente gilt; sie ist also kommutativ. Das beweisen wir nach der Pause. Gute Pause!
+\end{spoken-clean}
+
+\begin{lecture-break}[Pause]
+Der Dozent macht eine Pause und setzt die Vorlesung danach mit dem Beweis des Satzes fort.
+\end{lecture-break}
+
+\begin{spoken-clean}[00:44:59 - 00:47:11]
+Was wir beweisen wollen, ist: Wenn $G$ eine endliche abelsche Gruppe mit neutralem Element $e \in G$ ist und $g$ ein beliebiges Element der Gruppe $G$, dann ergibt $g^{|G|}$ genau das neutrale Element.
+
+Es gibt verschiedene Möglichkeiten, das zu beweisen. Machen wir eine davon. Dieses $g$ ist jetzt fixiert. Wir betrachten die Abbildung von $G$ nach $G$, bei der wir von links mit $g$ multiplizieren. Wir schicken also ein Element $h$ auf das Element $g \cdot h$.
+
+Diese Abbildung ist bijektiv. Daraus folgt: Wenn wir das Produkt aller Elemente $h \in G$ betrachten --- es sind ja nur endlich viele ---, dann gehen wir hier einfach durch alle Elemente $h$ durch und schauen uns dieses Produkt an. Da diese Abbildung bijektiv ist, können wir hier genauso gut das Produkt aller $g \cdot h$ anschauen. Das ist also dasselbe wie das Produkt über alle $h \in G$ von $g \cdot h$ --- einfach wegen dieser Bemerkung hier.
+\end{spoken-clean}
+
+\begin{math-stroke}[Satz von Euler für endliche abelsche Gruppen]
+\begin{theorem}\label[theorem]{thm:euler-abelsch}
+Sei $G$ eine endliche abelsche Gruppe mit neutralem Element $e$. Dann gilt für jedes $g \in G$:
+\[
+g^{|G|} = e.
+\]
+\end{theorem}
+
+\begin{short-proof}
+Betrachte die Abbildung $\lambda_g \colon G \to G, h \mapsto g \cdot h$. Da $g$ invertierbar ist, ist $\lambda_g$ eine Bijektion (Permutation der Gruppenelemente). Da $G$ abelsch ist, können wir die Reihenfolge im Produkt aller Gruppenelemente beliebig vertauschen:
+\[
+\prod_{h \in G} h = \prod_{h \in G} (g \cdot h) = \left( \prod_{h \in G} g \right) \cdot \left( \prod_{h \in G} h \right) = g^{|G|} \cdot \prod_{h \in G} h.
+\]
+Durch Multiplikation mit dem Inversen des Produkts $\prod_{h \in G} h$ folgt unmittelbar:
+\[
+e = g^{|G|}.
+\]
+\end{short-proof}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:47:11 - 00:49:37]
+Da die Gruppe abelsch ist, kommutiert das alles, und für jedes Element in $G$ kommt genau einmal ein $g$ vor. Das ist also dasselbe wie $g$ hoch die Ordnung von $G$ mal das Produkt aller $h$.
+
+Jetzt können wir einfach von rechts mit dem Inversen dieses ganzen Produkts multiplizieren und erhalten, dass $g^{|G|}$ die Identität ist. Das ist ein relativ einfacher, eleganter Beweis.
+
+Das stimmt aber auch, wenn die Gruppe nicht abelsch ist. Es folgt aus der elementaren Gruppenlehre, dass das auch für nicht-abelsche Gruppen gilt. Ich habe hier einen kurzen, netten Beweis für unsere Zwecke geführt, aber ich kann das noch als Bemerkung hinschreiben.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{remark}[Allgemeine Gruppen]\label[remark]{rem:euler-allgemein}
+Der Satz \ref{thm:euler-abelsch} gilt auch für endliche Gruppen, die nicht abelsch sind (Satz von Lagrange).
+\end{remark}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:49:37 - 00:51:05]
+Dann können wir das Korollar aus diesem Satz direkt anwenden. Das Korollar besagt: Wenn ein $a$ in $\mathbb{Z}_n^*$ ist, dann gilt $a$ hoch die Eulersche $\varphi$-Funktion von $n$ ist gleich $1$.
+
+Der Beweis ist direkt: Wir wissen, dass $\mathbb{Z}_n^*$ eine abelsche Gruppe ist. Der Satz impliziert also, dass $a^{\varphi(n)}$ gleich $a$ hoch die Ordnung von $\mathbb{Z}_n^*$ ist, und das ist gemäß dem Satz gleich $1$.
+
+Ein weiteres Korollar ist der kleine Satz von Fermat. Er besagt: Wenn $p$ eine Primzahl ist und $a$ eine Zahl, die nicht durch $p$ teilbar ist, dann gilt $a^{p-1} \equiv 1 \pmod p$.
+\end{spoken-clean}
+
+\begin{math-stroke}[Satz von Euler und kleiner Satz von Fermat]
+\begin{corollary}[Satz von Euler]\label[corollary]{cor:euler}
+Für jede Einheit $[a] \in \mathbb{Z}_n^*$ gilt:
+\[
+[a]^{\varphi(n)} = [1] \quad \text{bzw.} \quad a^{\varphi(n)} \equiv 1 \pmod n.
+\]
+\end{corollary}
+
+\begin{corollary}[Kleiner Satz von Fermat]\label[corollary]{cor:fermat-klein}
+Sei $p$ eine Primzahl und $a \in \mathbb{Z}$ mit $p \nmid a$. Dann gilt:
+\[
+a^{p-1} \equiv 1 \pmod p.
+\]
+\end{corollary}
+
+\begin{short-proof}
+Dies folgt direkt aus dem Satz von Euler, da für eine Primzahl $p$ gilt $\varphi(p) = p-1$. Wenn $p \nmid a$, dann ist $[a] \in \mathbb{Z}_p^*$.
+\end{short-proof}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:51:05 - 00:52:33]
+\inlinemetanote{Der Dozent zeigt eine Folie mit einem Porträt von Pierre de Fermat} Viele von Ihnen kennen wahrscheinlich Pierre de Fermat, einen ausgezeichneten Mathematiker des frühen 17. Jahrhunderts. Hier ist ein Porträt von ihm. Er war ein großer Universalgelehrter und hauptberuflich Rechtsgelehrter; er hat in der Administration als Anwalt gearbeitet und war auch in der Politik aktiv. Er hat, glaube ich, Poesie geschrieben, sprach fließend sechs Sprachen und hat sich sehr intensiv mit Mathematik beschäftigt. Er führte Korrespondenz mit allen großen Mathematikern seiner Zeit.
+\end{spoken-clean}
+
+\begin{meta-note}[Projizierter Inhalt: Pierre de Fermat]
+Der Dozent zeigt eine Folie mit einem Porträt von Pierre de Fermat (1601--1665).
+\end{meta-note}
+
+\begin{spoken-clean}[00:52:33 - 00:54:30]
+Er ist vor allem berühmt für den Großen Fermatschen Satz oder den \qt{Letzten Satz von Fermat}, obwohl es lange Zeit eher eine Vermutung war --- die Fermatsche Vermutung. Inzwischen ist es ein Satz, aber erst seit den 90er Jahren: der Satz von Wiles und Taylor.
+
+Er besagt, dass für $n \ge 3$ und ganze Zahlen $a, b, c$ mit $a^n + b^n = c^n$ folgt, dass $a = b = c = 0$ sein müssen. Die triviale Lösung ist also die einzige Lösung von $x^n + y^n = z^n$. Im Gegensatz dazu ist der Kleine Satz von Fermat wirklich klein, während dieser hier wirklich groß ist. Man darf diese zwei Sätze nicht vergleichen.
+
+Das ist eine sogenannte diophantische Gleichung. Diophantische Gleichungen sind polynomielle Gleichungen, bei denen man ganzzahlige Lösungen sucht. Das ist ein großes Gebiet, das im Allgemeinen extrem schwierig ist.
+\end{spoken-clean}
+
+\begin{math-stroke}[Der Große Satz von Fermat]
+\begin{theorem}[Großer Satz von Fermat]\label[theorem]{thm:fermat-gross}
+Die diophantische Gleichung
+\begin{equation}\label{eq:fermat-eq}
+x^n + y^n = z^n
+\end{equation}
+besitzt für $n \in \mathbb{N}$ mit $n \ge 3$ keine Lösungen in ganzen Zahlen $x, y, z \in \mathbb{Z} \setminus \{0\}$.
+\end{theorem}
+
+\begin{explanation-of-steps}
+Für $n=2$ gibt es unendlich viele Lösungen, die sogenannten \newterm{pythagoreischen Zahlentripel} (z.\,B. $3^2 + 4^2 = 5^2$). Fermat behauptete im Jahr 1637 am Rand eines Buches, einen \qt{wunderbaren Beweis} für den Fall $n \ge 3$ gefunden zu haben, für den der Platz am Rand jedoch nicht ausreiche. Der tatsächliche Beweis gelang erst 1994 durch Andrew Wiles.
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:54:30 - 00:56:17]
+Eine sehr berühmte ist eben diese von Fermat. Für $n=2$ --- also wenn man $x^2 + y^2 = z^2$ betrachtet --- finden Sie unendlich viele Tripel ganzer Zahlen, die das erfüllen. Das können Sie selbst von Hand aufschreiben. Sobald $n \ge 3$ ist, gibt es das jedoch nicht mehr. Es ist ein sehr tiefer Satz.
+
+Fermat hat in einem Lehrbuch, das er gelesen hat, immer wieder Bemerkungen notiert. An einer Stelle am Rand schrieb er: \qt{Übrigens hat $x^n + y^n = z^n$ für $n \ge 3$ keine Lösung außer der trivialen. Ich habe einen wunderschönen Beweis dafür, aber hier ist gerade kein Platz, um ihn hinzuschreiben.} Das hat die Leute später geärgert. Es ist besonders ärgerlich, wenn man denkt, dass möglicherweise ein Beweis aus dem 17. Jahrhundert existiert, mit dem man einen so schwierigen Satz beweisen kann. Aber fast ganz sicher war die Idee, die Fermat damals hatte, nicht richtig.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:56:17 - 00:58:43]
+Es haben sehr viele Leute versucht, einfache oder auch schwierige Beweise dafür zu finden. Es ist immer gefährlich, wenn mathematische Fragen einfach zu stellen, aber schwierig zu beantworten sind; das lockt alle Amateure aus den Startlöchern. Es ist toll, wenn Leute Amateurmathematik betreiben wollen, aber wenn sie sich direkt auf das schwierigste aller Probleme stürzen, bei dem man noch nicht genau weiß, wie ein Beweis funktioniert, dann gibt es natürlich viele falsche Beweise.
+
+Es war eine sehr gute Vermutung und über $300$ Jahre hinweg eigentlich der Motor für die Zahlentheorie. Es wurde sehr viel interessante Mathematik entwickelt, um diese Vermutung zu beweisen. Es ist für ein Gebiet immer gut, wenn es inspirierende, starke offene Probleme gibt. Das wirkt quasi als Zugpferd, und wenn man so einen \qt{großen Stern} hat, den man beweisen möchte, hilft das, die Dinge im Allgemeinen besser zu verstehen.
+
+Man kann noch viel darüber erzählen. Jedenfalls wurde es in den 90er Jahren schlussendlich bewiesen. Viele von Ihnen kennen vielleicht das Buch von Simon Singh zum Thema, auf Deutsch \qt{Fermats letzter Satz}. Es ist ein sehr schönes Buch und sehr empfehlenswert --- einfach zu lesen, populärwissenschaftlich, aber sehr spannend.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:58:43 - 01:01:09]
+Es erzählt die Geschichte des Satzes und auch ein bisschen die Geschichte der Mathematik. Es ist sehr flüssig und einfach zu lesen und dennoch sehr informativ. Ich empfehle es auch gerne Nicht-Mathematikern, wenn sie verstehen wollen, weshalb Leute gerne Mathematik betreiben.
+
+Übrigens hat Sophie Germain, eine sehr gute Mathematikerin des 18. Jahrhunderts, ebenfalls wesentlich zur Lösung des Fermatschen Satzes beigetragen. Morgen gibt es dazu einen Vortrag; Sie sind herzlich eingeladen.
+
+Gut, so viel zur Großen Fermat-Vermutung. Das Nächste, was wir uns anschauen wollen, ist der Chinesische Restsatz. \inlinemetanote{schreibt an die Tafel} Vielleicht zuerst: Weshalb heißt er Chinesischer Restsatz? Das hat folgenden Grund: Er taucht zum ersten Mal im Buch von Sunzi Suanjing auf --- Sunzi war ein chinesischer Mathematiker im 5. Jahrhundert. Man weiß sehr wenig über ihn, aber er hat ein Buch geschrieben, in dem viele spannende Sachen stehen.
+\end{spoken-clean}
+
+\begin{didactic-insight}[Sophie Germain und der Fermat-Satz]
+Sophie Germain leistete Pionierarbeit, indem sie den Satz für eine spezielle Klasse von Primzahlen (heute \newterm{Sophie-Germain-Primzahlen} genannt) bewies. Da Frauen zu ihrer Zeit der Zugang zur akademischen Welt oft verwehrt blieb, korrespondierte sie unter dem männlichen Pseudonym \qt{Monsieur Le Blanc} mit Gauß und Lagrange.
+\end{didactic-insight}
+
+\begin{didactic-insight}[Das Problem des Sunzi]
+Das älteste bekannte Beispiel für den Chinesischen Restsatz findet sich im Werk \emph{Sunzi Suanjing} (5. Jahrhundert n.\,Chr.). Das Problem wird dort wie folgt formuliert:
+\begin{quote}
+\qt{Es gibt bestimmte Dinge, deren Anzahl unbekannt ist. Zählt man sie zu dritt, bleiben zwei übrig; zu fünft bleiben drei übrig; und zu siebt bleiben zwei übrig. Wie viele Dinge gibt es?}
+\end{quote}
+In moderner Notation suchen wir ein $x \in \mathbb{Z}$ mit:
+\begin{align*}
+    x &\equiv 2 \pmod 3 \\
+    x &\equiv 3 \pmod 5 \\
+    x &\equiv 2 \pmod 7
+\end{align*}
+\end{didactic-insight}
+
+\begin{spoken-clean}[01:02:39 - 01:05:09]
+Und etwas, was darin steht, ist zum Beispiel dieser Satz: \qt{Es gibt bestimmte Dinge, deren Anzahl unbekannt ist. Zählt man sie zu dritt, bleiben zwei übrig; zu fünft bleiben drei übrig; und zu siebt bleiben zwei übrig. Wie viele Dinge gibt es?}
+
+Die Frage ist quasi: Wir suchen eine Zahl, die kongruent $2$ modulo $3$, kongruent $3$ modulo $5$ und kongruent $2$ modulo $7$ ist. Wie groß ist diese Zahl? Welche Zahl ist das? Zuerst stellt sich natürlich die Frage: Existiert überhaupt so eine Zahl? Wenn man also Vorgaben für die Reste bezüglich verschiedener Moduln hat, gibt es dann immer eine Zahl, die das erfüllt?
+
+Deswegen heißt er Chinesischer Restsatz. Er gibt eine positive Antwort auf diese Fragen. \inlinemetanote{wischt die Tafel} Er besagt: Wenn wir ganze Zahlen $m_1$ bis $m_r$ haben, die paarweise teilerfremde natürliche Zahlen sind --- also $\operatorname{ggT}(m_i, m_j) = 1$ für alle $i \neq j$ ---, dann gilt Folgendes. Wir betrachten $i, j$ zwischen $1$ und $r$, also $1 \le i < j \le r$.
+\end{spoken-clean}
+
+\begin{spoken-clean}[01:05:09 - 01:07:24]
+Die Behauptung ist nun... Sagen wir weiter: Wir nehmen das Produkt $M = m_1 \cdot \dots \cdot m_r$. Und wir nehmen Reste $a_1, \dots, a_r \in \mathbb{Z}$ mit $0 \le a_i < m_i$.
+
+Finden wir eine Zahl kleiner als $M$, die kongruent zu $a_i$ modulo $m_i$ für alle $i$ ist? Die Antwort ist ja: Es gibt ein eindeutiges $x \in \mathbb{Z}$ mit $0 \le x < M$, so dass $x \equiv a_i \pmod{m_i}$ für alle $i = 1, \dots, r$.
+
+Das Problem von Sunzi hat also eine Lösung, und es hat immer eine Lösung, solange man voraussetzt, dass die $m_i$ paarweise teilerfremd sind. Wenn sie das nicht sind, ist es einfach, ein Gegenbeispiel zu finden. Sie können etwa keine Zahl haben, die kongruent $0$ modulo $3$ und gleichzeitig kongruent $1$ modulo $6$ ist; denn wenn sie kongruent $0$ modulo $3$ ist, muss sie auch kongruent $0$ modulo $6$ sein. Das geht nicht. Aber sobald sie teilerfremd sind, funktioniert es.
+\end{spoken-clean}
+
+\begin{math-stroke}[Der Chinesische Restsatz]
+\begin{theorem}[Chinesischer Restsatz]\label[theorem]{thm:chinesischer-restsatz}
+Seien $m_1, \dots, m_r \in \mathbb{N}$ paarweise teilerfremde natürliche Zahlen, d.\,h.
+\[
+\operatorname{ggT}(m_i, m_j) = 1 \quad \text{für } 1 \le i < j \le r.
+\]
+Sei $M := \prod_{i=1}^r m_i$. Dann existiert für beliebige Reste $a_1, \dots, a_r \in \mathbb{Z}$ mit $0 \le a_i < m_i$ eine eindeutig bestimmte Lösung $x \in \{0, \dots, M-1\}$ des simultanen Kongruenzsystems:
+\begin{align}
+    x &\equiv a_1 \pmod{m_1} \nonumber \\
+    x &\equiv a_2 \pmod{m_2} \nonumber \\
+    &\vdots \label{eq:crt-system} \\
+    x &\equiv a_r \pmod{m_r} \nonumber
+\end{align}
+\end{theorem}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:07:24 - 01:09:54]
+Beweis: Man konstruiert sogar, wie die Lösung aussieht. Wir definieren $M_i := M / m_i$. \inlinemetanote{schreibt an die Tafel} $M$ ist das Produkt aller Moduln, und $M_i$ ist das Produkt aller außer $m_i$.
+
+Dann ist natürlich $\operatorname{ggT}(M_i, m_i) = 1$, weil alle Faktoren von $M_i$ teilerfremd zu $m_i$ sind. Die zwei Zahlen sind also teilerfremd. Das heißt, wir finden ein multiplikatives Inverses für $M_i$ modulo $m_i$. Wir wählen $N_i$ so, dass $N_i \cdot M_i \equiv 1 \pmod{m_i}$. Daraus folgt insbesondere, dass $a_i \cdot N_i \cdot M_i \equiv a_i \pmod{m_i}$ ist. Was ergibt das aber, wenn wir das modulo $m_j$ mit $j \neq i$ betrachten? Dann ergibt das $0$, weil $M_i$ durch $m_j$ teilbar ist.
+\end{spoken-clean}
+
+\begin{math-stroke}[Beweis des Chinesischen Restsatzes]
+\begin{short-proof}
+\textbf{1. Konstruktion der Lösung:}
+
+Für jedes $i \in \{1, \dots, r\}$ definieren wir:
+\[
+M_i := \frac{M}{m_i} = \prod_{j \neq i} m_j.
+\]
+Da die $m_j$ paarweise teilerfremd sind, gilt $\operatorname{ggT}(M_i, m_i) = 1$. Nach Proposition \ref{prop:invertierbarkeit-zn} existiert ein multiplikatives Inverses $N_i \in \mathbb{Z}$ von $M_i$ modulo $m_i$, d.\,h.
+\begin{equation}\label{eq:crt-inverse}
+N_i \cdot M_i \equiv 1 \pmod{m_i}.
+\end{equation}
+Wir betrachten nun den Ausdruck $e_i := N_i \cdot M_i$. Für diesen gilt nach \eqref{eq:crt-inverse}:
+\[
+e_i \equiv 1 \pmod{m_i} \quad \text{und} \quad e_i \equiv 0 \pmod{m_j} \text{ für } j \neq i,
+\]
+da $m_j$ ein Teiler von $M_i$ ist. Wir setzen:
+\begin{equation}\label{eq:crt-solution}
+x' := \sum_{i=1}^r a_i \cdot N_i \cdot M_i = \sum_{i=1}^r a_i \cdot e_i.
+\end{equation}
+Für jedes $j \in \{1, \dots, r\}$ gilt dann modulo $m_j$:
+\[
+x' = \sum_{i=1}^r a_i \cdot e_i \equiv a_j \cdot e_j \equiv a_j \cdot 1 \equiv a_j \pmod{m_j}.
+\]
+Somit ist $x'$ eine Lösung des Systems \eqref{eq:crt-system}. Die Lösung im Bereich $\{0, \dots, M-1\}$ erhält man durch $x := x' \pmod M$.
+\end{short-proof}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:09:54 - 01:12:09]
+Es gilt also $a_i N_i M_i \equiv 0 \pmod{m_j}$ für $j \neq i$. Als Nächstes bilden wir $x'$ als die Summe aller $a_i \cdot M_i \cdot N_i$ für $i = 1, \dots, r$.
+
+Wenn wir jetzt die Summe über all diese nehmen, folgt, dass $x' \equiv a_i \pmod{m_i}$ für alle $i$ gilt. Denn für ein festes $i$ fallen alle Summanden mit $j \neq i$ weg, und für den Summanden $i$ ist es genau kongruent zu $a_i$. Wir können dann einfach ein $x \in \{0, \dots, M-1\}$ wählen mit $x \equiv x' \pmod M$. Dann wissen wir, dass $x$ immer noch kongruent zu $a_i$ modulo $m_i$ für alle $i$ ist.
+
+Die Eindeutigkeit ist ebenfalls klar: Falls $y \equiv x \pmod{m_i}$ für alle $i$ gilt, dann folgt, dass $m_i$ die Differenz $y - x$ für alle $i$ teilt. Daraus folgt aber auch, dass $M$ die Differenz $y - x$ teilt, da die $m_i$ paarweise teilerfremd sind. Somit ist $y \equiv x \pmod M$, was die Eindeutigkeit zeigt.
+\end{spoken-clean}
+
+\begin{math-stroke}[Eindeutigkeit der Lösung]
+\begin{short-proof}[Beweis der Eindeutigkeit]
+Seien $x, y \in \{0, \dots, M-1\}$ zwei Lösungen des Systems \eqref{eq:crt-system}. Dann gilt für alle $i \in \{1, \dots, r\}$:
+\[
+x \equiv a_i \equiv y \pmod{m_i} \implies m_i \mid (x - y).
+\]
+Da die Moduln $m_i$ paarweise teilerfremd sind, muss auch ihr Produkt $M$ die Differenz teilen:
+\[
+M \mid (x - y).
+\]
+Da jedoch $|x - y| < M$ gilt, folgt zwingend $x - y = 0$, also $x = y$.
+\end{short-proof}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:12:09 - 01:14:09]
+Das ist der Chinesische Restsatz in seiner elementarsten Form. Das kommt im täglichen Leben immer mal wieder vor, etwa wenn man überlegt, wann Feiertage nach wie vielen Jahren wieder auf denselben Tag fallen; solche Fragen kann man mit dem Chinesischen Restsatz beantworten.
+
+Vielleicht noch eine etwas bessere Art, das zu sehen: Falls $a \equiv b \pmod M$ ist --- wir verwenden dieselbe Notation wie oben ---, dann folgt auch $a \equiv b \pmod{m_i}$ für alle $i$. Das ist klar, da $M$ ein Vielfaches von $m_i$ ist. Wenn die Zahlen also modulo $M$ kongruent sind, sind sie es auch modulo $m_i$.
+
+Das heißt, wir erhalten eine wohldefinierte Abbildung $\psi \colon \mathbb{Z}_M \to \mathbb{Z}_{m_1} \times \dots \times \mathbb{Z}_{m_r}$, indem wir eine Restklasse $[a]_M$ auf das Tupel $([a]_{m_1}, \dots, [a]_{m_r})$ schicken. Der Chinesische Restsatz besagt nun nichts anderes, als dass diese Abbildung bijektiv ist.
+\end{spoken-clean}
+
+\begin{math-stroke}[Der Chinesische Restsatz als Ringisomorphismus]
+\begin{theorem}\label[theorem]{thm:crt-isomorphism}
+Seien $m_1, \dots, m_r$ paarweise teilerfremd und $M = \prod m_i$. Die Abbildung
+\begin{align*}
+    \psi: \mathbb{Z}_M &\to \mathbb{Z}_{m_1} \times \dots \times \mathbb{Z}_{m_r} \\
+    [a]_M &\mapsto ([a]_{m_1}, \dots, [a]_{m_r})
+\end{align*}
+ist ein \newterm{Ringisomorphismus}.
+\end{theorem}
+
+\begin{explanation-of-steps}
+\begin{itemize}
+    \item \textbf{Wohldefiniertheit:} Da $m_i \mid M$ für alle $i$, folgt aus $a \equiv b \pmod M$ sofort $a \equiv b \pmod{m_i}$.
+    \item \textbf{Bijektivität:} Die Existenz einer Lösung im Chinesischen Restsatz garantiert die Surjektivität, die Eindeutigkeit garantiert die Injektivität.
+    \item \textbf{Ringhomomorphismus:} Die Abbildung erhält Addition und Multiplikation komponentenweise:
+    \[
+    \psi([a+b]) = ([a+b]_{m_i})_i = ([a]_{m_i} + [b]_{m_i})_i = \psi([a]) + \psi([b]).
+    \]
+\end{itemize}
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:14:09 - 01:16:24]
+Gemäß dem Chinesischen Restsatz ist $\psi$ bijektiv. Es ist zudem ein Ringisomorphismus. Es gilt ja per Definition $\psi([a \cdot b]) = ([a \cdot b]_{m_i})_i$. Das ist das Tupel der Reste von $a \cdot b$ modulo $m_1$ bis $m_r$. Wir wissen, dass dies dasselbe ist wie das Produkt der einzelnen Komponenten. Das ist genau $\psi([a]) \cdot \psi([b])$.
+
+Wir haben hier also eine Ringstruktur auf jeder Komponente. Dann noch eine Bemerkung, die ich als kleine Übung lasse --- man kann es aber auch direkt sehen, da es ein Isomorphismus ist: Ein Element $[a]$ ist genau dann in der Einheitengruppe $\mathbb{Z}_M^*$ wenn $\psi([a])$ in $\mathbb{Z}_{m_1}^* \times \dots \times \mathbb{Z}_{m_r}^*$ liegt. Das heißt, es ist genau dann eine Einheit in $\mathbb{Z}_M$, wenn es modulo $m_1$, modulo $m_2$ und so weiter jeweils eine Einheit ist.
+\end{spoken-clean}
+
+\begin{math-stroke}[Einheiten unter dem Isomorphismus]
+\begin{remark}\label[remark]{rem:crt-units}
+Ein Element $[a]_M$ ist genau dann eine Einheit in $\mathbb{Z}_M$, wenn seine Bildkomponenten Einheiten in den jeweiligen Ringen $\mathbb{Z}_{m_i}$ sind:
+\[
+[a]_M \in \mathbb{Z}_M^* \iff \psi([a]_M) \in \mathbb{Z}_{m_1}^* \times \dots \times \mathbb{Z}_{m_r}^*.
+\]
+\end{remark}
+
+\begin{short-proof}[Beweis-Skizze]
+Ein Isomorphismus bildet Einheiten auf Einheiten ab. Da die Multiplikation im Produktring komponentenweise definiert ist, ist ein Tupel genau dann invertierbar, wenn jede Komponente invertierbar ist.
+\end{short-proof}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:16:24 - 01:18:39]
+Ich lasse das als kleine Übung, damit wir heute noch fertig werden. Es ist nicht schwierig zu beweisen. Aus dieser Bemerkung folgt die folgende Proposition: Falls $\operatorname{ggT}(m, n) = 1$ ist, so gilt $\varphi(m \cdot n) = \varphi(m) \cdot \varphi(n)$.
+
+Das heißt, die Eulersche $\varphi$-Funktion ist multiplikativ, solange $\operatorname{ggT}(m, n) = 1$ ist. Der Beweis folgt direkt aus der Bemerkung: Wir wissen, $\varphi(mn)$ ist die Anzahl der Elemente in $\mathbb{Z}_{mn}^*$. Diese Menge steht in Bijektion zu dem Produkt $\mathbb{Z}_m^* \times \mathbb{Z}_n^*$. Die Anzahl der Elemente in diesem Produkt ist genau das Produkt der Elementanzahlen der Faktoren. Das ist genau $\varphi(m) \cdot \varphi(n)$.
+
+Es gibt auch Formeln für $\varphi(m)$ im Allgemeinen, auch wenn der $\operatorname{ggT}$ nicht $1$ ist, aber wir beschränken uns hierauf. Ein direktes Korollar ist: Falls $p$ und $q$ Primzahlen sind, so gilt für $\varphi(p \cdot q)$... was wäre hier der korrekte Wert? Ja? $(p - 1)(q - 1)$, genau.
+
+Damit können wir noch einmal zur Kryptographie zurückkehren --- zum berühmten RSA-Verfahren. Ich denke, an vielen Orten wird heutzutage noch mit RSA verschlüsselt, etwa bei Browsern oder HTTPS; das liegt dem zugrunde, vielleicht in etwas modifizierten Versionen. Wir haben wieder das Problem, dass Alice etwas an Bob schicken möchte, und Eve hört alles mit. Das Ganze findet öffentlich statt. Die Idee bei diesem Kryptographieverfahren ist, dass man ein asymmetrisches Verfahren nutzt.
+\end{spoken-clean}
+
+\begin{math-stroke}[Korollar für Primzahlprodukte]
+\begin{corollary}\label[corollary]{cor:phi-pq}
+Seien $p, q$ zwei verschiedene Primzahlen. Dann gilt:
+\[
+\varphi(p \cdot q) = (p - 1)(q - 1).
+\]
+\end{corollary}
+\end{math-stroke}
+
+\section{Das RSA-Verfahren}
+
+\begin{spoken-clean}[01:20:54 - 01:23:24]
+Das heißt, die ganze Welt weiß, wie man Nachrichten an Bob verschlüsselt, aber nur Bob weiß, wie er diese Nachrichten wieder entschlüsseln kann. Deswegen nennt man es asymmetrisch. Bob publiziert einen öffentlichen Schlüssel, mit dem jeder etwas verschlüsseln kann, aber nur er kann es wieder entschlüsseln.
+
+Das ist ein bisschen so, als würde man beliebig viele Schlösser verteilen. Die Leute können dann etwas in eine Box legen, das Schloss anbringen und sie mir schicken. Aber nur ich habe den Schlüssel; selbst wenn Sie das Schloss anbringen, können Sie es nicht mehr öffnen. Auch hier war die Frage: Geht das überhaupt?
+
+Diese drei Informatiker und Kryptographen hatten eine clevere Idee, indem sie elementare Zahlentheorie verwendeten. Das funktioniert über die Primfaktorisierung: Bob nimmt zwei sehr große Primzahlen und multipliziert sie miteinander. Da er die Faktorisierung kennt, kann er $\varphi(n)$ ausrechnen.
+\end{spoken-clean}
+
+\begin{math-stroke}[RSA-Schlüsselerzeugung]
+\textbf{Schritt 1: Schlüsselerzeugung durch Bob}
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item Bob wählt zwei große, geheime Primzahlen $p$ und $q$ ($p \neq q$).
+    \item Er berechnet $n := p \cdot q$.
+    \item Er berechnet den Wert der Eulerschen Funktion: $\varphi(n) = (p-1)(q-1)$.
+    \item Er wählt eine Zahl $e$ mit $1 < e < \varphi(n)$, sodass $\operatorname{ggT}(e, \varphi(n)) = 1$.
+    \item Er berechnet das multiplikative Inverse $d$ von $e$ modulo $\varphi(n)$:
+    \begin{equation}\label{eq:rsa-d}
+    e \cdot d \equiv 1 \pmod{\varphi(n)}.
+    \end{equation}
+\end{enumerate}
+
+\textbf{Die Schlüssel:}
+\begin{itemize}
+    \item \newterm{Öffentlicher Schlüssel:} $(e, n)$ (wird publiziert).
+    \item \newterm{Geheimer Schlüssel:} $(d, n)$ (muss streng geheim bleiben).
+\end{itemize}
+
+\begin{explanation-of-steps}
+Nur Bob kann $\varphi(n)$ effizient berechnen, da nur er die Primfaktoren $p$ und $q$ kennt. Ohne Kenntnis von $\varphi(n)$ ist es (nach aktuellem Wissensstand) extrem schwierig, den Entschlüsselungsexponenten $d$ aus $e$ zu berechnen.
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:23:24 - 01:25:54]
+Es geht folgendermaßen: Bob wählt --- hoffentlich zufällig --- zwei verschiedene geheime Primzahlen $p$ und $q$ und definiert $n := p \cdot q$. Er wählt dann eine Zahl $e$ mit $1 < e < \varphi(n)$, wobei $\varphi(n) = (p - 1)(q - 1)$ ist.
+
+Dann berechnet er eine Zahl $d$, so dass $e \cdot d \equiv 1 \pmod{\varphi(n)}$. Nur Bob kennt $\varphi(n)$, weil nur er $p$ und $q$ kennt. Das $d$ zu finden, ist mit dem euklidischen Algorithmus nicht schwierig; das können auch Sie machen.
+
+Im nächsten Schritt publiziert Bob den Schlüssel $(e, n)$. Das ist sein öffentlicher Schlüssel. Das Paar $(d, n)$ ist sein geheimer Schlüssel; das sollte er auf keinen Fall jemandem verraten.
+\end{spoken-clean}
+
+\begin{math-stroke}[RSA-Verschlüsselung und Entschlüsselung]
+\textbf{Schritt 2: Verschlüsselung durch Alice}
+
+Alice möchte eine Nachricht $m$ (als Zahl $0 \le m < n$) an Bob senden. Sie nutzt Bobs öffentlichen Schlüssel $(e, n)$ und berechnet den Geheimtext $c$:
+\begin{equation}\label{eq:rsa-enc}
+c := m^e \pmod n.
+\end{equation}
+Sie sendet $c$ an Bob.
+
+\textbf{Schritt 3: Entschlüsselung durch Bob}
+
+Bob nutzt seinen geheimen Schlüssel $(d, n)$ und berechnet:
+\begin{equation}\label{eq:rsa-dec}
+m' := c^d \pmod n.
+\end{equation}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:25:54 - 01:28:02]
+Wenn Alice jetzt eine Nachricht schicken möchte, dann verschlüsselt sie diese. Eine Nachricht ist einfach eine Zahl $m$ zwischen $0$ und $n$. Sie berechnet $c := m^e \pmod n$. Dieses $c$ ist die Chiffre, die sie an Bob schickt.
+
+Eve kennt jetzt $n, e$ und $c$. Aber aus diesen Werten ist es sehr schwierig, $m$ wieder zu ermitteln. Für Bob hingegen ist das einfach: Er berechnet $c^d \pmod n$. Das ist dasselbe wie $(m^e)^d$ und somit $m^{e \cdot d}$.
+
+Das wiederum ist dasselbe wie $m^{k \cdot \varphi(n) + 1}$ für ein $k$. Wir wissen, dass das $(m^{\varphi(n)})^k \cdot m$ ist. Nach dem Satz von Euler ist $m^{\varphi(n)} \equiv 1 \pmod n$. Das Ganze ist also kongruent zu $m$ modulo $n$. So hat er die Nachricht $m$ wiedergefunden: Er muss einfach die Zahl $c$ von Alice nehmen und $c^d \pmod n$ berechnen, um die ursprüngliche Nachricht zurückzuerhalten.
+\end{spoken-clean}
+
+\begin{math-stroke}[Korrektheit des RSA-Verfahrens]
+\begin{short-proof}[Nachweis der Entschlüsselung]
+Bob berechnet $c^d \pmod n$. Einsetzen von \eqref{eq:rsa-enc} ergibt:
+\[
+c^d \equiv (m^e)^d \equiv m^{ed} \pmod n.
+\]
+Da $ed \equiv 1 \pmod{\varphi(n)}$, existiert ein $k \in \mathbb{Z}$ mit $ed = k \cdot \varphi(n) + 1$. Damit folgt:
+\[
+m^{ed} = m^{k \cdot \varphi(n) + 1} = (m^{\varphi(n)})^k \cdot m^1.
+\]
+Nach dem Satz von Euler (\cref{cor:euler}) gilt $m^{\varphi(n)} \equiv 1 \pmod n$ (falls $\operatorname{ggT}(m, n) = 1$). Somit:
+\[
+c^d \equiv (1)^k \cdot m \equiv m \pmod n.
+\]
+Bob erhält also die ursprüngliche Nachricht $m$ zurück.
+\end{short-proof}
+
+\begin{explanation-of-steps}[Sicherheit von RSA]
+Die Sicherheit beruht darauf, dass es nach heutigem Stand der Technik kein effizientes Verfahren gibt, um:
+\begin{enumerate}
+    \item eine große Zahl $n$ in ihre Primfaktoren $p$ und $q$ zu zerlegen (Faktorisierungsproblem), oder
+    \item die $e$-te Wurzel modulo $n$ zu ziehen, ohne $\varphi(n)$ zu kennen.
+\end{enumerate}
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:28:02 - 01:30:21]
+Das ist sehr elegant. Im Wesentlichen beruht es darauf, dass man modulo $n$ nicht so einfach die $e$-te Wurzel ziehen kann --- das ist sehr schwierig --- und dass man $n$ nicht einfach in seine Primfaktoren zerlegen kann.
+
+Noch ein kleiner Fun Fact: RSA ist nach den drei Wissenschaftlern benannt, die es erfunden haben: Rivest, Shamir und Adleman. Das war ein großer Durchbruch, sie wurden gefeiert, erhielten ein Patent und haben viel Geld damit verdient. Man hat aber später, als Archive geöffnet wurden, festgestellt, dass Mathematiker im Geheimdienst das schon zehn Jahre vorher entdeckt hatten. Sie haben das natürlich nicht publiziert.
+
+Die großen Geheimdienste --- namentlich die amerikanischen und britischen --- sind wichtige Arbeitgeber für Mathematiker. Ich habe einige Kollegen, die dort arbeiten; man kann dort wirklich Forschung in reiner Mathematik betreiben. Was die schon alles herausgefunden haben, wissen wir natürlich nicht.
+
+Gut. Vielen Dank und bis nächste Woche!
+\end{spoken-clean}
+
+\begin{nice-box}[Zusammenfassung der wichtigsten Konzepte]
+In dieser Vorlesung haben wir die Grundlagen der modularen Arithmetik und ihre Anwendungen in der Kryptographie erarbeitet:
+\begin{itemize}
+    \item \textbf{Der Ring $\mathbb{Z}_n$:} Die Menge der Äquivalenzklassen modulo $n$ bildet einen kommutativen Ring. Er ist genau dann ein Körper ($\mathbb{F}_p$), wenn $n$ eine Primzahl ist.
+    \item \textbf{Einheiten und $\varphi(n)$:} Ein Element $[a]$ ist invertierbar, wenn $\operatorname{ggT}(a, n) = 1$. Die Anzahl dieser Elemente ist $\varphi(n)$.
+    \item \textbf{Satz von Euler:} Für jede Einheit gilt $a^{\varphi(n)} \equiv 1 \pmod n$. Dies ist die Grundlage für RSA.
+    \item \textbf{Chinesischer Restsatz:} Erlaubt die Lösung simultaner Kongruenzen und liefert den Ringisomorphismus $\mathbb{Z}_{mn} \cong \mathbb{Z}_m \times \mathbb{Z}_n$ für teilerfremde $m, n$.
+    \item \textbf{Kryptographie:} Wir haben gesehen, wie Alice und Bob mit Diffie-Hellman einen Schlüssel tauschen und wie RSA asymmetrische Verschlüsselung ermöglicht.
+\end{itemize}
+\end{nice-box}
+
+% [SYSTEM] Refinement complete
+% [SYSTEM] Refinement complete

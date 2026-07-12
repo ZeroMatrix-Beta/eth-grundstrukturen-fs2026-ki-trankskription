@@ -1,0 +1,694 @@
+% ==========================================
+% LatexRefinement Step Output: step4-04-14-25-tuesday-all-offset-final.tex
+% Model: gemini-3.1-pro-preview
+% Temperature: 0.35
+% TopP: 0.93
+% TopK: 35
+% MaxOutputTokens: 65535
+% ThinkingBudget: 32768
+% ThinkingLevel: HIGH
+% Prompt Tokens: 25'241
+% Candidates Tokens: 15'676 (inkl. Thinking Tokens)
+% Cached Tokens: 0
+% Processed on: 2026-07-05 13:16:09
+% ==========================================
+
+% Primary Language: German
+
+\setcounter{chapter}{7}
+\lecturechapter{Dienstag}{14. Apr}{14. April 2026}{Auswahlaxiom und Ordinalzahlen}
+
+\begin{nice-box}[Agenda der Vorlesung]
+In dieser Vorlesung behandeln wir die folgenden Themen:
+\begin{itemize}
+    \item \textbf{Das Auswahlaxiom:} Wiederholung und formale Definition.
+    \item \textbf{Ordinalzahlen:} Intuition, formale Definition und Eigenschaften (Limes- und Nachfolgerordinalzahlen).
+    \item \textbf{Wohlordnungsprinzip:} Die Äquivalenz zum Auswahlaxiom.
+    \item \textbf{Transfinite Induktion und Rekursion:} Prinzipien und Anwendung (Existenz einer Basis für jeden Vektorraum).
+    \item \textbf{Äquivalenzen zum Auswahlaxiom:} Beweis der Äquivalenz von Wohlordnungsprinzip (WOP), Kuratowski-Zorn-Lemma (KZL) und Teichmüller-Prinzip (TP).
+\end{itemize}
+\end{nice-box}
+
+\section{Das Auswahlaxiom}
+
+\begin{spoken-clean}[00:00:00 - 00:01:00]
+Hallo zusammen und herzlich willkommen zu dieser zweiten Hälfte des Semesters. Ich hoffe, Sie hatten alle schöne, erholsame Osterferien. Das letzte Mal war ja Fabian Ziltener hier, hat mich hoffentlich gut vertreten und Ihnen vom Auswahlaxiom erzählt. Da werden wir jetzt fortfahren.
+
+Ich hoffe, Sie haben über die Ferien nicht schon wieder alles darüber vergessen. Da ich das letzte Mal nicht dabei war, ist es vielleicht nicht schlecht, nochmals durchzugehen, wo wir stehen. Sie haben das Auswahlaxiom gesehen --- Axiom of Choice. Wissen Sie noch, was das besagt? Gut, es gibt viele Möglichkeiten, das zu formulieren. Ja?
+\end{spoken-clean}
+
+\begin{student-interaction}[Studentenantwort]
+Wir haben eine Familie von Mengen, und wir können aus jeder Menge ein Element auswählen.
+\end{student-interaction}
+
+\begin{spoken-clean}[00:01:05 - 00:02:40]
+Genau, absolut richtig. Wir haben eine Familie von Mengen --- also eine Menge von Mengen --- und es ist immer möglich, dass wir aus jeder dieser Mengen gleichzeitig ein Element auswählen. Und diese Menge von Mengen sollte natürlich nicht leer sein, weil es dann offensichtlich nicht geht. Sie soll also die leere Menge nicht enthalten, weil wir aus der leeren Menge nie ein Element auswählen können.
+
+Formal ausgedrückt sagt uns das Auswahlaxiom also: Für alle $\mathcal{F}$ gilt, wenn die leere Menge nicht in der Familie $\mathcal{F}$ enthalten ist, dann existiert eine Funktion $f$. Diese Funktion $f$ ist nun eben eine Auswahlfunktion; sie soll jedem Element dieser Familie von Mengen ein Element aus dieser Menge zuordnen. Das heißt, wir wollen eine Funktion, die von $\mathcal{F}$ --- also von dieser Familie, das schreiben wir da oben hin --- zur Vereinigung von $\mathcal{F}$ geht. Für jede Menge in $\mathcal{F}$ erhalten wir also ein Element, das in irgendeinem dieser $\mathcal{F}$ enthalten ist. Wir wollen nun aber, dass für alle $X$ in $\mathcal{F}$ gilt, dass $f(X)$ in $X$ enthalten ist.
+\end{spoken-clean}
+
+\begin{math-stroke}[Das Auswahlaxiom]
+\begin{axiom}[Auswahlaxiom ($\text{AC}$)]\label[axiom]{ax:auswahlaxiom}
+Gesehen: $\text{AC}$ (Axiom of Choice)
+\begin{equation}
+\forall \mathcal{F} \left( \emptyset \notin \mathcal{F} \implies \exists f \left( f: \mathcal{F} \to \bigcup \mathcal{F} \land \forall X \in \mathcal{F} \, (f(X) \in X) \right) \right)
+\end{equation}
+\end{axiom}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:02:40 - 00:03:50]
+Das ist eine umständliche Art und Weise, um aufzuschreiben, dass wir für alle Familien von Mengen aus jeder Menge eines auswählen können. In Worten ausgedrückt: Jede Familie von nicht-leeren Mengen hat eine Auswahlfunktion. Und Sie haben gesehen, das ist wiederum äquivalent zu der Aussage: Das kartesische Produkt nicht-leerer Mengen ist nicht leer.
+\end{spoken-clean}
+
+\begin{math-stroke}[Äquivalente Formulierungen des Auswahlaxioms]
+\begin{center}
+Jede Familie von nicht-leeren Mengen hat eine \newterm{Auswahlfunktion}. \\
+$\iff$ \\
+Das kartesische Produkt nicht-leerer Mengen ist nicht leer.
+\end{center}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:03:50 - 00:05:30]
+So ausgedrückt erscheint es eigentlich sehr sinnvoll, das als Axiom zu haben. Es wäre nämlich schon sehr schlecht, wenn wir in der Mathematik arbeiten würden und nicht wüssten, ob ein Produkt von nicht-leeren Mengen vielleicht leer sein könnte. Aber das folgt eben nicht aus den Zermelo-Fraenkel-Axiomen; man muss es wirklich noch als zusätzliches Axiom annehmen.
+
+Trotzdem ist es von der Formulierung her vielleicht etwas, das man lieber beweisen würde. Als Axiom ist es doch ein bisschen umständlicher, als einfach nur zu sagen: Die leere Menge existiert. Deshalb hat es unter den Axiomen, die man heutzutage verwendet, einen etwas speziellen Status, weil es gefühlsmäßig nicht ganz wie ein typisches Axiom wirkt --- also wie etwas, das man unbedingt als Axiom haben möchte.
+
+Aber das ist jetzt auch nicht dramatisch. In der modernen Mathematik verwendet man das Auswahlaxiom regelmäßig. In der Regel schreibt man jedoch ausdrücklich dazu, wenn man es verwendet. Man beweist etwas und merkt an: Der Beweis verwendet das Auswahlaxiom. Ohne dieses Axiom wird vieles --- beispielsweise in der Algebra --- sehr, sehr mühsam, und viele Dinge stimmen dann vielleicht gar nicht mehr. So ausgedrückt ist es also sehr harmlos. Wir werden aber gleich sehen, dass es auch noch deutlich weniger harmlose Formulierungen davon gibt.
+\end{spoken-clean}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:05:30
+% topic: Auswahlaxiom (AC)
+% board_state: ax:auswahlaxiom
+% next_goal: Einführung der Ordinalzahlen
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\section{Ordinalzahlen}
+
+\begin{spoken-clean}[00:05:30 - 00:05:45]
+Und dazu haben Sie die Ordinalzahlen gesehen. Wissen Sie noch, was Ordinalzahlen sind? Haben Sie schon ein gutes intuitives Verständnis davon? Das ist nämlich das Wichtige. Ja?
+\end{spoken-clean}
+
+\begin{student-interaction}[Studentenantwort]
+Zahlen ohne, also über Omega sozusagen, mehr als unendlich.
+\end{student-interaction}
+
+\begin{spoken-clean}[00:05:50 - 00:07:15]
+Können auch weniger sein --- also Zahlen in $\omega$ sind auch schon Ordinalzahlen ---, aber man geht einfach noch weiter. Genau. Es geht im Prinzip darum: Man zählt $1, 2, 3, 4, 5, 6, 7, 8, 9, 10$ und dann möchte man einfach noch weiter nummerieren. Das geht formal durchaus. Wir zählen hier also $1, 2, 3, 4, 5, 6, 7, 8, 9, 10$, und da geht es immer weiter.
+
+Was man nun machen kann, ist zu sagen: Wir nehmen einfach noch eine neue Zahl dazu. Das ist dann ganz $\omega$. Das ist dann auch eine Ordinalzahl, und die ist einfach noch größer als alle vorherigen. Das ist kein Problem, es hört hier nicht auf. Dann können wir sagen: Nehmen wir noch eine dazu, die noch größer ist als diese, die ja bereits größer ist als alle anderen. Und das kann man dann wiederholen, so weit man möchte, und sagen: Nehmen wir eine, die nochmals größer ist als all diese. Und dann macht man das immer weiter, und das hört natürlich nie auf. Es ist also eine Verallgemeinerung des Zählens, aber es geht eben immer weiter.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:07:15 - 00:08:45]
+Das Wichtige ist, dass es nach oben a priori offen ist; man kann immer größere Ordinalzahlen bilden. Das Wichtige ist aber, dass es nach unten jeweils aufhört. Wenn man also eine Teilmenge nimmt, dann hat diese ein minimales Element. Das ist diese Sache mit der Wohlordnung. Das ist das Bild von den Ordinalzahlen. Am besten ist es --- ich meine, wir haben ja alle unsere eigenen Bilder von Ordinalzahlen ---, dass man sich das irgendwie vorstellt.
+
+Ich weiß nicht, wie stellen Sie sich die ganzen Zahlen vor? Auf einer Geraden? Oder auf einer Spirale? Oder von oben nach unten? Wer stellt sie sich auf einer Geraden vor? Okay. Wer stellt sie sich als etwas anderes als eine Gerade vor? Ja, spannend. Auf der Geraden: Bei wem geht es rechts positiv und links negativ? Okay, bei wem ist links positiv und rechts negativ? Ah, niemand, spannend. Geht es bei jemandem von oben nach unten? Gut, egal. Da gibt es ja durchaus alle Variationen. Vielleicht ist es eine Gerade, aber ist die Gerade in Ihrem Kopf schön linear angeordnet oder vielleicht eher logarithmisch? Sodass der Abstand zwischen $100$ und $200$ etwa so groß ist wie zwischen $1$ und $2$, und zwischen $1000$ und $2000$ auch wieder. Ich glaube, da hat jeder seine eigenen Vorstellungen. Das ist kein Problem, jeder stellt sich etwas anderes darunter vor, aber wir können formal gut darüber sprechen.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:08:45 - 00:10:00]
+Machen Sie sich bei Ordinalzahlen also Ihr eigenes Bild davon. Die schöne formale Definition, mit der wir alle arbeiten können, lautet: Eine Menge $\alpha$ ist eine Ordinalzahl, falls $\alpha$ transitiv ist und durch die Relation $\in$ --- also \qt{enthalten in} oder \qt{Element von} --- wohlgeordnet ist.
+
+Das wiederum ist a priori eine etwas mühsame Definition. Eine Ordinalzahl ist also eine Menge. Aber das ist ja nichts Spezielles für uns: In Zermelo-Fraenkel haben wir nichts anderes als Mengen. Zahlen --- also ganze Zahlen --- sind ja auch Mengen. Von daher sind das alles Mengen, daran darf man sich nicht stören lassen. Und wissen Sie noch, was transitiv bedeutet? Ja?
+\end{spoken-clean}
+
+\begin{student-interaction}[Studentenantwort]
+Jedes Element ist auch eine Teilmenge.
+\end{student-interaction}
+
+\begin{spoken-clean}[00:10:05 - 00:11:30]
+Genau. Jedes Element von $\alpha$ ist auch eine Teilmenge von $\alpha$. Also $\alpha$ besteht aus Mengen, und die Elemente von $\alpha$ --- also diese Mengen --- sind auch Teilmengen.
+
+Und dann durch $\in$ wohlgeordnet: Das heißt, wenn wir zwei Elemente in $\alpha$ haben, $\gamma$ und $\delta$, dann muss entweder $\gamma$ in $\delta$ enthalten sein, oder $\delta$ in $\gamma$ enthalten sein, oder die beiden sind gleich. Und diese Relation soll eine Wohlordnung definieren. Eine wichtige Eigenschaft, die ich vorher schon erwähnt habe, ist also: Diese Ordinalzahlen sind wohlgeordnet. Das heißt, nach unten gibt es immer ein minimales Element, wenn Sie eine Teilmenge nehmen.
+\end{spoken-clean}
+
+\begin{math-stroke}[Äquivalente Definition der Ordinalzahl]
+\begin{definition}[Ordinalzahl]\label[definition]{def:ordinalzahl2}
+Folgende Definition ist zur Definition \cref{def:ordinalzahl} äquivalent: Eine Menge $\alpha$ ist eine \newterm{Ordinalzahl}, falls $\alpha$ transitiv ist und durch die Relation $\in$ wohlgeordnet ist.
+\end{definition}
+\end{math-stroke}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:11:30
+% topic: Ordinalzahlen
+% board_state: def:ordinalzahl
+% next_goal: Beispiele für Ordinalzahlen (Natürliche Zahlen, Omega)
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\begin{spoken-clean}[00:11:30 - 00:13:30]
+Gut, und das wichtige Beispiel ist eben, dass die natürlichen Zahlen --- oder eben $\omega$ --- Ordinalzahlen sind. Also $0$, das war die leere Menge; dann hatten wir $1$, das ist die Menge, die nur die leere Menge enthält; $2$, das ist die Menge, die die leere Menge enthält und die Menge bestehend aus der leeren Menge; bei $3$ geht es dann immer so weiter. Und da sehen Sie natürlich: Jede von diesen Zahlen --- also Mengen --- erfüllt diese Bedingung.
+
+Dann kann man aber auch $\omega$ selbst betrachten. Da nimmt man nicht nur all diese Zahlen, sondern die Menge all dieser Zahlen. Und dann kann man wieder weitermachen: $\omega + 1$, da nehmen wir die Menge bestehend aus $\omega$ und der Menge bestehend aus $\omega$. Und dann haben wir $\omega + 2$ und so weiter. Und das kann man jetzt auch wieder weitermachen bis $2\omega$ und so weiter --- das hört nicht mehr auf. Gut. Das sind die Ordinalzahlen.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:13:30 - 00:15:30]
+Das ist auch noch eine wichtige Bemerkung; wir werden nächste Woche dann mit Kardinalzahlen weiterfahren. Vielleicht nochmals eine kurze Bemerkung dazu: Wir sehen hier bei endlichen Zahlen, für endliche Mengen ist das eine das Abzählen --- $1, 2, 3, 4, 5, 6, 7$ --- und das andere ist die Anzahl der Elemente, also die Kardinalität, die eine endliche Menge haben kann. Die möglichen endlichen Kardinalitäten sind dasselbe wie die endlichen Ordinalzahlen. 
+
+Aber im Unendlichen sind diese zwei Begriffe zwei verschiedene Sachen. Als Menge ist diese Ordinalzahl abzählbar, und jene Ordinalzahl ist auch abzählbar. Das heißt, sie haben dieselbe Kardinalität. Aber als Ordinalzahlen ist die eine natürlich größer als die andere.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\textbf{Beispiel:} Natürliche Zahlen $n \in \omega$ sind Ordinalzahlen.
+\begin{align*}
+0 &= \emptyset \\
+1 &= \{ \emptyset \} \\
+2 &= \{ \emptyset, \{ \emptyset \} \} \\
+3 &= \{ \emptyset, \{ \emptyset \}, \{ \emptyset, \{ \emptyset \} \} \} \\
+&\vdots
+\end{align*}
+Aber auch $\omega$ ist eine Ordinalzahl:
+\begin{align*}
+\omega+1 &= \omega \cup \{ \omega \} \\
+\omega+2 &= (\omega+1) \cup \{ \omega+1 \} \\
+&\vdots
+\end{align*}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:15:30 - 00:15:45]
+Gut, also ein wichtiges, schönes und auch lustiges Konzept, diese Ordinalzahlen. Man braucht sie hin und wieder in der Mathematik. Ja?
+\end{spoken-clean}
+
+\begin{student-interaction}[Studentenfrage]
+Ist $\omega+1$ nicht $2\omega$?
+\end{student-interaction}
+
+\begin{spoken-clean}[00:15:50 - 00:16:20]
+Nein, das hat alle Elemente, die in $\omega$ enthalten sind. Wir haben die Menge $\omega$, und dann nehmen wir einfach --- das ist die Definition von $\omega+1$, das ist einfach der Nachfolger von $\omega$ --- wieder die Menge, die Sie in $\omega$ schon haben, und packen noch das $\omega$ dazu. Es ist wie hier: Das hier ist $2+1$, das heißt, es ist $2$ und die Menge $2$.
+\end{spoken-clean}
+
+\begin{student-interaction}[Studentenfrage]
+...
+\end{student-interaction}
+
+\begin{spoken-clean}[00:16:25 - 00:19:20]
+Doch, also gehen wir zurück zu dem Beispiel hier. Da haben wir $3$, das enthält $2$. Das heißt, es enthält die leere Menge, die Menge mit der leeren Menge, und es enthält auch noch $2$ als Menge. So ist es gemeint, ja. Und da machen wir genau das hier auch.
+
+Dann haben Sie diesen Satz gesehen, den wir nicht bewiesen haben. Wir gehen jetzt auch nicht zu tief in die Ordinalzahlen rein, weil es doch ein Gebiet ist, das außerhalb der Logik zwar hin und wieder Anwendung findet, aber nicht sehr oft. Deswegen haben wir da nicht so viele Beweise gemacht. Aber Sie haben diesen Fakt gesehen: Es gibt zwei verschiedene Arten von Ordinalzahlen. Falls $\alpha$ eine Ordinalzahl ist --- sagen wir $\alpha$ ungleich $0$ ---, dann haben wir entweder den Fall, dass $\alpha$ die Vereinigung von allen Elementen ist, die in $\alpha$ enthalten sind. In diesem Fall ist $\alpha$ eine Limesordinalzahl. Oder wir haben den Fall, dass $\alpha$ eine Nachfolgerordinalzahl ist. In dem Fall ist $\alpha$ gleich $\beta + 1$. Das ist nur eine Terminologie; das folgt aus dem Satz, den Sie letztes Mal gesehen haben. Gut.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\textbf{Fakt:} Falls $\alpha \neq 0$ eine Ordinalzahl ist, so gilt entweder:
+\[
+\alpha = \bigcup \alpha \quad (\alpha \text{ ist eine \newterm{Limesordinalzahl}})
+\]
+oder es gibt ein $\beta$, sodass
+\[
+\alpha = \beta + 1 \quad (\alpha \text{ ist eine \newterm{Nachfolgerordinalzahl}})
+\]
+\end{math-stroke}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:17:30
+% topic: Arten von Ordinalzahlen
+% board_state: Fakt zu Limes- und Nachfolgerordinalzahlen
+% next_goal: Wohlordnungsprinzip
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\section{Wohlordnungsprinzip}
+
+\begin{spoken-clean}[00:19:20 - 00:21:00]
+Und dann haben Sie das Wohlordnungsprinzip gesehen. Das ist jetzt vielleicht der skandalöse Teil des Auswahlaxioms. Es sagt aus, dass jede Menge wohlgeordnet werden kann. Und hoffentlich haben Sie letztes Mal gesehen, dass das Auswahlaxiom äquivalent zum Wohlordnungsprinzip ist.
+
+Für abzählbare Mengen ist es klar, dass wir sie wohlordnen können. Nehmen wir zum Beispiel $\mathbb{Q}$, die rationalen Zahlen. Natürlich sind sie mit der üblichen Ordnung, die wir auf den rationalen Zahlen haben, nicht wohlgeordnet. Aber wir können einfach sagen: Wir wissen, die rationalen Zahlen sind abzählbar. Das heißt, wir finden eine Bijektion zu den natürlichen Zahlen, also zu $\omega$, und somit haben wir eine Wohlordnung auf den rationalen Zahlen.
+
+Ich weiß nicht, ob sich jemand über die Ferien die Zeit genommen hat, einmal zu überlegen, wie man die reellen Zahlen explizit wohlordnen kann. Hat sich das mal jemand überlegt? Jede Menge kann wohlgeordnet werden; das heißt, es existiert auf den reellen Zahlen eine Wohlordnung. Wir finden also eine Ordnung auf den reellen Zahlen, sodass jede Teilmenge ein minimales Element hat. Wenn man nun versucht, da zu basteln und zu überlegen, wird man herausfinden, dass man nicht darauf kommt.
+
+Das liegt tatsächlich auch in der Natur der Sache. Das Auswahlaxiom ist unabhängig von den anderen Zermelo-Fraenkel-Axiomen. Das heißt, wenn man es nicht annimmt, dann wissen wir nicht, ob es eine Wohlordnung auf den reellen Zahlen gibt. Niemand kennt eine explizite Wohlordnung auf den reellen Zahlen. Wenn man sich nun überlegt, dass wir das Axiom annehmen, dass wir die reellen Zahlen wohlordnen können, dann erscheint das schon ein bisschen fragwürdig --- dass man so etwas Starkes annimmt. Aber es ist eben äquivalent zu etwas, das wiederum sehr, sehr natürlich aussieht. Deswegen nimmt man in der Regel an, dass das Auswahlaxiom gilt und das Wohlordnungsprinzip somit auch.
+\end{spoken-clean}
+
+\begin{math-stroke}[Das Wohlordnungsprinzip]
+\begin{principle}[Wohlordnungsprinzip (\text{WOP})]\label[principle]{prin:wop}
+Jede Menge kann wohlgeordnet werden.
+\end{principle}
+
+Gesehen: $\text{AC} \iff \text{WOP}$
+\end{math-stroke}
+
+\begin{spoken-clean}[00:21:00 - 00:25:00]
+Vielleicht einfach zur Grundidee des Beweises --- und das verwenden wir auch, das war dieses Lemma, das besagt: Für jede Menge gibt es eine Ordinalzahl und eine Bijektion zwischen dieser Ordinalzahl und der Menge. Die wichtige Grundidee des Beweises ist also, dass es für jede Menge $M$ eine Ordinalzahl $\lambda$ und eine Bijektion --- nennen wir sie $f_\lambda$ --- zwischen $\lambda$ und $M$ gibt. Und wenn wir eine solche Bijektion haben, dann erhalten wir natürlich eine Wohlordnung auf der Menge $M$. Das ist die Grundidee. Das werden wir im Folgenden auch noch verwenden, das ist sehr nützlich.
+\end{spoken-clean}
+
+\begin{math-stroke}[Grundidee des Beweises]
+Gesehen im Beweis:
+Für jede Menge $M$ gibt es eine Ordinalzahl $\lambda$ und eine Bijektion $f_\lambda: \lambda \to M$.
+\end{math-stroke}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:23:30
+% topic: Wohlordnungsprinzip
+% board_state: prin:wop
+% next_goal: Transfinite Induktion und Rekursion
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\section{Transfinite Induktion und Rekursion}
+
+\begin{spoken-clean}[00:25:00 - 00:27:15]
+Heute wollen wir noch weitere Äquivalenzen zum Auswahlaxiom beweisen. Wir wollen zeigen, dass das Lemma von Kuratowski-Zorn äquivalent zum Auswahlaxiom ist, und dasselbe gilt für das Teichmüller-Prinzip. Das folgt alles ein bisschen denselben Ideen. Ich hoffe, Sie werden ein Gefühl dafür erhalten, was genau das Auswahlaxiom von diesem Gesichtspunkt aus besagt. Das hängt auch alles mit diesem Wohlordnungsprinzip zusammen.
+
+Die Idee dahinter ist die transfinite Induktion und transfinite Rekursion. Ich werde das nicht beweisen. Sie haben ja gesehen, Fabian Ziltener hat für dieses Kapitel seine eigenen Notizen hochgeladen. Wir folgen jetzt ein bisschen seinen Notizen und ein bisschen den Notizen von Lorenz Halbeisen. Dort finden Sie auch die Referenzen und Beweise für diese Sachen.
+
+Zuerst zur transfiniten Induktion. Die Idee ist: Wir haben das Induktionsprinzip für natürliche Zahlen. Wir wissen: Wenn etwas für $0$ stimmt und es für ein Element stimmt, dann stimmt es auch für das Nachfolgerelement --- und somit für alle natürlichen Zahlen. Dasselbe kann man auch für transfinite Zahlen, also für Ordinalzahlen, machen.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:27:15 - 00:29:30]
+Dazu verwendet man eine bestimmte Notation. Ich finde die immer etwas fragwürdig, aber das machen die Leute nun mal so: Anstatt zu schreiben \qt{sei $\lambda$ eine Ordinalzahl}, schreibt man \qt{sei $\lambda \in \Omega$}. Das ist insofern natürlich problematisch, weil $\Omega$ keine Menge ist. Es ist eine Klasse --- also eine Menge im naiven Sinn ---, deswegen kann man das schon so schreiben. Das heißt aber nicht, dass es irgendetwas mit der Signatur von Zermelo-Fraenkel zu tun hat. Es heißt einfach nichts anderes als \qt{sei $\lambda$ eine Ordinalzahl}. Es dient lediglich der Abkürzung. Das ist noch ein wichtiger Punkt.
+
+Sei nun $\varphi$ eine Formel, sodass Folgendes gilt: Wir haben eine Formel $\varphi$ und ein Element $\lambda \in \Omega$. Für jedes $\alpha \in \lambda$ --- also für jede dieser Ordinalzahlen, die kleiner sind als $\lambda$ --- soll gelten: Falls für jedes $\beta \in \alpha$ die Formel $\varphi(\beta)$ gilt, dann gilt auch $\varphi(\alpha)$. Wir nehmen jetzt an, dass diese Bedingung erfüllt ist.
+
+Die transfinite Induktion besagt nun: Dann gilt $\varphi(\alpha)$ für jedes $\alpha \in \lambda$. Das ist die Aussage. Sie haben also etwas, und Sie wissen: Wenn es für alle kleineren Elemente gilt, dann gilt es auch für $\alpha$. Und wenn das der Fall ist, dann gilt es tatsächlich für alle Elemente in Ihrer Ordinalzahl. Das ist die transfinite Induktion.
+\end{spoken-clean}
+
+\begin{math-stroke}[Transfinite Induktion]
+\begin{principle}[Transfinite Induktion]\label[principle]{prin:transfinite-induktion}
+Sei $\lambda \in \Omega$ und $\varphi$ eine Formel, sodass:
+Für jedes $\alpha \in \lambda$ gilt:
+Falls für jedes $\beta \in \alpha$ die Formel $\varphi(\beta)$ gilt, dann gilt $\varphi(\alpha)$.
+
+Dann gilt $\varphi(\alpha)$ für jedes $\alpha \in \lambda$.
+\end{principle}
+\end{math-stroke}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:29:30
+% topic: Transfinite Induktion
+% board_state: prin:transfinite-induktion
+% next_goal: Transfinite Rekursion
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\begin{spoken-clean}[00:29:30 - 00:31:30]
+Die transfinite Rekursion ist ganz ähnlich; sie erlaubt uns, rekursive Definitionen für Ordinalzahlen zu machen. Den Beweis dazu finden Sie im Skript von Ziltener. Wenn man es aufschreibt, wirkt auf den ersten Blick vielleicht ein bisschen technisch.
+
+Sie besagt: Sei $A$ eine Menge und $\lambda$ eine Ordinalzahl. Und sei $f$ eine Funktion, die von der Vereinigung aller Funktionen von den Ordinalzahlen, die in $\lambda$ enthalten sind, nach $A$ geht. Das heißt, jeder Funktion von einem $\beta$ nach $A$ wird ein neues Element von $A$ zugeordnet. Dann gibt es eine eindeutige Funktion --- nennen wir sie $a$ --- von $\lambda$ nach $A$, sodass $a_\beta$ (also $a(\beta)$) genau $f$ angewandt auf $a$ eingeschränkt auf $\beta$ ist. Und das gilt für alle $\beta \in \lambda$.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:31:30 - 00:33:40]
+Das ist auf den ersten Blick ein ziemlicher Hirntwister, wenn man schaut, was da vor sich geht. Aber es ist eigentlich genau so, wie wir es für rekursive Definitionen über den natürlichen Zahlen gewohnt sind. Wir können etwas rekursiv definieren, indem wir einfach sagen: Was macht es für das erste Element, also für die $0$? Und dann sagen noch: Wenn wir es für alle kleineren Elemente bereits definiert haben, wie können wir es dann für das nächstgrößere definieren? Und genau das macht das $f$ hier.
+
+Wir müssen uns eigentlich vorstellen, wir hätten gerne eine Folge von Elementen in $A$. Und zwar eine transfinite Folge, das heißt, die Indexmenge ist $\lambda$. Eine Folge ist ja nichts anderes als eine Abbildung von $\lambda$ nach $A$. Was wir gegeben haben, ist Folgendes: Wir können die Funktion von $\beta$ nach $A$ anschauen --- das sind alle vorherigen Folgenglieder. Und wir wissen, wie wir daraus etwas Neues konstruieren können. Das wissen wir für alle vorherigen Folgen. Das ist quasi die rekursive Bedingung. Und der Satz sagt uns jetzt einfach: In dem Fall können wir das fortsetzen; es gibt tatsächlich eine Funktion, die das für ganz $\lambda$ macht.
+\end{spoken-clean}
+
+\begin{math-stroke}[Transfinite Rekursion]
+\begin{principle}[Transfinite Rekursion]\label[principle]{prin:transfinite-rekursion}
+Sei $A$ eine Menge, $\lambda \in \Omega$
+und $f: \bigcup_{\beta \in \lambda} {}^{\beta}A \to A$.
+
+Dann gibt es eine eindeutige Funktion
+$a: \lambda \to A$ sodass
+\[
+a_\beta = a(\beta) = f(a|_\beta)
+\]
+für alle $\beta \in \lambda$.
+\end{principle}
+
+Beweis: siehe Skript Ziltener
+\end{math-stroke}
+
+\begin{spoken-clean}[00:33:40 - 00:36:40]
+Als Beispiel für die natürlichen Zahlen ist das genau das, was wir wollen. Nehmen wir zum Beispiel die Fibonacci-Folge. Die Fibonacci-Folge ist eine Folge von natürlichen Zahlen; hier ist unser $\lambda$ also $\omega$, und unser $A$ ist ebenfalls $\omega$. Wir wollen jetzt für jedes Element in $\omega$ eine Zahl haben. Die Fibonacci-Folge ordnet jeder natürlichen Zahl eine neue Zahl zu.
+
+Um die Fibonacci-Folge zu definieren, wissen wir: $F_0$ ist $0$, $F_1$ ist $1$, und $F_n$ ist gegeben durch $F_{n-2} + F_{n-1}$ für $n \ge 2$. Der Satz sagt uns jetzt eben, dass eine solche Funktion $a$ tatsächlich existiert.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\textbf{Beispiel:} $\lambda = \omega$, $A = \omega$
+Fibonacci-Folge
+$a: \omega \to \omega$
+\begin{align*}
+F_0 &= 0, \quad F_1 = 1 \\
+F_n &= F_{n-2} + F_{n-1} \quad \text{für } n \ge 2
+\end{align*}
+$\implies$ ein solches $a$ existiert.
+\end{math-stroke}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:35:30
+% topic: Transfinite Rekursion
+% board_state: prin:transfinite-rekursion
+% next_goal: Beispiel: Jeder Vektorraum hat eine Basis
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\begin{spoken-clean}[00:36:40 - 00:36:55]
+Das ist auch Standard. Wenn Sie transfinite Rekursion googeln, finden Sie das oder noch allgemeinere Sachen. Ein schönes Beispiel, das wir uns dazu anschauen können, ist der Satz: Jeder Vektorraum hat eine Basis.
+\end{spoken-clean}
+
+\begin{proof}[Jeder Vektorraum hat eine Basis]
+\begin{spoken-clean}[00:36:55 - 00:38:40]
+Wie möchte man das beweisen? Im Prinzip haben wir unsere Elemente im Vektorraum, und die können wir durch eine Ordinalzahl indexieren. Wir wissen, es gibt eine Bijektion von einer Ordinalzahl zum Vektorraum. Es existiert also eine Ordinalzahl $\lambda$ und eine Bijektion von $\lambda$ nach $V$. Das heißt, wir können $V$ als die Menge der $v_\beta$ schreiben, wobei $\beta \in \lambda$ ist. Wir können die Elemente in $V$ also durch $\beta$ indexieren.
+
+Was wir nun eigentlich machen, ist Folgendes: Wir beginnen mit dem nullten Vektor, also dem ersten Vektor $v_0$. Danach nehmen wir immer einen Vektor dazu und gehen zum nächsten. Wenn dieser linear unabhängig zu denjenigen ist, die wir bereits haben, nehmen wir ihn dazu. Wenn er linear abhängig ist, nehmen wir ihn nicht dazu. Und so gehen wir durch alle $\beta$ durch. Für jeden Vektor entscheiden wir: Ist er linear unabhängig von denjenigen, die wir bereits ausgewählt haben? Wenn ja, nehmen wir ihn dazu, ansonsten nicht. Das machen wir bis zum Ende, bis wir alle Vektoren durchgegangen sind, und was am Schluss übrig bleibt, ist eine Basis.
+
+Das ist genau das, was wir im endlichen Fall auch machen. Sie nehmen einen Vektor, dann nehmen Sie einen zweiten dazu und schauen: Ist dieser linear unabhängig? Wenn ja, nehmen Sie ihn dazu. Dann schauen Sie: Gibt es noch irgendeinen, der linear unabhängig ist? Wenn ja, nehmen Sie ihn dazu, und irgendwann haben Sie eine Basis.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:38:40 - 00:40:40]
+Und das ist genau das, was wir im unendlichen Fall auch machen. Aber um das wirklich sauber aufzuschreiben, macht man das über diese transfinite Rekursion. Wir nehmen als unsere Zielmenge $A$ jetzt die Potenzmenge von $V$, da wir mit Teilmengen von $V$ arbeiten wollen. Sei also $f$ eine Funktion, die von den Funktionen von $\beta$ in die Potenzmenge von $V$ wiederum in die Potenzmenge von $V$ abbildet.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:40:40 - 00:42:40]
+Wir müssen nun einfach rekursiv definieren, wie wir die nächstgrößere Menge bilden. Das definieren wir folgendermaßen: Wenn $t$ eine Funktion von $\beta$ in die Potenzmenge von $V$ ist, dann definieren $f(t)$ über verschiedene Fallunterscheidungen. Wir sagen, das soll die leere Menge sein, falls $\beta = 0$ ist. Wir beginnen also mit der leeren Menge.
+\end{spoken-clean}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:41:30
+% topic: Beweis: Jeder Vektorraum hat eine Basis
+% board_state: Transfinite Rekursion für Basis
+% next_goal: Abschluss des Beweises
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\begin{spoken-clean}[00:42:40 - 00:44:40]
+Falls wir $\beta$ als Nachfolgerordinalzahl von einem $\delta$ schreiben können --- also $\beta = \delta+1$ ---, dann nehmen wir $t(\delta)$ und fügen den Vektor $v_\delta$ hinzu, sofern die Menge $t(\delta) \cup \{v_\delta\}$ linear unabhängig ist. Ansonsten, wenn sie linear abhängig ist, belassen wir es einfach bei $t(\delta)$.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:44:40 - 00:45:25]
+Ja, das ist ein bisschen mühsam aufzuschreiben. Das war jetzt der Fall, dass $\beta$ eine Nachfolgerordinalzahl ist. Falls $\beta$ eine Limesordinalzahl ist, dann nehmen wir einfach die Vereinigung von allen $t(\delta)$, wobei $\delta$ kleiner als $\beta$ ist. Das ist quasi unsere Rekursionsdefinition.
+
+Gemäß der transfiniten Rekursion wissen wir nun, dass eine Funktion $a$ von $\lambda$ in diese Potenzmenge existiert, sodass $a(\beta)$ genau $f(a|_\beta)$ ist. Wir definieren nun $B$ einfach als die Vereinigung all dieser $a(\beta)$. Die Behauptung ist jetzt --- das möchte ich noch ganz kurz erwähnen ---, dass $B$ tatsächlich eine Basis ist. $B$ ist also linear unabhängig.
+
+Das kann man zeigen, indem man sich überlegt: Wenn wir irgendeine endliche Teilmenge von Vektoren in $B$ haben, dann müssen diese bereits in irgendeinem dieser $a(\beta)$ enthalten sein, und die $a(\beta)$ sind nach Konstruktion alle linear unabhängig. Das ist die Idee. Vielleicht können Sie das selbst noch ausarbeiten, wenn es nicht ganz klar ist. Oder wissen Sie was, wir machen das nach der Pause noch sauber fertig, das ist vielleicht besser. Machen wir eine kurze Pause und in einer Viertelstunde weiter.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{short-proof}
+Es existiert ein $\lambda \in \Omega$ und eine Bijektion $\lambda \to V$.
+Wir können also schreiben: $V = \{ v_\beta \mid \beta \in \lambda \}$.
+
+Sei $A = \mathcal{P}(V)$ und $f: \bigcup_{\beta \in \lambda} {}^{\beta}\mathcal{P}(V) \to \mathcal{P}(V)$.
+Für $t: \beta \to \mathcal{P}(V)$ definieren wir $f(t)$ als:
+\[
+f(t) = \begin{cases}
+\emptyset & \text{falls } \beta = 0 \\
+t(\delta) \cup \{v_\delta\} & \text{falls } \beta = \delta+1 \text{ und } t(\delta) \cup \{v_\delta\} \text{ ist linear unabhängig} \\
+t(\delta) & \text{falls } \beta = \delta+1 \text{ und } t(\delta) \cup \{v_\delta\} \text{ ist linear abhängig} \\
+\bigcup_{\delta \in \beta} t(\delta) & \text{falls } \beta \text{ eine Limesordinalzahl ist}
+\end{cases}
+\]
+
+Gemäß der transfiniten Rekursion existiert ein $a: \lambda \to \mathcal{P}(V)$, sodass $a(\beta) = f(a|_\beta)$.
+Definiere $A_\beta := a(\beta)$ und $B := \bigcup_{\beta \in \lambda} A_\beta$.
+
+\textbf{Behauptung:} $B$ ist eine Basis.
+(D.\,h. $B$ ist linear unabhängig und erzeugt $V$).
+\end{short-proof}
+\end{math-stroke}
+
+\begin{lecture-break}[Pause]
+Der Dozent kündigt eine Pause an. Nach der Pause wird der Beweis fortgesetzt.
+\end{lecture-break}
+
+\begin{spoken-clean}[00:45:25 - 00:47:00]
+Noch ein paar Bemerkungen zu Fragen aus der Pause, die vielleicht für alle relevant sind. Erstens: Wie man sich Ordinalzahlen vorstellen kann. Ich würde sagen, solange sie abzählbar sind, kann man sie sich sehr gut vorstellen --- und zwar effektiv einfach als abzählbare Teilmengen von $\mathbb{R}$.
+
+Wir können uns zum Beispiel die Zahlen $1 - \frac{1}{n}$ anschauen, wobei $n$ eine natürliche Zahl ungleich Null ist. Wir betrachten also das Intervall zwischen $0$ und $1$. Dann haben wir $0$, ein Halb, zwei Drittel und so weiter. Da kommen wir immer näher an die $1$ heran, erreichen sie aber nie ganz. Das ist eine wohlgeordnete Menge: Jede Teilmenge hat ein kleinstes Element. Sie ist also nach unten wohlgeordnet, aber nicht nach oben.
+
+Wenn wir da nun die $1$ noch dazunehmen, dann sehen wir: Die Folge kommt immer näher an die $1$ heran, und dann haben wir als Abschluss noch die $1$. Diese $1$ ist wirklich größer als alle anderen Elemente davor. Das ist kein Problem, das verhält sich dann genau wie $\omega$. Es gibt eine Bijektion von dieser Menge zu $\omega$. Und dann können wir sagen: Nehmen wir einfach noch ein weiteres Element dazu, das noch größer ist. Man könnte zum Beispiel $2 - \frac{1}{2}$ dazunehmen. Dann hat man $\omega + 2$ und so weiter. Das kann man dann wiederholen: Man geht immer näher an die $2$ heran und nimmt dann die $2$ selbst noch dazu. Das wäre dann $2\omega$. Und das kann man auf den ganzen reellen Zahlen immer weitermachen, bis man bei $\omega \cdot \omega$ ankommt. Sich das vorzustellen, ist also gut machbar.
+\end{spoken-clean}
+
+\begin{didactic-insight}[Visualisierung von abzählbaren Ordinalzahlen]
+Die Einbettung von Ordinalzahlen in die reellen Zahlen ist eine hervorragende Methode, um sich die Struktur von Limes- und Nachfolgerordinalzahlen vorzustellen. Die Menge $\{1 - \frac{1}{n} \mid n \in \mathbb{N} \setminus \{0\}\}$ hat den Ordnungstyp $\omega$. Fügt man den Grenzwert $1$ hinzu, erhält man den Ordnungstyp $\omega + 1$. Wiederholt man diesen Prozess im Intervall $[1, 2)$, erhält man $\omega + \omega = \omega \cdot 2$. Solange die Ordinalzahlen abzählbar sind, lassen sie sich als wohlgeordnete Teilmengen von $\mathbb{R}$ visualisieren.
+\end{didactic-insight}
+
+\begin{spoken-clean}[00:47:00 - 00:49:10]
+Neben diesem \qt{Immer-näher-an-den-Rand-Gehen} finden Sie auch schöne Bilder auf Wikipedia. Ich glaube, wo die Vorstellung aufhört --- zumindest bei mir ---, ist, sobald die Ordinalzahlen überabzählbar werden. Wie man sich das dann vorstellt, ist deutlich schwieriger. Deswegen haben wir ja auch solche Mühe, die reellen Zahlen wohlzuordnen. Da muss man dann wirklich sehr formal werden.
+
+Dann nochmals zu dieser transfiniten Rekursion: Das $f$ hier sagt uns wirklich, wenn Sie irgendein $\beta$ kleiner als $\lambda$ nehmen, dann haben Sie eine Folge mit Elementen in $A$, indiziert durch $\beta$. Und das $f$ sagt Ihnen jetzt, wie Sie aus einer solchen Folge das nächste Folgenglied ausrechnen.
+
+Bei den Fibonacci-Zahlen haben wir $F_n$ definiert als $F_{n-1} + F_{n-2}$. Wir können aus all diesen vorherigen Dingen --- wir haben ja die ganze bisherige Folge gegeben --- das nächste Folgenglied ausrechnen. Und das ist genau das, was das $f$ hier macht. Wenn man diese Vorgabe hat, dann liefert uns das eine eindeutige Folge.
+
+Nochmals zur Diskussionsfrage von vorhin: Ich habe ein paar Klammern zu viel gemacht. Wenn wir eine Ordinalzahl $\lambda$ haben, dann ist $\lambda + 1$ gegeben als $\lambda \cup \{\lambda\}$ --- und nicht als $\lambda \cup \{\{\lambda\}\}$. Das war mein Fehler. Also ein Korrigendum für diejenigen, die es auf dem Video schauen, Korrigendum zu Minute $8$ oder so: $\lambda + 1$ ist $\lambda \cup \{\lambda\}$. Sie waren zu Recht verwirrt, dankeschön.
+\end{spoken-clean}
+
+\begin{math-stroke}[Korrektur zur Nachfolgerordinalzahl]
+\begin{remark}[Korrektur: Nachfolgerordinalzahl]
+Für eine Ordinalzahl $\lambda$ ist der Nachfolger $\lambda + 1$ definiert als:
+\[
+\lambda + 1 = \lambda \cup \{\lambda\}
+\]
+und \emph{nicht} als $\lambda \cup \{\{\lambda\}\}$.
+\end{remark}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:49:10 - 00:52:08]
+Gut, jetzt wollen wir aber noch zeigen, dass das tatsächlich eine Basis ist. Wir müssen etwas vorwärtsmachen, damit wir noch rechtzeitig fertig werden. Wo waren wir stehen geblieben? Wir haben gesagt, wie wir diese Rekursion definieren: Wir nehmen einen Vektor, schauen uns die vorherigen Vektoren an und nehmen den neuen dazu, falls er linear unabhängig ist. Wenn er aber linear abhängig ist, dann nehmen wir $v_\delta$ nicht dazu. Wir wissen nun, es gibt dieses $A_\beta$.
+
+Als Erstes können wir bemerken: Gemäß Konstruktion sind diese $A_\beta$ natürlich alle linear unabhängig. Wir beginnen mit der leeren Menge, und die leere Menge ist linear unabhängig. Danach nehmen wir immer nur dann etwas dazu, wenn die Menge linear unabhängig bleibt. Die $A_\beta$ sind also linear unabhängig.
+
+Wir wollen jetzt zeigen, dass die Vereinigung ebenfalls linear unabhängig ist. Das folgt daraus, dass die $A_\beta$ eine aufsteigende Kette bilden, was man mit transfiniter Induktion zeigen kann. Die Behauptung ist nun, dass $A_\lambda$ eine Kette ist.
+
+Wie beweisen wir das? Seien $x, y \in A_\lambda$. Das heißt, $x$ liegt in irgendeinem $A_\beta$ und $y$ in einem $A_\gamma$ für $\beta, \gamma \in \lambda$. Da die Ordinalzahlen wohlgeordnet sind, ist eines davon kleiner oder gleich dem anderen. Ohne Beschränkung der Allgemeinheit nehmen wir an, dass $\beta \le \gamma$ gilt. Daraus folgt, dass $x$ und $y$ beide in $A_\gamma$ enthalten sind. Und da $A_\gamma$ eine Kette ist, kann man je zwei Elemente vergleichen. Das Ganze ist also eine Kette. Hier spüren wir auch wieder sehr stark den Geschmack vom Zorn-Lemma und dem Teichmüller-Prinzip.
+\end{spoken-clean}
+
+\begin{math-stroke}[Beweis der linearen Unabhängigkeit und Erzeugendeneigenschaft]
+\begin{remark}[Lineare Unabhängigkeit der Kette]
+Die $A_\beta$ sind linear unabhängig (folgt mit transfiniter Induktion).
+\end{remark}
+
+\begin{claim}[Ketteneigenschaft der Vereinigung]
+$A_\lambda$ ist eine Kette.
+\end{claim}
+\begin{short-proof}
+Seien $x, y \in A_\lambda$.
+Dann existieren $\beta, \gamma \in \lambda$ mit $x \in A_\beta$ und $y \in A_\gamma$.
+Da $\lambda$ wohlgeordnet ist, gilt (o.\,B.\,d.\,A.) $\beta \le \gamma$.
+Da die $A_\beta$ eine aufsteigende Kette bilden ($A_\beta \subseteq A_\gamma$), gilt $x, y \in A_\gamma$.
+Da $A_\gamma$ eine Kette ist, sind $x$ und $y$ vergleichbar.
+\end{short-proof}
+\end{math-stroke}
+
+\begin{didactic-insight}[Klärung zur Terminologie]
+An dieser Stelle vermischt der Dozent leicht die Terminologie des Vektorraum-Beweises mit dem darauffolgenden Beweis zum Zornschen Lemma. Im Kontext des Vektorraums bilden die Mengen $A_\beta$ eine aufsteigende Kette bezüglich der Inklusion (d.\,h. $A_\beta \subseteq A_\gamma$ für $\beta \le \gamma$). Die Vereinigung $B = \bigcup A_\beta$ ist linear unabhängig, da jede endliche Teilmenge von $B$ bereits in einem der $A_\beta$ liegen muss und diese nach Konstruktion linear unabhängig sind. Der formale Beweis, dass eine Kette vorliegt, leitet direkt über zum Beweis, dass das Wohlordnungsprinzip das Kuratowski-Zorn-Lemma impliziert.
+\end{didactic-insight}
+\end{proof}
+
+\section{Äquivalenz von WOP, KZL und TP}
+
+\begin{math-stroke}[Übersicht der Äquivalenzen]
+\begin{theorem}\label[theorem]{thm:aequivalenzen-ac}
+Die folgenden Aussagen sind äquivalent zu $\text{AC}$:
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item \textbf{WOP} (Wohlordnungsprinzip)
+    \item \textbf{KZL} (Kuratowski-Zorn-Lemma)
+    \item \textbf{TP} (Teichmüller-Prinzip)
+\end{enumerate}
+\end{theorem}
+\end{math-stroke}
+
+\subsection{WOP impliziert KZL}
+
+\begin{proof}[Beweis: $\text{WOP} \implies \text{KZL}$]
+\begin{spoken-clean}[00:52:08 - 00:54:00]
+Gut, wo sind wir? Wir wollen zeigen, dass es ein maximales Element hat. Das Wohlordnungsprinzip haben wir dafür schon verwendet. Wir können das hier an der Tafel auswischen.
+
+Wir wissen jetzt, dass $A_\lambda$ eine Kette ist. Die zweite Behauptung ist nun, dass jede obere Schranke von $A_\lambda$ maximal ist. Das folgt eigentlich schon fast wieder aus der Konstruktion. Angenommen, $m$ ist eine obere Schranke von $A_\lambda$, und wir nehmen an, dass $m$ nicht maximal ist. Das heißt, es gibt irgendein $p \in P$ --- das ist ja indiziert, also irgendein $p_\delta \in P$ --- mit $m < p_\delta$. Sonst wäre es ja maximal.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:54:00 - 00:56:45]
+Daraus folgt jetzt aber, dass $p_\delta$ eine obere Schranke von $A_\delta$ ist, weil $A_\delta$ nach Definition in $A_\lambda$ enthalten ist. Dann würde aber daraus folgen, dass wir $p_\delta$ hinzufügen müssten, wenn wir zu $A_{\delta+1}$ übergehen. Und das ist in $A_\lambda$ offensichtlich passiert, also ist $p_\delta \in A_\lambda$. Da $m$ aber eine obere Schranke von $A_\lambda$ ist, müsste $p_\delta \le m$ gelten. Das ist ein direkter Widerspruch zu unserer Annahme $m < p_\delta$. Das beweist, dass $m$ ein maximales Element ist. Wir haben also gezeigt: Aus dem Wohlordnungsprinzip folgt das Lemma von Kuratowski und Zorn.
+\end{spoken-clean}
+
+\begin{math-stroke}
+Sei $(P, \le)$ eine nicht-leere partiell geordnete Menge, sodass jede Kette $C \subseteq P$ eine obere Schranke in $P$ hat.
+Zu zeigen: $P$ hat ein maximales Element.
+
+Nach $\text{WOP}$ existiert eine Wohlordnung auf $P$.
+Sei $P = \{ p_\beta \mid \beta \in \lambda \}$ für eine Ordinalzahl $\lambda \in \Omega$.
+
+Wir definieren rekursiv eine Kette in $P$.
+Sei $f: \bigcup_{\beta \in \lambda} {}^{\beta}\mathcal{P}(P) \to \mathcal{P}(P)$.
+Für $t: \beta \to \mathcal{P}(P)$ definiere:
+\[
+f(t) = \begin{cases}
+\emptyset & \text{falls } \beta = 0 \\
+t(\delta) \cup \{p_\delta\} & \text{falls } \beta = \delta+1 \text{ und } t(\delta) \cup \{p_\delta\} \text{ ist eine Kette} \\
+t(\delta) & \text{falls } \beta = \delta+1 \text{ und } t(\delta) \cup \{p_\delta\} \text{ ist keine Kette} \\
+\bigcup_{\delta \in \beta} t(\delta) & \text{falls } \beta \text{ eine Limesordinalzahl ist}
+\end{cases}
+\]
+Sei $A_\beta$ die durch transfinite Rekursion erhaltene Menge und $A_\lambda = \bigcup_{\beta \in \lambda} A_\beta$.
+
+\begin{claim}[Vereinigung der aufsteigenden Kette ist eine Kette]
+$A_\lambda$ ist eine Kette.
+\end{claim}
+(Beweis analog zu vorher: Die $A_\beta$ bilden eine aufsteigende Folge von Ketten).
+
+Da $A_\lambda$ eine Kette ist, hat sie nach Voraussetzung eine obere Schranke $m \in P$.
+
+\begin{claim}[Maximalität der oberen Schranke]
+$m$ ist ein maximales Element in $P$.
+\end{claim}
+\begin{short-proof}
+Angenommen, $m$ ist nicht maximal. Dann existiert ein $p_\delta \in P$ mit $m < p_\delta$.
+Da $m$ eine obere Schranke von $A_\lambda$ ist, gilt für alle $x \in A_\lambda$, dass $x \le m < p_\delta$.
+Insbesondere ist $p_\delta$ eine obere Schranke von $A_\delta \subseteq A_\lambda$.
+Dann ist $A_\delta \cup \{p_\delta\}$ eine Kette.
+Nach Konstruktion wird $p_\delta$ im Schritt $\delta+1$ hinzugefügt: $A_{\delta+1} = A_\delta \cup \{p_\delta\}$.
+Somit ist $p_\delta \in A_\lambda$.
+Da $m$ eine obere Schranke von $A_\lambda$ ist, muss $p_\delta \le m$ gelten.
+Dies ist ein Widerspruch zu $m < p_\delta$.
+Somit ist $m$ maximal.
+\end{short-proof}
+\end{math-stroke}
+\end{proof}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:56:45
+% topic: WOP impliziert KZL
+% board_state: Beweis WOP -> KZL
+% next_goal: Einführung Teichmüller-Prinzip
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\subsection{Das Teichmüller-Prinzip}
+
+\begin{spoken-clean}[00:56:45 - 00:58:30]
+Gut, jetzt beweisen wir, dass das Lemma von Kuratowski und Zorn das Teichmüller-Prinzip impliziert. Wir zeigen also die Implikationen im Kreis: von WOP zu KZL, von KZL zu TP und von TP zurück zum Auswahlaxiom.
+
+Wir machen jetzt wieder unsere transfinite Rekursion. Wir nehmen $P$ als eine nicht-leere Partialordnung und indizieren die Elemente in $P$ durch eine Ordinalzahl $\beta \in \Omega$. Wir fixieren also eine Ordinalzahl und wollen dann rekursiv ein entsprechendes $f$ definieren.
+\end{spoken-clean}
+
+\begin{math-stroke}[Das Teichmüller-Prinzip]
+\begin{definition}[Familie mit endlichem Charakter]\label[definition]{def:endlicher-charakter}
+Eine Familie $\mathcal{M}$ von Mengen hat \newterm{endlichen Charakter}, falls für jede Menge $X$ gilt:
+\[
+X \in \mathcal{M} \iff \text{jede endliche Teilmenge von } X \text{ ist in } \mathcal{M}
+\]
+\end{definition}
+
+\begin{principle}[Teichmüller-Prinzip (\text{TP})]\label[principle]{prin:teichmueller}
+Ist $\mathcal{F}$ eine nicht-leere Familie von Mengen mit endlichem Charakter, so hat $\mathcal{F}$ ein maximales Element (bezüglich $\subseteq$).
+\end{principle}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:58:30 - 01:00:30]
+Kommen wir zum Teichmüller-Prinzip. Oswald Teichmüller war ein sehr guter Mathematiker in den 30er Jahren in Deutschland, aber kein sehr guter Mensch. Er war ein sehr überzeugter Nazi, hat sich freiwillig gemeldet, um an der Ostfront zu kämpfen, und ist dann dort auch gestorben. Er hat aber viele einflussreiche mathematische Resultate bewiesen.
+
+Das Teichmüller-Prinzip besagt: Falls $\mathcal{F}$ eine nicht-leere Familie von Mengen mit endlichem Charakter ist, so hat $\mathcal{F}$ ein maximales Element bezüglich der Inklusion. Auch hier sehen wir wieder den Bezug zum Vektorraum: Wir wissen, dass Teilmengen von linear unabhängigen Vektoren einen endlichen Charakter haben. Mit dem Teichmüller-Prinzip wissen wir folglich, dass es ein maximales Element bezüglich der Inklusion gibt --- also eine maximale Teilmenge von linear unabhängigen Vektoren. Und dann kann man einfach zeigen, dass daraus folgt, dass dies eine Basis ist.
+\end{spoken-clean}
+
+\begin{didactic-insight}[Teichmüller-Prinzip und Basisexistenz]
+Das Teichmüller-Prinzip liefert einen sehr eleganten Beweis für die Existenz von Basen in beliebigen Vektorräumen. Die Eigenschaft "linear unabhängig" hat endlichen Charakter: Eine unendliche Menge von Vektoren ist genau dann linear unabhängig, wenn jede ihrer endlichen Teilmengen linear unabhängig ist. Wendet man das Teichmüller-Prinzip auf die Familie aller linear unabhängigen Teilmengen eines Vektorraums an, erhält man sofort die Existenz einer maximalen linear unabhängigen Teilmenge, was genau der Definition einer Basis entspricht.
+\end{didactic-insight}
+
+\subsection{KZL impliziert TP}
+
+\begin{proof}[Beweis: $\text{KZL} \implies \text{TP}$]
+\begin{spoken-clean}[01:00:30 - 01:03:00]
+Was wir jetzt beweisen wollen, ist der Satz, dass die folgenden Aussagen äquivalent zum Auswahlaxiom sind: Das erste ist das Wohlordnungsprinzip, das zweite das Kuratowski-Zorn-Lemma und das dritte das Teichmüller-Prinzip. 
+
+Dass das Wohlordnungsprinzip das Kuratowski-Zorn-Lemma impliziert, haben wir gerade gemacht. Jetzt zeigen wir, dass das Kuratowski-Zorn-Lemma das Teichmüller-Prinzip impliziert. Wir nehmen also an, dass das Kuratowski-Zorn-Lemma gilt, und wollen zeigen, dass dann auch das Teichmüller-Prinzip gilt. Dazu nehmen wir eine nicht-leere Familie $\mathcal{F}$ von Mengen mit endlichem Charakter.
+
+Wir haben hier natürlich eine Partialordnung, die durch die Inklusion gegeben ist. $\mathcal{F}$ zusammen mit der Inklusion ist also eine nicht-leere Partialordnung. Das ist ohnehin die wichtigste Partialordnung, die man im mathematischen Alltag antrifft.
+
+Wir betrachten nun eine Kette in $\mathcal{F}$, nennen wir sie $\mathcal{C}$. Diese Kette hat als obere Schranke die Vereinigung von allen Elementen in $\mathcal{C}$. Wir müssen uns jetzt nur noch fragen: Ist diese Vereinigung wieder in $\mathcal{F}$ enthalten?
+\end{spoken-clean}
+
+\begin{math-stroke}
+Sei $\mathcal{F}$ eine nicht-leere Familie von Mengen mit endlichem Charakter.
+$(\mathcal{F}, \subseteq)$ ist eine nicht-leere Partialordnung.
+
+Sei $\mathcal{C} \subseteq \mathcal{F}$ eine Kette.
+Wir behaupten, dass $\bigcup \mathcal{C}$ eine obere Schranke von $\mathcal{C}$ in $\mathcal{F}$ ist.
+Klar ist, dass $\bigcup \mathcal{C}$ eine obere Schranke bezüglich $\subseteq$ ist. Wir müssen zeigen, dass $\bigcup \mathcal{C} \in \mathcal{F}$.
+\end{math-stroke}
+
+\begin{spoken-clean}[01:03:00 - 01:05:00]
+Ja, das ist sie. Weshalb? Wir wissen, $\mathcal{F}$ hat endlichen Charakter. Das heißt, alle endlichen Teilmengen der Mengen in $\mathcal{C}$ sind in $\mathcal{F}$ enthalten. Folglich sind auch alle endlichen Teilmengen dieser großen Vereinigung in $\mathcal{F}$ enthalten. Und somit liegt auch die Vereinigung selbst wieder in $\mathcal{F}$. Ich werde das jetzt nicht im Detail aufschreiben, damit wir noch fertig werden. Wir können nun das Kuratowski-Zorn-Lemma anwenden und folgern, dass $\mathcal{F}$ ein maximales Element bezüglich der Inklusion besitzt.
+\end{spoken-clean}
+
+\begin{math-stroke}
+Da $\mathcal{F}$ endlichen Charakter hat, gilt $\bigcup \mathcal{C} \in \mathcal{F}$ genau dann, wenn jede endliche Teilmenge $E \subseteq \bigcup \mathcal{C}$ in $\mathcal{F}$ liegt.
+Sei $E \subseteq \bigcup \mathcal{C}$ eine endliche Teilmenge, $E = \{x_1, \dots, x_n\}$.
+Für jedes $x_k \in E$ existiert ein $C_k \in \mathcal{C}$ mit $x_k \in C_k$.
+Da $\mathcal{C}$ eine Kette ist, sind die $C_k$ total geordnet. Da es nur endlich viele sind, existiert ein maximales $C_{\text{max}} \in \{C_1, \dots, C_n\}$.
+Dann gilt $E \subseteq C_{\text{max}}$.
+Da $C_{\text{max}} \in \mathcal{F}$ und $\mathcal{F}$ endlichen Charakter hat, ist jede endliche Teilmenge von $C_{\text{max}}$ in $\mathcal{F}$.
+Somit ist $E \in \mathcal{F}$.
+Da dies für jede endliche Teilmenge $E \subseteq \bigcup \mathcal{C}$ gilt, folgt $\bigcup \mathcal{C} \in \mathcal{F}$.
+
+Somit hat jede Kette in $\mathcal{F}$ eine obere Schranke in $\mathcal{F}$.
+Nach dem Kuratowski-Zorn-Lemma ($\text{KZL}$) besitzt $\mathcal{F}$ ein maximales Element.
+Dies beweist das Teichmüller-Prinzip ($\text{TP}$).
+\end{math-stroke}
+\end{proof}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 01:05:00
+% topic: KZL impliziert TP
+% board_state: Beweis KZL -> TP
+% next_goal: TP impliziert AC
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\subsection{TP impliziert AC}
+
+\begin{proof}[Beweis: $\text{TP} \implies \text{AC}$]
+\begin{spoken-clean}[01:05:00 - 01:07:30]
+Wir wissen nun also: Aus dem Kuratowski-Zorn-Lemma folgt das Teichmüller-Prinzip. Jetzt wollen wir noch zeigen, dass das Teichmüller-Prinzip das Auswahlaxiom impliziert.
+
+Wir nehmen an, dass das Teichmüller-Prinzip gilt. Dazu sei $\mathcal{F}$ eine Familie von nicht-leeren Mengen. Wir definieren jetzt $\mathcal{E}$ als die Menge aller Auswahlfunktionen $g$ für Teilfamilien $\mathcal{G} \subseteq \mathcal{F}$. Wir betrachten also einfach Teilfamilien von $\mathcal{F}$ und schauen uns Auswahlfunktionen darauf an. Das heißt, $\mathcal{E}$ ist die Menge aller partiellen Auswahlfunktionen.
+\end{spoken-clean}
+
+\begin{math-stroke}
+Sei $\mathcal{F}$ eine Familie von nicht-leeren Mengen.
+Wir definieren die Menge $\mathcal{E}$ aller partiellen Auswahlfunktionen:
+\[
+\mathcal{E} = \{ g \subseteq \mathcal{F} \times \bigcup \mathcal{F} \mid g \text{ ist Auswahlfunktion für eine Teilfamilie } \mathcal{G} \subseteq \mathcal{F} \}
+\]
+\end{math-stroke}
+
+\begin{spoken-clean}[01:07:30 - 01:10:00]
+Man kann nun bemerken, dass $\mathcal{E}$ endlichen Charakter hat. Aus dem Teichmüller-Prinzip folgt dann, dass es ein maximales Element $f_0$ in $\mathcal{E}$ gibt. Man kann dann zeigen, dass die Domäne von $f_0$ ganz $\mathcal{F}$ sein muss. Somit ist $f_0$ eine globale Auswahlfunktion auf $\mathcal{F}$. Das war ganz kurz die Beweisidee. Die Details finden Sie im Skript von Lorenz Halbeisen. Sie können sich das in Ruhe überlegen, bei Fragen auf uns zukommen oder es mit Ihren Assistenten diskutieren. 
+
+Gut, vielen Dank fürs Kommen. Ich wünsche Ihnen eine gute Woche und bis nächsten Dienstag!
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{claim}[Endlicher Charakter der partiellen Auswahlfunktionen]
+$\mathcal{E}$ hat endlichen Charakter.
+\end{claim}
+\begin{short-proof}
+Eine Menge von Paaren $g$ ist genau dann eine partielle Auswahlfunktion, wenn jede endliche Teilmenge von $g$ eine partielle Auswahlfunktion ist. Die Bedingungen (Rechtseindeutigkeit und $g(X) \in X$) lassen sich auf endlichen Teilmengen prüfen.
+\end{short-proof}
+
+Nach dem Teichmüller-Prinzip ($\text{TP}$) besitzt $\mathcal{E}$ ein maximales Element $f_0$.
+
+\begin{claim}[Definitionsbereich der maximalen Auswahlfunktion]
+$\operatorname{dom}(f_0) = \mathcal{F}$.
+\end{claim}
+\begin{short-proof}
+Angenommen, $\operatorname{dom}(f_0) \neq \mathcal{F}$. Dann existiert ein $X \in \mathcal{F}$ mit $X \notin \operatorname{dom}(f_0)$.
+Da $\mathcal{F}$ eine Familie nicht-leerer Mengen ist, gilt $X \neq \emptyset$.
+Wähle ein $x \in X$.
+Definiere $f' = f_0 \cup \{(X, x)\}$.
+Dann ist $f'$ eine partielle Auswahlfunktion, also $f' \in \mathcal{E}$.
+Es gilt $f_0 \subsetneq f'$, was ein Widerspruch zur Maximalität von $f_0$ in $\mathcal{E}$ ist.
+Somit muss $\operatorname{dom}(f_0) = \mathcal{F}$ gelten.
+\end{short-proof}
+
+Da $\operatorname{dom}(f_0) = \mathcal{F}$, ist $f_0$ eine Auswahlfunktion für die gesamte Familie $\mathcal{F}$.
+Dies beweist das Auswahlaxiom ($\text{AC}$).
+\end{math-stroke}
+\end{proof}
+
+\begin{meta-note}[Ende der Vorlesung]
+Der Dozent beendet die Vorlesung und verabschiedet die Studierenden.
+\end{meta-note}
+
+\begin{spoken-clean}[01:10:00 - 01:29:21]
+\inlinemetanote{Die Tonspur ist stumm bzw. enthält Hintergrundgeräusche nach der Vorlesung. Der Dozent packt zusammen und die Studierenden verlassen den Saal.}
+\end{spoken-clean}
+
+\begin{nice-box}[Zusammenfassung der wichtigsten Konzepte]
+\begin{itemize}
+    \item \textbf{Auswahlaxiom (AC):} Jede Familie von nicht-leeren Mengen besitzt eine Auswahlfunktion.
+    \item \textbf{Ordinalzahlen:} Transitive Mengen, die durch die Elementrelation $\in$ wohlgeordnet sind. Sie erweitern das Konzept der natürlichen Zahlen ins Transfinite.
+    \item \textbf{Wohlordnungsprinzip (WOP):} Jede Menge kann wohlgeordnet werden. Es ist äquivalent zum Auswahlaxiom.
+    \item \textbf{Transfinite Induktion und Rekursion:} Verallgemeinerungen der vollständigen Induktion und Rekursion auf wohlgeordnete Klassen (Ordinalzahlen).
+    \item \textbf{Äquivalenzen:} Das Auswahlaxiom ($\text{AC}$), das Wohlordnungsprinzip ($\text{WOP}$), das Kuratowski-Zorn-Lemma ($\text{KZL}$) und das Teichmüller-Prinzip ($\text{TP}$) sind logisch äquivalent.
+\end{itemize}
+\end{nice-box}
