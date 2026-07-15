@@ -1,0 +1,1118 @@
+% ==========================================
+% LatexRefinement Step Output: step4-02-24-25-tuesday-all-offset-final.tex
+% Model: gemini-3.5-flash
+% Temperature: 0.33
+% TopP: 0.95
+% TopK: 40
+% MaxOutputTokens: 65535
+% ThinkingBudget: 32765
+% ThinkingLevel: HIGH
+% Prompt Tokens: 47'007
+% Candidates Tokens: 24'104 (inkl. Thinking Tokens)
+% Cached Tokens: 40'993
+% Processed on: 2026-07-15 18:22:49
+% ==========================================
+
+\lecturechapter{2}{Dienstag}{24. Feb}{24. Februar 2025}{Formale Beweise und Theorien}
+
+\begin{nice-box}[Vorlesungsübersicht \& Kontext]
+In dieser Vorlesung vertiefen wir die formalen Grundlagen der Prädikatenlogik erster Stufe und führen den Begriff des formalen Beweises ein. Folgende Themen werden behandelt:
+\begin{itemize}
+    \item \textbf{Wiederholung:} Alphabet, Terme, Formeln und logische Axiome.
+    \item \textbf{Formale Beweise:} Die Schlussregeln des Modus Ponens und der Verallgemeinerung.
+    \item \textbf{Deduktionstheorem (DT):} Metamathematische Grundlagen zur Vereinfachung von Beweisen.
+    \item \textbf{Mathematische Theorien:} Formalisierung von Ringtheorie, Körpertheorie, Ordnungstheorie, Peano-Arithmetik und ZFC-Mengenlehre.
+\end{itemize}
+\end{nice-box}
+
+\section{Wiederholung: Alphabet, Terme und Formeln}
+
+\begin{spoken-clean}[00:00:00 - 00:01:04]
+Hallo zusammen und willkommen zurück zur zweiten Woche von Grundstrukturen. 
+
+Normalerweise arbeite ich ja nicht so gerne mit Beamer, aber wir haben letzte Woche so viele neue Begriffe eingeführt; ich glaube, es ist nicht schlecht, diese nochmals einfach kurz durchzugehen, damit wir uns wieder kurz erinnern, um was es geht, und uns in diese Welt der abstrakten Formeln einarbeiten. 
+
+Wir haben zuerst angefangen, die Symbole zu definieren, mit denen wir arbeiten: das Alphabet. Da haben wir gesehen, es gibt --- wie wir es definiert haben --- die logischen Symbole. Da gibt es Variablen --- davon beliebig viele, so viele wie man braucht. Es gibt logische Operatoren, also eben so Und, Oder, Nicht, Es-folgt. Dann gibt es die logischen Quantoren: den Allquantor und den Existenzquantor. Und dann gibt es die Gleichheitsrelation. Das sind so die logischen Symbole, die haben wir immer.
+\end{spoken-clean}
+
+\begin{math-stroke}[Das Alphabet der Prädikatenlogik erster Stufe]
+\textbf{Logische Symbole (in jeder Sprache vorhanden):}
+\begin{itemize}
+    \item \textbf{Variablen:} $x, y, z, v_0, v_1, v_2, \dots$ (unendlich viele)
+    \item \textbf{Logische Operatoren:} $\neg$ (nicht), $\wedge$ (und), $\vee$ (oder), $\rightarrow$ (impliziert)
+    \item \textbf{Logische Quantoren:} $\forall$ (Allquantor), $\exists$ (Existenzquantor)
+    \item \textbf{Gleichheitsrelation:} $=$
+\end{itemize}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:01:04 - 00:01:27]
+Genau, und diese haben wir überall. Und dann gibt es die nicht-logischen Symbole. Das hängt dann von der Theorie ab, mit der wir arbeiten --- von der Signatur. Da haben wir gesehen, es gibt Konstantensymbole, es gibt Funktionssymbole und Relationssymbole. 
+
+Okay, das ist einfach das Alphabet, das wir haben, aber das sind a priori nur --- nur --- Symbole, nichts anderes.
+\end{spoken-clean}
+
+\begin{math-stroke}[Nicht-logische Symbole und Signatur]
+\textbf{Nicht-logische Symbole (theorieabhängig):}
+\begin{itemize}
+    \item \textbf{Konstantensymbole:} z.\,B. $0, 1$ (in der Arithmetik) oder $\emptyset$ (in der Mengenlehre)
+    \item \textbf{Funktionssymbole:} z.\,B. $+$, $\cdot$ (mit zugeordneter Stelligkeit)
+    \item \textbf{Relationssymbole:} z.\,B. $<$, $\le$, $\in$ (mit zugeordneter Stelligkeit)
+\end{itemize}
+
+\begin{definition}[Signatur]\label[definition]{def:signatur}
+Die \newterm{Signatur} $\mathcal{L}$ ist die Menge der nicht-logischen Symbole einer bestimmten mathematischen Theorie.
+\end{definition}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:01:27 - 00:02:49]
+Dann haben wir gesehen --- beziehungsweise definiert ---, was Terme sind. Grob gesagt sind Variablen und Konstanten Terme, und dann sind Funktionen von Termen wieder Terme. Somit kann man induktiv definieren, was Terme sind --- also auch Funktionen von Funktionen von Variablen nehmen. 
+
+Und dann Formeln, formal: Wir haben gesehen, dass man aus Termen Formeln bilden kann, indem man Relationssymbole zwischen Termen nimmt, logische Operationen von Termen oder Quantoren über Terme und so weiter. Und man kann aus Formeln wiederum Formeln bilden. 
+
+Okay. Und dann haben wir gesehen, was freie und gebundene Variablen sind, und wir haben noch die Substitution und die zulässige Substitution definiert.
+\end{spoken-clean}
+
+\begin{math-stroke}[Terme und Formeln]
+\begin{itemize}
+    \item \textbf{Terme:} Variablen und Konstanten sind Terme. Funktionen von Termen sind wiederum Terme.
+    \item \textbf{Formeln:} Formeln werden durch Relationen zwischen Termen, logische Operatoren und Quantoren aus Termen und bereits bestehenden Formeln gebildet.
+    \item \textbf{Variablenbindung:} Eine Variable $\nu$ in einer Formel $\varphi$ heißt \newterm{gebunden}, wenn sie im Bereich eines Quantors ($\forall \nu$ oder $\exists \nu$) steht; andernfalls heißt sie \newterm{frei}.
+    \item \textbf{Substitution:} Das Ersetzen einer freien Variable $\nu$ durch einen Term $\tau$ wird als \newterm{Substitution} bezeichnet und als $\varphi(\nu/\tau)$ geschrieben, sofern diese Substitution zulässig ist.
+\end{itemize}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:02:49 - 00:04:42]
+Und dann am Ende haben wir noch die logischen Axiome angeschaut. Da hatten wir nicht ganz so viel Zeit, aber es ist sowieso etwas, das Sie besser selbst durchgehen. 
+
+Das sind, wie gesagt, eigentlich Axiomenschemata. Jedes von diesen Axiomen ist ein Schema, weil die Formeln hier wirklich beliebige Formeln sein können. Das heißt, jedes Axiom besteht eigentlich aus ganz, ganz vielen Formeln, weil man hier alle möglichen Formeln einsetzen kann und für alle Formeln das Axiom gilt. Und so --- also eine einzelne --- das hier nennt man das Axiom oder eben ein Axiomenschema; und wenn man jetzt eine spezielle, eine einzelne Instanz von diesem Schema nimmt, dann nennt man das eine Instanziierung des Axioms. 
+
+Ich schreibe das noch hin --- nur als Begriff ---, also einfach eine Instanziierung. Zum Beispiel $(x = x) \vee \neg(x = x)$. Okay, und da sehen wir, das ist jetzt eine Instanziierung von $L_0$.
+\end{spoken-clean}
+
+\begin{math-stroke}[Die logischen Axiome (Aussagenlogischer Teil)]
+\begin{axioms}[Aussagenlogische Axiomenschemata]\label[axioms]{ax:aussagenlogisch}
+Sei $\mathcal{L}$ eine Signatur und seien $\varphi, \varphi_1, \varphi_2, \varphi_3$ und $\psi$ beliebige $\mathcal{L}$-Formeln:
+\begin{align}
+\mathbf{L_0}\colon &\quad \varphi \vee \neg \varphi \label{eq:L0} \\
+\mathbf{L_1}\colon &\quad \varphi \rightarrow (\psi \rightarrow \varphi) \label{eq:L1} \\
+\mathbf{L_2}\colon &\quad \bigl(\psi \rightarrow (\varphi_1 \rightarrow \varphi_2)\bigr) \rightarrow \bigl((\psi \rightarrow \varphi_1) \rightarrow (\psi \rightarrow \varphi_2)\bigr) \label{eq:L2} \\
+\mathbf{L_3}\colon &\quad (\varphi \wedge \psi) \rightarrow \varphi \label{eq:L3} \\
+\mathbf{L_4}\colon &\quad (\varphi \wedge \psi) \rightarrow \psi \label{eq:L4} \\
+\mathbf{L_5}\colon &\quad \varphi \rightarrow \bigl(\psi \rightarrow (\varphi \wedge \psi)\bigr) \label{eq:L5} \\
+\mathbf{L_6}\colon &\quad \varphi \rightarrow (\varphi \vee \psi) \label{eq:L6} \\
+\mathbf{L_7}\colon &\quad \psi \rightarrow (\varphi \vee \psi) \label{eq:L7} \\
+\mathbf{L_8}\colon &\quad (\varphi_1 \rightarrow \varphi_3) \rightarrow \Bigl((\varphi_2 \rightarrow \varphi_3) \rightarrow \bigl((\varphi_1 \vee \varphi_2) \rightarrow \varphi_3\bigr)\Bigr) \label{eq:L8} \\
+\mathbf{L_9}\colon &\quad \neg \varphi \rightarrow (\varphi \rightarrow \psi) \label{eq:L9}
+\end{align}
+\end{axioms}
+
+\begin{example}[Instanziierung]\label[example]{ex:instanziierung}
+Die Formel
+\[ (x = x) \vee \neg(x = x) \]
+ist eine \newterm{Instanziierung} des Axiomenschemas $\mathbf{L_0}$ (mit der Formel $\varphi \equiv (x = x)$).
+\end{example}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:04:42 - 00:05:29]
+Grob gesagt kann man noch sagen --- wir haben es ja auch erwähnt ---, dass $L_1$ bis $L_9$, diese ersten neun Axiome, gewissermaßen den Gebrauch der logischen Operationen regeln. Also all das, was \qt{oder}, \qt{und}, \qt{impliziert} und \qt{nicht} bedeutet. Durch diese Axiome wird der Gebrauch davon geregelt. 
+
+Und dann am Ende haben wir gesehen, gibt es die Axiome $L_{10}$ bis $L_{13}$. Diese Axiome regeln den Gebrauch der logischen Quantoren.
+\end{spoken-clean}
+
+\begin{math-stroke}[Die logischen Axiome (Quantorenteil)]
+\begin{axioms}[Quantoren-Axiomenschemata]\label[axioms]{ax:quantoren}
+Sei $\tau$ ein $\mathcal{L}$-Term, $\nu$ eine Variable und die Substitution $\varphi(\nu/\tau)$ sei zulässig. Weiter sei $\psi$ eine $\mathcal{L}$-Formel, in der die Variable $\nu$ nicht frei vorkommt ($\nu \notin \operatorname{frei}(\psi)$):
+\begin{align}
+\mathbf{L_{10}}\colon &\quad \forall \nu \varphi(\nu) \rightarrow \varphi(\tau) \label{eq:L10} \\
+\mathbf{L_{11}}\colon &\quad \varphi(\tau) \rightarrow \exists \nu \varphi(\nu) \label{eq:L11} \\
+\mathbf{L_{12}}\colon &\quad \forall \nu (\psi \rightarrow \varphi(\nu)) \rightarrow (\psi \rightarrow \forall \nu \varphi(\nu)) \label{eq:L12} \\
+\mathbf{L_{13}}\colon &\quad \forall \nu (\varphi(\nu) \rightarrow \psi) \rightarrow (\exists \nu \varphi(\nu) \rightarrow \psi) \label{eq:L13}
+\end{align}
+\end{axioms}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:05:29 - 00:07:14]
+Und dann gibt es noch $L_{14}$ bis $L_{16}$, die den Gebrauch der Gleichheitsrelation regeln. Das sind die logischen Axiome. 
+
+Auch hier gilt: Das sind alles nur --- nur --- Formeln, also einfach Formeln. Wir werden heute definieren, was ein Beweis ist. Das ist eigentlich eine Regel, wie man diese Formeln aneinanderhängen oder eine Reihe von Formeln bilden kann, um zu sagen: Wenn man diese Schritte machen kann, ist es ein Beweis. 
+
+Das ist alles ganz rein formal, rein syntaktisch; da steckt a priori eigentlich gar keine Bedeutung dahinter.
+\end{spoken-clean}
+
+\begin{math-stroke}[Die logischen Axiome (Gleichheitsteil)]
+\begin{axioms}[Gleichheits-Axiomenschemata]\label[axioms]{ax:gleichheit}
+Seien $\tau, \tau_1, \dots, \tau_n, \tau'_1, \dots, \tau'_n$ beliebige $\mathcal{L}$-Terme. Sei $R$ ein $n$-stelliges Relationssymbol und $F$ ein $n$-stelliges Funktionssymbol in der Signatur $\mathcal{L}$:
+\begin{align}
+\mathbf{L_{14}}\colon &\quad \tau = \tau \label{eq:L14} \\
+\mathbf{L_{15}}\colon &\quad (\tau_1 = \tau'_1 \wedge \dots \wedge \tau_n = \tau'_n) \rightarrow \bigl(R(\tau_1, \dots, \tau_n) \rightarrow R(\tau'_1, \dots, \tau'_n)\bigr) \label{eq:L15} \\
+\mathbf{L_{16}}\colon &\quad (\tau_1 = \tau'_1 \wedge \dots \wedge \tau_n = \tau'_n) \rightarrow \bigl(F(\tau_1, \dots, \tau_n) = F(\tau'_1, \dots, \tau'_n)\bigr) \label{eq:L16}
+\end{align}
+\end{axioms}
+\end{math-stroke}
+
+\section{Formale Beweise und Schlussregeln}
+
+\begin{spoken-clean}[00:07:14 - 00:08:40]
+Aber es ist natürlich so --- wie soll ich sagen ---: Sie haben sich diese Axiome ein bisschen angeschaut, das war auch Teil der Übungen. Wenn man versucht, sie mit unserem alltäglichen, naiven Verständnis dieser logischen Operatoren zu übersetzen, dann sind diese Axiome sehr nahe an unserem subjektiven Wahrheitsempfinden dran. Es ist genau so beschrieben, was wir unter \qt{oder} oder unter \qt{nicht} verstehen. 
+
+Wenn wir sagen: Wenn $\tau_1 = \tau'_1$ ist und so weiter, und wenn $\tau_1$ bis $\tau_n$ eine relation erfüllen, dann erfüllen auch $\tau'_1$ bis $\tau'_n$ diese Relation. Ich meine, das ist eigentlich trivial, weil es ja genau die Gleichheit ist. Aber das ist nur so, weil wir bereits eine Intuition davon haben, was Gleichheit bedeutet. 
+
+Trotzdem --- das einfach, um die Schwierigkeit zu verdeutlichen ---, wenn wir diese Woche das Übungsblatt machen, muss man teilweise ganz offensichtliche, triviale Sachen beweisen, und zwar rein aus diesen Axiomen. Das erscheint sehr mühsam. Aber es geht darum, dass man es wirklich nur nach den Regeln macht, wie man diese Formeln aneinanderhängt, ohne ihnen a priori eine Bedeutung zu geben. 
+
+Es ist ein bisschen so, wie wenn Sie zum Beispiel Musik machen: Man beginnt einfach nur damit, Noten aufzuschreiben, entwickelt eine Harmonielehre und legt fest, welche Noten harmonisch sind. Da gibt es Regeln: Wenn so viele Striche dazwischenliegen, ist es harmonisch; wenn weniger dazwischenliegen, ist es nicht harmonisch. Das kann man alles rein theoretisch und formal aufschreiben. Und nachher stellt sich heraus, dass es genau dann harmonisch klingt, wenn es diese Regeln befolgt. 
+
+Vielleicht dazu noch ein kleines Wort zur Philosophie der Mathematik.
+\end{spoken-clean}
+
+\begin{didactic-insight}[Formalismus und der Wiener Kreis]
+Die vom Dozenten dargelegte Sichtweise entspricht dem mathematischen \emph{Formalismus}, der maßgeblich von David Hilbert Anfang des 20. Jahrhunderts geprägt wurde. Nach dieser Auffassung ist Mathematik ein Spiel mit bedeutungslosen Zeichen nach festen Spielregeln (Syntax). 
+
+Diese Position wurde auch vom \emph{Wiener Kreis} (einer Gruppe von Philosophen und Wissenschaftlern in den 1920er Jahren) stark vertreten. Demnach besitzt ein formaler Kalkül a priori keine semantische Bedeutung; die Bedeutung (Semantik) entsteht erst sekundär durch eine Interpretation in einem konkreten Modell.
+\end{didactic-insight}
+
+\begin{spoken-clean}[00:08:40 - 00:10:03]
+Das zeigt vielleicht auch: Zuerst kommt die Mathematik und erst danach dieser Formalismus. Dieser Formalismus beschreibt eigentlich die Mathematik, die wir bereits tun. Es ist ein bisschen wie bei der Musik: Man macht erst die Musik, und dann versucht man, sie in Noten aufzuschreiben --- was man natürlich auch kann. 
+
+Und klar, jetzt kann man ganz präzise sagen: Mathematik zu betreiben bedeutet einfach, die Symbole, die wir definiert haben, nach diesen Regeln aneinanderzureihen, und das ist die gesamte Mathematik. Das ist der ganz reine Formalismus. Das war die Sichtweise des Wiener Kreises --- einer Schule von Philosophen am Ende des 19. und Anfang des 20. Jahrhunderts, die diese Position sehr stark vertreten haben. Das ist heutzutage in der Philosophie eher überholt, aber es gibt immer noch Verfeinerungen, und es ist eine sehr spannende Diskussion. 
+
+Einfach zu sagen, das sei die Mathematik und nichts weiter, wird der Sache aber vielleicht nicht ganz gerecht. Denn erstens müsste man dann sagen: Alles, was die Leute vor der Formulierung dieser Axiome gemacht haben, war gar keine Mathematik. Das geht natürlich nicht. Und zweitens haben wir ja eine Wahrheitsintuition, und diese Axiome sind genau so gewählt, dass sie diese Intuition einigermaßen reflektieren. 
+
+Deshalb funktioniert das auch. Das Argument, Mathematik sei reiner Formalismus --- also nur das Aneinanderreihen von Symbolen nach festen Regeln ---, ist philosophisch nicht ganz befriedigend. Sonst könnte man ja auch irgendein anderes Axiomensystem mit völlig anderen Regeln nehmen, die Zeichen danach aneinanderreihen, und das würde dann überhaupt keinen Sinn mehr ergeben. Es wäre aber formal genau gleichberechtigt, weil es keinen Grund gäbe, weshalb unsere Axiome sinnvoller sein sollten als jede andere beliebige Regel. 
+
+Aber gut, so viel zum Formalismus.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:10:03 - 00:11:47]
+Was wir heute machen --- ah, eines noch: Es gibt auch nicht-logische Axiome. Davon werden wir später noch Beispiele sehen. Das hängt von der jeweiligen Theorie ab. Wir haben gesehen, dass es eine Signatur gibt, die nicht-logische Symbole enthält, und je nach Theorie gibt es dann eben auch nicht-logische Axiome. Wir werden das in der Gruppentheorie und so weiter sehen. Diese nicht-logischen Axiome regeln dann den Gebrauch der nicht-logischen Symbole. 
+
+Später heute, in einer Stunde oder so, sehen wir noch Beispiele davon. 
+
+Gut, okay. Das ist, wo wir stehen. 
+
+Das Thema heute sind formale Beweise. Das sind eben die Regeln, wie man Sachen rein syntaktisch beweisen darf. 
+
+\inlinemetanote{Der Dozent schaltet den Projektor aus und beginnt, an der Tafel zu schreiben.}
+\end{spoken-clean}
+
+\begin{math-stroke}[Formale Beweise]
+\subsection{Formale Beweise}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:11:47 - 00:13:40]
+Es gibt eigentlich nur zwei Schlussregeln. 
+
+Die erste Regel, die wir verwenden, um aus gegebenen Formeln eine neue Formel abzuleiten, ist der Modus Ponens. Sie bemerken ja, dass in der Logik --- weil sie aus der Antike und der Philosophie kommt --- viele Dinge lateinische Namen haben. Der berühmte Modus Ponens; abgekürzt schreiben wir oft $\text{MP}$. 
+
+Wenn $\varphi$ und $\psi$ beliebige Formeln sind, und wir haben diese zwei Formeln --- die eine ist $\varphi \rightarrow \psi$ und die zweite ist $\varphi$ ---, dann können wir einen Strich darunter ziehen und daraus die Formel $\psi$ ableiten. 
+
+Wir sagen: Die Formel $\psi$ folgt aus den Formeln $\varphi \rightarrow \psi$ und $\varphi$ durch Modus Ponens.
+\end{spoken-clean}
+
+\begin{math-stroke}[Die Schlussregel des Modus Ponens]
+\textbf{Zwei Schlussregeln:}
+
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \setcounter{enumi}{0} \item \textbf{Modus Ponens (MP):}
+    Seien $\varphi$ und $\psi$ beliebige $\mathcal{L}$-Formeln.
+    \[
+    \frac{\varphi \rightarrow \psi, \quad \varphi}{\psi} \quad (\text{MP})
+    \]
+    Wir sagen: Die Formel $\psi$ \newterm{folgt durch Modus Ponens} aus den Formeln $\varphi \rightarrow \psi$ und $\varphi$.
+\end{enumerate}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:13:40 - 00:15:23]
+Das ist genau wie im Alltag, wenn man sagt: Wenn es regnet, dann wird die Straße nass. Es regnet, also ist die Straße nass. Wenn also $\varphi$ die Formel $\psi$ impliziert und wir außerdem wissen, dass $\varphi$ gilt, dann gilt auch $\psi$. Das ist relativ einleuchtend. Ich glaube, das geht auf die alten Griechen zurück --- vermutlich hat Theophrastos, einer der Nachfolger von Aristoteles, das zum ersten Mal beschrieben. Aristoteles selbst hat sich zwar intensiv mit Logik beschäftigt, aber nicht direkt mit dem Modus Ponens; bei ihm ging es eher um Syllogismen und Kategorien. 
+
+Gut. Die zweite Schlussregel, die wir verwenden, ist die Verallgemeinerung, abgekürzt mit $(\text{V})$. 
+
+Wenn $\varphi$ eine Formel ist und $\nu$ eine Variable, dann kann man aus der Formel $\varphi$ die Formel $\forall \nu \varphi$ ableiten.
+\end{spoken-clean}
+
+\begin{math-stroke}[Die Schlussregel der Verallgemeinerung]
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \setcounter{enumi}{1} \item \textbf{Verallgemeinerung (V):}
+    Sei $\varphi$ eine $\mathcal{L}$-Formel und $\nu$ eine Variable.
+    \[
+    \frac{\varphi}{\forall \nu \varphi} \quad (\text{V})
+    \]
+    Wir sagen: Die Formel $\forall \nu \varphi$ ist aus der Formel $\varphi$ \newterm{durch Verallgemeinerung entstanden}.
+\end{enumerate}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:15:23 - 00:17:15]
+Wir sagen auch hier: Die Formel $\forall \nu \varphi$ ist aus der Formel $\varphi$ durch Verallgemeinerung entstanden. 
+
+Gut. 
+
+\inlinemetanote{Der Dozent wischt einen Teil der Tafel und schreibt weiter.}
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:17:15 - 00:19:30]
+Nun definieren wir, was es heißt, beweisbar zu sein. Sei $\mathcal{L}$ eine Signatur und $\Phi$ eine Menge von $\mathcal{L}$-Formeln --- auch hier wieder eine Menge im naiven Sinn, da wir noch keine formalen Eigenschaften von Mengen wie Durchschnitte oder Potenzmengen eingeführt haben. 
+
+Wir sagen, eine $\mathcal{L}$-Formel $\psi$ ist beweisbar aus $\Phi$, geschrieben als $\Phi \vdash \psi$. 
+
+Das bedeutet präzise: Es gibt eine endliche Sequenz $\varphi_0, \dots, \varphi_n$ von $\mathcal{L}$-Formeln, sodass das letzte Element der Sequenz, also $\varphi_n$, mit der Formel $\psi$ identisch ist. Wir schreiben dafür $\varphi_n \equiv \psi$.
+\end{spoken-clean}
+
+\begin{math-stroke}[Beweisbarkeit aus einer Formelmenge]
+\begin{definition}[Beweisbarkeit]\label[definition]{def:beweisbarkeit}
+Sei $\mathcal{L}$ eine Signatur, $\Phi$ eine Menge von $\mathcal{L}$-Formeln und $\psi$ eine $\mathcal{L}$-Formel. 
+
+Wir sagen, $\psi$ ist \newterm{beweisbar aus} $\Phi$, geschrieben als:
+\[ \Phi \vdash \psi \]
+falls es eine endliche Sequenz $\varphi_0, \varphi_1, \dots, \varphi_n$ von $\mathcal{L}$-Formeln gibt, sodass:
+\begin{equation}\label{eq:beweis-ende}
+\varphi_n \equiv \psi \quad (\text{d.\,h. } \varphi_n \text{ und } \psi \text{ sind identisch})
+\end{equation}
+\end{definition}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:19:30 - 00:21:14]
+Wir dürfen hier natürlich nicht das Gleichheitszeichen verwenden, weil das Gleichheitszeichen bereits ein logisches Symbol ist, das in unseren Formeln selbst vorkommt. Um Verwirrung zu vermeiden, nutzen wir dieses Ad-hoc-Symbol mit den drei Strichen ($\equiv$), was bedeutet, dass es sich um exakt dieselbe Formel handelt. 
+
+Für jedes $i \le n$ muss eine der folgenden Bedingungen erfüllt sein: 
+
+Erstens kann $\varphi_i$ eine Instanziierung eines logischen Axioms sein. Man darf also jederzeit eine bestimmte Instanz eines unserer logischen Axiome in diese Sequenz hineinschreiben. 
+
+Zweitens kann $\varphi_i$ eine der Formeln aus der Menge $\Phi$ sein. Das ist intuitiv klar, da wir die Formeln in $\Phi$ als Voraussetzungen annehmen. 
+
+Und drittens kommen nun die beiden Schlussregeln ins Spiel.
+\end{spoken-clean}
+
+\begin{math-stroke}[Bedingungen für die Beweissequenz]
+und für jedes $i \in \{0, \dots, n\}$ eine der folgenden Bedingungen erfüllt ist:
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \setcounter{enumi}{0} \item $\varphi_i$ ist eine Instanziierung eines logischen Axioms (aus \ref{ax:aussagenlogisch}, \ref{ax:quantoren} oder \ref{ax:gleichheit}).
+    \item $\varphi_i \in \Phi$.
+\end{enumerate}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:21:14 - 00:22:22]
+Es gibt Indizes $j, k < i$, sodass $\varphi_j \equiv \varphi_k \rightarrow \varphi_i$. Das ist genau der Modus Ponens. Wenn in der Sequenz vor dem Schritt $i$ zwei Formeln vorkommen, von denen die eine $\varphi_k \rightarrow \varphi_i$ ist und die andere $\varphi_k$, dann dürfen wir an der Stelle $i$ die Formel $\varphi_i$ aufschreiben. 
+
+Die vierte Möglichkeit ist die Verallgemeinerung. Hier gibt es eine wichtige Einschränkung, wann wir diese anwenden dürfen: Es gibt ein $j < i$, sodass $\varphi_i \equiv \forall \nu \varphi_j$. Das heißt, $\varphi_i$ ist die Verallgemeinerung einer vorhergehenden Formel über die Variable $\nu$. Diese Variable $\nu$ darf jedoch in keiner Formel aus der Voraussetzungsmenge $\Phi$ frei vorkommen.
+\end{spoken-clean}
+
+\begin{math-stroke}[Schlussregeln in der Beweissequenz]
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \setcounter{enumi}{2} \item Es existieren Indizes $j, k < i$, sodass:
+    \begin{equation}\label{eq:beweis-mp}
+    \varphi_j \equiv \varphi_k \rightarrow \varphi_i
+    \end{equation}
+    (Anwendung von Modus Ponens).
+    
+    \item Es existiert ein Index $j < i$, sodass:
+    \begin{equation}\label{eq:beweis-v}
+    \varphi_i \equiv \forall \nu \varphi_j
+    \end{equation}
+    für eine Variable $\nu$, die in keiner Formel aus der Menge $\Phi$ frei vorkommt (Anwendung der Verallgemeinerung).
+\end{enumerate}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:22:22 - 00:24:30]
+Das heißt, wir dürfen verallgemeinern, aber nur über Variablen, die in den Formeln unserer Ausgangsmenge $\Phi$ nicht frei vorkommen. 
+
+Dazu eine kurze Bemerkung: Wenn eine Variable in einer Voraussetzungsformel frei vorkommt, dann schränkt diese Formel die Variable bereits ein; sie ist nicht mehr völlig beliebig. Deshalb dürfen wir über eine solche Variable nicht verallgemeinern. 
+
+Wenn es aber eine Variable ist, über die wir in den Voraussetzungen überhaupt nichts ausgesagt haben, dann ist die Verallgemeinerung zulässig. Das entspricht genau dem üblichen Vorgehen bei mathematischen Beweisen: Wir sagen oft: \qt{Sei $g$ ein beliebiges Element einer Gruppe $G$}. Wenn wir dann eine Eigenschaft für dieses $g$ beweisen, ohne spezielle Annahmen über $g$ zu treffen, dann gilt diese Eigenschaft für alle Elemente der Gruppe. Das ist genau das Prinzip der Verallgemeinerung.
+\end{spoken-clean}
+
+\begin{didactic-insight}[Die Einschränkung bei der Verallgemeinerung]
+Die Bedingung in Regel \textbf{(4)}, dass die Variable $\nu$ in keiner Formel aus $\Phi$ frei vorkommen darf, ist absolut essenziell für die Korrektheit des Kalküls. 
+
+Würde man diese Einschränkung weglassen, könnte man folgendes fehlerhafte Argument konstruieren: Sei $\Phi = \{x = 0\}$. Die Variable $x$ kommt in der einzigen Formel aus $\Phi$ frei vor. Ohne die Einschränkung könnte man aus $\Phi \vdash x = 0$ per Verallgemeinerung sofort auf $\Phi \vdash \forall x (x = 0)$ schließen. Das würde bedeuten, dass unter der Annahme, dass *eine* bestimmte Zahl Null ist, bereits *alle* Zahlen Null sein müssten, was offensichtlich mathematischer Unsinn ist.
+\end{didactic-insight}
+
+\begin{spoken-clean}[00:24:30 - 00:26:20]
+\inlinemetanote{Ein Student stellt eine Frage, die akustisch schwer verständlich ist. Es geht um die Rolle der freien Variablen bei der Verallgemeinerung.}
+
+Nein, es muss hier nicht vorkommen. 
+
+\inlinemetanote{Der Student präzisiert seine Frage.}
+
+Ich verstehe, worauf Sie hinauswollen. Aber wenn ich eine Formel hätte, die fünfhundert Zeichen lang ist, und irgendwo in der Mitte steht ein Allquantor, dann bindet dieser Quantor nicht die gesamte Formel, sondern nur seinen spezifischen Wirkungsbereich. In der Präfix-Notation ist das ohnehin kein Problem, da bindet er einfach alles, was syntaktisch nach ihm folgt. 
+
+In der Infix-Notation nutzen wir die induktive Definition zur Konstruktion von Formeln. Eine Formel wird in endlich vielen Schritten aufgebaut. In einem dieser Schritte nimmt man eine bestehende Formel und setzt einen Quantor davor; dadurch werden alle freien Vorkommen dieser Variable innerhalb dieser Teilformel gebunden. Wenn man danach in weiteren Schritten andere Teile hinzufügt, werden diese durch den bereits gesetzten Quantor nicht mehr gebunden. 
+
+Macht das Sinn? Okay. Das ist wieder ein Punkt, an dem die Präfix-Notation eleganter ist, weil man dort einfach weitere Symbole anhängt. 
+
+Aber für unsere formale Regel hier gibt es keine solche Einschränkung: Man kann jede beliebige Variable für die Verallgemeinerung wählen, selbst wenn sie in der Formel gar nicht vorkommt. Das ist ein rein formaler, syntaktischer Schritt. 
+
+Okay.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:26:20 - 00:28:22]
+Das ist also genau das, was wir tun dürfen: Wir dürfen Instanziierungen logischer Axiome verwenden, wir dürfen Elemente aus $\Phi$ wählen, und wir dürfen mittels Modus Ponens und Verallgemeinerung neue Formeln ableiten. 
+
+Wenn wir auf diese Weise schließlich die Formel $\psi$ erhalten, dann sagen wir, dass $\psi$ aus $\Phi$ beweisbar ist. 
+
+Eine solche Sequenz von Formeln nennen wir einen formalen Beweis. 
+
+\inlinemetanote{Der Dozent schreibt die formale Definition der Beweissequenz an die Tafel.}
+\end{spoken-clean}
+
+\begin{math-stroke}[Der formale Beweis]
+Die Sequenz $\varphi_0, \dots, \varphi_n$ ist ein \newterm{formaler Beweis} von $\psi$ aus $\Phi$.
+
+\textbf{Spezialfälle der Notation:}
+\begin{itemize}
+    \item Falls $\Phi = \emptyset$ leer ist, schreiben wir kurz:
+    \begin{equation}\label{eq:beweis-leer}
+    \vdash \psi \quad (\text{anstatt } \emptyset \vdash \psi)
+    \end{equation}
+    \item Falls es keinen formalen Beweis von $\psi$ aus $\Phi$ gibt, schreiben wir:
+    \begin{equation}\label{eq:nicht-beweisbar}
+    \Phi \not\vdash \psi
+    \end{equation}
+\end{itemize}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:28:22 - 00:30:00]
+Die Menge $\Phi$ darf übrigens auch leer sein; wir haben nirgends verlangt, dass sie Formeln enthalten muss. Wenn sie leer ist, schreiben wir die Voraussetzungsmenge gar nicht erst hin, sondern notieren einfach $\vdash \psi$ statt $\emptyset \vdash \psi$. 
+
+Falls es keinen formalen Beweis von $\psi$ aus $\Phi$ gibt, schreiben wir entsprechend $\Phi \not\vdash \psi$. 
+
+Das ist die Definition eines formalen Beweises. 
+
+Man muss sich das Ganze einmal durch den Kopf gehen lassen: Es wirkt a priori vielleicht etwas zirkulär oder problematisch. Wir sprechen hier von einer endlichen Sequenz, nutzen den Begriff einer natürlichen Zahl $n$, vergleichen Indizes und verwenden logische Wendungen wie \qt{es gibt kein}. Das sind alles bereits mathematische und logische Konzepte, die wir hier eigentlich erst formal definieren wollen. 
+
+Man kann das Ganze jedoch nicht unendlich weit zurückführen, sonst beißt sich die Schlange irgendwann in den Schwanz. Deshalb arbeiten wir auf der Metaebene mit einer naiven Mengenlehre und einer naiven Logik, um diesen formalen Kalkül überhaupt erst präzise aufbauen zu können.
+\end{spoken-clean}
+
+\section{Beispiele für formale Beweise}
+
+\begin{spoken-clean}[00:30:35 - 00:33:46]
+Machen wir ein konkretes Beispiel für einen solchen formalen Beweis. Dabei werden wir schnell sehen, wie mühsam es ist, selbst einfachste Aussagen formal zu beweisen. Sei $\varphi$ eine beliebige Formel. 
+
+Die Aussage, die wir beweisen wollen, lautet:
+\[ \vdash \varphi \rightarrow \varphi \]
+
+Das war keines unserer Axiome, wir müssen es also formal herleiten, wenn wir es verwenden wollen. Um diesen Beweis zu führen, müssen wir eine endliche Sequenz von Formeln konstruieren. 
+
+Wir beginnen mit $\varphi_0$. Dafür wählen wir eine Instanziierung des Axiomenschemas $\mathbf{L_1}$ --- beziehungsweise eigentlich $\mathbf{L_2}$, wie wir gleich sehen werden. Schauen wir uns die Axiome noch einmal kurz an.
+\end{spoken-clean}
+
+\begin{meta-note}[Gastvortrag: Fachdidaktik Mathematik]
+Der Dozent schaltet den Projektor ein und zeigt die Folie mit den aussagenlogischen Axiomenschemata $\mathbf{L_0}$ bis $\mathbf{L_9}$ zur Referenz für den folgenden Beweis.
+\end{meta-note}
+
+\begin{spoken-clean}[00:33:46 - 00:36:09]
+Es wäre praktisch, die Liste der Axiome direkt neben der Tafel zu haben. 
+
+Erinnern wir uns an $\mathbf{L_1}$: Das ist $\varphi \rightarrow (\psi \rightarrow \varphi)$. Aber das verwenden wir erst im nächsten Schritt. Für $\varphi_0$ wählen wir zuerst eine Instanziierung von $\mathbf{L_2}$. Das Schema $\mathbf{L_2}$ ist etwas komplizierter:
+\[ \bigl(\psi \rightarrow (\varphi_1 \rightarrow \varphi_2)\bigr) \rightarrow \bigl((\psi \rightarrow \varphi_1) \rightarrow (\psi \rightarrow \varphi_2)\bigr) \]
+
+Wir setzen nun für alle diese Formelvariablen einfach unsere Formel $\varphi$ ein --- beziehungsweise für $\varphi_1$ setzen wir $\varphi \rightarrow \varphi$ ein. Dann erhalten wir:
+\[ \bigl(\varphi \rightarrow (\varphi \rightarrow \varphi)\bigr) \rightarrow \Bigl(\bigl(\varphi \rightarrow (\varphi \rightarrow \varphi)\bigr) \rightarrow (\varphi \rightarrow \varphi)\Bigr) \]
+
+Wenn wir die Klammern alle richtig setzen, ist das eine korrekte Instanziierung von $\mathbf{L_2}$. 
+
+Genau. Wir haben für $\psi$ die Formel $\varphi$ genommen, für $\varphi_1$ die Formel $\varphi \rightarrow \varphi$, und für $\varphi_2$ wieder $\varphi$. Habe ich das richtig an die Tafel geschrieben, oder habe ich eine Klammer vergessen? Kurz überprüfen\dots Ja, das stimmt so.
+\end{spoken-clean}
+
+\begin{math-stroke}[Beweis von \texorpdfstring{$\varphi \rightarrow \varphi$}{phi -> phi} (Schritt 1)]
+Wir beweisen die Formel:
+\[ \vdash \varphi \rightarrow \varphi \]
+
+\textbf{Beweisschritt 1:}
+\begin{equation}\label{eq:phi0}
+\varphi_0 \equiv \bigl(\varphi \rightarrow (\varphi \rightarrow \varphi)\bigr) \rightarrow \Bigl(\bigl(\varphi \rightarrow (\varphi \rightarrow \varphi)\bigr) \rightarrow (\varphi \rightarrow \varphi)\Bigr)
+\end{equation}
+Dies ist eine Instanziierung des Axiomenschemas $\mathbf{L_2}$ mit:
+\begin{align*}
+\psi &\equiv \varphi \\
+\varphi_1 &\equiv \varphi \rightarrow \varphi \\
+\varphi_2 &\equiv \varphi
+\end{align*}
+\end{math-stroke}
+
+\begin{student-interaction}[Studentenfrage]
+Ich wollte fragen, wie Sie wissen, dass man das so setzt?
+\end{student-interaction}
+
+\begin{spoken-clean}[continued]
+Das muss man tatsächlich durch Ausprobieren und Nachdenken herausfinden. Ich glaube nicht, dass es dafür ein einfaches, allgemeines Rezept gibt. Man setzt sich hin und probiert verschiedene Kombinationen aus, bis es aufgeht. 
+
+Als Nächstes wählen wir für $\varphi_1$ eine Instanz von $\mathbf{L_1}$. Wir schreiben einfach:
+\[ \varphi \rightarrow (\varphi \rightarrow \varphi) \]
+Das ist eine Instanziierung von $\mathbf{L_1}$, bei der wir für $\psi$ ebenfalls die Formel $\varphi$ eingesetzt haben. 
+
+Nun können wir den Modus Ponens anwenden. 
+
+Der Vordersatz von $\varphi_0$ ist exakt die Formel $\varphi_1$. Da wir sowohl $\varphi_1$ als auch die Implikation $\varphi_0 \equiv \varphi_1 \rightarrow \varphi_2$ in unserer Sequenz haben, dürfen wir den Nachsatz als $\varphi_2$ aufschreiben:
+\[ \varphi_2 \equiv (\varphi \rightarrow \varphi) \rightarrow (\varphi \rightarrow \varphi) \]
+\end{spoken-clean}
+
+\begin{math-stroke}[Beweis von \texorpdfstring{$\varphi \rightarrow \varphi$}{phi -> phi} (Schritte 2 und 3)]
+\textbf{Beweisschritt 2:}
+\begin{equation}\label{eq:phi1}
+\varphi_1 \equiv \varphi \rightarrow \bigl(\varphi \rightarrow \varphi\bigr)
+\end{equation}
+Dies ist eine Instanziierung des Axiomenschemas $\mathbf{L_1}$ mit $\psi \equiv \varphi$.
+
+\textbf{Beweisschritt 3:}
+\begin{equation}\label{eq:phi2}
+\varphi_2 \equiv \bigl(\varphi \rightarrow \varphi\bigr) \rightarrow \bigl(\varphi \rightarrow \varphi\bigr)
+\end{equation}
+Dies folgt aus $\varphi_0$ (Gleichung \ref{eq:phi0}) und $\varphi_1$ (Gleichung \ref{eq:phi1}) durch Anwendung von Modus Ponens ($\text{MP}$), da $\varphi_0 \equiv \varphi_1 \rightarrow \varphi_2$.
+\end{math-stroke}
+
+\begin{spoken-clean}[00:38:34 - 00:41:29]
+Für $\varphi_3$ nehmen wir nun noch einmal die Formel $\varphi \rightarrow (\varphi \rightarrow \varphi)$, was wiederum eine Instanziierung von $\mathbf{L_1}$ ist --- diesmal einfach mit $\varphi$ für beide Variablen. 
+
+Jetzt können wir erneut den Modus Ponens anwenden: Wir haben die Formel $\varphi_3$ und wir haben die Implikation $\varphi_2 \equiv \varphi_3 \rightarrow (\varphi \rightarrow \varphi)$. Daraus folgt im letzten Schritt:
+\[ \varphi_4 \equiv \varphi \rightarrow \varphi \]
+Das folgt aus $\varphi_2$ und $\varphi_3$ via Modus Ponens. 
+
+Das ist nun ein vollständiger, formaler Beweis für die Behauptung $\vdash \varphi \rightarrow \varphi$. Ein absolut sauberer Beweis, in dem wir nichts außer den Axiomen und der Schlussregel des Modus Ponens verwendet haben. Genau so sehen formale Beweise aus. 
+
+Um noch einmal auf die Frage zurückzukommen, wie man darauf kommt: Wie überall in der Mathematik muss man lernen, kreativ mit den vorgegebenen Regeln zu spielen, um das gewünschte Ziel zu erreichen. 
+
+Das Entscheidende ist: Das hier ist ein rein formaler Beweis. Er zeigt, dass wir selbst eine triviale Aussage wie $\varphi \rightarrow \varphi$ nicht einfach als gegeben voraussetzen dürfen, da sie a priori keine Bedeutung hat. Ein Beweis im Kalkül erlaubt ausschließlich das mechanische Aneinanderreihen von Axiomen unter Anwendung von Modus Ponens und Verallgemeinerung. 
+
+Auf dem Übungsblatt für diese Woche finden Sie eine ganze Reihe solcher formaler Beweise mit verschiedenen Schwierigkeitsgraden. Wir werden das natürlich nicht das ganze Semester über machen --- dies ist schließlich kein reiner Logikkurs ---, aber es lohnt sich sehr, sich einmal einen Nachmittag lang intensiv damit zu beschäftigen. So bekommt man ein echtes Gefühl dafür, was formale Präzision in der Logik bedeutet. 
+
+Nach der Pause werden wir weitere Beweise führen. Jetzt gibt es aber erst einmal einen kurzen Werbeblock.
+\end{spoken-clean}
+
+\begin{math-stroke}[Vollständiger formaler Beweis von \texorpdfstring{$\vdash \varphi \rightarrow \varphi$}{|- phi -> phi}]
+Wir führen den vollständigen formalen Beweis der Behauptung $\vdash \varphi \rightarrow \varphi$ ohne Voraussetzungen ($\Phi = \emptyset$) im aussagenlogischen Kalkül:
+
+\begin{short-proof}
+Die endliche Sequenz $\varphi_0, \varphi_1, \varphi_2, \varphi_3, \varphi_4$ von Formeln ist wie folgt definiert:
+\begin{align}
+\varphi_0 &\equiv \bigl(\varphi \rightarrow (\varphi \rightarrow \varphi)\bigr) \rightarrow \Bigl(\bigl(\varphi \rightarrow (\varphi \rightarrow \varphi)\bigr) \rightarrow (\varphi \rightarrow \varphi)\Bigr) && \text{(Instanziierung von $\mathbf{L_2}$)} \label{eq:proof-step0} \\
+\varphi_1 &\equiv \varphi \rightarrow \bigl(\varphi \rightarrow \varphi\bigr) && \text{(Instanziierung von $\mathbf{L_1}$)} \label{eq:proof-step1} \\
+\varphi_2 &\equiv \bigl(\varphi \rightarrow \varphi\bigr) \rightarrow \bigl(\varphi \rightarrow \varphi\bigr) && \text{(aus \ref{eq:proof-step0} und \ref{eq:proof-step1} via $\text{MP}$)} \label{eq:proof-step2} \\
+\varphi_3 &\equiv \varphi \rightarrow \bigl(\varphi \rightarrow \varphi\bigr) && \text{(Instanziierung von $\mathbf{L_1}$)} \label{eq:proof-step3} \\
+\varphi_4 &\equiv \varphi \rightarrow \varphi && \text{(aus \ref{eq:proof-step2} und \ref{eq:proof-step3} via $\text{MP}$)} \label{eq:proof-step4}
+\end{align}
+Da $\varphi_4 \equiv \varphi \rightarrow \varphi$, ist die Sequenz ein korrekter formaler Beweis. Somit gilt:
+\[ \vdash \varphi \rightarrow \varphi \]
+\end{short-proof}
+\end{math-stroke}
+
+\begin{meta-note}[Gastvortrag: Fachdidaktik Mathematik]
+Cornelia Busch betritt das Podium und hält eine kurze Präsentation über eine fachdidaktische Studie zum Übergang von der Schule zur Hochschule an der ETH Zürich. Sie projiziert dazu Folien auf die Leinwand.
+\end{meta-note}
+
+\begin{spoken-clean}[00:41:29 - 00:43:54]
+Hallo allerseits. Einige von Ihnen erinnern sich vielleicht an den letzten Herbst: Da war ich schon einmal in Ihrer Vorlesung Analysis 1. Heute bin ich hier, weil ich noch Mathematikstudierende für meine Studie suche. Ich dachte mir, diese Vorlesung ist der beste Rahmen, um gezielt Werbung zu machen. 
+
+Wer bin ich überhaupt --- für diejenigen, die mich damals nicht gesehen haben? Mein Name ist Cornelia Busch, ich arbeite hier am Mathematikdepartement in der Administration und in der Lehre. 
+
+Ich bin aber auch selbst ehemalige Studentin: Ich habe hier an der ETH Mathematik studiert, genau in diesem Hörsaal. Damals waren wir ungefähr so viele Studierende wie Sie heute, vielleicht noch ein paar mehr, allerdings zusammen mit den Physikern. Seither ist die Anzahl der Studierenden stark gewachsen. Ich habe hier an der ETH studiert, promoviert und mich später an der Katholischen Universität Eichstätt-Ingolstadt in Bayern habilitiert. 
+
+Aus persönlichem Interesse an den Hürden beim Mathematiklernen absolviere ich derzeit ein Masterstudium in Fachdidaktik Mathematik an der Pädagogischen Hochschule Zürich. Das ist ein Joint Master mit der ETH, da eine Pädagogische Hochschule einen solchen Studiengang nicht alleine anbieten kann.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:43:54 - 00:46:52]
+Inzwischen bin ich so weit, dass ich fast fertig bin und nur noch meine Masterarbeit schreiben muss. Dafür führe ich eine Studie zum Übergang von der Schule zur Hochschule durch. Ich möchte herausfinden, wie Sie diesen Übergang erleben und an welchen Stellen Studierende im ersten beziehungsweise zweiten Semester die größten Hürden sehen. 
+
+Was habe ich genau vor? Ich führe Interviews mit insgesamt sechs bis acht Studentinnen und Studenten. Fünf Gespräche habe ich bereits geführt, mir fehlen also noch ein paar Teilnehmer. Ein Interview dauert etwa 30 bis 45 Minuten --- meistens pendelt es sich bei rund 40 Minuten ein. 
+
+Ich mache dabei Tonaufnahmen und nutze zusätzlich mein Tablet. Das bedeutet: Alles, was während des Gesprächs auf dem Tablet notiert wird, wird direkt aufgezeichnet. Das hat den großen Vorteil, dass keine Gesichter zu sehen sind; Sie sind auf den Aufnahmen also völlig anonym. Auch Ihre Dozenten erfahren niemals, wer was gesagt hat --- weder Lob noch Tadel dringen nach außen. 
+
+Was ist Ihr Nutzen? Sie helfen aktiv dabei, die Lehre weiterzuentwickeln, um den Übergang von der Schule an die ETH künftig noch reibungsloser zu gestalten. Zudem gibt es als Dankeschön eine kleine Belohnung. 
+
+Wen suche ich? Insgesamt sechs bis acht Studierende der Mathematik oder Physik. Bisher habe ich vor allem Physikstudierende interviewt. Aktuell fehlen mir noch mindestens drei Mathematikstudierende. Falls Sie Physikerkollegen haben, die Interesse haben, dürfen Sie die Info aber natürlich gerne weitergeben. 
+
+Wie können Sie teilnehmen? Am besten melden Sie sich per E-Mail unter cornelia.busch@math.ethz.ch. Mein Büro ist im Hauptgebäude, Raum HG G 34.2 --- das ist auf der Spitalseite. Sie können mir einfach eine Mail schreiben oder sich gleich hier in die Liste eintragen. Ich würde Sie dann kontaktieren, um die Termine abzusprechen. Die Interviews sollen in etwa zwei Wochen stattfinden. 
+
+Ich würde mich sehr freuen, wenn sich ein paar Mutige melden. Wobei es gar keinen Mut braucht --- es kann wirklich nichts schiefgehen. Ich möchte einfach nur von Ihren Erfahrungen hören. 
+
+Vielen Dank für Ihre Aufmerksamkeit! Wer teilnehmen möchte, kann sich gerne jetzt in der Pause in die Liste eintragen oder mir eine E-Mail schreiben.
+\end{spoken-clean}
+
+\begin{meta-note}[Ende des Gastvortrags]
+Die Studierenden applaudieren. Cornelia Busch verlässt das Podium, und der Dozent übernimmt wieder die Vorlesung.
+\end{meta-note}
+
+\begin{spoken-clean}[00:46:52 - 00:48:34]
+Genau, melden Sie sich also gerne bei Cornelia Busch, wenn Sie an der Studie teilnehmen möchten. Es tut manchmal ganz gut, mit jemandem über die eigenen Erfahrungen im Studium zu sprechen. Und da es völlig anonym ist, dürfen Sie auch gerne sagen, dass das, was wir in dieser Vorlesung machen, absoluter Schmarren ist --- ich werde es garantiert nicht erfahren. 
+
+Aber nun zurück zu den formalen Beweisen. 
+
+Wie Sie sehen, erfordern selbst einfachste Aussagen einen enormen Aufwand, wenn man sie rein formal herleiten will. Dennoch ist es eine wertvolle Erfahrung, das einmal selbst durchzuexerzieren. 
+
+Als Nächstes möchte ich das Deduktionstheorem besprechen. Es ist ein äußerst nützliches Werkzeug, das Sie im Folgenden auch gerne verwenden dürfen; wir kürzen es oft mit $\text{DT}$ ab. In der Literatur --- etwa im Buch von Lorenz Halbeisen --- wird es meist in Großbuchstaben hervorgehoben. 
+
+Das Deduktionstheorem ist ein sogenanntes metamathematisches Theorem. Das bedeutet: Es ist kein Satz, den wir innerhalb unseres formalen Kalküls beweisen, sondern ein Satz \emph{über} das formale Beweisen. Wir treten also einen Schritt zurück und beweisen eine Aussage über die Struktur von Beweisen selbst.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:48:34 - 00:50:34]
+Das Theorem besagt Folgendes: Sei $\Phi$ eine Menge von Formeln. Wenn gilt:
+\[ \Phi \cup \{\psi\} \vdash \varphi \]
+wobei $\Phi \cup \{\psi\}$ einfach die Menge ist, die aus den Voraussetzungen in $\Phi$ und der zusätzlichen Annahme $\psi$ besteht, dann gilt auch:
+\[ \Phi \vdash \psi \rightarrow \varphi \]
+
+Das ist intuitiv sehr einleuchtend: Wenn man unter der zusätzlichen Annahme $\psi$ die Formel $\varphi$ beweisen kann, dann kann man ohne diese Annahme beweisen, dass aus $\psi$ die Formel $\varphi$ folgt. 
+
+Und umgekehrt gilt das genauso: Falls man aus $\Phi$ beweisen kann, dass $\psi \rightarrow \varphi$ gilt, so lässt sich daraus auch $\Phi \cup \{\psi\} \vdash \varphi$ herleiten.
+\end{spoken-clean}
+
+\begin{math-stroke}[DEDUKTIONSTHEOREM (DT)]
+\textbf{DEDUKTIONSTHEOREM (DT):}
+
+Sei $\Phi$ eine Menge von $\mathcal{L}$-Formeln und seien $\psi, \varphi$ beliebige $\mathcal{L}$-Formeln. Dann gilt:
+\begin{equation}\label{eq:deduktionstheorem}
+\Phi \cup \{\psi\} \vdash \varphi \iff \Phi \vdash \psi \rightarrow \varphi
+\end{equation}
+
+\begin{explanation-of-steps}[Metamathematische Bedeutung]
+Das Deduktionstheorem ist ein \newterm{metamathematischer Satz} (ein Satz über den Kalkül, nicht innerhalb des Kalküls). Es erlaubt uns, formale Beweise drastisch zu verkürzen: Um eine Implikation $\psi \rightarrow \varphi$ aus Voraussetzungen $\Phi$ zu beweisen, dürfen wir die Prämisse $\psi$ temporär als zusätzliche Annahme zu $\Phi$ hinzufügen und daraus $\varphi$ herleiten.
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:50:34 - 00:52:49]
+Der Beweis dieses Theorems ist gar nicht so schwierig. Da ich jedoch nicht zu viel Vorlesungszeit dafür aufwenden möchte, verweise ich Sie hierzu auf das Skript. Sie dürfen das gerne nachlesen, es ist aber nicht obligatorisch für die Prüfung. 
+
+Die Beweisidee ist sehr direkt und konstruktiv: Man zeigt einfach ein konkretes Verfahren, wie man aus einem formalen Beweis für die linke Seite einen Beweis für die rechte Seite konstruiert --- und umgekehrt. Es ist also ein rein mechanisches Rezept und birgt keine logischen Fallstricke.
+\end{spoken-clean}
+
+\begin{didactic-insight}[Beweisidee des Deduktionstheorems]
+Der Beweis des Deduktionstheorems erfolgt durch strukturelle Induktion über die Länge der Beweissequenz für $\Phi \cup \{\psi\} \vdash \varphi$. Für jeden Schritt $\varphi_i$ in der Sequenz konstruiert man ein Rezept, wie dieser Schritt ohne die Zusatzannahme $\psi$ unter Verwendung der Axiome $\mathbf{L_1}$ und $\mathbf{L_2}$ in eine Herleitung von $\psi \rightarrow \varphi_i$ transformiert werden kann.
+\end{didactic-insight}
+
+\begin{spoken-clean}[00:52:49 - 00:55:04]
+Wir wollen nun das Deduktionstheorem verwenden, um weitere mathematische Aussagen zu beweisen. Als Nächstes betrachten wir Relationen. 
+
+Sei $R$ eine binäre, also eine zweistellige Relation. Wir wollen definieren, wann $R$ eine Äquivalenzrelation ist. Ich hoffe, Sie haben diesen Begriff bereits in anderen Vorlesungen gehört; es ist eines der wichtigsten Konzepte in der gesamten Mathematik. 
+
+Welche drei Axiome charakterisieren eine Äquivalenzrelation? 
+
+Ja? 
+
+Genau, die Reflexivität: Für alle $x$ gilt, dass $x$ in Relation zu sich selbst steht, also $\forall x (x \, R \, x)$. 
+
+Das zweite Axiom? Ja? 
+
+Die Symmetrie: Für alle $x$ und $y$ muss gelten: Wenn $x \, R \, y$, dann auch $y \, R \, x$. Also $\forall x \forall y (x \, R \, y \rightarrow y \, R \, x)$. 
+
+Und das dritte Axiom? Ja? 
+
+Die Transitivität --- das ist meistens am mühsamsten zu beweisen: Für alle $x, y, z$ gilt, dass aus $x \, R \, y$ und $y \, R \, z$ auch $x \, R \, z$ folgt. In Formelsprache: $\forall x \forall y \forall z (x \, R \, y \wedge y \, R \, z \rightarrow x \, R \, z)$. 
+
+Das sind die drei Bedingungen, formuliert in unserer formalen Sprache.
+\end{spoken-clean}
+
+\begin{math-stroke}[Äquivalenzrelationen]
+Sei $R$ eine binäre (zweistellige) Relation auf einer Menge $A$ (d.\,h. $R \subseteq A \times A$).
+
+\begin{definition}[Äquivalenzrelation]\label[definition]{def:aequivalenzrelation-part2}
+Die Relation $R$ heißt eine \newterm{Äquivalenzrelation}, falls die folgenden drei Bedingungen erfüllt sind:
+\begin{enumerate}[label=\textbf{(\roman*)}]
+    \item \textbf{Reflexivität:}
+    \[ \forall x (x \, R \, x) \]
+    \item \textbf{Symmetrie:}
+    \[ \forall x \forall y (x \, R \, y \rightarrow y \, R \, x) \]
+    \item \textbf{Transitivität:}
+    \[ \forall x \forall y \forall z (x \, R \, y \wedge y \, R \, z \rightarrow x \, R \, z) \]
+\end{enumerate}
+\end{definition}
+\end{math-stroke}
+
+\begin{student-interaction}[Studentenfrage]
+Ist das nicht ein \qt{und} anstatt ein \qt{impliziert}?
+\end{student-interaction}
+
+\begin{spoken-clean}[continued]
+Ah, ja, natürlich, vielen Dank für den Hinweis! Da gehört ein \qt{und} hin, kein \qt{impliziert} vor der Konjunktion. Danke. 
+
+Wir wollen nun zeigen, dass die logische Gleichheitsrelation ($=$) eine Äquivalenzrelation ist. 
+
+Zuerst beweisen wir die Reflexivität. Wir wollen also zeigen, dass für alle $x$ gilt: $x = x$. 
+
+Das ist im Kalkül relativ einfach zu zeigen. Wir wissen, dass $\varphi_0 \equiv x = x$ ein Axiom ist --- genauer gesagt eine Instanziierung des Axiomenschemas $\mathbf{L_{14}}$. Das ist unmittelbar einleuchtend. Nun wollen wir aber die verallgemeinerte Aussage beweisen. 
+
+Das können wir direkt durch die Schlussregel der Verallgemeinerung tun. Wir erhalten als $\varphi_1 \equiv \forall x (x = x)$. 
+
+Als Nächstes wollen wir zeigen, dass die Gleichheit symmetrisch ist. Das ist bereits deutlich mühsamer. 
+
+Dazu beweisen wir zuerst die Hilfsaussage:
+\[ \{x = y\} \vdash y = x \]
+
+Anschließend wenden wir das Deduktionstheorem an, um $\vdash x = y \rightarrow y = x$ zu erhalten, und verallgemeinern schließlich zweimal, um auf die gewünschte Aussage für alle $x$ und $y$ zu kommen. 
+
+Sie werden gleich sehen: Selbst ein so harmloser Beweis ist im formalen Kalkül eine recht mühsame Angelegenheit.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:55:04 - 00:57:34]
+Wir beginnen mit $\varphi_0$. Dafür wählen wir eine Instanziierung des Axiomenschemas $\mathbf{L_{15}}$. 
+
+Schreiben wir zur Sicherheit noch einmal auf, was $\mathbf{L_{15}}$ besagt. In der Pause wurde ich übrigens gefragt, ob man diese logischen Axiome auswendig lernen muss: Nein, das müssen Sie definitiv nicht. Ich kenne sie selbst auch nicht alle auswendig. 
+
+Das Axiom $\mathbf{L_{15}}$ besagt im Wesentlichen: Wenn $\tau_1 = \tau'_1$ und so weiter gilt, und eine Relation für diese Terme erfüllt ist, dann gilt sie auch, wenn wir die Terme entsprechend ersetzen. 
+
+In unserem Fall haben wir $x = y$ und $x = x$. Das impliziert, dass aus $x = x$ auch $y = x$ folgt. Setzen wir die Klammern sorgfältig, erhalten wir genau die Formel:
+\[ (x = y \wedge x = x) \rightarrow (x = x \rightarrow y = x) \]
+Das ist eine direkte Instanziierung von $\mathbf{L_{15}}$.
+\end{spoken-clean}
+
+\begin{math-stroke}[Beweis der Reflexivität der Gleichheitsrelation]
+Wir beweisen formal, dass die logische Gleichheitsrelation $=$ reflexiv ist:
+\[ \vdash \forall x (x = x) \]
+
+\begin{short-proof}
+Der formale Beweis besteht aus der folgenden Sequenz:
+\begin{align}
+\varphi_0 &\equiv x = x && \text{(Instanziierung von $\mathbf{L_{14}}$)} \label{eq:refl-step0} \\
+\varphi_1 &\equiv \forall x (x = x) && \text{(aus \ref{eq:refl-step0} via Verallgemeinerung $\text{V}$)} \label{eq:refl-step1}
+\end{align}
+Da $\varphi_1 \equiv \forall x (x = x)$, ist dies ein korrekter formaler Beweis.
+\end{short-proof}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:57:34 - 00:59:34]
+Wir haben hier für $\tau_1$ den Term $x$ gewählt, für $\tau'_1$ den Term $y$, für $\tau_2$ den Term $x$ und für $\tau'_2$ ebenfalls $x$. Als Relation verwenden wir die Gleichheitsrelation selbst. 
+
+Als Schritt $\varphi_1$ schreiben wir einfach $x = x$ auf. Das ist eine Instanziierung von $\mathbf{L_{14}}$. 
+
+Für $\varphi_2$ wählen wir unsere Voraussetzung $x = y$. Diese Formel ist in unserer Voraussetzungsmenge $\Phi = \{x = y\}$ enthalten, wir dürfen sie also einfach hinschreiben. 
+
+Nun nutzen wir eine Instanziierung des Axiomenschemas $\mathbf{L_5}$. Wir schreiben:
+\[ x = y \rightarrow \bigl(x = x \rightarrow (x = y \wedge x = x)\bigr) \]
+Hierbei haben wir für $\varphi$ die Formel $x = y$ und für $\psi$ die Formel $x = x$ eingesetzt. 
+
+Die nächsten Schritte folgen nun direkt daraus.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:59:34 - 01:01:12]
+Wir führen den Beweis nun Schritt für Schritt fort. 
+
+Als Schritt $\varphi_4$ erhalten wir:
+\[ x = x \rightarrow (x = y \wedge x = x) \]
+Das folgt direkt aus $\varphi_2$ und $\varphi_3$ via Modus Ponens, da $\varphi_3 \equiv \varphi_2 \rightarrow \varphi_4$. 
+
+Für $\varphi_5$ schreiben wir:
+\[ x = y \wedge x = x \]
+Das folgt aus $\varphi_1 \equiv x = x$ und $\varphi_4$ via Modus Ponens. 
+
+Nun erhalten wir $\varphi_6$:
+\[ x = x \rightarrow y = x \]
+Das folgt aus $\varphi_5$ und unserem ersten Schritt $\varphi_0 \equiv \varphi_5 \rightarrow \varphi_6$ via Modus Ponens. 
+
+Schließlich erhalten wir im letzten Schritt $\varphi_7$:
+\[ y = x \]
+Das folgt aus $\varphi_1 \equiv x = x$ und $\varphi_6$ via Modus Ponens. 
+
+Damit haben wir formal bewiesen: $\{x = y\} \vdash y = x$. Das ist der vollständige formale Beweis für die Symmetrie der Gleichheitsrelation.
+\end{spoken-clean}
+
+\begin{math-stroke}[Beweis der Symmetrie der Gleichheitsrelation (Teil 1)]
+Wir beweisen die Behauptung:
+\[ \{x = y\} \vdash y = x \]
+
+\begin{short-proof}
+Wir konstruieren die formale Beweissequenz $\varphi_0, \varphi_1, \varphi_2, \varphi_3$ unter der Voraussetzung $\Phi = \{x = y\}$:
+\begin{align}
+\varphi_0 &\equiv (x = y \wedge x = x) \rightarrow (x = x \rightarrow y = x) && \text{(Instanziierung von $\mathbf{L_{15}}$)} \label{eq:sym-step0} \\
+\varphi_1 &\equiv x = x && \text{(Instanziierung von $\mathbf{L_{14}}$)} \label{eq:sym-step1} \\
+\varphi_2 &\equiv x = y && \text{(Voraussetzung $\varphi_2 \in \Phi$)} \label{eq:sym-step2} \\
+\varphi_3 &\equiv x = y \rightarrow \bigl(x = x \rightarrow (x = y \wedge x = x)\bigr) && \text{(Instanziierung von $\mathbf{L_5}$)} \label{eq:sym-step3}
+\end{align}
+\end{short-proof}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:01:12 - 01:02:27]
+Jetzt können wir das Deduktionstheorem anwenden. Es besagt: Wenn wir aus $\Phi \cup \{\psi\}$ die Formel $\varphi$ herleiten können, dann lässt sich aus $\Phi$ die Implikation $\psi \rightarrow \varphi$ beweisen. 
+
+In unserem Fall ist $\Phi = \emptyset$, $\psi \equiv x = y$ and $\varphi \equiv y = x$. Da wir gerade $\{x = y\} \vdash y = x$ bewiesen haben, liefert uns das Deduktionstheorem sofort:
+\[ \vdash x = y \rightarrow y = x \]
+
+Nun wenden wir die Verallgemeinerung an. Zuerst verallgemeinern wir über die Variable $y$, was uns $\vdash \forall y (x = y \rightarrow y = x)$ gibt. Anschließend verallgemeinern wir über $x$ und erhalten schließlich:
+\[ \vdash \forall x \forall y (x = y \rightarrow y = x) \]
+
+Damit haben wir formal bewiesen, dass die Gleichheitsrelation symmetrisch ist. Das ist doch wunderschön! Es ist zwar etwas mühsam, funktioniert aber völlig mechanisch.
+\end{spoken-clean}
+
+\begin{math-stroke}[Beweis der Symmetrie der Gleichheitsrelation (Teil 2)]
+Wir führen den Beweis der Behauptung $\{x = y\} \vdash y = x$ fort:
+\begin{align}
+\varphi_4 &\equiv x = x \rightarrow (x = y \wedge x = x) && \text{(aus \ref{eq:sym-step2} und \ref{eq:sym-step3} via $\text{MP}$)} \label{eq:sym-step4} \\
+\varphi_5 &\equiv x = y \wedge x = x && \text{(aus \ref{eq:sym-step1} und \ref{eq:sym-step4} via $\text{MP}$)} \label{eq:sym-step5} \\
+\varphi_6 &\equiv x = x \rightarrow y = x && \text{(aus \ref{eq:sym-step5} und \ref{eq:sym-step0} via $\text{MP}$)} \label{eq:sym-step6} \\
+\varphi_7 &\equiv y = x && \text{(aus \ref{eq:sym-step1} and \ref{eq:sym-step6} via $\text{MP}$)} \label{eq:sym-step7}
+\end{align}
+Da $\varphi_7 \equiv y = x$, ist die Sequenz ein korrekter formaler Beweis für $\{x = y\} \vdash y = x$.
+\end{math-stroke}
+
+\begin{spoken-clean}[01:02:27 - 01:03:42]
+Als Nächstes müssten wir zeigen, dass die Gleichheitsrelation transitiv ist. Das ist jedoch eine Aufgabe auf dem dieswöchigen Übungsblatt, weshalb wir das hier nicht an der Tafel vorrechnen. Das dürfen Sie selbst ausprobieren. 
+
+Wir gehen nun über zu einem neuen Kapitel: Axiomensysteme und mathematische Theorien. Als erstes konkretes Beispiel betrachten wir die Ringtheorie. 
+
+Sie alle kennen bereits Ringe aus anderen Vorlesungen, wie etwa die ganzen Zahlen $\mathbb{Z}$ oder die reellen Zahlen $\mathbb{R}$. Ein Ring ist eine Menge, die mit einer Addition und einer Multiplikation ausgestattet ist, welche bestimmte Eigenschaften erfüllen. Wir wollen dies nun formal als eine prädikatenlogische Theorie definieren. 
+
+Dazu legen wir zuerst die Signatur der Ringtheorie fest, wobei wir uns auf Ringe mit Eins konzentrieren. Die Signatur $\mathcal{L}_{\text{Ring}}$ besteht aus:
+\begin{itemize}
+    \item zwei Konstantensymbolen: $0$ und $1$,
+    \item zwei zweistelligen Funktionssymbolen: $+$ (für die Addition) und $\cdot$ (für die Multiplikation),
+    \item und einem einstelligen Funktionssymbol: $-$ (für das additive Inverse).
+\end{itemize}
+
+Manchmal lässt man das unäre Minus $-$ in der Signatur weg und fordert die Existenz des Inversen stattdessen über einen Existenzquantor. Wenn wir das unäre Minus $-$ jedoch direkt in die Signatur aufnehmen, hat das den großen Vorteil, dass wir alle Ringaxiome als rein universelle Aussagen --- also ausschließlich unter Verwendung von Allquantoren --- formulieren können. Das ist mathematisch sehr elegant.
+\end{spoken-clean}
+
+\begin{math-stroke}[Symmetrie der Gleichheitsrelation]
+Unter Verwendung des Deduktionstheorems ($\text{DT}$) und der Verallgemeinerung ($\text{V}$) beweisen wir die Symmetrie der Gleichheitsrelation:
+
+\begin{short-proof}
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \setcounter{enumi}{0} \item Aus dem vorherigen Beweis gilt:
+    \[ \{x = y\} \vdash y = x \]
+    \item Durch Anwendung des Deduktionstheorems ($\text{DT}$) erhalten wir:
+    \begin{equation}\label{eq:sym-dt}
+    \vdash x = y \rightarrow y = x
+    \end{equation}
+    \item Durch zweimalige Anwendung der Verallgemeinerung ($\text{V}$) auf \eqref{eq:sym-dt} folgt:
+    \begin{equation}\label{eq:sym-final}
+    \vdash \forall x \forall y (x = y \rightarrow y = x)
+    \end{equation}
+\end{enumerate}
+Dies beweist die Symmetrie der Gleichheitsrelation.
+\end{short-proof}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:03:42 - 01:05:57]
+Die Axiome der Ringtheorie sind die folgenden Formeln, die wir mit $\mathbf{RT_0}$ bis $\mathbf{RT_7}$ bezeichnen. 
+
+Zuerst regeln wir die Addition. Wir fordern, dass die Struktur bezüglich der Addition eine abelsche Gruppe bildet. Das bedeutet:
+\begin{itemize}
+    \item \textbf{RT$_{\mathbf{0}}$ (Assoziativgesetz):} Für alle $x, y, z$ gilt $x + (y + z) = (x + y) + z$.
+    \item \textbf{RT$_{\mathbf{1}}$ (Kommutativgesetz):} Für alle $x, y$ gilt $x + y = y + x$.
+    \item \textbf{RT$_{\mathbf{2}}$ (neutrales Element):} Für alle $x$ gilt $x + 0 = x$. Wegen der Kommutativität ist die Null damit automatisch auch linksneutral.
+    \item \textbf{RT$_{\mathbf{3}}$ (inverses Element):} Für alle $x$ gilt $x + (-x) = 0$.
+\end{itemize}
+
+Als Nächstes regeln wir die Multiplikation. Wir fordern:
+\begin{itemize}
+    \item \textbf{RT$_{\mathbf{4}}$ (Assoziativgesetz):} Für alle $x, y, z$ gilt $x \cdot (y \cdot z) = (x \cdot y) \cdot z$.
+    \item \textbf{RT$_{\mathbf{5}}$ (neutrales Element):} Für alle $x$ gilt $x \cdot 1 = x \wedge 1 \cdot x = x$. Bezüglich der Multiplikation haben wir also ein Monoid.
+\end{itemize}
+
+Schließlich müssen wir die Addition und die Multiplikation miteinander verbinden. Das geschieht über die Distributivgesetze:
+\begin{itemize}
+    \item \textbf{RT$_{\mathbf{6}}$ (Links-Distributivgesetz):} Für alle $x, y, z$ gilt $x \cdot (y + z) = (x \cdot y) + (x \cdot z)$.
+    \item \textbf{RT$_{\mathbf{7}}$ (Rechts-Distributivgesetz):} Für alle $x, y, z$ gilt $(x + y) \cdot z = (x \cdot z) + (y \cdot z)$.
+\end{itemize}
+
+Das sind die acht Axiome für einen Ring mit Eins.
+\end{spoken-clean}
+
+\section{Axiomensysteme und mathematische Theorien}
+\subsection{Ringtheorie}
+
+\begin{math-stroke}[Signatur der Ringtheorie]
+Die Signatur der Ringtheorie (für Ringe mit Eins) ist definiert als:
+\[ \mathcal{L}_{\text{Ring}} = \{0, 1, +, \cdot, -\} \]
+wobei:
+\begin{itemize}
+    \item \textbf{$0, 1$} Konstantensymbole sind,
+    \item \textbf{$+$} ein zweistelliges Funktionssymbol ist (Addition),
+    \item \textbf{$\cdot$} ein zweistelliges Funktionssymbol ist (Multiplikation),
+    \item \textbf{$-$} ein einstelliges Funktionssymbol ist (additives Inverse).
+\end{itemize}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:05:57 - 01:08:42]
+Als Nächstes betrachten wir die Körpertheorie. Ein Körper ist im Wesentlichen ein kommutativer Ring mit Eins, bei dem jedes Element außer der Null ein multiplikatives Inverses besitzt. Zudem wollen wir ausschließen, dass der Körper nur aus einem einzigen Element besteht; wir fordern also $0 \neq 1$. 
+
+Die Signatur der Körpertheorie $\mathcal{L}_{\text{Körper}}$ ist identisch mit der Signatur der Ringtheorie:
+\[ \mathcal{L}_{\text{Körper}} = \{0, 1, +, \cdot, -\} \]
+
+Die Axiome der Körpertheorie bestehen aus den acht Axiomen der Ringtheorie, die wir hier als $\mathbf{KT_0}$ bis $\mathbf{KT_7}$ bezeichnen, plus drei weiteren Axiomen:
+\begin{itemize}
+    \item \textbf{KT$_{\mathbf{8}}$ (Kommutativität der Multiplikation):} Für alle $x, y$ gilt $x \cdot y = y \cdot x$.
+    \item \textbf{KT$_{\mathbf{9}}$ (Existenz des multiplikativen Inversen):} Für alle $x$ gilt: Wenn $x \neq 0$, dann existiert ein $y$, sodass $x \cdot y = 1$.
+    \item \textbf{KT$_{\mathbf{10}}$ (Nicht-Trivialität):} $\neg(0 = 1)$. Das schließt den sogenannten Nullkörper aus, bei dem $0 = 1$ gilt und der mathematisch trivial ist.
+\end{itemize}
+
+Das sind die elf Axiome der Körpertheorie.
+\end{spoken-clean}
+
+\begin{math-stroke}[Die Axiome der Ringtheorie]
+\begin{axioms}[Ringtheorie]\label[axioms]{ax:ringtheorie}
+Die Axiome der Ringtheorie (für Ringe mit Eins) sind die folgenden $\mathcal{L}_{\text{Ring}}$-Formeln:
+\begin{align}
+\mathbf{RT_0}\colon &\quad \forall x \forall y \forall z \bigl(x + (y + z) = (x + y) + z\bigr) && \text{(Assoziativität der Addition)} \label{eq:RT0_part3} \\
+\mathbf{RT_1}\colon &\quad \forall x \forall y (x + y = y + x) && \text{(Kommutativität der Addition)} \label{eq:RT1_part3} \\
+\mathbf{RT_2}\colon &\quad \forall x (x + 0 = x) && \text{(Neutrales Element der Addition)} \label{eq:RT2_part3} \\
+\mathbf{RT_3}\colon &\quad \forall x \bigl(x + (-x) = 0\bigr) && \text{(Inverses Element der Addition)} \label{eq:RT3_part3} \\
+\mathbf{RT_4}\colon &\quad \forall x \forall y \forall z \bigl(x \cdot (y \cdot z) = (x \cdot y) \cdot z\bigr) && \text{(Assoziativität der Multiplikation)} \label{eq:RT4_part3} \\
+\mathbf{RT_5}\colon &\quad \forall x (x \cdot 1 = x \wedge 1 \cdot x = x) && \text{(Neutrales Element der Multiplikation)} \label{eq:RT5_part3} \\
+\mathbf{RT_6}\colon &\quad \forall x \forall y \forall z \bigl(x \cdot (y + z) = (x \cdot y) + (x \cdot z)\bigr) && \text{(Links-Distributivgesetz)} \label{eq:RT6_part3} \\
+\mathbf{RT_7}\colon &\quad \forall x \forall y \forall z \bigl((x + y) \cdot z = (x \cdot z) + (y \cdot z)\bigr) && \text{(Rechts-Distributivgesetz)} \label{eq:RT7_part3}
+\end{align}
+\end{axioms}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:08:42 - 01:11:42]
+Wir wollen nun ein konkretes mathematisches Theorem beweisen: die Eindeutigkeit des multiplikativen Inversen in einem Körper. 
+
+Das bedeutet, wir wollen zeigen: Wenn wir ein Element $x \neq 0$ haben, und wir haben zwei Elemente $y$ und $z$, die beide multiplikative Inverse von $x$ sind --- für die also $x \cdot y = 1$ und $x \cdot z = 1$ gilt ---, dann muss $y = z$ sein. 
+
+Formal ausgedrückt lautet die Behauptung:
+\[ \text{KT} \vdash \forall x \forall y \forall z \bigl(\neg(x = 0) \wedge x \cdot y = 1 \wedge x \cdot z = 1 \rightarrow y = z\bigr) \]
+
+Um diesen Beweis übersichtlich zu führen, verwenden wir das Deduktionstheorem. Wir fügen die Voraussetzungen $\psi_1 \equiv x \cdot y = 1$ und $\psi_2 \equiv x \cdot z = 1$ temporär zu unserer Theorie hinzu. Unser Ziel ist es dann zu zeigen:
+\[ \text{KT} \cup \{x \cdot y = 1, \ x \cdot z = 1\} \vdash y = z \]
+
+Die algebraische Herleitung, die Sie alle aus der Schule oder der Linearen Algebra kennen, ist sehr einfach:
+\[ y = y \cdot 1 = y \cdot (x \cdot z) = (y \cdot x) \cdot z = (x \cdot y) \cdot z = 1 \cdot z = z \]
+
+Wir wollen diese Gleichungskette nun Schritt für Schritt formal aus den Axiomen herleiten.
+\end{spoken-clean}
+
+\subsection{Körpertheorie}
+
+\begin{math-stroke}[Die Axiome der Körpertheorie]
+\begin{axioms}[Körpertheorie]\label[axioms]{ax:koerpertheorie}
+Die Axiome der Körpertheorie sind die folgenden $\mathcal{L}_{\text{Körper}}$-Formeln:
+\begin{align}
+\mathbf{KT_0}\text{--}\mathbf{KT_7}\colon &\quad \text{Die Axiome der Ringtheorie } \mathbf{RT_0}\text{--}\mathbf{RT_7} \text{ (Gleichungen \ref{eq:RT0_part3}--\ref{eq:RT7_part3})} \nonumber \\
+\mathbf{KT_8}\colon &\quad \forall x \forall y (x \cdot y = y \cdot x) && \text{(Kommutativität der Multiplikation)} \label{eq:KT8_part3} \\
+\mathbf{KT_9}\colon &\quad \forall x \bigl(\neg(x = 0) \rightarrow \exists y (x \cdot y = 1)\bigr) && \text{(Existenz des multiplikativen Inversen)} \label{eq:KT9_part3} \\
+\mathbf{KT_{10}}\colon &\quad \neg(0 = 1) && \text{(Nicht-Trivialität)} \label{eq:KT10_part3}
+\end{align}
+\end{axioms}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:11:42 - 01:14:42]
+Lassen Sie uns diese Schritte noch etwas präzisieren, damit Sie sehen, wie man das wirklich ganz formal im Kalkül durchführt. Es ist wichtig zu verstehen, dass jeder dieser Schritte auf einer präzisen Anwendung der Axiome beruht. 
+
+Der erste Schritt ist $y = y \cdot 1$. Das ist eine direkte Instanziierung des neutralen Elements der Multiplikation, also des Axioms $\mathbf{KT_5}$. 
+
+Der zweite Schritt ist $y \cdot 1 = y \cdot (x \cdot z)$. Wie machen wir das formal? Wir haben die Voraussetzung $x \cdot z = 1$. Zudem haben wir das Gleichheits-Axiomenschema $\mathbf{L_{16}}$, das uns erlaubt, gleiche Terme in Funktionen einzusetzen. Wenn wir das auf die Multiplikation mit $y$ anwenden, erhalten wir: Aus $1 = x \cdot z$ folgt $y \cdot 1 = y \cdot (x \cdot z)$. 
+
+Der dritte Schritt ist $y \cdot (x \cdot z) = (y \cdot x) \cdot z$. Das ist eine Instanziierung des Assoziativgesetzes der Multiplikation, also des Axioms $\mathbf{KT_4}$. 
+
+Der vierte Schritt ist $(y \cdot x) \cdot z = (x \cdot y) \cdot z$. Das folgt aus dem Kommutativgesetz $\mathbf{KT_8}$, welches $y \cdot x = x \cdot y$ besagt, und wiederum dem Gleichheitsaxiom $\mathbf{L_{16}}$, das uns erlaubt, diesen Term im Produkt mit $z$ zu substituieren. 
+
+Der fünfte Schritt ist $(x \cdot y) \cdot z = 1 \cdot z$. Das folgt völlig analog aus der Voraussetzung $x \cdot y = 1$ und den Gleichheitsaxiomen. 
+
+Der letzte Schritt ist $1 \cdot z = z$. Das ist wieder eine Instanziierung des neutralen Elements aus $\mathbf{KT_5}$. 
+
+Wenn wir alle diese einzelnen Gleichungen bewiesen haben, können wir sie über die Transitivität der Gleichheitsrelation --- die wir ja als Äquivalenzrelation bewiesen haben --- zur einzigen Gleichung $y = z$ zusammenfügen. Das zeigt sehr schön, wie mächtig unser formaler Kalkül ist!
+\end{spoken-clean}
+
+\subsection{Eindeutigkeit des multiplikativen Inversen}
+
+\begin{math-stroke}[Beweis der Eindeutigkeit des Inversen]
+Wir beweisen formal die Eindeutigkeit des multiplikativen Inversen in der Körpertheorie:
+\[ \text{KT} \vdash \forall x \forall y \forall z \bigl(\neg(x = 0) \wedge x \cdot y = 1 \wedge x \cdot z = 1 \rightarrow y = z\bigr) \]
+
+\begin{short-proof}
+Unter Verwendung des Deduktionstheorems ($\text{DT}$) definieren wir die Voraussetzungsmenge:
+\[ \Phi := \text{KT} \cup \{x \cdot y = 1, \ x \cdot z = 1\} \]
+Wir zeigen, dass $\Phi \vdash y = z$ gilt, indem wir die Gleichungskette formal herleiten:
+\begin{align*}
+y &= y \cdot 1 && \text{(Axiom $\mathbf{KT_5}$)} \\
+&= y \cdot (x \cdot z) && \text{(Substitution von $1 = x \cdot z$ aus der Voraussetzung)} \\
+&= (y \cdot x) \cdot z && \text{(Assoziativität $\mathbf{KT_4}$)} \\
+&= (x \cdot y) \cdot z && \text{(Kommutativität $\mathbf{KT_8}$)} \\
+&= 1 \cdot z && \text{(Substitution von $x \cdot y = 1$ aus der Voraussetzung)} \\
+&= z && \text{(Axiom $\mathbf{KT_5}$)}
+\end{align*}
+Daraus folgt durch die Transitivität der Gleichheit $y = z$.
+\end{short-proof}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:14:42 - 01:17:42]
+Wir haben jetzt formal gezeigt, dass unter den Voraussetzungen $x \cdot y = 1$ und $x \cdot z = 1$ die Gleichung $y = z$ beweisbar ist. Das heißt, wir haben das folgende Resultat etabliert:
+\[ \text{KT} \cup \{x \cdot y = 1, \ x \cdot z = 1\} \vdash y = z \]
+
+Jetzt wenden wir das Deduktionstheorem an. Wir bringen die zweite Voraussetzung auf die rechte Seite der Beweisbarkeit. Das gibt uns:
+\[ \text{KT} \cup \{x \cdot y = 1\} \vdash x \cdot z = 1 \rightarrow y = z \]
+
+Nun wenden wir das Deduktionstheorem ein zweites Mal an, um auch die erste Voraussetzung auf die rechte Seite zu bringen. Das liefert:
+\[ \text{KT} \vdash x \cdot y = 1 \rightarrow (x \cdot z = 1 \rightarrow y = z) \]
+
+Unter Verwendung aussagenlogischer Äquivalenzen --- insbesondere der Äquivalenz von $\varphi \rightarrow (\psi \rightarrow \chi)$ und $(\varphi \wedge \psi) \rightarrow \chi$ --- können wir dies umschreiben zu:
+\[ \text{KT} \vdash x \cdot y = 1 \wedge x \cdot z = 1 \rightarrow y = z \]
+
+Und jetzt können wir die Verallgemeinerung anwenden. Wir verallgemeinern nacheinander über die Variablen $z$, $y$ und $x$. Da diese Variablen in den Körperaxiomen $\text{KT}$ nicht frei vorkommen --- die Körperaxiome sind ja allesamt geschlossene Sätze ohne freie Variablen ---, ist diese Verallgemeinerung absolut zulässig und korrekt.
+
+Das gibt uns schlussendlich das gewünschte Resultat:
+\[ \text{KT} \vdash \forall x \forall y \forall z \bigl(\neg(x = 0) \wedge x \cdot y = 1 \wedge x \cdot z = 1 \rightarrow y = z\bigr) \]
+
+Damit haben wir die Eindeutigkeit des multiplikativen Inversen in jedem Körper formal bewiesen!
+\end{spoken-clean}
+
+\begin{math-stroke}[Detaillierte formale Schritte]
+Wir schlüsseln die formalen Beweisschritte für die Gleichungskette detailliert auf:
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item \textbf{Schritt 1:} $y = y \cdot 1$ ist eine Instanziierung von $\mathbf{KT_5}$ (mit $x \equiv y$).
+    \item \textbf{Schritt 2:} Aus der Voraussetzung $x \cdot z = 1$ folgt via Symmetrie $1 = x \cdot z$. Unter Verwendung des Gleichheitsaxioms $\mathbf{L_{16}}$ für die Funktion $F(a, b) \equiv a \cdot b$ folgt:
+    \[ (y = y \wedge 1 = x \cdot z) \rightarrow y \cdot 1 = y \cdot (x \cdot z) \]
+    Da $y = y$ (Axiom $\mathbf{L_{14}}$) und $1 = x \cdot z$ gelten, folgt durch Modus Ponens:
+    \[ y \cdot 1 = y \cdot (x \cdot z) \]
+    \item \textbf{Schritt 3:} $y \cdot (x \cdot z) = (y \cdot x) \cdot z$ ist eine Instanziierung von $\mathbf{KT_4}$.
+    \item \textbf{Schritt 4:} Aus dem Kommutativgesetz $\mathbf{KT_8}$ gilt $y \cdot x = x \cdot y$. Via Gleichheitsaxiom $\mathbf{L_{16}}$ folgt:
+    \[ (y \cdot x = x \cdot y \wedge z = z) \rightarrow (y \cdot x) \cdot z = (x \cdot y) \cdot z \]
+    Da $z = z$ (Axiom $\mathbf{L_{14}}$) gilt, folgt:
+    \[ (y \cdot x) \cdot z = (x \cdot y) \cdot z \]
+    \item \textbf{Schritt 5:} Aus der Voraussetzung $x \cdot y = 1$ folgt analog:
+    \[ (x \cdot y) \cdot z = 1 \cdot z \]
+    \item \textbf{Schritt 6:} $1 \cdot z = z$ ist eine Instanziierung von $\mathbf{KT_5}$.
+\end{enumerate}
+Durch wiederholte Anwendung der Transitivität der Gleichheit folgt schließlich $y = z$.
+\end{math-stroke}
+
+\begin{spoken-clean}[01:20:42 - 01:23:42]
+Als Nächstes betrachten wir ein weiteres sehr wichtiges Axiomensystem in der Mathematik: die Ordnungstheorie. 
+
+Wir wollen geordnete Mengen definieren. Sie alle kennen geordnete Mengen, wie zum Beispiel die reellen Zahlen $\mathbb{R}$ oder die rationalen Zahlen $\mathbb{Q}$ mit der üblichen Kleiner-Relation. 
+
+Die Signatur der Ordnungstheorie $\mathcal{L}_{\text{Ordnung}}$ besteht einfach aus einem einzigen zweistelligen Relationssymbol, das wir mit $<$ bezeichnen:
+\[ \mathcal{L}_{\text{Ordnung}} = \{<\} \]
+
+Manchmal verwendet man stattdessen die schwache Ordnung $\le$, wir definieren es hier jedoch über die strikte Ordnung $<$. Das ist mathematisch völlig äquivalent. 
+
+Die Axiome für eine strikte Halbordnung --- oft auch partielle Ordnung genannt --- sind die folgenden zwei Formeln:
+\begin{itemize}
+    \item \textbf{O$_{\mathbf{0}}$ (Irreflexivität):} Für alle $x$ gilt nicht $x < x$, also $\forall x \neg(x < x)$. Kein Element kann kleiner sein als es selbst.
+    \item \textbf{O$_{\mathbf{1}}$ (Transitivität):} Für alle $x, y, z$ gilt: $x < y \wedge y < z \rightarrow x < z$.
+\end{itemize}
+
+Wenn wir eine totale Ordnung --- auch lineare Ordnung genannt --- definieren wollen, dann fügen wir noch ein drittes Axiom hinzu, das Totalitäts- oder Trichotomie-Axiom, das wir mit $\mathbf{O_2}$ bezeichnen:
+\begin{itemize}
+    \item \textbf{O$_{\mathbf{2}}$ (Totalität / Trichotomie):} Für alle $x, y$ gilt $x < y \vee x = y \vee y < x$. Das heißt, zwei beliebige Elemente sind immer vergleichbar.
+\end{itemize}
+\end{spoken-clean}
+
+\begin{math-stroke}[Abschluss des Beweises via Deduktionstheorem]
+Wir führen den Beweis unter Anwendung des Deduktionstheorems ($\text{DT}$) und der Verallgemeinerung ($\text{V}$) zu Ende:
+
+\begin{short-proof}
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item Aus dem vorherigen Abschnitt gilt:
+    \[ \text{KT} \cup \{x \cdot y = 1, \ x \cdot z = 1\} \vdash y = z \]
+    \item Durch erste Anwendung des Deduktionstheorems ($\text{DT}$) folgt:
+    \[ \text{KT} \cup \{x \cdot y = 1\} \vdash x \cdot z = 1 \rightarrow y = z \]
+    \item Durch zweite Anwendung des Deduktionstheorems ($\text{DT}$) folgt:
+    \[ \text{KT} \vdash x \cdot y = 1 \rightarrow (x \cdot z = 1 \rightarrow y = z) \]
+    \item Unter Verwendung aussagenlogischer Äquivalenzen lässt sich dies umschreiben zu:
+    \begin{equation}\label{eq:eindeutigkeit-impl_part3}
+    \text{KT} \vdash x \cdot y = 1 \wedge x \cdot z = 1 \rightarrow y = z
+    \end{equation}
+    \item Da die Variablen $x, y, z$ in den Axiomen von $\text{KT}$ nicht frei vorkommen, dürfen wir die Verallgemeinerung ($\text{V}$) nacheinander auf \eqref{eq:eindeutigkeit-impl_part3} anwenden:
+    \[ \text{KT} \vdash \forall x \forall y \forall z \bigl(\neg(x = 0) \wedge x \cdot y = 1 \wedge x \cdot z = 1 \rightarrow y = z\bigr) \]
+\end{enumerate}
+Dies beweist das Theorem vollständig.
+\end{short-proof}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:23:42 - 01:27:42]
+Als Nächstes betrachten wir die Peano-Arithmetik, abgekürzt $\text{PA}$. Das ist das berühmte Axiomensystem für die natürlichen Zahlen, das Giuseppe Peano Ende des 19. Jahrhunderts formuliert hat, um die Arithmetik formal zu begründen. 
+
+Die Signatur der Peano-Arithmetik $\mathcal{L}_{\text{PA}}$ besteht aus:
+\begin{itemize}
+    \item dem Konstantensymbol $0$,
+    \item dem einstelligen Funktionssymbol $S$, welches für die Nachfolgerfunktion (Successor) steht --- die anschauliche Idee ist, dass $S(x)$ genau der Nachfolger von $x$ ist, also $x + 1$ ---,
+    \item und den beiden zweistelligen Funktionssymbolen $+$ und $\cdot$ für die Addition und Multiplikation.
+\end{itemize}
+
+Die Axiome der Peano-Arithmetik sind die folgenden Formeln, die wir mit $\mathbf{PA_0}$ bis $\mathbf{PA_5}$ bezeichnen, plus das Induktionsschema $\mathbf{PA_6}$:
+\begin{itemize}
+    \item \textbf{PA$_{\mathbf{0}}$:} Null ist kein Nachfolger: Für alle $x$ gilt $\neg\bigl(S(x) = 0\bigr)$.
+    \item \textbf{PA$_{\mathbf{1}}$:} Die Nachfolgerfunktion ist injektiv: Für alle $x, y$ gilt $S(x) = S(y) \rightarrow x = y$.
+    \item \textbf{PA$_{\mathbf{2}}$ und PA$_{\mathbf{3}}$:} Diese definieren die Addition rekursiv: Für alle $x$ gilt $x + 0 = x$, und für alle $x, y$ gilt $x + S(y) = S(x + y)$.
+    \item \textbf{PA$_{\mathbf{4}}$ und PA$_{\mathbf{5}}$:} Diese definieren die Multiplikation rekursiv: Für alle $x$ gilt $x \cdot 0 = 0$, und für alle $x, y$ gilt $x \cdot S(y) = (x \cdot y) + x$.
+\end{itemize}
+
+Und schließlich haben wir das Induktionsschema $\mathbf{PA_6}$. Das ist ein Axiomenschema, weil es für jede beliebige Formel $\varphi$ gilt. Es formalisiert das Prinzip der vollständigen Induktion: Wenn eine Eigenschaft für $0$ gilt, und wenn aus der Gültigkeit für $x$ stets die Gültigkeit für den Nachfolger $S(x)$ folgt, dann gilt diese Eigenschaft für alle natürlichen Zahlen.
+\end{spoken-clean}
+
+\subsection{Ordnungstheorie}
+
+\begin{math-stroke}[Axiome der Ordnungstheorie]
+\begin{definition}[Strikte Halbordnung]\label[definition]{def:halbordnung_part3}
+Eine \newterm{strikte Halbordnung} (oder partielle Ordnung) auf einer Menge $A$ ist eine Relation $<$ mit der Signatur $\mathcal{L}_{\text{Ordnung}} = \{<\}$, welche die folgenden Axiome erfüllt:
+\begin{align}
+\mathbf{O_0}\colon &\quad \forall x \neg(x < x) && \text{(Irreflexivität)} \label{eq:O0_part3} \\
+\mathbf{O_1}\colon &\quad \forall x \forall y \forall z (x < y \wedge y < z \rightarrow x < z) && \text{(Transitivität)} \label{eq:O1_part3}
+\end{align}
+\end{definition}
+
+\begin{definition}[Lineare Ordnung]\label[definition]{def:lineare-ordnung_part3}
+Eine \newterm{lineare Ordnung} (oder totale Ordnung) ist eine strikte Halbordnung, die zusätzlich das folgende Totalitätsaxiom erfüllt:
+\begin{align}
+\mathbf{O_2}\colon &\quad \forall x \forall y (x < y \vee x = y \vee y < x) && \text{(Totalität / Trichotomie)} \label{eq:O2_part3}
+\end{align}
+\end{definition}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:27:42 - 01:30:08]
+Als letztes Beispiel für heute betrachten wir das fundamentale Axiomensystem der modernen Mathematik: die Mengenlehre, genauer gesagt die Zermelo-Fraenkel-Mengenlehre mit Auswahlaxiom, abgekürzt $\text{ZFC}$. 
+
+Die Signatur der Mengenlehre $\mathcal{L}_{\text{ZFC}}$ ist überraschend einfach. Sie besteht aus einem einzigen zweistelligen Relationssymbol, dem Element-Symbol $\in$:
+\[ \mathcal{L}_{\text{ZFC}} = \{\in\} \]
+
+Obwohl die Signatur so minimalistisch ist, sind die Axiome von $\text{ZFC}$ äußerst tiefgründig und komplex. Sie bilden das Fundament, auf dem fast die gesamte moderne Mathematik aufgebaut werden kann. Wir werden diese Axiome in den kommenden Wochen noch sehr detailliert und Schritt für Schritt besprechen. 
+
+Heute möchte ich Ihnen nur das allererste und grundlegendste Axiom vorstellen, das Extensionalitätsaxiom, oft mit $\mathbf{Ext}$ abgekürzt:
+\[ \forall x \forall y \Bigl(\forall z (z \in x \leftrightarrow z \in y) \rightarrow x = y\Bigr) \]
+
+Dieses Axiom besagt anschaulich: Zwei Mengen sind genau dann identisch, wenn sie exakt dieselben Elemente enthalten. Eine Menge ist also vollständig durch ihre Elemente charakterisiert. Es gibt keine \qt{Zusatzinformationen} oder innere Strukturen, die zwei Mengen mit identischen Elementen voneinander unterscheiden könnten. 
+
+Das ist alles, was wir heute durchgehen wollten. Wir haben formale Beweise kennengelernt, das Deduktionstheorem besprochen und verschiedene wichtige Axiomensysteme der Mathematik formalisiert: die Ringtheorie, die Körpertheorie, die Ordnungstheorie, die Peano-Arithmetik und das erste Axiom der Mengenlehre. 
+
+Nächste Woche werden wir anfangen, uns mit der Semantik zu beschäftigen. Wir werden definieren, was eine Struktur ist und was es bedeutet, dass eine Formel in einer Struktur wahr ist. 
+
+Vielen Dank fürs Kommen, eine erfolgreiche Woche und bis zum nächsten Mal!
+\end{spoken-clean}
+
+\subsection{Peano-Arithmetik}
+
+\begin{math-stroke}[Die Axiome der Peano-Arithmetik]
+Die Signatur der Peano-Arithmetik ist:
+\[ \mathcal{L}_{\text{PA}} = \{0, S, +, \cdot\} \]
+
+\begin{axioms}[Peano-Arithmetik]\label[axioms]{ax:peano_part3}
+Die Axiome der Peano-Arithmetik bestehen aus den folgenden Formeln und dem Induktionsschema:
+\begin{align}
+\mathbf{PA_0}\colon &\quad \forall x \neg\bigl(S(x) = 0\bigr) && \text{(Null ist kein Nachfolger)} \label{eq:PA0_part3} \\
+\mathbf{PA_1}\colon &\quad \forall x \forall y \bigl(S(x) = S(y) \rightarrow x = y\bigr) && \text{(Injektivität der Nachfolgerfunktion)} \label{eq:PA1_part3} \\
+\mathbf{PA_2}\colon &\quad \forall x (x + 0 = x) && \text{(Addition von Null)} \label{eq:PA2_part3} \\
+\mathbf{PA_3}\colon &\quad \forall x \forall y \bigl(x + S(y) = S(x + y)\bigr) && \text{(Addition von Nachfolgern)} \label{eq:PA3_part3} \\
+\mathbf{PA_4}\colon &\quad \forall x (x \cdot 0 = 0) && \text{(Multiplikation mit Null)} \label{eq:PA4_part3} \\
+\mathbf{PA_5}\colon &\quad \forall x \forall y \bigl(x \cdot S(y) = (x \cdot y) + x\bigr) && \text{(Multiplikation mit Nachfolgern)} \label{eq:PA5_part3}
+\end{align}
+
+\textbf{Induktionsschema:}
+Sei $\varphi(x)$ eine beliebige $\mathcal{L}_{\text{PA}}$-Formel mit der freien Variable $x$:
+\begin{align}
+\mathbf{PA_6}\colon &\quad \Bigl(\varphi(0) \wedge \forall x \bigl(\varphi(x) \rightarrow \varphi(S(x))\bigr)\Bigr) \rightarrow \forall x \varphi(x) \label{eq:PA6_part3}
+\end{align}
+\end{axioms}
+\end{math-stroke}
+
+\subsection{Zermelo-Fraenkel-Mengenlehre (ZFC)}
+
+\begin{math-stroke}[Das Extensionalitätsaxiom]
+Die Signatur der Mengenlehre ist:
+\[ \mathcal{L}_{\text{ZFC}} = \{\in\} \]
+
+\begin{axiom}[Extensionalitätsaxiom ($\mathbf{Ext}$)]\label[axiom]{ax:extensionalitaet_part3}
+Zwei Mengen sind identisch, wenn sie dieselben Elemente enthalten:
+\begin{equation}
+\mathbf{Ext}\colon \quad \forall x \forall y \Bigl(\forall z (z \in x \leftrightarrow z \in y) \rightarrow x = y\Bigr) \label{eq:extensionalitaet_part3}
+\end{equation}
+\end{axiom}
+
+\begin{explanation-of-steps}[Bedeutung des Axioms]
+Das Extensionalitätsaxiom definiert die Gleichheit von Mengen. Es besagt, dass eine Menge ausschließlich über ihren Inhalt (ihre Extension) definiert ist, nicht über die Art ihrer Beschreibung. Beispielsweise sind die Mengen $\{x \in \mathbb{R} \mid x^2 = 1\}$ und $\{-1, 1\}$ identisch, da sie exakt dieselben Elemente enthalten.
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\begin{nice-box}[Zusammenfassung der Schlüsselkonzepte]
+In dieser Vorlesung haben wir die formalen Werkzeuge der Prädikatenlogik erster Stufe kennengelernt:
+\begin{itemize}
+    \item \textbf{Formale Beweise} sind endliche Sequenzen von Formeln, die rein syntaktisch aus Axiomen mittels \textbf{Modus Ponens} und \textbf{Verallgemeinerung} hergeleitet werden.
+    \item Das \textbf{Deduktionstheorem (DT)} erlaubt es, Beweise von Implikationen $\psi \rightarrow \varphi$ drastisch zu vereinfachen, indem die Prämisse $\psi$ temporär als Annahme verwendet wird.
+    \item Wir haben fundamentale mathematische Strukturen formalisiert: \textbf{Ringe}, \textbf{Körper}, \textbf{Ordnungen}, die \textbf{Peano-Arithmetik} und die \textbf{Mengenlehre (ZFC)}.
+\end{itemize}
+\end{nice-box}

@@ -51,10 +51,14 @@ Formal ausgedrückt sagt uns das Auswahlaxiom also: Für alle $\mathcal{F}$ gilt
 \begin{axiom}[Auswahlaxiom ($\text{AC}$)]\label[axiom]{ax:auswahlaxiom}
 Gesehen: $\text{AC}$ (Axiom of Choice)
 \begin{equation}
-\forall \mathcal{F} \left( \emptyset \notin \mathcal{F} \implies \exists f \left( f: \mathcal{F} \to \bigcup \mathcal{F} \land \forall X \in \mathcal{F} \, (f(X) \in X) \right) \right)
+\forall \mathcal{F} \left( \emptyset \notin \mathcal{F} \implies \exists f \left( f \in {}^{ \mathcal{F}}\!\bigcup \mathcal{F} \land \forall X \in \mathcal{F} \, (f(X) \in X) \right) \right)
 \end{equation}
 \end{axiom}
 \end{math-stroke}
+\begin{didactic-insight}
+One coulde also have written $f: \mathcal{F} \to \bigcup \mathcal{F}$ instead of $f \in {}^{ \mathcal{F}}\!\bigcup \mathcal{F}$. However, the latter is more common in the lecture.
+\end{didactic-insight}
+
 
 \begin{spoken-clean}[00:02:40 - 00:03:50]
 Das ist eine umständliche Art und Weise, um aufzuschreiben, dass wir für alle Familien von Mengen aus jeder Menge eines auswählen können. In Worten ausgedrückt: Jede Familie von nicht-leeren Mengen hat eine Auswahlfunktion. Und Sie haben gesehen, das ist wiederum äquivalent zu der Aussage: Das kartesische Produkt nicht-leerer Mengen ist nicht leer.

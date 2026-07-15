@@ -1,0 +1,641 @@
+% ==========================================
+% LatexRefinement Step Output: step4-02-24-25-tuesday-all-offset-final.tex
+% Model: gemini-3-flash-preview
+% Temperature: 0.33
+% TopP: 0.95
+% TopK: 40
+% MaxOutputTokens: 65535
+% ThinkingBudget: 32765
+% ThinkingLevel: HIGH
+% Prompt Tokens: 35'646
+% Candidates Tokens: 17'053 (inkl. Thinking Tokens)
+% Cached Tokens: 32'760
+% Processed on: 2026-07-15 10:42:57
+% ==========================================
+
+% Primary Language: German
+
+\lecturechapter{Dienstag}{24. Feb}{24. Februar 2025}{Grundstrukturen: Formale Beweise und Beweisbarkeit}
+
+\begin{nice-box}[Kontext und Überblick]
+In dieser Vorlesung vertiefen wir die Grundlagen der Prädikatenlogik erster Stufe. Nachdem wir in der ersten Woche das Alphabet, Terme und Formeln eingeführt haben, widmen wir uns heute der formalen Herleitung. Wir definieren präzise, was ein formaler Beweis ist und unter welchen Bedingungen eine Formel aus einer Menge von Annahmen beweisbar ist.
+
+\textbf{Themenübersicht:}
+\begin{itemize}
+    \item \textbf{Wiederholung:} Alphabet, Terme, Formeln und logische Axiome ($L_0$ bis $L_{16}$).
+    \item \textbf{Formale Beweise:} Einführung der Schlussregeln Modus Ponens (MP) und Verallgemeinerung (V).
+    \item \textbf{Beweisbarkeit:} Definition der Relation $\Phi \vdash \psi$ und Beispiele für formale Beweise.
+    \item \textbf{Deduktionstheorem:} Ein metamathematisches Werkzeug zur Vereinfachung von Beweisen.
+    \item \textbf{Axiomensysteme:} Anwendung der Logik auf mathematische Theorien wie die Gruppentheorie.
+\end{itemize}
+\end{nice-box}
+
+\section{Wiederholung: Alphabet, Terme und Formeln}
+
+\begin{spoken-clean}[00:00:00 - 00:02:15]
+Hallo zusammen und willkommen zurück zur zweiten Woche von Grundstrukturen. Normalerweise arbeite ich ja nicht so gerne mit dem Beamer, aber wir haben letzte Woche so viele neue Begriffe eingeführt, dass es, glaube ich, nicht schlecht ist, diese nochmals kurz durchzugehen. So können wir uns kurz erinnern, worum es geht, und uns in diese Welt der abstrakten Formeln einarbeiten.
+
+Wir haben zuerst angefangen, die Symbole zu definieren, mit denen wir arbeiten --- das Alphabet. Da haben wir gesehen, es gibt die logischen Symbole. Dazu gehören Variablen --- davon gibt es beliebig viele, so viele, wie man eben braucht. Dann gibt es die logischen Operatoren, also \qt{und}, \qt{oder}, \qt{nicht} und \qt{es folgt}. Dann gibt es die logischen Quantoren, den Allquantor $\forall$ und den Existenzquantor $\exists$. Und schließlich die Gleichheitsrelation $=$. Das sind die logischen Symbole, die wir immer haben.
+\end{spoken-clean}
+
+\begin{math-stroke}[Das Alphabet der Prädikatenlogik]
+\textbf{Logische Symbole:}
+\begin{itemize}
+    \item \textbf{Variablen:} $x, y, z, v_0, v_1, \dots$
+    \item \textbf{Logische Operatoren:} $\neg$ (nicht), $\wedge$ (und), $\vee$ (oder), $\rightarrow$ (impliziert)
+    \item \textbf{Logische Quantoren:} $\forall$ (Allquantor), $\exists$ (Existenzquantor)
+    \item \textbf{Gleichheitsrelation:} $=$
+\end{itemize}
+
+\textbf{Nicht-logische Symbole (Signatur \texorpdfstring{$\mathcal{L}$}{L}):}
+\begin{itemize}
+    \item \textbf{Konstantensymbole:} z.\,B. $0, 1, \emptyset$
+    \item \textbf{Funktionssymbole:} z.\,B. $+, \cdot, \sin$ (mit fester Stelligkeit)
+    \item \textbf{Relationssymbole:} z.\,B. $<, \in$ (mit fester Stelligkeit)
+\end{itemize}
+
+\begin{definition}[Signatur]\label[definition]{def:signatur-week2}
+Die \newterm{Signatur} ist die Menge der nicht-logischen Symbole einer Theorie.
+\end{definition}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:02:15 - 00:04:30]
+Genau, und diese haben wir überall. Dann gibt es die nicht-logischen Symbole. Das hängt dann von der Theorie ab, mit der wir arbeiten --- also von der Signatur. Da haben wir gesehen, es gibt Konstantensymbole, Funktionssymbole und Relationssymbole. Das ist einfach das Alphabet, das wir haben, aber das sind a priori nur Symbole, nichts anderes.
+
+Dann haben wir definiert, was Terme sind. Grob gesagt sind Variablen und Konstanten Terme, und Funktionen von Termen sind wieder Terme. So kann man induktiv definieren, was Terme sind. Man kann also auch Funktionen von Funktionen von Variablen nehmen.
+
+Und dann die Formeln. Wir haben gesehen, dass man aus Termen Formeln bilden kann, indem man Relationen zwischen Termen nimmt oder logische Operationen von Termen oder Quantoren über Terme und so weiter. Und man kann aus Formeln wieder Formeln bilden. Wir haben gesehen, was freie und gebundene Variablen sind, und wir haben diese Substitution und die zulässige Substitution definiert.
+\end{spoken-clean}
+
+\begin{math-stroke}[Terme und Formeln]
+\begin{itemize}
+    \item \textbf{Terme:} Variablen und Konstanten sind Terme; Funktionen von Termen sind Terme.
+    \item \textbf{Formeln:} Formeln werden durch Relationen, logische Operatoren und Quantoren aus Termen und Formeln gebildet.
+\end{itemize}
+
+\begin{explanation-of-steps}[Induktive Konstruktion]
+Die Mengen der Terme und Formeln sind induktiv definiert. Ein Term repräsentiert ein Objekt des Universums (z.\,B. $x+1$), während eine Formel eine Aussage über diese Objekte repräsentiert (z.\,B. $x+1 = y$). Eine Variable heißt \newterm{gebunden}, wenn sie im Bereich eines Quantors steht, andernfalls heißt sie \newterm{frei}.
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\section{Logische Axiome}
+
+\begin{spoken-clean}[00:04:30 - 00:06:45]
+Alles ist eigentlich sehr... ja, es ist gut, das einmal zu sehen und gut zu verstehen, was das alles bedeutet. Aber es ist alles sehr natürlich und intuitiv, wenn man es macht. Es ist klar, wann eine Substitution zulässig ist und wann nicht. Man kann sich lange damit beschäftigen und in alle Feinheiten gehen, aber das tun wir nicht im großen Detail, weil es keine reine Logik-Vorlesung ist.
+
+Am Ende haben wir noch die logischen Axiome angeschaut. Da hatten wir nicht ganz so viel Zeit, aber das ist sowieso etwas, was besser ist, wenn Sie das selbst durchgehen. Das sind, wie gesagt, eigentlich Axiomenschemata. Jedes von diesen Axiomen ist ein Schema, weil die Formeln hier beliebige Formeln sein können. Das heißt, jedes Axiom besteht eigentlich aus ganz, ganz vielen Formeln, weil man hier alle möglichen Formeln einsetzen kann und für alle Formeln gilt das Axiom. Eine einzelne Instanz von diesem Schema nennt man dann eine \newterm{Instanziierung} von dem Axiom.
+\end{spoken-clean}
+
+\begin{math-stroke}[Die logischen Axiome (Schemata \texorpdfstring{$L_0$}{L0} bis \texorpdfstring{$L_9$}{L9})]
+Sei $\mathcal{L}$ eine Signatur und seien $\varphi, \varphi_1, \varphi_2, \varphi_3$ und $\psi$ beliebige $\mathcal{L}$-Formeln:
+
+\begin{align}
+    L_0: &\quad \varphi \vee \neg \varphi \nonumber \\
+    L_1: &\quad \varphi \rightarrow (\psi \rightarrow \varphi) \nonumber \\
+    L_2: &\quad (\psi \rightarrow (\varphi_1 \rightarrow \varphi_2)) \rightarrow ((\psi \rightarrow \varphi_1) \rightarrow (\psi \rightarrow \varphi_2)) \nonumber \\
+    L_3: &\quad (\varphi \wedge \psi) \rightarrow \varphi \nonumber \\
+    L_4: &\quad (\varphi \wedge \psi) \rightarrow \psi \nonumber \\
+    L_5: &\quad \varphi \rightarrow (\psi \rightarrow (\varphi \wedge \psi)) \nonumber \\
+    L_6: &\quad \varphi \rightarrow (\varphi \vee \psi) \nonumber \\
+    L_7: &\quad \psi \rightarrow (\varphi \vee \psi) \nonumber \\
+    L_8: &\quad (\varphi_1 \rightarrow \varphi_3) \rightarrow ((\varphi_2 \rightarrow \varphi_3) \rightarrow ((\varphi_1 \vee \varphi_2) \rightarrow \varphi_3)) \nonumber \\
+    L_9: &\quad \neg \varphi \rightarrow (\varphi \rightarrow \psi) \nonumber
+\end{align}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:06:45 - 00:09:00]
+Grob gesagt regeln diese Axiome $L_1$ bis $L_9$ gewissermaßen den Gebrauch von den logischen Operatoren. Also: Was heißt \qt{oder}, was heißt \qt{und}, was heißt \qt{es impliziert} und was heißt \qt{nicht}? Durch diese Axiome wird quasi der Gebrauch davon geregelt.
+
+Dann haben wir gesehen, gibt es die Axiome $L_{10}$ und $L_{11}$ sowie $L_{12}$ und $L_{13}$. Diese Axiome regeln den Gebrauch der logischen Quantoren. Und dann gibt es noch $L_{14}$ bis $L_{16}$, die regeln den Gebrauch der Gleichheitsrelation. Und auch hier: Das sind alles nur Formeln. Wir werden jetzt heute sehen, wie wir definieren, was ein Beweis ist. Also eine Regel, wie man diese Formeln aneinanderhängen oder eine Reihe von Formeln machen kann und sagen: Wenn man das und das machen kann, ist es ein Beweis.
+\end{spoken-clean}
+
+\begin{math-stroke}[Quantoren- und Gleichheitsaxiome]
+\textbf{Quantorenaxiome:}
+Sei $\tau$ ein $\mathcal{L}$-Term, $\nu$ eine Variable, und sei die Substitution $\varphi(\nu/\tau)$ zulässig:
+\begin{align}
+    L_{10}: &\quad \forall \nu \varphi(\nu) \rightarrow \varphi(\tau) \nonumber \\
+    L_{11}: &\quad \varphi(\tau) \rightarrow \exists \nu \varphi(\nu) \nonumber
+\end{align}
+Sei $\psi$ eine Formel und sei $\nu$ eine Variable mit $\nu \notin \text{frei}(\psi)$:
+\begin{align}
+    L_{12}: &\quad \forall \nu (\psi \rightarrow \varphi(\nu)) \rightarrow (\psi \rightarrow \forall \nu \varphi(\nu)) \nonumber \\
+    L_{13}: &\quad \forall \nu (\varphi(\nu) \rightarrow \psi) \rightarrow (\exists \nu \varphi(\nu) \rightarrow \psi) \nonumber
+\end{align}
+
+\textbf{Gleichheitsaxiome:}
+\begin{align}
+    L_{14}: &\quad \tau = \tau \nonumber \\
+    L_{15}: &\quad (\tau_1 = \tau_1' \wedge \dots\wedge \tau_n = \tau_n') \rightarrow (R(\tau_1, \dots, \tau_n) \rightarrow R(\tau_1', \dots, \tau_n')) \nonumber \\
+    L_{16}: &\quad (\tau_1 = \tau_1' \wedge \dots \wedge \tau_n = \tau_n') \rightarrow (F(\tau_1, \dots, \tau_n) = F(\tau_1', \dots, \tau_n')) \nonumber
+\end{align}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:09:00 - 00:11:15]
+Das ist alles ganz rein formal, reinsyntaktisch. Das hat a priori eigentlich gar keine Bedeutung dahinter. Aber es ist natürlich so --- Sie haben sich diese Axiome ein bisschen angeschaut, das war auch Teil der Übungen ---, wenn man die versucht zu übersetzen mit unserem alltäglichen oder naiven Verständnis von diesen logischen Operatoren, dann sind diese Axiome sehr nahe an unserem subjektiven Wahrheitsempfinden dran. Es ist genau so beschrieben, wie wir \qt{oder} verstehen oder was wir unter \qt{nicht} verstehen.
+
+Wenn wir zum Beispiel sagen: Okay, wenn $\tau_1 = \tau_1'$ ist und $\tau_2 = \tau_2'$ und so weiter, dann ist, wenn die ursprünglichen Terme eine Relation erfüllen, erfüllen die gestrichenen Terme auch diese Relation. Das ist wirklich trivial, weil es ja genau die Gleichheit ist. Aber das ist nur, weil wir bereits eine Intuition davon haben, was \qt{gleich sein} bedeutet. Trotzdem --- einfach um die Schwierigkeit zu sehen, wenn Sie diese Woche das Übungsblatt machen --- muss man teilweise ganz offensichtliche, triviale Sachen beweisen, einfach aus diesen Axiomen. Das erscheint sehr mühsam, aber es geht darum, dass man es nur nach den Regeln macht, wie man das aneinanderhängt, und wir geben dem a priori noch gar keine Bedeutung.
+\end{spoken-clean}
+
+\begin{didactic-insight}[Formalismus vs. Intuition]
+Der hier präsentierte rein syntaktische Ansatz (Formalismus) entkoppelt die logische Struktur von der inhaltlichen Bedeutung. Ein Beweis ist in diesem Sinne lediglich eine korrekte Manipulation von Zeichenketten gemäß festen Regeln. Diese Sichtweise geht historisch auf den \qt{Wiener Kreis} und Mathematiker wie David Hilbert zurück. Erst später wird über die \newterm{Semantik} (Modelltheorie) eine Verbindung zur \qt{Wahrheit} hergestellt.
+\end{didactic-insight}
+
+\begin{spoken-clean}[00:11:15 - 00:13:30]
+Es ist ein bisschen wie wenn Sie Musik machen und jetzt beginnen, nur damit Noten aufzuschreiben und eine Harmonielehre entwickeln und sagen: Welche Noten sind harmonisch? Da gibt es Regeln: Wenn so viele Striche dazwischen liegen, dann ist es harmonisch, wenn weniger Striche dazwischen liegen, ist es nicht harmonisch. Das kann man alles rein theoretisch und formal aufschreiben, und nachher stellt sich heraus, dass man das genau so definiert hat, dass es dann harmonisch klingt, wenn es diese Regeln befolgt.
+
+Vielleicht dazu noch ein kleines Wort zur Philosophie der Mathematik. Das zeigt trotzdem ein bisschen: In der Mathematik geht zuerst die Mathematik und dann dieser Formalismus. Dieser Formalismus beschreibt eigentlich die Mathematik, die wir bereits tun. Es ist wie: Man macht die Musik und dann versucht man das noch auf Noten aufzuschreiben. Und klar, jetzt kann man ganz präzise einfach sagen: Mathematik zu tun ist einfach, die Symbole, die wir definiert haben, nach diesen Regeln aneinanderzureihen. Das ist die Mathematik. Das ist der ganz reine Formalismus. Das war der Wiener Kreis --- eine Schule von Philosophen im Ende 19. Jahrhundert ---, die sehr stark diese Sichtweise vertreten haben. Das ist heutzutage eher überholt in der Philosophie, aber es gibt natürlich viele Verfeinerungen und es ist eine sehr spannende Diskussion.
+
+Aber eben: Einfach jetzt zu sagen, das ist Mathematik und nichts Weiteres, wird der Sache vielleicht nicht ganz gerecht. Zuerst würde man mal sagen: Okay, alles, was vorher war, bevor man diese Axiome gemacht hat --- was die Leute da gemacht haben ---, das ist gar keine Mathematik? Geht nicht. Und das andere ist auch eben: Wir haben ja auch eine Wahrheitsintuition, und diese Axiome sind genau so gemacht, dass sie diese Wahrheitsintuition einigermaßen reflektieren. Deswegen funktioniert das vielleicht. Das Argument zu sagen, Mathematik ist reiner Formalismus --- einfach nur das Aneinanderreihen von Symbolen nach diesen Regeln ---, funktioniert philosophisch nicht ganz befriedigend. Denn sonst könnte man ja genau sagen: Okay, wir nehmen irgendein anderes Axiomensystem, irgendwelche anderen Regeln, und wir hängen die Zeichen aneinander nach diesen Regeln. Das macht dann überhaupt keinen Sinn mehr, aber es wäre dann genau gleichberechtigt, weil es keinen Grund gibt, weshalb diese Axiome irgendwie in irgendeiner Art sinnvoller sind als irgendeine andere Regel, wie man diese aneinanderhängt. Aber eben: So viel zum Formalismus.
+
+\inlinemetanote{Der Dozent wischt die Tafel und bereitet den nächsten Abschnitt vor}
+
+Gut, das ist, wo wir sind. Was wir jetzt heute machen --- ah, etwas noch: Es gibt noch nicht-logische Axiome. Das werden wir später noch an Beispielen sehen. Das ist je nach Theorie dann auch nochmals verschieden. Wir haben gesehen, es gibt eine Signatur, da hat man noch nicht-logische Symbole im Alphabet, und dann gibt es je nach Theorie eben auch noch nicht-logische Axiome. Wir werden das in der Gruppentheorie und so weiter sehen. Diese nicht-logischen Axiome regeln dann den Gebrauch der nicht-logischen Symbole. Wir sehen später heute noch Beispiele davon.
+
+Gut, okay. Das ist, wo wir sind. Jetzt das Thema heute sind formale Beweise. Das sind eben die Regeln, wie man Sachen beweisen darf --- rein syntaktisch.
+\end{spoken-clean}
+
+\section{Formale Beweise}
+
+\begin{spoken-clean}[00:13:30 - 00:15:45]
+Es gibt eigentlich nur zwei Schlussregeln. Die erste, die wir verwenden, um aus gegebenen Formeln eine neue Formel abzuleiten, ist der \newterm{Modus Ponens}. Sie bemerken so in der Logik halt, weil das eben auch aus der Antike kommt und auch aus der Philosophie, da haben viele Dinge lateinische Namen. Der berühmte Modus Ponens, abgekürzt schreiben wir oft $\text{MP}$.
+
+Das ist eine wichtige Schlussregel: Wenn $\varphi$ und $\psi$ Formeln sind --- irgendwelche Formeln --- und wir haben die zwei Formeln $\varphi \rightarrow \psi$ und $\varphi$, dann können wir einen Strich darunter ziehen und wir leiten daraus die Formel $\psi$ ab. Wir sagen, die Formel $\psi$ folgt aus den Formeln $\varphi \rightarrow \psi$ und $\varphi$ durch Modus Ponens.
+
+Auch das ist aus dem Alltag bekannt. Wenn man sagt: \qt{Wenn es regnet, dann wird die Straße nass. Es regnet. Also ist die Straße nass.} Okay, relativ einleuchtend. Das ist der Modus Ponens. Ich glaube, es geht auch auf die alten Griechen zurück; ich glaube, Theophrastos --- so einer der Vorsokratiker --- hat das zum ersten Mal beschrieben oder so. Aristoteles hat sich auch mit Logik beschäftigt, aber ich glaube nicht direkt mit Modus Ponens, der hatte eher so Kategorien und so.
+\end{spoken-clean}
+
+\begin{math-stroke}[Die Schlussregeln]
+\textbf{1. Modus Ponens (MP):}
+Seien $\varphi, \psi$ beliebige $\mathcal{L}$-Formeln.
+\begin{center}
+\begin{tabular}{c}
+    $\varphi \rightarrow \psi, \quad \varphi$ \\ \hline
+    $\psi$
+\end{tabular}
+\end{center}
+Wir sagen: Die Formel $\psi$ folgt aus den Formeln $\varphi \rightarrow \psi$ und $\varphi$ durch \newterm{Modus Ponens}.
+
+\textbf{2. Verallgemeinerung (V):}
+Sei $\varphi$ eine $\mathcal{L}$-Formel und $\nu$ eine Variable.
+\begin{center}
+\begin{tabular}{c}
+    $\varphi$ \\ \hline
+    $\forall \nu \varphi$
+\end{tabular}
+\end{center}
+Wir sagen: Die Formel $\forall \nu \varphi$ ist aus der Formel $\varphi$ durch \newterm{Verallgemeinerung} entstanden.
+\end{math-stroke}
+
+\begin{spoken-clean}[00:15:45 - 00:18:00]
+Die zweite Schlussregel, die wir verwenden, ist die \newterm{Verallgemeinerung}, kurz \textbf{(V)}. Und zwar ist das: Wenn $\varphi$ eine Formel ist und $\nu$ eine Variable, dann kann man aus der Formel $\varphi$ ableiten: \qt{für alle $\nu$ gilt $\varphi$}.
+
+Hier müssen wir später noch eine Präzisierung machen, wann wir das machen dürfen. Wir dürfen verallgemeinern, aber nur mit Variablen, die nicht in dieser Menge von Formeln, mit der wir anfangen, frei vorkommen. Wenn eine Variable dort frei vorkommt und wir haben irgendeine Formel hier, die unsere Variable bereits beschreibt, dann gibt das quasi wie eine Bedingung an diese Variable. Das heißt, diese Variable ist nicht mehr beliebig, und wir dürfen darüber nicht weiter verallgemeinern. Aber wenn es eine Variable ist, über die wir gar nichts gesagt haben, dann ist diese Verallgemeinerung zulässig.
+
+Es wirkt am Anfang vielleicht ein bisschen so, als müsste man sich daran gewöhnen, aber es macht auch das absolut Sinn. Wenn man sagt, man möchte aus $x=0$ irgendetwas beweisen --- die erste Formel ist $x=0$ --- und jetzt möchte man irgendetwas beweisen, dann darf man natürlich nicht über $x$ verallgemeinern, weil wir haben ja schon gesagt, $x$ ist gleich null. Aber wenn $x$ noch gar nicht vorkommt, dann dürfen wir verallgemeinern. Das macht man ja oft so, wenn man etwas beweist. Wir sagen einfach: \qt{Sei $g$ ein Element in einer Gruppe $G$}. Und jetzt beweisen wir, dass irgendetwas Bestimmtes gilt für dieses $g$. Aber wir haben gar nichts Spezielles angenommen, dann stimmt das für alle $g$. Also wenn es für ein $g$ gilt, wo wir nichts Spezielles angenommen haben, dann gilt das für alle $g$. Und das ist genau die Verallgemeinerung. Ja?
+
+\inlinemetanote{Ein Student fragt zur Verallgemeinerung: \qt{Wir sprechen ja darüber, dass das $\nu$ frei vorkommt in der Formel danach. Ist das dann sozusagen der Wirkungsbereich der Verallgemeinerung? Für alle Symbole vorher, ist das wie in einer generellen Klammer? Für welche Distanz gilt dieses \qt{für alle}?}}
+
+Nein, es muss hier nicht vorkommen. Ich weiß, aber wenn ich jetzt irgendeine Formel hätte, die 500 Zeichen lang ist und irgendwo in der Mitte habe ich ein \qt{für alle}-Symbol... Ah, ja, ja. Gilt das für die ganze Distanz danach oder nur für ein Ding? Nein, nur für ein bestimmtes Ding. Ich glaube, bei der Präfix-Notation ist es kein Problem, da ist einfach alles, was danach kommt. Mit der Infix-Notation haben wir ja diese induktive Definition, wie Formeln konstruiert werden. Man sagt, eine Formel ist etwas, was aus endlich vielen Schritten konstruiert wird. Und in einem Schritt nimmt man eine bestehende Formel, macht einen Quantor davor, und dann werden alle Sachen darin gebunden. Wenn man jetzt aber noch weiter macht mit diesen Schritten, dann sind alle weiteren, die man nachher dazu macht, nicht mehr gebunden. Macht das Sinn? Okay. Das ist wieder etwas, wo die Präfix-Notation besser ist, weil man einfach weitere Sachen dranhängt und dann ist es gut, ja.
+
+Aber hier gibt es wirklich keine Bedingung. Man kann irgendeine Variable nehmen, auch wenn die da gar nicht vorkommt oder so. Das ist einfach rein formal-syntaktisch, was wir hier machen.
+\end{spoken-clean}
+
+\section{Beweisbarkeit}
+
+\begin{spoken-clean}[00:18:00 - 00:20:15]
+Gut, und jetzt sagen wir eigentlich wirklich, was es heißt, beweisbar zu sein. Also, dafür ist nun $\mathcal{L}$ eine Signatur und $\Phi$ eine Menge von $\mathcal{L}$-Formeln. Und auch hier wieder: \qt{eine Menge} eben einfach im naiven Sinn. Wir wissen, es gibt einfach eine. Wir verwenden das Wort Menge, aber wirklich nur im naiven Sinn; wir haben noch keine Eigenschaften von Mengen wie Durchschnitte und Potenzmengen und so weiter.
+
+Wir sagen jetzt: Eine $\mathcal{L}$-Formel $\psi$ ist \newterm{beweisbar} aus $\Phi$ --- also aus dieser Menge von Formeln. Und okay, wie schreiben wir das? Wir bezeichnen das mit $\Phi \vdash \psi$. Aus $\Phi$ kann man beweisen --- jetzt kommt da einfach so ein umgekipptes $T$, eine Art --- $\psi$.
+
+Gut, und jetzt sagen wir genau, was das bedeutet: Falls es eine endliche Sequenz $\varphi_0$ bis $\varphi_n$ von $\mathcal{L}$-Formeln gibt, so dass --- okay, wir wollen, dass $\varphi_n$ die Formel ist... Und jetzt einfach, um hier nicht immer sagen zu müssen \qt{$\varphi_n$ ist die Formel}, machen wir einfach dieses Zeichen hier. Das heißt, $\varphi_n$ ist das Letzte in dieser Sequenz, ist die Formel $\psi$, also das heißt, die Formeln $\varphi_n$ und $\psi$ sind identisch. Wir dürfen natürlich nicht das Gleichheitszeichen verwenden, weil das Gleichheitszeichen bereits ein logisches Symbol ist, das in unseren Formeln vorkommt, das keine Bedeutung hat a priori. Das heißt, nehmen wir einfach dieses Ad-hoc-Symbol, diese drei Striche; das heißt, es sind zweimal genau dieselbe Formel.
+\end{spoken-clean}
+
+\begin{math-stroke}[Definition der Beweisbarkeit]
+Sei $\mathcal{L}$ eine Signatur und $\Phi$ eine Menge von $\mathcal{L}$-Formeln.
+Eine $\mathcal{L}$-Formel $\psi$ ist \newterm{beweisbar} aus $\Phi$ (geschrieben $\Phi \vdash \psi$), falls es eine endliche Sequenz $\varphi_0, \dots, \varphi_n$ von $\mathcal{L}$-Formeln gibt, so dass $\varphi_n \equiv \psi$ und für jedes $i \le n$ eine der folgenden Bedingungen erfüllt ist:
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item $\varphi_i$ ist eine Instanziierung eines logischen Axioms.
+    \item $\varphi_i \in \Phi$.
+    \item Es existieren Indizes $j, k < i$, so dass $\varphi_j \equiv \varphi_k \rightarrow \varphi_i$ (Anwendung von \textbf{MP}).
+    \item Es existiert ein Index $j < i$, so dass $\varphi_i \equiv \forall \nu \varphi_j$ für eine Variable $\nu$, die in keiner Formel aus $\Phi$ frei vorkommt (Anwendung von \textbf{V}).
+\end{enumerate}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:20:15 - 00:22:30]
+Und wir wollen, dass für alle $i$ mit $i \le n$ eines der Folgenden gilt. Es gibt verschiedene Möglichkeiten: Erstens, $\varphi_i$ ist eine Instanziierung eines logischen Axioms. Man darf einfach eines der logischen Axiome nehmen, eine bestimmte Instanz davon, und das darf man immer in diese Reihe reinschreiben.
+
+Okay, dann eine andere Möglichkeit ist, dass $\varphi_i$ eine der Formeln in diesem großen $\Phi$ ist. Das ist intuitiv wieder klar: $\Phi$ nehmen wir ja an, dass das gilt, und wir wollen zeigen, dass dann auch $\psi$ gilt quasi.
+
+Und dann kommen jetzt eben noch die zwei Schlussregeln dazu. Das eine ist der Modus Ponens: Es gibt $j$ und $k$ strikt kleiner als $i$, so dass $\varphi_j$ identisch ist mit $\varphi_k \rightarrow \varphi_i$. Da sehen wir jetzt, das ist der Modus Ponens: Wenn es $i$ gibt und jetzt gibt es zwei Formeln, die vor dem $i$ kommen in dieser Sequenz, und eine davon ist $\varphi_k \rightarrow \varphi_i$ und außerdem kommt das $\varphi_k$ auch vor --- also $\varphi_k$ ist eine der Formeln in dieser Sequenz ---, dann können wir sagen, dass dann das $\varphi_i$ auch... dann können wir das $\varphi_i$ aufschreiben. Das war jetzt nicht gut erklärt. Aber genau, es ist der Modus Ponens: Also wenn eine der vorherigen Formeln ist $\varphi_k \rightarrow \varphi_i$ und $\varphi_k$ ist auch eine der vorherigen Formeln, dann ist $\varphi_i$ eine... dürfen wir das auch in diese Sequenz schreiben. Okay, einfach Modus Ponens.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:22:30 - 00:24:45]
+Und das Letzte ist noch die Verallgemeinerung. Da gibt es noch eine Präzisierung, wann wir das machen dürfen, und zwar ist das: Es gibt ein $j$ kleiner als $i$, so dass $\varphi_i$ genau $\forall \nu \varphi_j$ ist. Das heißt, wenn $\varphi_i$ die Verallgemeinerung von einer vorhergehenden Formel ist. Aber hier müssen wir noch etwas über die Variable $\nu$ hier sagen: für eine Variable $\nu$, die in keiner Formel von groß $\Phi$ frei vorkommt.
+
+Das heißt, wir dürfen verallgemeinern, aber nur mit Variablen, die nicht in dieser Menge von Formeln, mit der wir anfangen, frei vorkommen. Dazu vielleicht noch eine Bemerkung: Wenn eine Formel hier frei vorkommt und wir haben jetzt irgendeine Formel hier, die unsere Variable bereits beschreibt, dann gibt das quasi wie eine Bedingung an diese Variable. Das heißt, diese Variable ist nicht mehr beliebig, das heißt, wir dürfen darüber nicht weiter verallgemeinern. Aber wenn es eine Variable ist, über die wir gar nichts gesagt haben, dann ist diese Verallgemeinerung zulässig.
+
+Es wirkt am Anfang vielleicht ein bisschen... man muss sich daran gewöhnen, aber es macht auch das absolut Sinn. Wenn man sagt, man möchte aus $x=0$ irgendetwas... die erste Formel ist $x=0$, und jetzt möchte man irgendetwas beweisen, dann darf man natürlich nicht über $x$ verallgemeinern, weil wir haben ja schon gesagt, $x$ ist gleich null. Aber wenn $x$ noch gar nicht vorkommt, dann dürfen wir verallgemeinern. Das macht man ja oft so, wenn man etwas beweist. Wir sagen einfach: \qt{Sei $g$ ein Element in einer Gruppe $G$}. Und jetzt beweisen wir, dass irgendetwas Bestimmtes gilt für dieses $g$, aber wir haben gar nichts angenommen, dann stimmt das für alle $g$. Also wenn es für ein $g$ gilt, wo wir nichts Spezielles angenommen haben, dann gilt das für alle $g$. Und das ist genau die Verallgemeinerung. Ja?
+
+\inlinemetanote{Ein Student fragt zur Verallgemeinerung: \qt{Wir sprechen ja darüber, dass das $\nu$ frei vorkommt in der Formel danach. Ist das dann sozusagen der Wirkungsbereich der Verallgemeinerung? Für alle Symbole vorher, ist das wie in einer generellen Klammer? Für welche Distanz gilt dieses \qt{für alle}?}}
+
+Nein, es muss hier nicht vorkommen. Ich weiß, aber wenn ich jetzt irgendeine Formel hätte, die 500 Zeichen lang ist und irgendwo in der Mitte habe ich ein \qt{für alle}-Symbol... Ah, ja, ja. Gilt das für die ganze Distanz danach oder nur für ein Ding? Nein, nur für ein bestimmtes Ding. Ich glaube, bei der Präfix-Notation ist es kein Problem, da ist einfach alles, was danach kommt. Mit der Infix-Notation haben wir ja diese induktive Definition, wie Formeln konstruiert werden. Man sagt, eine Formel ist etwas, was aus endlich vielen Schritten konstruiert wird. Und in einem Schritt nimmt man eine bestehende Formel, macht einen Quantor davor, und dann werden alle Sachen darin gebunden. Wenn man jetzt aber noch weiter macht mit diesen Schritten, dann sind alle weiteren, die man nachher dazu macht, nicht mehr gebunden. Macht das Sinn? Okay. Das ist wieder etwas, wo die Präfix-Notation besser ist, weil man einfach weitere Sachen dranhängt und dann ist es gut, ja.
+
+Aber hier gibt es wirklich keine Bedingung. Man kann irgendeine Variable nehmen, auch wenn die da gar nicht vorkommt oder so. Das ist einfach rein formal-syntaktisch, was wir hier machen.
+
+Also genau, das ist eigentlich wirklich, was wir machen dürfen: Wir dürfen Instanziierungen von logischen Axiomen nehmen, wir dürfen Elemente von $\Phi$ nehmen, wir dürfen aus diesen mit dem Modus Ponens und mit der Verallgemeinerung neue Formeln bilden. Und wenn wir dadurch irgendwann zur Formel $\psi$ kommen, dann wissen wir, dass $\psi$ aus $\Phi$ beweisbar ist. Und eine solche Folge von Formeln heißt ein Beweis.
+
+Also: Die Sequenz $\varphi_0$ bis $\varphi_n$ ist ein formaler Beweis von $\psi$ aus $\Phi$. Okay, jetzt die Sache ist: $\Phi$ darf auch leer sein. Also da haben wir nicht gesagt, dass da Formeln drin sein müssen; es darf durchaus leer sein. Und wenn das leer ist, dann schreiben wir es auch gar nicht hin. Also falls $\Phi$ leer ist, schreiben wir einfach nichts auf der linken Seite und da schreiben wir $\psi$ hin, anstatt $\emptyset \vdash \psi$. Und falls es keinen formalen Beweis von $\psi$ aus $\Phi$ gibt, so schreiben wir: \qt{Ja, man kann $\psi$ nicht aus $\Phi$ beweisen}.
+
+Gut, das ist ein formaler Beweis. Man muss sich die Sache eben ein bisschen wieder überlegen. Es ist ein bisschen... es wirkt vielleicht ein bisschen problematisch a priori, weil wir haben da vielleicht... wir verwenden da schon: \qt{Okay, es gibt eine Sequenz}, also eine endliche Sequenz, $n$ ist irgendeine ganze Zahl, wir sagen \qt{es gibt eine solche Sequenz}, wir sagen da schon, das eine ist kleiner, wir verwenden \qt{es gibt keine} und so weiter. Das sind alles eigentlich schon logische Begriffe, die wir verwenden, und die formalisieren wir ja genau hier. Aber man kann halt nicht endlos formalisieren, weil irgendwann beißt sich die Schlange in den Schwanz. Deswegen haben wir hier gewisse, ja, naive Begriffe davon, die wir gar nicht definieren: eine naive Idee davon, was eine Menge ist, ein naiver Begriff davon, was eine endliche Zahl ist, und halt auch unser Denken. Das sind jetzt so wie gewisse Argumente --- wir werden da noch weitere haben ---, das sind sogenannte metamathematische Argumente, also so wie Metaphysik. Das ist hier Metamathematik. Also wir schauen, wir gehen einen Schritt zurück und jetzt schauen wir von außen auf die Mathematik. Aber diesen einen Schritt zurückgehen müssen wir machen, um dann halt die korrekte Formalität aufzubauen.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:32:47 - 00:34:48]
+Machen wir doch ein Beispiel von so einem formalen Beweis. Da sehen wir schon, das ist eine sehr mühselige Sache, um auch schon nur einfache Sachen zu beweisen. Also sei $\varphi$ irgendeine Formel, und die Formel, die wir jetzt beweisen wollen, ist $\varphi \rightarrow \varphi$. Okay, das war keines der Axiome, oder? Das heißt, das müssen wir beweisen, wenn wir das verwenden wollen.
+
+Und das heißt jetzt, um das zu beweisen, müssen wir so eine endliche Sequenz von Formeln finden. Und da beginnen wir mit $\varphi_0$. Da nehmen wir jetzt eine Instanziierung vom Axiomenschema $L_1$. Schauen wir uns das nochmals kurz an. Es wäre gut, da nebendran so eine Liste zu haben mit allen Axiomen. Also wir hatten $L_1$, das wissen wir: $\varphi \rightarrow (\psi \rightarrow \varphi)$, wobei $\varphi$ und $\psi$ beliebige Formeln sind. Und was wir jetzt tun, ist... ah nein, wir wollen eine... das kommt jetzt nachher, das ist dann schon das Eins. Wir wollen zuerst eine Instanziierung von $L_2$. $L_2$ ist doch komplizierter. Da haben wir $(\psi \rightarrow (\varphi_1 \rightarrow \varphi_2)) \rightarrow ((\psi \rightarrow \varphi_1) \rightarrow (\psi \rightarrow \varphi_2))$. Okay, und da nehmen wir jetzt einfach für alle Formeln nehmen wir $\varphi$.
+\end{spoken-clean}
+
+\begin{proof}
+\begin{math-stroke}[Beispielbeweis: \texorpdfstring{$\varphi \rightarrow \varphi$}{phi -> phi}]
+Wir wollen zeigen, dass $\vdash \varphi \rightarrow \varphi$ gilt.
+\begin{enumerate}[label=$\varphi_{\mathbf{\arabic*}}:$]
+    \setcounter{enumi}{0} \item $(\varphi \rightarrow (\varphi \rightarrow \varphi)) \rightarrow ((\varphi \rightarrow \varphi) \rightarrow (\varphi \rightarrow \varphi))$ \hfill (Instanziierung von $L_2$)
+\end{enumerate}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:35:00 - 00:36:23]
+Also da schreiben wir jetzt hin: $(\varphi \rightarrow (\varphi \rightarrow \varphi)) \rightarrow ((\varphi \rightarrow \varphi) \rightarrow (\varphi \rightarrow \varphi))$. Okay, das ist eine Instanziierung von $L_2$. Genau, also für $\varphi_1$ haben wir $\varphi \rightarrow \varphi$ genommen, und für $\psi$ haben wir $\varphi$ genommen, für $\varphi_2$ haben wir $\varphi$ genommen. Dann ist das so. Habe ich das richtig hingeschrieben oder habe ich etwas vergessen? Kurz... ja.
+
+\inlinemetanote{Ein Student fragt: \qt{Darf ich fragen, wie Sie wissen, dass man das so nutzen kann?}}
+
+Ah nein, das muss man... hinsetzen, konzentrieren, ausprobieren. Ich glaube nicht, dass es da gute... ich glaube, da gibt es keine guten Rezepte, um das zu machen.
+
+Gut, jetzt $\varphi_1$, habe ich schon vorher gesagt: Da nehmen wir jetzt eine Instanz von $L_1$. Da nehmen wir einfach $\varphi \rightarrow (\varphi \rightarrow \varphi)$. Okay, das ist eine Instanziierung von $L_1$. Auch da wieder haben wir für $\psi$ genommen: $\varphi \rightarrow \varphi$.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{enumerate}[label=$\varphi_{\mathbf{\arabic*}}:$]
+    \setcounter{enumi}{1} \item $\varphi \rightarrow (\varphi \rightarrow \varphi)$ \hfill (Instanziierung von $L_1$)
+\end{enumerate}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:36:56 - 00:37:52]
+Gut, und jetzt können wir den Modus Ponens anwenden, weil hier steht genau die Formel, die hier steht. Das heißt, wir wissen jetzt: Das impliziert das, und wir wissen, dass hier das steht. Das heißt, wir wissen, dass auch das da steht. Okay, das heißt $\varphi_2$, da haben wir $(\varphi \rightarrow (\varphi \rightarrow \varphi)) \rightarrow (\varphi \rightarrow \varphi)$. Gut, das folgt aus $\varphi_0$ und $\varphi_1$ durch Modus Ponens.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{enumerate}[label=$\varphi_{\mathbf{\arabic*}}:$]
+    \setcounter{enumi}{2} \item $(\varphi \rightarrow \varphi) \rightarrow (\varphi \rightarrow \varphi)$ \hfill (MP aus $\varphi_0, \varphi_1$)
+\end{enumerate}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:37:52 - 00:38:56]
+Okay, und jetzt nehmen wir $\varphi_3$, nehmen wir nochmals $\varphi \rightarrow (\varphi \rightarrow \varphi)$. Das ist nochmals eine Instanz von $L_1$, diesmal einfach alles mit $\varphi$.
+
+Okay, und jetzt können wir... genau, jetzt sehen wir, können wir wieder den Modus Ponens anwenden. Also nehmen wir das hier, und wir wissen, dass das das impliziert. Das heißt, wir haben jetzt $\varphi_4$ ist $\varphi \rightarrow \varphi$. Und das folgt aus $\varphi_2$ und $\varphi_3$ durch Modus Ponens.
+
+Okay, also vielleicht nochmals: Und das ist jetzt ein Beweis, dass aus $\varphi$ folgt $\varphi$. Genau, ein sauberer formaler Beweis, wo wir nichts verwendet haben außer die Axiome und Modus Ponens. Und so sehen formale Beweise aus.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{enumerate}[label=$\varphi_{\mathbf{\arabic*}}:$]
+    \setcounter{enumi}{3} \item $\varphi \rightarrow (\varphi \rightarrow \varphi)$ \hfill (Instanziierung von $L_1$)
+    \item $\varphi \rightarrow \varphi$ \hfill (MP aus $\varphi_2, \varphi_3$)
+\end{enumerate}
+\end{math-stroke}
+\end{proof}
+
+\begin{spoken-clean}[00:39:19 - 00:41:28]
+Vielleicht nochmals zur Frage, wie man darauf kommt: Es ist ein bisschen wie allgemein mit vielen mathematischen Beweisen, es ist ein bisschen wie, was weiß ich, Sudoku lösen. Man muss sich die Axiome gut anschauen, und ich glaube, in der Regel geht man vielleicht ein bisschen rückwärts oder so. Man versucht, diese Formel irgendwie in die Axiome einzubauen und dann damit rumzuspielen, bis man das dann durch Modus Ponens ableiten kann. Das ist ein bisschen... ja, ist wie ein Knobelspiel schlussendlich. Man muss wirklich vielleicht ein bisschen zurückarbeiten. Also man sagt: Okay, $\varphi \rightarrow \varphi$, da wissen wir, das ist $\varphi \rightarrow \varphi \rightarrow \varphi$, das heißt, wir müssen jetzt irgendwie ja damit herumspielen, bis man das erhält, was man ist. Ist wie allgemein in jeder Art von Mathematik, man muss irgendwie die Art und Weise finden, wie man mit den Regeln herumspielen kann, um Dinge zu beweisen.
+
+Aber eben: Das Wichtige ist vielleicht wirklich wichtig, dass das wirklich formale Beweise sind. Und das zeigt wirklich: Man darf nicht einfach verwenden $\varphi \rightarrow \varphi$, weil das offensichtlich ist. $\varphi \rightarrow \varphi$, das hat keine Bedeutung a priori, und Beweise sind wirklich nur: Man nimmt die Axiome, man verwendet Modus Ponens oder Verallgemeinerung, und man versucht, etwas zu beweisen. Auf dem Übungsblatt diese Woche haben Sie vielleicht schon gesehen, hat es eine Reihe von... also eine ganze Reihe von logischen formalen Beweisen, die Sie führen sollen, von verschiedenen Schwierigkeitsgraden. Es lohnt sich. Okay, wir werden das nicht das ganze Semester machen; es ist, wie gesagt, kein Logikkurs. Aber es lohnt sich da einmal, das eine Woche sich einmal einen Nachmittag dranzusetzen und damit zu arbeiten, einfach um ein bisschen ein Gefühl dafür zu kriegen, was das ist und wie das genau heißt und wie das funktioniert, und auch um ganz präzise zu sein.
+
+Gut, wir werden nachher nach der Pause noch mehr beweisen. Jetzt gibt es noch einen kleinen Werbeblock.
+\end{spoken-clean}
+
+\begin{lecture-break}[Werbeblock: Cornelia Busch]
+\end{lecture-break}
+
+\begin{spoken-clean}[00:41:30 - 00:46:53]
+\inlinemetanote{Cornelia Busch betritt den Hörsaal}
+
+Also hallo allerseits. Vielleicht erinnern sich einige an letzten Herbst, da war ich schon mal in der Vorlesung Analysis 1. Und jetzt komme ich mal hier so rein, weil ich suche noch Mathematiker für meine Studie. Und ich dachte, dieses hier ist der beste Rahmen dafür, um Werbung zu machen und um gezielt Mathematikstudierende anzusprechen.
+
+Erstmal: Wer bin ich, für die, die mich damals nicht gesehen haben? Mein Name ist Cornelia Busch. Ich arbeite hier am Mathematikdepartement in der Administration und in der Lehre. Und ich bin aber auch Studentin. Also ich habe Mathematik mal hier studiert, genau in diesem Hörsaal auch, und da waren wir ungefähr so viele Studenten, wie Sie heute sind, vielleicht noch ein klein paar mehr, aber mit den Physikern zusammen. So ist die Anzahl der Studierenden gewachsen. Also ich habe Mathematik an der ETH studiert hier und auch hier doktoriert und mich dann an der Katholischen Universität Eichstätt-Ingolstadt in Bayern habilitiert.
+
+Und jetzt mache ich aus Interesse, wie die Schwierigkeiten beim Mathematiklernen sind, ein Masterstudium in Fachdidaktik Mathematik an der Pädagogischen Hochschule Zürich. Und das ist ein Joint Master mit der ETH zusammen, weil eine Pädagogische Hochschule kann alleine keinen Masterstudiengang anbieten. Und jetzt bin ich im Stadium angekommen, wo ich fast mit dem Studium fertig bin; ich muss also nur noch meine Masterarbeit schreiben. Und dafür mache ich eine Studie, die zum Übergang von der Schule zur Hochschule ist. Und ich möchte wissen, wie Sie den Übergang empfinden und wo die Studierenden, die im ersten beziehungsweise jetzt im zweiten Semester sind, Schwierigkeiten haben.
+
+Und was habe ich vor? Also ich mache Interviews von sechs bis acht Studentinnen und Studenten, und ich habe jetzt bereits fünf Interviews geführt. Das heißt, mir fehlen noch ein paar. Und die Länge der Interviews ist circa 30 bis 45 Minuten. Das heißt, ich habe jetzt gemerkt, dass es eher in Richtung 40 Minuten geht. Und ich mache Tonaufnahmen, und ich verwende dafür auch noch meinen Tablet-Computer. Das heißt, das Bild, was auf dem Tablet geschrieben wird --- also Sie schreiben dann eventuell was auf dem Tablet oder ich auch während des Interviews ---, das heißt, wenn man was notieren will, wird das auf dem Tablet Geschriebene direkt gefilmt. Das hat den Vorteil, dass man keine Gesichter sieht. Also man sieht Sie gar nicht auf diesen Aufnahmen. Und Ihre Lehrpersonen erfahren auch nicht, wer was gesagt hat. Weder Lob noch Tadel --- sie erfahren es nicht.
+
+Und was ist der Nutzen? Eben, ich transkribiere nachher alles. Das heißt, die Interviews werden verschriftlicht. Ich schreibe... da bin ich im Moment dabei, bei den ersten Interviews zu transkribieren. Das heißt, ich mache mir die Mühe, die Tonaufnahme anzuhören und jedes \qt{ö} und \qt{ä} einzeln aufzuschreiben. Und was ist der Nutzen? Sie helfen dabei, die Lehre weiterzuentwickeln. Also wir möchten Ihnen natürlich den Übergang von der Schule an die ETH oder an eine Universität möglichst reibungslos gestalten. Und es gibt auch eine kleine Belohnung.
+
+Und wen suche ich? Also insgesamt sechs bis acht Mathematik- oder Physikstudierende. Bis jetzt habe ich einige Physikstudierende interviewt im ersten beziehungsweise jetzt im zweiten Semester, und aktuell fehlen mir noch mindestens drei Mathematikstudierende. Aber wenn Sie noch Physikerkollegen haben, die gerne teilnehmen möchten, können Sie ihnen das auch sagen. Und wie können Sie teilnehmen? Sie melden sich jetzt bei mir, und wahrscheinlich am besten unter meiner Mathematikdepartement-Adresse, also cornelia.busch@math.ethz.ch. Ich habe auch ein Büro, das ist das HG G 34.2, das ist in die Richtung da, Seite Unispital. Also Sie können sich per Mail bei mir melden oder sich jetzt auch in eine Liste eintragen. Und ich würde Sie dann kontaktieren, wann die Interviews sind, innerhalb der... wahrscheinlich in zwei Wochen. So dass ich Sie dann kontaktiere, die Interviews plane, um sie dann in zwei Wochen durchzuführen. Also ich wäre froh, wenn sich ein paar Mutige melden. Es braucht keinen Mut, also es kann nichts schiefgehen bei den Interviews. Ich möchte einfach wissen, wo Sie Schwierigkeiten haben, und stelle Ihnen dazu ein paar Fragen. Okay, dann mal danke für die Teilnahme, und wer sich melden möchte, jetzt in der Pause kann das gerne tun oder auch per Mail.
+
+\inlinemetanote{Applaus der Studierenden}
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:46:54 - 00:47:38]
+Genau, also melden Sie sich einfach noch bei Cornelia Busch per E-Mail, wenn Sie da gerne mitmachen. Es ist manchmal nicht schlecht, mit jemandem zu reden über die Erfahrungen mit formalen Beweisen. Und eben, es ist anonym, Sie dürfen gerne sagen, dass das ein Schmarrn ist, was wir in dieser Vorlesung machen, und ich werde das nicht erfahren.
+
+Gut, aber jetzt weiter zu den formalen Beweisen. Also eben: Sie sehen schon, sehr einfache Statements können sehr mühsam sein zu beweisen mit diesen formalen Dingen, aber es ist gut, das einmal zu tun.
+\end{spoken-clean}
+
+\section{Das Deduktionstheorem}
+
+\begin{spoken-clean}[00:47:39 - 00:48:39]
+Gut, ich möchte jetzt noch kurz über das \newterm{Deduktionstheorem} sprechen, weil das nützlich ist. Das dürfen Sie auch verwenden. Wir schreiben oft einfach \textbf{DT}. Okay, das ist ein... folgt der Schreibweise von Lorenz Halbeisen, die verwendet er auch in seinem Buch mit Regula Krapf. Das ist jetzt alles in Großbuchstaben. Das ist jetzt ein sogenannt metamathematisches Theorem. Also es ist jetzt kein Satz mit einem formalen Beweis im Sinne vom formalen Beweis, wie wir es jetzt gemacht haben, sondern es ist ein Satz über das formale Beweisen. Okay? Also das heißt, wieder hier nehmen wir einen Schritt zurück und beweisen etwas über das Beweisen.
+\end{spoken-clean}
+
+\begin{math-stroke}[Das Deduktionstheorem (DT)]
+Sei $\mathcal{L}$ eine Signatur, $\Phi$ eine Menge von $\mathcal{L}$-Formeln und seien $\varphi, \psi$ beliebige $\mathcal{L}$-Formeln.
+\begin{align}
+    \Phi \cup \{\psi\} \vdash \varphi \quad \iff \quad \Phi \vdash \psi \rightarrow \varphi \nonumber
+\end{align}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:48:40 - 00:51:04]
+Und das sagt das Folgende aus: Wenn wir $\Phi$ eine Menge von Formeln haben... okay, und falls jetzt gilt, dass $\Phi \cup \{\psi\}$ --- so, das ist einfach die Menge $\Phi$, wo wir noch $\psi$ dazunehmen ---, und wenn jetzt man daraus beweisen kann, dass eine andere Formel $\varphi$ beweisbar ist, so gilt auch, dass man aus groß $\Phi$ beweisen kann, dass $\psi$ impliziert $\varphi$.
+
+Okay, das ist relativ einleuchtend, oder? Wenn man mit $\Phi$ und $\psi$ $\varphi$ beweisen kann, dann kann man mit $\Phi$ beweisen, dass aus $\psi$ $\varphi$ folgt. Und umgekehrt gilt auch: Falls man aus $\Phi$ beweisen kann, dass $\psi$ impliziert $\varphi$, so gilt auch, dass $\Phi$ zusammen mit $\psi$ $\varphi$ impliziert.
+
+Gut, und der Beweis davon ist nicht so schwierig, aber ich möchte nicht zu viel Zeit der Vorlesung mit diesen Fragen verwenden, deswegen verweise ich einfach auf das Skript. Dürfen Sie gerne nachlesen, ist aber nicht obligatorisch. Es ist wirklich so, wie man es denkt. Es ist auch kein ausgeklügelter Beweis; da macht man wirklich so... ja, man schreibt einfach direkt: Wenn man einen solchen Beweis hat, dann kann man aus diesem Beweis einen solchen Beweis konstruieren, und umgekehrt, wenn man einen solchen Beweis hat, dann kann man daraus einen solchen Beweis konstruieren. Was einfach ein direktes Rezept ist. Das heißt, es ist keine logisch problematische Sache dahinter.
+\end{spoken-clean}
+
+\section{Äquivalenzrelationen}
+
+\begin{spoken-clean}[00:51:38 - 00:54:25]
+Okay, jetzt verwenden wir dann das Deduktionstheorem, um noch weitere Sachen zu beweisen. Das Nächste, was wir noch als Beispiel anschauen, sind noch Relationen. Also sei nun $R$ eine binäre Relation, also eine zweistellige Relation, und wir sagen jetzt: $R$ ist eine \newterm{Äquivalenzrelation}. Ich hoffe, das haben Sie schon in anderen Vorlesungen gesehen, aber es ist gut, das oft zu sehen, weil das ein wichtiges Konzept ist in der Mathematik.
+
+Falls gilt... okay, was sind die Axiome für eine Äquivalenzrelation? Ja?
+
+\inlinemetanote{Ein Student antwortet: \qt{Reflexivität}}
+
+Genau, also für alle $x$ haben wir $x R x$, also $x$ steht in Relation zu sich selbst. Genau, es ist reflexiv. Das Zweite ist... ja?
+
+\inlinemetanote{Ein Student antwortet: \qt{Symmetrie}}
+
+Symmetrie, genau. Also wir haben: Für alle $x$, für alle $y$ muss gelten: $x R y$ impliziert $y R x$. Das ist symmetrisch. Und das Dritte wäre noch... ja?
+
+\inlinemetanote{Ein Student antwortet: \qt{Transitivität}}
+
+Transitivität, genau. Das ist oft das Schwierigste zu beweisen. Das ist das: Für alle $x$, für alle $y$, für alle $z$ folgt aus $x R y$ und $y R z$, dass $x R z$ steht. Genau. Das sind diese drei Bedingungen in Formelsprache. Genau, inzwischen sind Sie wahrscheinlich sehr geläufig damit, diese Art von Formeln zu lesen. Ja?
+
+\inlinemetanote{Ein Student weist auf einen Fehler hin: \qt{Muss da nicht ein \qt{und} stehen?}}
+
+Ah, ja, ja, danke, danke, danke. Danke, danke, danke. Und. Genau.
+\end{spoken-clean}
+
+\begin{math-stroke}[Axiome einer Äquivalenzrelation]
+Eine binäre Relation $R$ heißt \newterm{Äquivalenzrelation}, falls die folgenden Formeln beweisbar sind:
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item \textbf{Reflexivität:} $\forall x (x R x)$
+    \item \textbf{Symmetrie:} $\forall x \forall y (x R y \rightarrow y R x)$
+    \item \textbf{Transitivität:} $\forall x \forall y \forall z (x R y \wedge y R z \rightarrow x R z)$
+\end{enumerate}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:54:27 - 00:55:10]
+Okay, was wir jetzt zeigen wollen, ist... okay, wir haben die Gleichheitsrelation, die logische Gleichheitsrelation, und wir wollen jetzt gerne zeigen, dass das eine Äquivalenzrelation ist. Was wir jetzt hier zeigen, ist einfach einmal, dass es reflexiv ist. Wir wollen zeigen, dass das Gleichheitszeichen --- das ist eine binäre Relation, da kann man zwei Sachen einfüllen --- reflexiv ist.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:55:11 - 00:56:15]
+Okay, auch das ist jetzt wieder eine... ein bisschen... okay, das ist jetzt noch relativ einfach. Also das Reflexive kann man relativ direkt zeigen. Also wir wissen $\varphi_0$: $x=x$, oder? Das haben wir gesehen in den Axiomen. Das ist eine Instanziierung von $L_{14}$ oder so. Das ist relativ einleuchtend. Und jetzt ist das aber noch nicht, was wir zeigen wollen; wir wollen zeigen, dass für alle $x$ gilt: $x=x$. Okay, aber das können wir daraus jetzt einfach ableiten durch Verallgemeinerung, genau. $\varphi_1$, da haben wir jetzt: Für alle $x$ ist $x=x$. Okay, das folgt aus $\varphi_0$ durch Verallgemeinerung.
+\end{spoken-clean}
+
+\begin{math-stroke}[Beweis: Gleichheit ist reflexiv]
+\begin{proof}
+Wir zeigen $\vdash \forall x (x = x)$.
+\begin{enumerate}[label=$\varphi_{\mathbf{\arabic*}}:$]
+    \setcounter{enumi}{0} \item $x = x$ \hfill (Instanziierung von $L_{14}$)
+    \item $\forall x (x = x)$ \hfill (Verallgemeinerung aus $\varphi_0$)
+\end{enumerate}
+\end{proof}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:56:17 - 00:58:28]
+Gut. Jetzt wollen wir aber, was etwas mühsamer ist, zeigen, dass das symmetrisch ist. Also wir wollen zeigen: Für alle $x, y$ gilt $x=y \rightarrow y=x$. Gut, und dazu zeigen wir zuerst... okay, wir zeigen hier zuerst, dass aus $x=y$ --- aus dieser Menge von Formeln --- kann man zeigen: $y=x$. Und danach verwenden wir das Deduktionstheorem, um daraus zu schließen, dass $x=y$ impliziert $y=x$, und dann durch Verallgemeinerung wieder für alle $x, y$ folgt das. Okay, braucht schon so etwas Harmloses, ist ein bisschen eine mühsame Geschichte.
+
+Gut, was wir jetzt nehmen, ist, wir nehmen $\varphi_0$. Da nehmen wir jetzt eine Instanziierung von $L_{15}$. Wir wissen, wenn $x=y$ ist und $x=x$, dann folgt daraus, dass $x=x$ impliziert $y=x$. Schreiben wir mal schnell, was $L_{15}$ sagt zur Sicherheit noch.
+
+Also eine Bemerkung: Jemand hat gefragt in der Pause, ob man die logischen Axiome auswendig kennen muss, und das müssen Sie nicht, ausdrücklich nicht. Also ich kenne die auch nicht auswendig.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:58:57 - 01:00:07]
+Also genau: $L_{15}$ sagt jetzt, wenn $\tau_1 = \tau_1'$ ist und so weiter, dann, wenn diese Relation gilt, dann gilt die Relation auch, wenn wir das entsprechend ersetzen. Und hier haben wir: Wir wissen $x=y$ und $x=x$, dann impliziert das, dass $x=x$ folgt $y=x$. Das ist genau eine Instanziierung von diesem Axiom. Und hier sehen wir das schon einmal, ein guter Anfang, weil hier haben wir die Sache umgedreht, oder? Das ist so einer von diesen vielleicht Tricks, die man verwenden kann.
+\end{spoken-clean}
+
+\begin{proof}
+\begin{math-stroke}[Beweis: Gleichheit ist symmetrisch]
+Wir zeigen $\{x = y\} \vdash y = x$.
+\begin{enumerate}[label=$\varphi_{\mathbf{\arabic*}}:$]
+    \setcounter{enumi}{0} \item $(x = y \wedge x = x) \rightarrow (x = x \rightarrow y = x)$ \hfill (Instanziierung von $L_{15}$)
+\end{enumerate}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:00:08 - 01:01:31]
+Gut, jetzt machen wir weiter. Es kommt $\varphi_1$, da schreiben wir jetzt einfach $x=x$. Das ist eine Instanziierung von $L_{14}$. Das ist diese einfach, dass jedes Element gleich ist zu sich selbst, das ist gut. $\varphi_2$ nehmen wir $x=y$. Okay, da nehmen wir einfach, dass diese Formel enthalten ist in dieser Menge. Also $x=y$ ist enthalten in der Menge $\{x=y\}$, das ist gut. Also hier, das ist ein bisschen ein problematisches Symbol, dürfen wir eigentlich nicht verwenden, machen wir trotzdem.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{enumerate}[label=$\varphi_{\mathbf{\arabic*}}:$]
+    \setcounter{enumi}{1} \item $x = x$ \hfill (Instanziierung von $L_{14}$)
+    \item $x = y$ \hfill (Annahme aus $\Phi = \{x = y\}$)
+\end{enumerate}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:01:32 - 01:02:12]
+Okay, dann nehmen wir jetzt wieder eine Instanziierung, diesmal von $L_5$. Da schreiben wir jetzt: $x=x$ impliziert $x=y$ impliziert $x=y$ und $x=x$. Das ist eine Instanziierung von $L_5$. Wollen wir noch schnell $L_5$ anschauen? Schauen wir doch noch $L_5$ an, damit wir das wirklich gründlich machen. Okay, $L_5$ sagt, dass $\varphi \rightarrow (\psi \rightarrow (\psi \wedge \varphi))$. Okay, und hier haben wir für $\varphi$ nehmen wir $x=x$ und für $\psi$ nehmen wir $x=y$. Okay, und dann erhalten wir das da.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{enumerate}[label=$\varphi_{\mathbf{\arabic*}}:$]
+    \setcounter{enumi}{3} \item $x = x \rightarrow (x = y \rightarrow (x = y \wedge x = x))$ \hfill (Instanziierung von $L_5$)
+\end{enumerate}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:02:13 - 01:03:08]
+Okay, das ist gut. Dann nehmen wir $\varphi_4$. Das ist jetzt... dann können wir den Modus Ponens anwenden. Wir sehen hier da und da: Wir haben $x=x$ gilt, und hier haben wir $x=x$ impliziert das da. Dann sehen wir den Modus Ponens und können sagen, dass das da gilt. Okay, $\varphi_4$ sagt jetzt, dass $x=y$ impliziert $x=y$ und $x=x$. Das folgt aus $\varphi_3$ und $\varphi_1$ mit Modus Ponens.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{enumerate}[label=$\varphi_{\mathbf{\arabic*}}:$]
+    \setcounter{enumi}{4} \item $x = y \rightarrow (x = y \wedge x = x)$ \hfill (MP aus $\varphi_3, \varphi_1$)
+\end{enumerate}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:03:09 - 01:03:47]
+Gut. Jetzt kommt $\varphi_5$. Jetzt sollte die Formel etwas kürzer werden. Jetzt können wir $\varphi_2$ und $\varphi_4$... okay, da wissen wir jetzt auch wieder, $x=y$ gilt. Das heißt, da können wir jetzt wieder Modus Ponens anwenden und erhalten $x=y$ und $x=x$. Das folgt aus $\varphi_2$ und $\varphi_4$ mit Modus Ponens.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{enumerate}[label=$\varphi_{\mathbf{\arabic*}}:$]
+    \setcounter{enumi}{5} \item $x = y \wedge x = x$ \hfill (MP aus $\varphi_4, \varphi_2$)
+\end{enumerate}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:03:48 - 01:04:33]
+Gut, dann kommt $\varphi_6$. Machen wir wieder Modus Ponens. Genau, jetzt haben wir $\varphi_0$, und da können wir jetzt das da einsetzen. Das heißt, wir haben $\varphi_5$ und $\varphi_0$, und Modus Ponens gibt uns, dass $x=x$ impliziert $y=x$. Das ist aus $\varphi_5$ und $\varphi_0$ mit Modus Ponens.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{enumerate}[label=$\varphi_{\mathbf{\arabic*}}:$]
+    \setcounter{enumi}{6} \item $x = x \rightarrow y = x$ \hfill (MP aus $\varphi_0, \varphi_5$)
+\end{enumerate}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:04:34 - 01:05:12]
+Okay, und dann kommt schließlich $\varphi_7$. Wie kann man jetzt $\varphi_7$ noch machen? Ja?
+
+\inlinemetanote{Ein Student antwortet: \qt{Modus Ponens von $\varphi_1$ und $\varphi_6$.}}
+
+Genau, $\varphi_6$ oder? Wir nehmen $\varphi_6$ here, wir nehmen $x=x$, Modus Ponens --- wir wissen, das stimmt --- und erhalten $y=x$.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{enumerate}[label=$\varphi_{\mathbf{\arabic*}}:$]
+    \setcounter{enumi}{7} \item $y = x$ \hfill (MP aus $\varphi_6, \varphi_1$)
+\end{enumerate}
+\end{math-stroke}
+\end{proof}
+
+\begin{spoken-clean}[01:05:13 - 01:06:53]
+Gut, okay. Das heißt, jetzt wissen wir, jetzt haben wir das bewiesen, was wir wollten: Dass aus $x=y$ daraus kann man beweisen, dass $y=x$. Und jetzt können wir das Deduktionstheorem anwenden und sagen: Okay, wenn man aus dem da das beweisen kann, dann kann man --- und das ist bei uns jetzt die leere Menge ---, das heißt, wenn man aus $x=y$ beweisen kann, dass $y=x$, dann kann man aus nichts beweisen, dass $x=y$ impliziert $y=x$.
+
+\inlinemetanote{Der Dozent schreibt den Beweis an die Tafel}
+
+Okay, also mit dem Deduktionstheorem folgt nun, dass wir beweisen können aus nichts, dass $x=y$ impliziert $y=x$. Und jetzt machen wir noch mit Verallgemeinerung folgt dann für alle $x$ und für alle $y$: $x=y$ impliziert $y=x$.
+
+Da sehen wir auch, weshalb die Verallgemeinerung wirklich Sinn macht. Also wenn $x=y$ impliziert $y=x$, dann kann man sagen: Für alle $x$ und für alle $y$ gilt $x=y$ impliziert $y=x$.
+
+Okay, und dann müsste man noch zeigen, dass es transitiv ist. Das ist eine Übungsaufgabe diese Woche.
+\end{spoken-clean}
+
+\section{Logische Äquivalenz}
+
+\begin{spoken-clean}[01:07:46 - 01:08:38]
+Gut, da kommt noch ein kleiner Abschnitt, ist über logische Äquivalenz. Nochmals ein Begriff, aber macht Sinn. Und zwar: Es gibt noch eine Zusatznotation, die braucht man eigentlich nicht, aber es ist bequem. Wir schreiben: $\varphi$ ist logisch äquivalent zu $\psi$. Und das ist einfach die Kurzversion von $\varphi \rightarrow \psi$ und $\psi \rightarrow \varphi$. Okay, das ist ein bisschen angenehmer zu schreiben als das. Das Zeichen braucht man eigentlich nicht, man kann das durch die anderen Zeichen ausdrücken, aber es ist einfacher.
+\end{spoken-clean}
+
+\begin{math-stroke}[Logische Äquivalenz]
+Zwei Formeln $\varphi$ und $\psi$ heißen \newterm{logisch äquivalent} (geschrieben $\varphi \leftrightarrow \psi$), falls gilt:
+\begin{align}
+    \varphi \leftrightarrow \psi \quad :\equiv \quad (\varphi \rightarrow \psi) \wedge (\psi \rightarrow \varphi) \nonumber
+\end{align}
+Wir sagen, $\varphi$ und $\psi$ sind logisch äquivalent, falls beweisbar ist:
+\begin{align}
+    \vdash \varphi \leftrightarrow \psi \nonumber
+\end{align}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:08:40 - 01:09:45]
+Gut, und jetzt: Wir sagen, zwei Formeln $\varphi$ und $\psi$ sind logisch äquivalent, und wir schreiben $\varphi \leftrightarrow \psi$, falls gilt: Man kann beweisen, dass $\varphi \leftrightarrow \psi$. Okay, also das ist einfach eine Formel, und falls man das beweisen kann, dann schreibt man, dass sie logisch äquivalent sind.
+\end{spoken-clean}
+
+\begin{spoken-clean}[01:09:46 - 01:11:17]
+Ja, genau. Falls man noch... okay, falls $\varphi$ äquivalent ist zu $\psi$, so folgt... okay, vielleicht machen wir das jetzt nicht mehr. Ich glaube, wir haben schon einige Beweise gemacht, oder wollen Sie noch mehr, noch mehr Beweise sehen? Es ist ätzend. Nein. Also falls das... falls das... falls man das beweisen kann, so gilt auch, dass $\psi$ impliziert $\varphi$ und $\varphi$ impliziert $\psi$. Also wenn man das beweisen kann, dann kann man sowohl das beweisen als auch das beweisen. Ist auch sehr klar, aber natürlich muss man zuerst noch ein paar Axiome anwenden, um aus dem da zu schließen, dass das gilt und das gilt. Okay, braucht man $L_3$ und Modus Ponens, kann man das hinschreiben.
+
+Und umgekehrt: Falls man beweisen kann, dass $\varphi$ impliziert $\psi$ und man auch beweisen kann, dass $\psi$ impliziert $\varphi$, so gilt... so kann man auch das beweisen. Das ist auch wieder... ja, ich glaube, mit dem, was Sie in den Übungen machen, kann man das zeigen. Also es ist alles wirklich auch genau so, wie man denkt, dass es ist. Das ist das Schöne, aber man... die Beweise sind möglicherweise ätzend, wobei man... ja, ich glaube, man muss das sportlich angehen. Es ist eine nette Knobelaufgabe, und dann geht das in der Mathematik unter anderem.
+\end{spoken-clean}
+
+\begin{spoken-clean}[01:12:34 - 01:13:08]
+Gut, soweit noch Fragen? Keine Fragen? Nein. Dann noch ein Satz, den wir erwähnen sollten, ist der Satz über logische Äquivalenz. Auch wieder so ein Metatheorem, aber ist auch nützlich, um dann Sachen zu beweisen.
+\end{spoken-clean}
+
+\begin{math-stroke}[Satz über die logische Äquivalenz]
+Sei $\varphi$ eine Formel und $\alpha$ eine Teilformel von $\varphi$. Sei $\psi$ diejenige Formel, die aus $\varphi$ entsteht, indem man ein Vorkommen von $\alpha$ durch eine Formel $\beta$ ersetzt. Falls $\alpha$ und $\beta$ logisch äquivalent sind ($\vdash \alpha \leftrightarrow \beta$), dann sind auch $\varphi$ und $\psi$ logisch äquivalent ($\vdash \varphi \leftrightarrow \psi$).
+\end{math-stroke}
+
+\begin{spoken-clean}[01:13:09 - 01:15:30]
+Und zwar sagt der Satz aus: Wenn $\varphi$ eine Formel ist und $\alpha$ eine Teilformel von $\varphi$ --- also irgendeine Formel, die in $\varphi$ vorkommt ---, und wenn jetzt $\psi$ eine Formel ist, die aus $\varphi$ entstanden ist, indem wir in $\varphi$ überall, wo $\alpha$ vorkommt, oder irgendwo, wo $\alpha$ vorkommt, $\alpha$ durch irgendeine Formel $\beta$ ersetzen. Okay, dann gilt: Falls $\alpha$ logisch äquivalent ist zu $\beta$, so ist $\varphi$ logisch äquivalent zu $\psi$. Also wenn wir eine Teilformel durch eine logisch äquivalente Formel ersetzen, dann ist die ganze Formel immer noch logisch äquivalent zur vorherigen Formel.
+
+Macht Sinn, oder? Es ist eigentlich ein bisschen umständlich formuliert. Man muss es halt in Sprache formulieren, weil es effektiv eine metamathematische Aussage ist. Der Beweis hier ist umständlicher, deswegen ist er nicht einmal im Skript, aber der ist im Buch, das ich angegeben habe, von Halbeisen und Krapf.
+
+Vielleicht noch ein kleines Beispiel, wie man das anwenden kann. Wenn zum Beispiel $\varphi$ die Formel ist... okay, sagen wir $\neg \neg \neg \beta$. Okay, das ist eine Formel. Und $\psi$ ist die Formel... einfach $\neg \beta$. Gut, und jetzt die Frage: Sind diese zwei Formeln logisch äquivalent? Und hier kann man es auch sehen: Okay, diese Formel erhalten wir aus dieser Formel, indem wir... indem wir jetzt einfach diese Teilformel hier ersetzen durch... durch $\beta$, hm? Also sagen wir, wir haben $\alpha$ die Formel $\neg \neg \beta$. Okay, und jetzt ist eine Übung zu zeigen, dass $\alpha$ logisch äquivalent ist zu $\beta$. Das ist so die Doppelverneinung hebt sich auf. Das ist etwas, was man beweisen muss. Hat auch wieder einen lateinischen Namen, weil das historisch berühmt ist: \emph{Duplex negatio affirmat}, also Doppelverneinung ist Bejahung. Genau, okay, das zeigt man. Eine Übung. Okay, und somit kann man jetzt mit dem Satz über logische Äquivalenz... folgt, dass $\varphi$ ist logisch äquivalent zu $\psi$. Okay, auch dieser Satz kann nützlich sein, um gewisse Sachen zu beweisen.
+\end{spoken-clean}
+
+\begin{spoken-clean}[01:18:24 - 01:19:00]
+Okay, so viel für jetzt zum Thema formale Beweise. Es gibt noch ein Übungsblatt eben diese Woche, in dem Sie das üben sollen. Aber wir, ja, verweilen jetzt nicht allzu lange bei dem Thema. Wir gehen jetzt weiter zu verschiedenen Axiomensystemen. Wir wollen ja irgendwann noch zu anderen Themen übergehen.
+\end{spoken-clean}
+
+\section{Axiomensysteme}
+
+\begin{spoken-clean}[01:19:30 - 01:20:59]
+Jetzt kommt nach dem Kapitel 0 kommt das Kapitel 1: das Kapitel über Axiomensysteme. Okay, eine Theorie --- sagen wir, was eine Theorie ist ---, also eine Theorie $T$, die hat in der Regel mit einer Signatur zu tun. Also wir haben eine gegebene Signatur, und eine Theorie ist jetzt einfach... die besteht jetzt einfach aus einer Menge von Formeln, von $\mathcal{L}_T$-Formeln. Und diese Formeln, das sind dann die nicht-logischen Axiome der Theorie.
+
+Genau, und dann nimmt man diese Menge von Formeln, also man nennt dies diese Theorie, und dann nimmt man immer diese Menge von Formeln als das System $\Phi$. Und dann darf man diese Axiome nehmen, um daraus Sachen zu beweisen. Wir machen jetzt einfach Beispiele. Also das Ziel von diesem Kapitel ist einfach, Beispiele zu geben. Und es sind Beispiele, die Sie auch schon kennen zum großen Teil.
+\end{spoken-clean}
+
+\begin{math-stroke}[Theorien und nicht-logische Axiome]
+\begin{definition}[Theorie]\label[definition]{def:theorie}
+Eine \newterm{Theorie} $T$ über einer Signatur $\mathcal{L}$ ist eine Menge von $\mathcal{L}$-Formeln, die als \newterm{nicht-logische Axiome} bezeichnet werden.
+\end{definition}
+
+Wir sagen, eine Formel $\psi$ ist ein \newterm{Satz der Theorie} $T$, falls $T \vdash \psi$ gilt.
+\end{math-stroke}
+
+\begin{spoken-clean}[01:21:28 - 01:22:44]
+Also das Erste, was wir machen, ist die Gruppentheorie. Das nennt man die Theorie $GT$, Gruppentheorie. Okay, was ist die Signatur der Gruppentheorie? Okay, wir machen jetzt einfach dadurch... wir sagen, es gibt ein Konstantensymbol, das nennen wir $e$; das ist das neutrale Element. Und dann gibt es ein Funktionssymbol, das machen wir mit so einem kleinen Kringel; das ist ein zweistelliges Funktionssymbol. Das ist die... kann man sich vorstellen als die Verknüpfung. Also $e$ ist ein Konstantensymbol, und dieser Kringel ist ein zweistelliges Funktionssymbol.
+\end{spoken-clean}
+
+\begin{math-stroke}[Beispiel: Gruppentheorie (GT)]
+\textbf{Signatur \texorpdfstring{$\mathcal{L}_{GT}$}{LGT}:}
+\begin{itemize}
+    \item \textbf{Konstantensymbol:} $e$ (neutrales Element)
+    \item \textbf{Funktionssymbol:} $\circ$ (zweistellig, Verknüpfung)
+\end{itemize}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:22:46 - 01:24:57]
+Okay, und jetzt sagen wir die Axiome von der Gruppentheorie. Sind drei Stück. Nennen wir es Gruppentheorie-Axiom $GT_0$. Okay, was wir sagen wollen hier, ist, dass das assoziativ ist, diese Verknüpfung. Was macht noch keinen Sinn, weil wir haben ja nicht wirklich Elemente oder so; es ist rein formal. Aber schauen wir trotzdem: Es sagt, dass für alle $x$, für alle $y$, für alle $z$ gilt: $x$ verknüpft mit $y$ verknüpft mit $z$ ist gleich $x$ verknüpft mit $y$, verknüpft mit $z$. Also was wir uns vorstellen hier, ist, dass diese Verknüpfung assoziativ ist.
+
+Dann haben wir $GT_1$. Das sagt uns: Für alle $x$ gilt $e$ verknüpft mit $x$ ist gleich $x$. Also wir wollen sagen, dass das Element $e$ linksneutral ist.
+
+Und $GT_2$ sagt: Für alle $x$ existiert $y$, so dass $y$ verknüpft mit $x$ gleich $e$ ist. Das heißt, jedes Element hat ein Linksinverses. Aber das ist wirklich sehr informell hier, weil wir haben ja gar keine Elemente; wir haben nur Formeln.
+\end{spoken-clean}
+
+\begin{math-stroke}[Axiome der Gruppentheorie (GT)]
+Die Theorie $GT$ besteht aus den folgenden nicht-logischen Axiomen:
+\begin{enumerate}[label=\textbf{(GT$_{\mathbf{\arabic*}}$)}]
+    \setcounter{enumi}{-1} \item $\forall x \forall y \forall z ((x \circ y) \circ z = x \circ (y \circ z))$ \hfill (Assoziativität)
+    \item $\forall x (e \circ x = x)$ \hfill (Linksneutrales Element)
+    \item $\forall x \exists y (y \circ x = e)$ \hfill (Linksinverses Element)
+\end{enumerate}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:24:55 - 01:26:11]
+Gut, und das sind die Axiome der Gruppentheorie. Ich weiß nicht, Sie haben vielleicht ein bisschen andere Axiome gesehen in, ich weiß nicht, Analysis, Lineare Algebra; hatten Sie bestimmt schon Gruppendefinition gesehen. Wahrscheinlich haben Sie gefordert, dass $e$ auch noch rechtsneutral ist, also dass $x$ verknüpft mit $e$ gleich $x$ ist. Und wahrscheinlich haben Sie auch gefordert, dass $y$ verknüpft mit $x$ auch noch $e$ ist. Aber es stellt sich heraus, dass diese zwei Bedingungen reichen, und mit diesen zwei Bedingungen kann man beweisen, dass auch $x$ verknüpft mit $e$ gleich $x$ ist und dass auch $x$ verknüpft mit $y$ gleich $e$ ist, und dass alle diese Sachen eindeutig sind und so weiter. Also das reicht schon; das reicht für Gruppen als Gruppenaxiom.
+
+Okay, also das ist ein Beispiel von einer Theorie: Gruppentheorie. Und jetzt auf der rein syntaktischen Ebene sind das die drei Axiome, und dann kann man jetzt, indem man $GT$ nimmt --- also diese drei Formeln ---, damit dann jetzt viele neue Sachen beweisen.
+\end{spoken-clean}
+
+\begin{spoken-clean}[01:26:12 - 01:29:18]
+Gut, da gibt es noch andere Axiomensysteme, die ich noch kurz... jetzt nicht alle an die Wandtafel schreibe, weil Sie haben die auch schon gesehen in anderen Vorlesungen.
+
+\inlinemetanote{Der Dozent zeigt eine Folie mit weiteren Axiomensystemen}
+
+Ah, das ist noch ein Fun Fact, den ich Ihnen zeigen wollte. Also okay, hier haben wir drei Axiome, oder, die man aufschreiben muss. In der Regel hat man noch... also oft verwendet man noch mehr, eben wenn man auch noch fordert, dass $x \circ e = x$ ist oder eben dass auch $x \circ y = e$ ist, dann braucht man mehr Axiome. Die Frage ist immer so: Was ist die minimale Anzahl von Axiomen, die man verwendet? Und ich glaube, es gab so Mitte letztes Jahrhundert gab es ein Gebiet von der Mathematik, wo man sich einen Sport daraus gemacht hat zu versuchen, das mit minimaler Anzahl Axiome zu schreiben. Ich habe da tatsächlich ein Paper gefunden, wo jemand die Gruppentheorie mit einem einzigen Axiom beschreibt. Es ist ein ganz... also man kann nicht damit arbeiten fast. Also okay, hier ist es nicht in logischer Form, es ist jetzt normal --- also nicht in dieser Sprache --- geschrieben. Man hat gesagt: Okay, es gibt eine Verknüpfung, die schreiben sie $a \cdot b$ einfach, und dann gibt es noch eine Abbildung von $G$ auf sich selbst, das ist einfach eine Abbildung, das nennt man Inversion, aber da gibt es keine Bedingungen dran. Das nennt man $a'$, und die Forderung ist jetzt, dass für alle $a, b, c, d, f$ in $G$ gelten muss, dass $(a \cdot b) \cdot c = (a \cdot d) \cdot f$ impliziert $b = (d \cdot f) \cdot c'$. Und wenn das erfüllt ist, dann folgen alle anderen Gruppenaxiome. Ja, bitte?
+
+\inlinemetanote{Ein Student fragt: \qt{Ist das nicht einfach nur das Kombinieren dieser drei mit einer \qt{und}-Operation und dann zu sagen, dass das eine ist?}}
+
+Nein, weil... ja, okay, ich glaube, es ist wahrscheinlich nicht, was Sie hier erlauben in Ihrer Art von Ding. Bin mir nicht ganz sicher, ob es logisch einfach funktioniert, aber es ist nicht das, wonach Sie suchen, so quasi, um das zu sagen. Okay, das nur als kleiner Fun Fact, das ist komplett unwichtig. Aber eben: Man kann es mit einer... ich glaube, bei Ringen ist es noch unklar, ob es mit einem geht oder nicht. Genau, Sie sagen hier \qt{about the structure of English grammar and the definition of an operator} oder so, aber ja. Genau.
+
+Aber eben: Das Nächste wäre noch die Ringtheorie. Definition von einem Ring haben Sie auch gesehen, da haben wir sieben Axiome: für alle $x, y, z$ gilt $x+y+z = x+(y+z)$, für alle $x, y$ gilt $x+y = y+x$, für alle und so weiter. Also es ist eine abelsche Gruppe bezüglich Addition, und dann hat man eben noch die Multiplikation, und die ist noch distributiv. Und hier sind noch die Axiome für die Körpertheorie, da haben wir neun. Aber die kennen Sie auch alle, oder? Ich vermute mal, Sie sind geläufig mit den Axiomen der Ring- und der Körpertheorie.
+\end{spoken-clean}
+
+\begin{nice-box}[Zusammenfassung der Kernkonzepte]
+In dieser Vorlesung haben wir die formalen Grundlagen der Beweisbarkeit in der Prädikatenlogik erarbeitet:
+\begin{itemize}
+    \item \textbf{Formale Beweise:} Ein Beweis ist eine endliche Sequenz von Formeln, wobei jedes Glied entweder ein Axiom ist, eine Annahme aus $\Phi$ darstellt oder durch die Schlussregeln \textbf{Modus Ponens} oder \textbf{Verallgemeinerung} aus vorherigen Gliedern hervorgeht.
+    \item \textbf{Beweisbarkeit ($\Phi \vdash \psi$):} Eine Formel $\psi$ ist beweisbar aus $\Phi$, wenn ein formaler Beweis für $\psi$ existiert.
+    \item \textbf{Deduktionstheorem:} Ein zentrales Hilfsmittel, das die Äquivalenz von $\Phi \cup \{\psi\} \vdash \varphi$ und $\Phi \vdash \psi \rightarrow \varphi$ feststellt.
+    \item \textbf{Theorien:} Mathematische Theorien (wie die Gruppentheorie $GT$) werden durch spezifische Signaturen und nicht-logische Axiome definiert, die den Rahmen für formale Herleitungen bilden.
+\end{itemize}
+\end{nice-box}
+
+\begin{spoken-clean}[01:30:00 - 01:30:08]
+Gut, besten Dank fürs Kommen. Ich bin noch da, falls Sie Fragen oder Verwirrungen haben, und ansonsten sehen wir uns nächste Woche.
+
+\inlinemetanote{Applaus der Studierenden}
+\end{spoken-clean}
+
+% [SYSTEM] Refinement complete
