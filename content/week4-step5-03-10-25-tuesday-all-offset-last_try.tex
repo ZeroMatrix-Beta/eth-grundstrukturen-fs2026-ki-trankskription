@@ -422,7 +422,10 @@ In den Gruppenaxiomen haben wir ja explizit nur die Existenz eines Linksinversen
 \end{spoken-clean}
 
 \begin{math-stroke}[Beispiel: Linksinverse und Rechtsinverse in Gruppen]
-\textbf{Bsp:} $\sigma \equiv \forall x \forall y (x \cdot y = e \rightarrow y \cdot x = e)$.
+\begin{example}[Linksinverse ist Rechtsinverse]
+\label[example]{ex:linksinvers-impliziert-rechtsinvers}
+$\sigma \equiv \forall x \forall y (x \cdot y = e \rightarrow y \cdot x = e)$.
+\end{example}
 
 Wir wollen zeigen: $\text{GT} \vdash \sigma$.
 
@@ -432,7 +435,7 @@ Wir wollen zeigen: Jedes Linksinverse von $x$ ist auch ein Rechtsinverse.
 \end{math-stroke}
 
 \begin{spoken-clean}[00:53:36 - 00:57:27]
-Okay, wir beweisen das jetzt wie folgt: Da wir in einem Modell der Gruppenaxiome arbeiten, wissen wir nach Axiom $\text{GT}_2$, dass ein Linksinverses existiert. Das heißt, zu jedem $x \in G$ gibt es ein $x' \in G$ mit $x' \cdot x = e$. Da $x'$ selbst ein Element der Gruppe ist, besitzt auch $x'$ ein Linksinverses $x'' \in G$ mit $x'' \cdot x' = e$.
+Okay, wir beweisen das jetzt wie folgt: Da wir in einem Modell der Gruppenaxiome arbeiten, wissen wir nach Axiom $\textbf{GT}_\textbf{2}$, dass ein Linksinverses existiert. Das heißt, zu jedem $x \in G$ gibt es ein $x' \in G$ mit $x' \cdot x = e$. Da $x'$ selbst ein Element der Gruppe ist, besitzt auch $x'$ ein Linksinverses $x'' \in G$ mit $x'' \cdot x' = e$.
 
 Nun betrachten wir den Ausdruck $x'' \cdot x' \cdot x$. Einerseits gilt nach Assoziativität:
 \[ (x'' \cdot x') \cdot x = e \cdot x = x. \]
@@ -444,7 +447,7 @@ Damit haben wir erfolgreich gezeigt, dass das Linksinverse $x'$ auch ein Rechtsi
 \end{spoken-clean}
 
 \begin{math-stroke}[Beweis: Linksinverse ist Rechtsinverse]
-\begin{short-proof}
+\begin{short-proof}[Beweis von \cref{ex:linksinvers-impliziert-rechtsinvers}]
 Sei $x \in G, x' \in G$ s.d. $x' \cdot x = e$ und ein $x'' \in G$ s.d. $x'' \cdot x' = e$.
 
 Dann gilt:

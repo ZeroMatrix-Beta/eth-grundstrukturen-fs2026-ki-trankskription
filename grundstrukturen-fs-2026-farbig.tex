@@ -136,11 +136,11 @@
 \colorlet{SubSecTitleColor}{TextBoldColor}
 \colorlet{SubSecTitleColorProof}{SubSecTitleColor!50!ProofTint}
 
-\colorlet{SubSubSecBar1}{gray}
+\colorlet{SubSubSecBar1}{TextBoldColor}
 \colorlet{SubSubSecBar2}{gray!60!white}
 \colorlet{SubSubSecBar1Proof}{SubSubSecBar1!50!ProofTint}
 \colorlet{SubSubSecBar2Proof}{SubSubSecBar2!50!ProofTint}
-\colorlet{SubSubSecTitleColor}{gray}
+\colorlet{SubSubSecTitleColor}{TextBoldColor}
 \colorlet{SubSubSecTitleColorProof}{SubSubSecTitleColor!50!ProofTint}
 
 
@@ -754,9 +754,9 @@ breakable
     \par\nobreak\vspace{1ex plus .2ex}\vspace{-\parskip}
     \@afterindentfalse\@afterheading
 }{
-    \par\vspace{-2ex}\hfill 
-    \tikz[baseline=(Q.base)]\node[draw=ProofTint, fill=ProofQEDBg, line width=1pt, rounded corners=2pt, inner xsep=4pt, inner ysep=2pt, font=\sffamily\bfseries\small, text=ProofQEDText, drop shadow={shadow xshift=0.5ex, shadow yshift=-0.5ex, fill=ProofTint, opacity=0.4}] (Q) {Q.E.D.};
-    \par\vspace{2ex}
+    \unskip\nobreak\hfill\penalty50\hskip2em\null\nobreak\hfill
+    \tikz[baseline=(Q.base)]\node[draw=ProofTint, fill=ProofQEDBg, line width=1pt, rounded corners=2pt, inner xsep=4pt, inner ysep=2pt, font=\sffamily\bfseries\small, text=ProofQEDText, drop shadow={shadow xshift=0.5ex, shadow yshift=-0.5ex, fill=ProofTint, opacity=0.4}] (Q) {Q.E.D.};%
+    {\parfillskip=0pt\par}\vspace{2ex}
 }
 
 % LONG PROOF 
@@ -768,11 +768,11 @@ breakable
     \par\nobreak\vspace{1.5ex plus .2ex}\vspace{-\parskip}
     \@afterindentfalse\@afterheading
 }{
-    \par\vspace{-4ex}\hfill 
-    \tikz[baseline=(Q.base)]{
-        \node[draw=ProofTint, fill=ProofQEDBg, line width=1pt, rounded corners=2pt, inner xsep=4pt, inner ysep=2pt, font=\sffamily\bfseries\small, text=ProofQEDText, drop shadow={shadow xshift=0.5ex, shadow yshift=-0.5ex, fill=ProofTint, opacity=0.4}] (Q) {Q.E.D.};
-    }
-    \par\vspace{2ex}
+    \unskip\nobreak\hfill\penalty50\hskip2em\null\nobreak\hfill
+    \tikz[baseline=(Q.base)]{%
+        \node[draw=ProofTint, fill=ProofQEDBg, line width=1pt, rounded corners=2pt, inner xsep=4pt, inner ysep=2pt, font=\sffamily\bfseries\small, text=ProofQEDText, drop shadow={shadow xshift=0.5ex, shadow yshift=-0.5ex, fill=ProofTint, opacity=0.4}] (Q) {Q.E.D.};%
+    }%
+    {\parfillskip=0pt\par}\vspace{2ex}
 }
 \makeatother
 
@@ -970,7 +970,7 @@ breakable
 
 % Easter Break
 
-\include{content/week8-step5-04-14-25-tuesday-all-offset-last_try.tex}
+\include{content/week8-step4-04-14-25-tuesday-all-offset-final.tex}
 
 \include{content/week9-step4-04-21-25-tuesday-all-offset-final.tex}
 

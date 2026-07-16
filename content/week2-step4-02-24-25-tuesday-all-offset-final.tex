@@ -13,7 +13,7 @@
 % Processed on: 2026-07-15 18:22:49
 % ==========================================
 
-\lecturechapter{2}{Dienstag}{24. Feb}{24. Februar 2025}{Formale Beweise und Theorien}
+\lecturechapter{Dienstag}{24. Feb}{24. Februar 2025}{Formale Beweise und Theorien}
 
 \begin{nice-box}[Vorlesungsübersicht \& Kontext]
 In dieser Vorlesung vertiefen wir die formalen Grundlagen der Prädikatenlogik erster Stufe und führen den Begriff des formalen Beweises ein. Folgende Themen werden behandelt:
@@ -59,7 +59,7 @@ Okay, das ist einfach das Alphabet, das wir haben, aber das sind a priori nur --
     \item \textbf{Relationssymbole:} z.\,B. $<$, $\le$, $\in$ (mit zugeordneter Stelligkeit)
 \end{itemize}
 
-\begin{definition}[Signatur]\label[definition]{def:signatur}
+\begin{definition}[Signatur]\label[definition]{def:signatur-week2}
 Die \newterm{Signatur} $\mathcal{L}$ ist die Menge der nicht-logischen Symbole einer bestimmten mathematischen Theorie.
 \end{definition}
 \end{math-stroke}
@@ -194,9 +194,9 @@ Das Thema heute sind formale Beweise. Das sind eben die Regeln, wie man Sachen r
 \inlinemetanote{Der Dozent schaltet den Projektor aus und beginnt, an der Tafel zu schreiben.}
 \end{spoken-clean}
 
-\begin{math-stroke}[Formale Beweise]
+
 \subsection{Formale Beweise}
-\end{math-stroke}
+
 
 \begin{spoken-clean}[00:11:47 - 00:13:40]
 Es gibt eigentlich nur zwei Schlussregeln. 
@@ -872,13 +872,15 @@ Wir wollen diese Gleichungskette nun Schritt für Schritt formal aus den Axiomen
 \begin{axioms}[Körpertheorie]\label[axioms]{ax:koerpertheorie}
 Die Axiome der Körpertheorie sind die folgenden $\mathcal{L}_{\text{Körper}}$-Formeln:
 \begin{align}
-\mathbf{KT_0}\text{--}\mathbf{KT_7}\colon &\quad \text{Die Axiome der Ringtheorie } \mathbf{RT_0}\text{--}\mathbf{RT_7} \text{ (Gleichungen \ref{eq:RT0_part3}--\ref{eq:RT7_part3})} \nonumber \\
-\mathbf{KT_8}\colon &\quad \forall x \forall y (x \cdot y = y \cdot x) && \text{(Kommutativität der Multiplikation)} \label{eq:KT8_part3} \\
-\mathbf{KT_9}\colon &\quad \forall x \bigl(\neg(x = 0) \rightarrow \exists y (x \cdot y = 1)\bigr) && \text{(Existenz des multiplikativen Inversen)} \label{eq:KT9_part3} \\
-\mathbf{KT_{10}}\colon &\quad \neg(0 = 1) && \text{(Nicht-Trivialität)} \label{eq:KT10_part3}
+\mathbf{KT_0}\text{--}\mathbf{KT_7}\colon &\quad \text{Die Axiome der Ringtheorie } \mathbf{RT_0} \text{--}\mathbf{RT_7} \text{ (Gleichungen \ref{eq:RT0_part3}--\ref{eq:RT7_part3})} \nonumber \\
+\mathbf{KT_8}\colon &\quad \forall x \forall y (x \cdot y = y \cdot x) \text{--} \text{(Kommutativität der Multiplikation)} \label{eq:KT8_part3} \\
+\mathbf{KT_9}\colon &\quad \forall x \bigl(\neg(x = 0) \rightarrow \exists y (x \cdot y = 1)\bigr) \text{--} \text{(Existenz des multiplikativen Inversen)} \label{eq:KT9_part3} \\
+\mathbf{KT_{10}}\colon &\quad \neg(0 = 1) \text{--} \text{(Nicht-Trivialität)} \label{eq:KT10_part3}
 \end{align}
 \end{axioms}
 \end{math-stroke}
+
+
 
 \begin{spoken-clean}[01:11:42 - 01:14:42]
 Lassen Sie uns diese Schritte noch etwas präzisieren, damit Sie sehen, wie man das wirklich ganz formal im Kalkül durchführt. Es ist wichtig zu verstehen, dass jeder dieser Schritte auf einer präzisen Anwendung der Axiome beruht. 
