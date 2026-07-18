@@ -13,7 +13,7 @@
 \usepackage{mathpazo}
 \renewcommand{\sfdefault}{lmss}
 
-\usepackage[ngerman]{babel} 
+\usepackage[english]{babel} 
 % \usepackage[final,babel=true,expansion=false]{microtype} % Auskommentiert zur Einsparung von TeX-Speicher
 \usepackage{csquotes}
 
@@ -32,8 +32,8 @@
 \usepackage{fontawesome5}
 \usepackage[dvipsnames, x11names]{xcolor}
 
-% Setzt global "Woche" anstelle von "Kapitel" (angepasst an ngerman)
-\addto\captionsngerman{\renewcommand{\chaptername}{Woche}}
+% Setzt global "Week" anstelle von "Chapter"
+\addto\captionsenglish{\renewcommand{\chaptername}{Week}}
 
 % ==========================================
 % GLOBAL COLOR PALETTE & VARIABLES
@@ -393,83 +393,83 @@ bookmarksopen=true
 
 \theoremstyle{purplethm}
 
-% Standard Math Environments (Deutsch)
-\newtheorem{theorem}{Satz}[chapter]
+% Standard Math Environments (English)
+\newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{corollary}[theorem]{Korollar}
+\newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{example}[theorem]{Beispiel}
-\newtheorem{examples}[theorem]{Beispiele}
-\newtheorem{exercise}[theorem]{Übung}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{examples}[theorem]{Examples}
+\newtheorem{exercise}[theorem]{Exercise}
 \newtheorem{axiom}[theorem]{Axiom}
-\newtheorem{axioms}[theorem]{Axiome}
-\newtheorem{property}[theorem]{Eigenschaft}
-\newtheorem{principle}[theorem]{Prinzip}
-\newtheorem{claim}[theorem]{Behauptung}
-\newtheorem{remark}[theorem]{Bemerkung}
+\newtheorem{axioms}[theorem]{Axioms}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{principle}[theorem]{Principle}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{remark}[theorem]{Remark}
 \newtheorem{notation}[theorem]{Notation}
-\newtheorem{summary}[theorem]{Zusammenfassung}
-\newtheorem{warmup}[theorem]{Einstieg}
-\newtheorem{question}[theorem]{Frage}
-\newtheorem{answer}[theorem]{Antwort}
-\newtheorem{importantremark}[theorem]{Wichtige Bemerkung}
-\newtheorem{goals}[theorem]{Ziele}
+\newtheorem{summary}[theorem]{Summary}
+\newtheorem{warmup}[theorem]{Warm-up}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{answer}[theorem]{Answer}
+\newtheorem{importantremark}[theorem]{Important Remark}
+\newtheorem{goals}[theorem]{Goals}
 
-% Unnumbered Environments (Deutsch)
-\newtheorem*{theorem*}{Satz}
+% Unnumbered Environments (English)
+\newtheorem*{theorem*}{Theorem}
 \newtheorem*{lemma*}{Lemma}
 \newtheorem*{proposition*}{Proposition}
 \newtheorem*{definition*}{Definition}
-\newtheorem*{corollary*}{Korollar}
-\newtheorem*{example*}{Beispiel}
-\newtheorem*{examples*}{Beispiele}
-\newtheorem*{exercise*}{Übung}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{example*}{Example}
+\newtheorem*{examples*}{Examples}
+\newtheorem*{exercise*}{Exercise}
 \newtheorem*{axiom*}{Axiom}
-\newtheorem*{axioms*}{Axiome}
-\newtheorem*{property*}{Eigenschaft}
-\newtheorem*{principle*}{Prinzip}
-\newtheorem*{claim*}{Behauptung}
-\newtheorem*{remark*}{Bemerkung}
+\newtheorem*{axioms*}{Axioms}
+\newtheorem*{property*}{Property}
+\newtheorem*{principle*}{Principle}
+\newtheorem*{claim*}{Claim}
+\newtheorem*{remark*}{Remark}
 \newtheorem*{notation*}{Notation}
-\newtheorem*{summary*}{Zusammenfassung}
-\newtheorem*{warmup*}{Einstieg}
-\newtheorem*{question*}{Frage}
-\newtheorem*{answer*}{Antwort}
-\newtheorem*{importantremark*}{Wichtige Bemerkung}
-\newtheorem*{goals*}{Ziele}
+\newtheorem*{summary*}{Summary}
+\newtheorem*{warmup*}{Warm-up}
+\newtheorem*{question*}{Question}
+\newtheorem*{answer*}{Answer}
+\newtheorem*{importantremark*}{Important Remark}
+\newtheorem*{goals*}{Goals}
 
 \newcommand{\qt}[1]{\textit{\textcolor{BrickRed}{\glqq}#1\textcolor{BrickRed}{\grqq}}}
 
-\crefname{axiom}{Axiom}{Axiome}
-\Crefname{axiom}{Axiom}{Axiome}
-\crefname{axioms}{Axiome}{Axiome}
-\Crefname{axioms}{Axiome}{Axiome}
-\crefname{property}{Eigenschaft}{Eigenschaften}
-\Crefname{property}{Eigenschaft}{Eigenschaften}
-\crefname{principle}{Prinzip}{Prinzipien}
-\Crefname{principle}{Prinzip}{Prinzipien}
-\crefname{claim}{Behauptung}{Behauptungen}
-\Crefname{claim}{Behauptung}{Behauptungen}
-\crefname{remark}{Bemerkung}{Bemerkungen}
-\Crefname{remark}{Bemerkung}{Bemerkungen}
-\crefname{notation}{Notation}{Notationen}
-\Crefname{notation}{Notation}{Notationen}
-\crefname{summary}{Zusammenfassung}{Zusammenfassungen}
-\Crefname{summary}{Zusammenfassung}{Zusammenfassungen}
-\crefname{warmup}{Einstieg}{Einstiege}
-\Crefname{warmup}{Einstieg}{Einstiege}
-\crefname{question}{Frage}{Fragen}
-\Crefname{question}{Frage}{Fragen}
-\crefname{answer}{Antwort}{Antworten}
-\Crefname{answer}{Antwort}{Antworten}
-\crefname{importantremark}{Wichtige Bemerkung}{Wichtige Bemerkungen}
-\Crefname{importantremark}{Wichtige Bemerkung}{Wichtige Bemerkungen}
-\crefname{goals}{Ziel}{Ziele}
-\Crefname{goals}{Ziel}{Ziele}
+\crefname{axiom}{Axiom}{Axioms}
+\Crefname{axiom}{Axiom}{Axioms}
+\crefname{axioms}{Axioms}{Axioms}
+\Crefname{axioms}{Axioms}{Axioms}
+\crefname{property}{Property}{Properties}
+\Crefname{property}{Property}{Properties}
+\crefname{principle}{Principle}{Principles}
+\Crefname{principle}{Principle}{Principles}
+\crefname{claim}{Claim}{Claims}
+\Crefname{claim}{Claim}{Claims}
+\crefname{remark}{Remark}{Remarks}
+\Crefname{remark}{Remark}{Remarks}
+\crefname{notation}{Notation}{Notations}
+\Crefname{notation}{Notation}{Notations}
+\crefname{summary}{Summary}{Summaries}
+\Crefname{summary}{Summary}{Summaries}
+\crefname{warmup}{Warm-up}{Warm-ups}
+\Crefname{warmup}{Warm-up}{Warm-ups}
+\crefname{question}{Question}{Questions}
+\Crefname{question}{Question}{Questions}
+\crefname{answer}{Answer}{Answers}
+\Crefname{answer}{Answer}{Answers}
+\crefname{importantremark}{Important Remark}{Important Remarks}
+\Crefname{importantremark}{Important Remark}{Important Remarks}
+\crefname{goals}{Goal}{Goals}
+\Crefname{goals}{Goal}{Goals}
 
 % ==========================================
-% VIBRANT SHADOW META-ENVIRONMENTS (Deutsch)
+% VIBRANT SHADOW META-ENVIRONMENTS (English)
 % ==========================================
 
 % 1. Clean Spoken Protocol
@@ -485,7 +485,7 @@ code={
     \tcbset{borderline west={3pt}{0pt}{EnvSpoken}}
   \fi
 },
-title={\sffamily\bfseries\textcolor{\ifinsideproof EnvSpokenProof\else EnvSpoken\fi}{\faMicrophone\ \ Mündliches Protokoll\ifblank{#1}{}{ [#1]}}},
+title={\sffamily\bfseries\textcolor{\ifinsideproof EnvSpokenProof\else EnvSpoken\fi}{\faMicrophone\ \ Spoken Protocol\ifblank{#1}{}{ [#1]}}},
 attach title to upper={\par\setlength{\parindent}{\standardparindent}\setlength{\parskip}{\customparskip}\vspace{1ex}},
 breakable
 }
@@ -517,7 +517,7 @@ breakable
 }
 
 % 3. Best Teacher / Didactic Insight
-\newtcolorbox{didactic-insight}[1][Didaktisches Konzept]{
+\newtcolorbox{didactic-insight}[1][Didactic Concept]{
 enhanced,
 arc=3mm,
 frame hidden,
@@ -530,7 +530,7 @@ code={
     \tcbset{borderline west={2pt}{0pt}{EnvTeacherBorder}}
   \fi
 },
-title={\sffamily\bfseries\textcolor{\ifinsideproof EnvTeacherProof\else EnvTeacherBorder\fi}{\textit{\faLightbulb\ \ Einblick:} #1}},
+title={\sffamily\bfseries\textcolor{\ifinsideproof EnvTeacherProof\else EnvTeacherBorder\fi}{\textit{\faLightbulb\ \ Insight:} #1}},
 attach title to upper=\par\vspace{0.5ex},
 breakable
 }
@@ -568,7 +568,7 @@ IfValueTF={#2}{
 
 % 4b. Legacy Visual Blackboard Replication Boxes
 \newcommand{\NewChalkBox}[3]{%
-\newtcolorbox{#1}[1][Hervorgehobene Tafelformel]{%
+\newtcolorbox{#1}[1][Highlighted Blackboard Formula]{%
 enhanced,
 colback=white,
 fonttitle=\bfseries\sffamily,
@@ -613,7 +613,7 @@ code={
 \NewChalkBox{pink-box}{Pink}{Pink!30}
 
 \newcommand{\NewFormulaBox}[3]{%
-\newtcolorbox{#1}[1][Hervorgehobene Tafelformel]{%
+\newtcolorbox{#1}[1][Highlighted Blackboard Formula]{%
 enhanced,
 colback=white,
 fonttitle=\bfseries\sffamily,
@@ -689,7 +689,7 @@ breakable
 }
 
 % 7. AI Observational Note
-\newtcolorbox{ai-note}[1][KI-Notiz]{
+\newtcolorbox{ai-note}[1][AI Note]{
 enhanced,
 colback=EnvAIBg,
 dynamic shadow,
@@ -709,7 +709,7 @@ breakable
 }
 
 % 8. Student Question, Student Interaction, or Common Confusion.
-\newtcolorbox{student-interaction}[1][Studentische Interaktion]{
+\newtcolorbox{student-interaction}[1][Student Interaction]{
 enhanced,
 frame hidden,
 colback=EnvStudentBg,
@@ -727,7 +727,7 @@ breakable
 }
 
 % 9. Explanation of Steps
-\newenvironment{explanation-of-steps}[1][Erklärung]{
+\newenvironment{explanation-of-steps}[1][Explanation]{
 \par\vspace{1ex}\noindent\textbf{\textcolor{ExplanationIconColor}{\faListUl\ \ #1:}}
 }{
 \par\vspace{1ex}
@@ -746,7 +746,7 @@ breakable
 \makeatletter
 
 % SHORT PROOF 
-\newenvironment{short-proof}[1][Beweis]{
+\newenvironment{short-proof}[1][Proof]{
     \par\addvspace{2ex plus 0.5ex minus 0.2ex}
     \insideprooftrue 
     \noindent\textcolor{ProofTint}{\faPenNib}\hspace{0.5em}%
@@ -760,7 +760,7 @@ breakable
 }
 
 % LONG PROOF 
-\renewenvironment{proof}[1][Beweis]{
+\renewenvironment{proof}[1][Proof]{
     \par\addvspace{3.5ex plus 1ex minus .2ex}
     \insideprooftrue 
     \noindent\makebox[0pt][r]{\textcolor{ProofTint}{\faPenNib}\hspace{10pt}}%
@@ -777,7 +777,7 @@ breakable
 \makeatother
 
 % 13. Lecture Break
-\newtcolorbox{lecture-break}[1][Vorlesungspause]{
+\newtcolorbox{lecture-break}[1][Lecture Break]{
 enhanced,
 frame hidden,
 colback=white,
@@ -923,23 +923,23 @@ breakable
 
 \vspace*{4.5cm}
 \begin{minipage}{\textwidth}
-    {\sffamily\fontsize{40pt}{48pt}\selectfont\bfseries\color{ThemePrimary!95!black} Grundstrukturen \par}
+    {\sffamily\fontsize{40pt}{48pt}\selectfont\bfseries\color{ThemePrimary!95!black} Basic Structures \par}
     \vspace{1.2cm}
     {\color{ThemeWeekNumber}\rule{\linewidth}{2.5pt}\par}
     \vspace{0.2cm}
     {\color{ThemeAccent1}\rule{0.6\linewidth}{1.5pt}\par}
     \vspace{2.0cm}
-    {\sffamily\fontsize{18pt}{24pt}\selectfont\bfseries\color{TextEmphColor} Vorlesungsskript \par}
+    {\sffamily\fontsize{18pt}{24pt}\selectfont\bfseries\color{TextEmphColor} Lecture Notes \par}
     \vspace{0.6cm}
-    {\sffamily\fontsize{15pt}{22pt}\selectfont\color{TextBoldColor} Dozent: \textbf{Christian Urech} \par}
+    {\sffamily\fontsize{15pt}{22pt}\selectfont\color{TextBoldColor} Lecturer: \textbf{Christian Urech} \par}
     \vspace{0.3cm}
-    {\sffamily\fontsize{14pt}{20pt}\selectfont\color{DarkSlateGray} Departement Mathematik -- ETH Zürich \par}
+    {\sffamily\fontsize{14pt}{20pt}\selectfont\color{DarkSlateGray} Department of Mathematics -- ETH Zurich \par}
     \vspace{2.5cm}
-    {\sffamily\fontsize{14pt}{20pt}\selectfont\bfseries\color{ThemeWeekNumber}\faGraduationCap\quad Frühlingssemester 2026 \par}
+    {\sffamily\fontsize{14pt}{20pt}\selectfont\bfseries\color{ThemeWeekNumber}\faGraduationCap\quad Spring Semester 2026 \par}
 \end{minipage}
 \vfill
 \begin{minipage}{\textwidth}
-    {\sffamily\small\color{HeaderFooterFaint} LLM-gestützte Mitschrift der Vorlesung an der ETH Zürich $\cdot$ FS 2026}
+    {\sffamily\small\color{HeaderFooterFaint} LLM-assisted lecture notes at ETH Zurich $\cdot$ FS 2026}
 \end{minipage}
 \vspace*{1.5cm}
 \end{titlepage}
@@ -948,7 +948,7 @@ breakable
 % INHALTSVERZEICHNIS
 % ==========================================
 \cleardoublepage
-\pdfbookmark[0]{Inhaltsverzeichnis}{toc}
+\pdfbookmark[0]{Table of Contents}{toc}
 \tableofcontents
 \cleardoublepage
 
@@ -980,9 +980,9 @@ breakable
 
 \include{content/week12-step4-05-12-25-tuesday-all-offset-final-copy8.tex}
 
-\include{content/week13-step4-05-19-25-tuesday-all-offset-copy-1-offset-final-copy1.tex}
+\include{content/week13-step4-05-19-25-tuesday-all-offset-final.tex}
 
-\include{content/week14-step4-05-26-25-tuesday-all-offset-final-copy4.tex}
+\include{content/week14-step4-05-26-25-tuesday-all-offset-final.tex}
 
 
 \end{document}

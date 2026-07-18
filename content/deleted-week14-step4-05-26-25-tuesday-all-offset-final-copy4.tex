@@ -1,0 +1,746 @@
+% ==========================================
+% LatexRefinement Step Output: step4-05-26-25-tuesday-all-offset-final-copy4.tex
+% Model: gemini-3.5-flash
+% Temperature: 0.33
+% TopP: 0.95
+% TopK: 40
+% MaxOutputTokens: 65535
+% ThinkingBudget: 32765
+% ThinkingLevel: HIGH
+% Prompt Tokens: 47'923
+% Candidates Tokens: 16'569 (inkl. Thinking Tokens)
+% Cached Tokens: 40'924
+% Processed on: 2026-07-18 13:45:40
+% ==========================================
+
+\begin{spoken-clean}[00:13:35 - 00:15:00]
+Und der Beweis ist: Zuerst sehen wir hier, dass das Sinn ergibt, falls $f$ oder $g$ gleich $0$ ist. Es passt, wenn wir sagen: $-\infty$ plus irgendeine Zahl ist immer noch $-\infty$. Deswegen ist es sinnvoll, den Grad von $0$ als $-\infty$ zu definieren, damit die Formel auch in diesem Fall stimmt.
+
+Ansonsten sieht man das direkt. Ich schreibe das jetzt nicht allzu detailliert auf: Wenn wir $f$ als $a_0 + a_1 x + \dots + a_n x^n$ schreiben und $g$ als $b_0 + b_1 x + \dots + b_m x^m$, wobei $a_n \neq 0$ und $b_m \neq 0$ sind, dann ist der Grad hier $n$ und der Grad dort $m$.
+
+Wenn man das Produkt $f \cdot g$ ausmultipliziert, erhält man: Zuerst multiplizieren wir $a_0 \cdot b_0$ für den konstanten Term. Dann muss man etwas aufpassen, denn man hat $(a_0 b_1 + a_1 b_0) x$ und so weiter. Wenn man das fortführt, sieht man, dass sich das gut aufaddiert, und der Term von höchster Ordnung ist schlussendlich $a_n b_m x^{n+m}$.
+
+Und wichtig ist jetzt: Da $K$ ein Körper ist, ist dieser Leitkoeffizient nicht $0$. Da $a_n \neq 0$ und $b_m \neq 0$ sind, ist auch ihr Produkt $a_n b_m \neq 0$. Und somit folgt, dass der Grad von $f \cdot g$ gleich $n + m$ ist, was genau der Summe der Grade von $f$ und $g$ entspricht. Das ist sehr direkt. Aber eben...
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:15:00 - 00:18:00]
+Aufpassen muss man hier wirklich: Wir müssen voraussetzen, dass wir über einem Körper arbeiten. Man kann natürlich Polynome auch über beliebigen Ringen definieren, das haben Sie bestimmt auch schon getan. Aber wenn Sie das zum Beispiel über dem Restklassenring modulo $4$ betrachten --- also $\mathbb{Z}$ modulo $4\mathbb{Z}$ ---, dann wissen Sie: $2$ ist nicht $0$, aber $2 \cdot 2$ ist $0$. Da haben Sie also Nullteiler.
+
+Und dann kann es durchaus vorkommen, dass der Grad von $f \cdot g$ strikt kleiner ist als der Grad von $f$ plus der Grad von $g$. Über beliebigen Ringen haben Sie im Allgemeinen nur, dass der Grad von $f \cdot g$ kleiner gleich dem Grad von $f$ plus dem Grad von $g$ ist. Aber bei uns gibt es keine Nullteiler, alles ist wunderbar --- das heißt, wir haben tatsächlich, dass der Grad von $f \cdot g$ gleich dem Grad von $f$ plus dem Grad von $g$ ist.
+\end{spoken-clean}
+
+\begin{didactic-insight}[Gradformel über Ringen mit Nullteilern]
+Die Additivität des Grades gilt im Allgemeinen nur über Integritätsbereichen (und damit insbesondere über Körpern). Besitzt ein Ring $R$ Nullteiler $a, b \neq 0$ mit $a \cdot b = 0$, so kann das Produkt der Leitterme zweier Polynome verschwinden, wodurch sich der Grad des Produktpolynoms verringert. In diesem Fall gilt lediglich die Abschätzung:
+\[
+\deg(f \cdot g) \le \deg(f) + \deg(g).
+\]
+\end{didactic-insight}
+
+\section{Division mit Rest}
+
+\begin{spoken-clean}[00:18:00 - 00:22:50]
+Solche Fragen werden Sie dann in Ihren Algebra-Vorlesungen vorwärts und rückwärts durchstudieren, aber hier erst einmal über Körpern --- da ist alles wunderbar. Gut.
+
+Und das Schöne ist: Ein Polynomring in einer Variablen über einem Körper verhält sich in sehr vielerlei Hinsicht sehr ähnlich wie die ganzen Zahlen. Das ist ein bisschen die Philosophie der heutigen Stunde. Zuerst einmal werden wir auch Division mit Rest machen. Das kennen Sie wahrscheinlich aus der Mittelschule, oder? Da haben Sie wahrscheinlich mal Polynomdivision gemacht und geschaut, was es für einen Rest gibt. Und das can man tatsächlich mit beliebigen Körpern machen.
+
+Wenn also $f$ und $g$ Polynome in einer Variablen sind (mit $f \neq 0$), dann gibt es eindeutige Polynome $q$ und $r$ in einer Variablen, sodass wir schreiben können: $g = q \cdot f + r$. Wir können also $g$ durch $f$ teilen mit Rest. Bei den ganzen Zahlen war der Rest ja dadurch charakterisiert, dass er im Betrag kleiner war als der Divisor.
+
+Und das Schöne ist: Im Polynomring haben wir auch eine passende Größenfunktion, nämlich einfach den Grad. Da können wir also den Grad nehmen. Das heißt, für das $r$ hier fordern wir, dass der Grad von $r$ strikt kleiner ist als der Grad von $f$. Okay, und das ist das Teilen mit Rest. Wir können den Beweis kurz anschauen.
+\end{spoken-clean}
+
+\begin{math-stroke}[Satz über die Division mit Rest]
+\begin{theorem}[Division mit Rest]\label[theorem]{thm:division-mit-rest}
+Seien $f, g \in K[x]$ mit $f \neq 0$. Dann existieren eindeutige Polynome $q, r \in K[x]$, sodass:
+\[
+g = q \cdot f + r \quad \text{mit} \quad \deg(r) < \deg(f).
+\]
+\end{theorem}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:22:50 - 00:24:30]
+Zuerst einmal beweisen wir die Existenz, und danach zeigen wir die Eindeutigkeit. Die Existenz beweisen wir genau so, wie man das in der Schule gemacht hat: Wir machen Induktion über den Grad von $g$.
+
+Falls der Grad von $g$ kleiner ist als der Grad von $f$, dann ist es klar: Dann können wir einfach $g = 0 \cdot f + g$ schreiben. Das ist kein Problem. Und falls der Grad von $g$ größer gleich dem Grad von $f$ ist, können wir den Induktionsschritt machen. Wir nehmen an, die Existenz sei bereits für kleinere Grade gezeigt, und betrachten nun ein $g$ mit dem entsprechenden Grad.
+
+Wir unterscheiden also zwei Fälle: Der erste Fall ist, wenn der Grad von $g$ strikt kleiner ist als der Grad von $f$. Das ist kein Problem, dann schreiben wir einfach $g = 0 \cdot f + g$. Damit haben wir diese Schreibweise. Wir müssen uns also nur noch den Fall anschauen, in dem der Grad von $g$ größer gleich dem Grad von $f$ ist.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:24:30 - 00:28:00]
+Wir schreiben $g$ als $a_0 + \dots + a_n x^n$ und $f$ als $b_0 + \dots + b_m x^m$. Wir wissen, dass $n \ge m$ ist und die Leitkoeffizienten ungleich $0$ sind. Da insbesondere $b_m \neq 0$ ist, können wir $b_m$ invertieren.
+
+Wir definieren nun ein neues Polynom $g_1$ als $g$ minus... und hier wollen wir einfach den höchsten Term eliminieren. Das heißt, wir subtrahieren $b_m^{-1} a_n x^{n-m} f$.
+
+Wenn wir das ausschreiben, haben wir zunächst $a_0 + \dots + a_n x^n$. Davon subtrahieren wir $b_m^{-1} a_n x^{n-m} (b_0 + \dots + b_m x^m)$. Der Term von höchster Ordnung, den wir abziehen, ist genau $b_m^{-1} a_n b_m x^n = a_n x^n$. Dieser hebt den Leitterm von $g$ exakt auf. Was übrig bleibt, ist also ein Polynom von einem Grad, der strikt kleiner ist als $n$. Der Grad von $g_1$ ist somit strikt kleiner als der Grad von $g$.
+\end{spoken-clean}
+
+\begin{proof}[Beweis der Division mit Rest]
+\begin{math-stroke}[Existenzbeweis]
+Wir beweisen die Existenz der Darstellung mittels starker Induktion über den Grad $n := \deg(g) \in \mathbb{N} \cup \{-\infty\}$:
+
+\textbf{Induktionsanfang:}
+Falls $\deg(g) < \deg(f)$ gilt, wählen wir:
+\[
+q = 0 \quad \text{und} \quad r = g.
+\]
+Dann ist $g = 0 \cdot f + g$ mit $\deg(r) = \deg(g) < \deg(f)$ eine gültige Darstellung.
+
+\textbf{Induktionsschritt:}
+Es gelte nun $\deg(g) \ge \deg(f)$. Wir nehmen an, die Existenz einer solchen Darstellung sei bereits für alle Polynome mit einem Grad strikt kleiner als $n = \deg(g)$ bewiesen.
+
+Seien die Polynome gegeben durch:
+\begin{align*}
+g &= a_0 + a_1 x + \dots + a_n x^n \quad \text{mit} \quad a_n \neq 0 \implies \deg(g) = n, \\
+f &= b_0 + b_1 x + \dots + b_m x^m \quad \text{mit} \quad b_m \neq 0 \implies \deg(f) = m.
+\end{align*}
+Da $\deg(g) \ge \deg(f)$ vorausgesetzt ist, gilt $n \ge m$. Da $K$ ein Körper ist, existiert das multiplikative Inverse $b_m^{-1} \in K$. Wir definieren ein neues Polynom $g_1 \in K[x]$ durch:
+\begin{equation}\label{eq:g1-definition}
+g_1 := g - b_m^{-1} a_n x^{n-m} f.
+\end{equation}
+Wir betrachten den Koeffizienten von $x^n$ in $g_1$:
+\[
+g_1 = \left( a_0 + \dots + a_n x^n \right) - b_m^{-1} a_n x^{n-m} \left( b_0 + \dots + b_m x^m \right).
+\]
+Der Term von höchster Ordnung im subtrahierten Teil ist genau:
+\[
+b_m^{-1} a_n x^{n-m} \cdot b_m x^m = a_n x^n.
+\]
+Dieser hebt den Leitterm $a_n x^n$ von $g$ exakt auf. Daraus folgt unmittelbar:
+\[
+\deg(g_1) < \deg(g) = n.
+\]
+\end{math-stroke}
+
+\begin{spoken-clean}[00:28:00 - 00:28:47]
+Da der Grad von $g_1$ kleiner ist, können wir unsere Induktionsannahme anwenden: Es existieren Polynome $q_1, r_1 \in K[x]$, sodass wir $g_1 = q_1 \cdot f + r_1$ schreiben können, wobei der Grad von $r_1$ strikt kleiner ist als der Grad von $f$.
+
+Das bedeutet, wir können $g$ schreiben als $f \cdot (b_m^{-1} a_n x^{n-m} + q_1) + r_1$. Das liefert uns unser gesuchtes $q$ und unser $r$. Wir können also auch $g$ in dieser Form darstellen.
+
+Wir müssten jetzt noch zeigen, dass diese Darstellung eindeutig ist. Das machen wir hier aber nicht im Detail, da es vollkommen analog zum Fall der ganzen Zahlen $\mathbb{Z}$ verläuft.
+\end{spoken-clean}
+
+\begin{math-stroke}[Abschluss des Existenzbeweises]
+Da $\deg(g_1) < \deg(g)$, können wir die Induktionsvoraussetzung auf $g_1$ anwenden. Es existieren somit Polynome $q_1, r_1 \in K[x]$ mit:
+\[
+g_1 = q_1 \cdot f + r_1 \quad \text{mit} \quad \deg(r_1) < \deg(f).
+\]
+Setzen wir dies in Gleichung \eqref{eq:g1-definition} ein, erhalten wir:
+\begin{align*}
+g - b_m^{-1} a_n x^{n-m} f &= q_1 \cdot f + r_1 \\
+\implies g &= \left( b_m^{-1} a_n x^{n-m} + q_1 \right) f + r_1.
+\end{align*}
+Mit den Definitionen:
+\[
+q := b_m^{-1} a_n x^{n-m} + q_1 \quad \text{und} \quad r := r_1
+\]
+ergibt sich die gewünschte Darstellung $g = q \cdot f + r$ mit $\deg(r) < \deg(f)$.
+
+\textbf{Eindeutigkeit:}
+Der Beweis der Eindeutigkeit verläuft vollkommen analog zum Fall der ganzen Zahlen $\mathbb{Z}$ unter Ausnutzung der Gradformel (\cref{lem:grad-produkt}).
+\end{math-stroke}
+\end{proof}
+
+\section{Teilbarkeit und der grösste gemeinsame Teiler}
+
+\begin{math-stroke}[Teilbarkeit in K[x]]
+\begin{definition}[Teilbarkeit]\label[definition]{def:teilbarkeit}
+Seien $f, g \in K[x]$. Wir sagen $g$ \newterm{teilt} $f$ (oder $g$ ist ein \newterm{Teiler} von $f$), falls ein Polynom $h \in K[x]$ existiert, sodass:
+\[
+f = g \cdot h.
+\]
+Wir schreiben dafür $g \mid f$.
+\end{definition}
+\end{math-stroke}
+
+\begin{math-stroke}[Der grösste gemeinsame Teiler]
+\begin{theorem}[Existenz des ggT und Bezout-Identität]\label[theorem]{thm:ggt-bezout}
+Seien $f, g \in K[x]$. Dann existiert ein Polynom $h \in K[x]$ mit den Eigenschaften:
+\begin{enumerate}[label=\textbf{(\alph*)}]
+    \item $h \mid f$ und $h \mid g$ (gemeinsamer Teiler),
+    \item für jedes Polynom $p \in K[x]$ mit $p \mid f$ und $p \mid g$ gilt $p \mid h$.
+\end{enumerate}
+Zudem existieren Polynome $A, B \in K[x]$, sodass gilt:
+\[
+A \cdot f + B \cdot g = h.
+\]
+Ein solches Polynom $h$ heißt \newterm{grösster gemeinsamer Teiler} von $f$ und $g$.
+\end{theorem}
+
+\begin{remark}[Eindeutigkeit des ggT]
+Der grösste gemeinsame Teiler zweier Polynome ist im Allgemeinen nur eindeutig bis auf Multiplikation mit Einheiten (d.\,h. konstanten Polynomen ungleich Null in $K^*$). Er ist eindeutig bestimmt, wenn man zusätzlich fordert, dass er normiert ist (Leitkoeffizient gleich $1$).
+\end{remark}
+\end{math-stroke}
+
+\subsection{Eindeutigkeit des \texorpdfstring{$\operatorname{ggT}$}{ggT}}
+
+\begin{spoken-clean}[00:28:47 - 00:30:06]
+Aber man muss aufpassen: Bei den ganzen Zahlen hatten wir, dass der $\operatorname{ggT}$ eindeutig ist, wenn wir fordern, dass er positiv sein soll. Bei den ganzen Zahlen hat man den Vorteil, dass es eine kanonische Wahl gibt --- die Einheiten sind nur $+1$ und $-1$ ---, und wir wählen einfach den positiven Vertreter.
+
+Die Sache ist hier aber: Die einzigen invertierbaren Elemente in $\mathbb{Z}$ sind $1$ und $-1$. Im Polynomring haben wir hingegen alle Konstanten ungleich Null als Einheiten. Wenn wir einen $\operatorname{ggT}$ mit einer Konstanten multiplizieren, erhalten wir immer noch einen $\operatorname{ggT}$.
+
+Das heißt, der $\operatorname{ggT}$ ist nur eindeutig bis auf Multiplikation mit einer Konstanten ungleich Null, also bis auf Multiplikation mit Elementen in $K^*$. Er ist jedoch eindeutig bestimmt, wenn wir zusätzlich fordern, dass er normiert ist, das heißt, dass sein Leitkoeffizient gleich $1$ ist.
+\end{spoken-clean}
+
+\begin{math-stroke}[Eindeutigkeit des größten gemeinsamen Teilers]
+\begin{remark}[Eindeutigkeit des $\operatorname{ggT}$ bis auf Einheiten]\label[remark]{rem:ggt-eindeutigkeit}
+Im Gegensatz zu den ganzen Zahlen $\mathbb{Z}$, bei denen die Einheitengruppe nur aus $\{\pm 1\}$ besteht und somit eine kanonische Wahl des positiven größten gemeinsamen Teilers ermöglicht, ist die Einheitengruppe des Polynomrings $K[x]$ gegeben durch die konstanten Polynome ungleich Null:
+\[
+K^* = K \setminus \{0\}.
+\]
+Ist $h \in K[x]$ ein größter gemeinsamer Teiler von $f$ und $g$, so ist auch jedes konstante Vielfache $c \cdot h$ mit $c \in K^*$ ein größter gemeinsamer Teiler.
+
+Der größte gemeinsame Teiler ist eindeutig bestimmt, wenn wir zusätzlich fordern, dass er \newterm{normiert} (englisch: \emph{monic}) ist, das heißt, dass sein Leitkoeffizient gleich $1$ ist.
+\end{remark}
+\end{math-stroke}
+
+\subsection{Der euklidische Algorithmus für Polynome}
+
+\begin{spoken-clean}[00:30:06 - 00:31:36]
+Als weitere Bemerkung --- was ich jetzt hier nicht im Detail vorrechne ---: Man kann genau dasselbe machen wie in $\mathbb{Z}$ mit dem euklidischen Algorithmus. Auch in dem Fall (Polynomring) kann man wieder den euklidischen Algorithmus anwenden und damit den $\operatorname{ggT}$ sowie die Bézout-Koeffizienten $A$ und $B$ finden. Also...
+\end{spoken-clean}
+
+\begin{math-stroke}[Euklidischer Algorithmus für Polynome]
+\begin{remark}[Euklidischer Algorithmus]\label[remark]{rem:euklidischer-algorithmus-polynome}
+Wie für die ganzen Zahlen $\mathbb{Z}$ gibt es auch für den Polynomring $K[x]$ den (erweiterten) euklidischen Algorithmus. Durch sukzessive Division mit Rest lässt sich für zwei Polynome $f, g \in K[x]$ der größte gemeinsame Teiler $h = \operatorname{ggT}(f, g)$ sowie die Bézout-Koeffizienten $A, B \in K[x]$ bestimmen, sodass gilt:
+\[
+A \cdot f + B \cdot g = h.
+\]
+\end{remark}
+\end{math-stroke}
+
+\subsection{Irreduzible Polynome}
+
+\begin{spoken-clean}[00:31:36 - 00:35:30]
+Das Nächste, was wir für die ganzen Zahlen hatten, waren die Primzahlen. Das können wir jetzt auch hier definieren. Wir definieren es zwar etwas anders, aber es stellt sich heraus, dass es dasselbe ist.
+
+Wir sagen, ein Polynom $f \in K[x]$ heißt irreduzibel, falls $f \neq 0$ ist, $f$ nicht konstant ist und für alle $g \in K[x]$ gilt: Falls $g \mid f$, dann ist $g$ konstant oder $f$ ist ein konstantes Vielfaches von $g$ --- das heißt, $f = c \cdot g$ für eine Konstante $c \in K^*$.
+\end{spoken-clean}
+
+\begin{math-stroke}[Irreduzible Polynome]
+\begin{definition}[Irreduzibles Polynom]\label[definition]{def:irreduzibles-polynom}
+Ein Polynom $f \in K[x]$ heißt \newterm{irreduzibel}, falls gilt:
+\begin{itemize}
+    \item $f \neq 0$,
+    \item $f$ ist nicht konstant (das heißt, $\deg(f) \ge 1$),
+    \item für alle $g \in K[x]$ gilt: falls $g \mid f$, dann ist $g$ konstant (eine Einheit in $K^*$) oder $f$ ist ein konstantes Vielfaches von $g$ (das heißt, $f = c \cdot g$ für ein $c \in K^*$).
+\end{itemize}
+Ein nicht-konstantes Polynom, das nicht irreduzibel ist, heißt \newterm{reduzibel}.
+\end{definition}
+\end{math-stroke}
+
+\begin{meta-note}[Tafelreinigung]
+Der Dozent wischt die linke und mittlere Tafel, um Platz für die nächsten Sätze über die Primfaktorzerlegung von Polynomen zu schaffen.
+\end{meta-note}
+
+\subsection{Primfaktorzerlegung in \texorpdfstring{$K[x]$}{K[x]}}
+
+\begin{spoken-clean}[00:35:30 - 00:38:02]
+Satz: Jedes Polynom ungleich Null lässt sich als Produkt von irreduziblen Polynomen schreiben. Das ist genau das Analogon zum Hauptsatz der Arithmetik, den wir für die ganzen Zahlen gesehen haben.
+
+Wenn wir also ein Polynom $f \in K[x] \setminus \{0\}$ haben, dann gibt es ein $k \ge 0$, irreduzible Polynome $p_1, \dots, p_k$ und eine Konstante $c \in K^*$, sodass $f = c \cdot p_1 \cdots p_k$ ist. Und diese Darstellung ist eindeutig bis auf die Reihenfolge der Faktoren.
+\end{spoken-clean}
+
+\begin{math-stroke}[Eindeutige Primfaktorzerlegung in K[x]]
+\begin{theorem}[Hauptsatz für Polynomringe]\label[theorem]{thm:hauptsatz-polynomringe}
+Sei $f \in K[x] \setminus \{0\}$. Dann existiert ein $k \ge 0$, irreduzible, normierte Polynome $p_1, \dots, p_k \in K[x]$ und eine Konstante $c \in K^*$, sodass:
+\[
+f = c \cdot p_1 \cdot p_2 \cdots p_k.
+\]
+Diese Darstellung ist eindeutig bis auf die Reihenfolge der Faktoren $p_1, \dots, p_k$.
+\end{theorem}
+\end{math-stroke}
+
+\subsection{Charakterisierung irreduzibler Polynome}
+
+\begin{spoken-clean}[00:38:02 - 00:39:47]
+Das Nächste, was wir haben, ist das Analogon zum Lemma von Euklid. Es besagt, dass wenn ein irreduzibles Polynom ein Produkt teilt, es bereits einen der Faktoren teilen muss.
+
+Seien $f, g \in K[x]$ und $p \in K[x] \setminus K$ ein nicht-konstantes Polynom. Dann sind äquivalent: Erstens, $p$ ist irreduzibel, und zweitens, falls $p \mid (f \cdot g)$, dann gilt $p \mid f$ oder $p \mid g$.
+\end{spoken-clean}
+
+\begin{math-stroke}[Lemma von Euklid für Polynome]
+\begin{theorem}[Charakterisierung irreduzibler Polynome]\label[theorem]{thm:charakterisierung-irreduzibel}
+Sei $p \in K[x] \setminus K$ ein nicht-konstantes Polynom. Dann sind äquivalent:
+\begin{enumerate}[label=\textbf{(\alph*)}]
+    \item $p$ ist irreduzibel.
+    \item Für alle $f, g \in K[x]$ gilt: Falls $p \mid (f \cdot g)$, dann gilt $p \mid f$ oder $p \mid g$.
+\end{enumerate}
+\end{theorem}
+\end{math-stroke}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:11:00
+% topic: Irreduzibilität und Primfaktorzerlegung in K[x]
+% board_state: def:irreduzibles-polynom, thm:hauptsatz-polynomringe, thm:charakterisierung-irreduzibel
+% next_goal: Einführung von Kongruenzen modulo f in K[x]
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\subsection{Kongruenzen modulo eines Polynoms}
+
+\begin{spoken-clean}[00:39:47 - 00:42:42]
+Jetzt gehen wir über zu Kongruenzen modulo eines Polynoms $f$. Das ist genau dasselbe, was wir für die ganzen Zahlen gemacht haben, bei denen wir modulo einer Zahl $n$ gerechnet haben. Wir definieren das jetzt für Polynome.
+
+Wir sagen, zwei Polynome $a$ und $b$ sind kongruent modulo $f$ (geschrieben $a \equiv b \pmod f$), falls $f$ die Differenz $a - b$ teilt --- das heißt, falls ein $h \in K[x]$ existiert, sodass $a - b = h \cdot f$ ist.
+\end{spoken-clean}
+
+\begin{math-stroke}[Kongruenz modulo eines Polynoms]
+\begin{definition}[Kongruenz modulo $f$]\label[definition]{def:kongruenz-polynom}
+Seien $f, a, b \in K[x]$ mit $f \neq 0$. Wir sagen, $a$ und $b$ sind \newterm{kongruent modulo $f$}, geschrieben als:
+\[
+a \equiv b \pmod f,
+\]
+falls $f$ die Differenz $a - b$ teilt, das heißt, falls ein $h \in K[x]$ existiert mit:
+\[
+a - b = h \cdot f.
+\]
+\end{definition}
+\end{math-stroke}
+
+\subsection{Der Restklassenring \texorpdfstring{$K[x]/\langle f \rangle$}{K[x]/(f)}}
+
+\begin{spoken-clean}[00:42:42 - 00:44:24]
+Und genau wie für die ganzen Zahlen können wir zeigen, dass dies eine Äquivalenzrelation ist. Das zu verifizieren, ist eine sehr einfache Übung.
+
+Wir können dann die Menge der Äquivalenzklassen betrachten. Wir bezeichnen diese Menge mit $K[x]/\langle f \rangle$ (oder auch $K[x]/(f)$). Das ist die Menge der Restklassen modulo $f$. Also...
+\end{spoken-clean}
+
+\begin{math-stroke}[Äquivalenzrelation und Restklassen]
+\begin{proposition}[Kongruenz als Äquivalenzrelation]\label[proposition]{prop:kongruenz-aequivalenzrelation}
+Die Relation der Kongruenz modulo $f$ ist eine Äquivalenzrelation auf $K[x]$.
+\end{proposition}
+
+\begin{short-proof}
+Die Reflexivität, Symmetrie und Transitivität folgen unmittelbar aus den Teilbarkeitseigenschaften im Polynomring $K[x]$ analog zum Fall der ganzen Zahlen $\mathbb{Z}$.
+\end{short-proof}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:44:24 - 00:48:22]
+Wir können auf dieser Menge der Restklassen eine Addition und eine Multiplikation definieren. Wir definieren die Addition von zwei Klassen einfach als die Klasse der Summe ($[a] + [b] := [a + b]$) und die Multiplikation als die Klasse des Produkts ($[a] \cdot [b] := [a \cdot b]$).
+
+Wir müssen natürlich zeigen, dass dies wohldefiniert ist, das heißt, unabhängig von der Wahl der Repräsentanten. Aber das zeigt man genau gleich wie für $\mathbb{Z}$. Also...
+\end{spoken-clean}
+
+\begin{math-stroke}[Der Restklassenring K[x]/(f)]
+\begin{definition}[Restklassenring]\label[definition]{def:restklassenring-polynom}
+Die Menge der Äquivalenzklassen bezüglich der Kongruenz modulo $f$ wird mit $K[x]/\langle f \rangle$ (oder auch $K[x]/(f)$) bezeichnet. Die Elemente heißen \newterm{Restklassen} und werden geschrieben als:
+\[
+[a] := a + \langle f \rangle := \{ b \in K[x] \mid b \equiv a \pmod f \}.
+\]
+Wir definieren auf $K[x]/\langle f \rangle$ eine Addition und eine Multiplikation durch:
+\begin{align*}
+[a] + [b] &:= [a + b], \\
+[a] \cdot [b] &:= [a \cdot b].
+\end{align*}
+\end{definition}
+
+\begin{proposition}[Wohldefiniertheit]\label[proposition]{prop:wohldefiniertheit-operationen}
+Die Addition und Multiplikation auf $K[x]/\langle f \rangle$ sind wohldefiniert, das heißt, unabhängig von der Wahl der Repräsentanten.
+\end{proposition}
+\end{math-stroke}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:19:00
+% topic: Restklassenring K[x]/(f) und Wohldefiniertheit
+% board_state: def:kongruenz-polynom, prop:kongruenz-aequivalenzrelation, def:restklassenring-polynom
+% next_goal: Repräsentantensystem mittels Division mit Rest bestimmen
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\subsection{Eindeutige Repräsentanten im Restklassenring}
+
+\begin{spoken-clean}[00:48:22 - 00:53:37]
+Jetzt ist die Frage: Wie können wir diese Restklassen beschreiben? Bei den ganzen Zahlen modulo $n$ hatten wir die Zahlen $0$ bis $n-1$ als Repräsentanten.
+
+Hier können wir die Division mit Rest benutzen. Für jedes Polynom $g$ gibt es eindeutige Polynome $q$ und $r$, sodass $g = q \cdot f + r$ mit $\deg(r) < \deg(f)$. Das heißt, jede Restklasse $[g]$ enthält genau einen Repräsentanten $r$ mit $\deg(r) < \deg(f)$. Also...
+\end{spoken-clean}
+
+\begin{math-stroke}[Repräsentantensystem für K[x]/(f)]
+\begin{theorem}[Eindeutige Repräsentanten]\label[theorem]{thm:eindeutige-repraesentanten}
+Sei $f \in K[x]$ mit $\deg(f) = n \ge 1$. Jede Restklasse $[g] \in K[x]/\langle f \rangle$ besitzt genau einen Repräsentanten $r \in K[x]$ mit:
+\[
+\deg(r) < \deg(f).
+\]
+Das heißt, die Abbildung:
+\[
+\varphi \colon \{ r \in K[x] \mid \deg(r) < n \} \to K[x]/\langle f \rangle, \quad r \mapsto [r]
+\]
+ist eine Bijektion.
+\end{theorem}
+
+\begin{short-proof}
+\textbf{Surjektivität (Existenz):} Nach dem Satz über die Division mit Rest (\cref{thm:division-mit-rest}) existieren für jedes $g \in K[x]$ Polynome $q, r \in K[x]$ mit:
+\[
+g = q \cdot f + r \quad \text{und} \quad \deg(r) < \deg(f).
+\]
+Daraus folgt $g - r = q \cdot f \implies g \equiv r \pmod f$, also $[g] = [r]$.
+
+\textbf{Injektivität (Eindeutigkeit):} Seien $r_1, r_2 \in K[x]$ mit $\deg(r_1), \deg(r_2) < \deg(f)$ und $[r_1] = [r_2]$. Dann gilt:
+\[
+r_1 \equiv r_2 \pmod f \implies f \mid (r_1 - r_2).
+\]
+Angenommen, $r_1 - r_2 \neq 0$. Dann gilt nach der Gradformel:
+\[
+\deg(f) \le \deg(r_1 - r_2).
+\]
+Andererseits gilt jedoch:
+\[
+\deg(r_1 - r_2) \le \max\{\deg(r_1), \deg(r_2)\} < \deg(f),
+\]
+was ein Widerspruch ist. Folglich muss $r_1 - r_2 = 0 \implies r_1 = r_2$ gelten.
+\end{short-proof}
+\end{math-stroke}
+
+\subsection{Die Körper-Eigenschaft von \texorpdfstring{$K[x]/\langle f \rangle$}{K[x]/(f)}}
+
+\begin{spoken-clean}[00:53:37 - 00:57:19]
+Und jetzt kommt der ganz wichtige Satz, der uns sagt, wann dieser Restklassenring ein Körper ist. Bei den ganzen Zahlen modulo $n$ war das genau dann ein Körper, wenn $n$ eine Primzahl war. Hier ist es genau dann ein Körper, wenn das Polynom $f$ irreduzibel ist. Das ist eine wunderschöne Analogie. Also...
+\end{spoken-clean}
+
+\begin{math-stroke}[Wann ist K[x]/(f) ein Körper?]
+\begin{theorem}[Körper-Eigenschaft des Restklassenrings]\label[theorem]{thm:koerper-eigenschaft}
+Sei $f \in K[x] \setminus K$ ein nicht-konstantes Polynom. Der Restklassenring $K[x]/\langle f \rangle$ ist genau dann ein Körper, wenn $f$ irreduzibel ist.
+\end{theorem}
+
+\begin{short-proof}
+\textbf{Hinrichtung ($\implies$):} Angenommen, $f$ ist reduzibel. Dann existieren nicht-konstante Polynome $g, h \in K[x]$ mit $f = g \cdot h$ und $\deg(g), \deg(h) < \deg(f)$.
+Im Restklassenring $K[x]/\langle f \rangle$ gilt dann:
+\[
+[g] \cdot [h] = [g \cdot h] = [f] = [0].
+\]
+Da $\deg(g), \deg(h) < \deg(f)$, gilt $[g] \neq [0]$ und $[h] \neq [0]$. Somit besitzt $K[x]/\langle f \rangle$ Nullteiler und kann kein Körper sein.
+
+\textbf{Rückrichtung ($\impliedby$):} Sei $f$ irreduzibel und $[a] \in K[x]/\langle f \rangle$ mit $[a] \neq [0]$, das heißt, $f \nmid a$.
+Da $f$ irreduzibel ist, sind die einzigen Teiler von $f$ die Einheiten und die konstanten Vielfachen von $f$ selbst. Da $f \nmid a$, muss der größte gemeinsame Teiler von $a$ und $f$ eine Einheit sein, also $\operatorname{ggT}(a, f) = 1$.
+Nach dem Satz von Bézout (\cref{thm:ggt-bezout}) existieren Polynome $A, B \in K[x]$ mit:
+\[
+A \cdot a + B \cdot f = 1.
+\]
+Gehen wir zu den Restklassen über, erhalten wir:
+\[
+[A \cdot a + B \cdot f] = [1] \implies [A] \cdot [a] + [B] \cdot [0] = [1] \implies [A] \cdot [a] = [1].
+\]
+Somit ist $[A]$ das multiplikative Inverse von $[a]$ in $K[x]/\langle f \rangle$. Da jedes Element ungleich Null ein Inverses besitzt, ist $K[x]/\langle f \rangle$ ein Körper.
+\end{short-proof}
+\end{math-stroke}
+
+\begin{ai-global-state-checkpoint-invisible-content}
+% timestamp: 00:28:00
+% topic: Körper-Eigenschaft von K[x]/(f)
+% board_state: thm:koerper-eigenschaft, thm:eindeutige-repraesentanten
+% next_goal: Konstruktion eines konkreten endlichen Körpers mit 4 Elementen
+% open_loops: none
+\end{ai-global-state-checkpoint-invisible-content}
+
+\subsection{Konstruktion des endlichen Körpers \texorpdfstring{$\mathbb{F}_4$}{F4}}
+
+\begin{spoken-clean}[00:57:19 - 00:57:34]
+Schauen wir uns ein konkretes Beispiel an: Wir nehmen den Körper mit zwei Elementen, $\mathbb{F}_2$, und betrachten das Polynom $f(x) = x^2 + x + 1$. Das ist ein Polynom vom Grad $2$. Wir können leicht prüfen, ob es irreduzibel ist. Da es Grad $2$ hat, ist es genau dann reduzibel, wenn es eine Nullstelle hat. Aber $f(0) = 1 \neq 0$ und $f(1) = 1 \neq 0$ (in $\mathbb{F}_2$). Also hat es keine Nullstelle und ist irreduzibel.
+\end{spoken-clean}
+
+\subsection{Eigenschaften des Körpers \texorpdfstring{$\mathbb{F}_4$}{F4}}
+
+\begin{spoken-clean}[00:57:34 - 00:58:57]
+Das ist also ein Körper mit zwei Elementen. Und jetzt kann man zeigen, dass das Polynom irreduzibel ist. Das machen wir jetzt nicht im Detail, aber es ist eine kleine Übung, das zu verifizieren. Es ist nicht schwierig zu zeigen, dass das irreduzibel ist.
+
+Zum Beispiel hat es Grad $2$. Das heißt, wenn es nicht irreduzibel wäre, wäre es ein Produkt von zwei Polynomen vom Grad $1$. Wir kennen die Polynome vom Grad $1$ über $\mathbb{F}_2$ --- da gibt es nicht sehr viele, die kann man alle durchmultiplizieren. Man kann auch einfach bemerken, dass es keine Nullstelle in $\mathbb{F}_2$ hat, das ist also sehr einfach. Für Polynome von hohem Grad ist es manchmal schwieriger zu zeigen, dass sie irreduzibel sind, aber hier ist es sehr einfach.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:58:57 - 01:00:12]
+Das heißt, wir wissen, dass der Restklassenring $\mathbb{F}_2[x]/\langle x^2 + x + 1 \rangle$ ein Körper ist. Wie viele Elemente hat dieser Körper? Wir könnten sie sogar alle hinschreiben.
+
+Wir haben gesehen: Die Elemente hier werden repräsentiert durch Polynome von einem Grad strikt kleiner als $2$, also durch Polynome vom Grad $0$ und $1$. Davon gibt es genau $4$. Das heißt, wir haben einen Körper mit $4$ Elementen. Explizit sind das die Klassen $[0]$, $[1]$, $[x]$ und $[x+1]$.
+\end{spoken-clean}
+
+\begin{math-stroke}[Konstruktion eines endlichen Körpers mit 4 Elementen]
+\begin{example}[Der Körper $\mathbb{F}_4$]\label[example]{ex:koerper-f4}
+Wir betrachten den Grundkörper $K = \mathbb{F}_2 = \{0, 1\}$ und das Polynom:
+\[
+f(x) = x^2 + x + 1 \in \mathbb{F}_2[x].
+\]
+
+\textbf{1. Irreduzibilität von $f$:} \\
+Da $\deg(f) = 2$, ist $f$ genau dann reduzibel, wenn es einen Linearfaktor besitzt, also eine Nullstelle in $\mathbb{F}_2$ hat. Wir prüfen die beiden Elemente von $\mathbb{F}_2$:
+\begin{align*}
+f(0) &= 0^2 + 0 + 1 = 1 \neq 0, \\
+f(1) &= 1^2 + 1 + 1 = 1 \neq 0 \quad (\text{in } \mathbb{F}_2).
+\end{align*}
+Da $f$ keine Nullstelle in $\mathbb{F}_2$ besitzt, ist $f$ irreduzibel. Nach \cref{thm:koerper-eigenschaft} ist der Restklassenring:
+\[
+\mathbb{F}_4 := \mathbb{F}_2[x]/\langle x^2 + x + 1 \rangle
+\]
+ein Körper.
+
+\textbf{2. Elemente des Körpers:} \\
+Da $\deg(f) = 2$, besteht das eindeutige Repräsentantensystem nach \cref{thm:eindeutige-repraesentanten} aus allen Polynomen vom Grad $< 2$:
+\[
+\mathbb{F}_4 = \{ [0], [1], [x], [x+1] \}.
+\]
+Dieser Körper besitzt somit genau $2^2 = 4$ Elemente.
+
+\textbf{3. Multiplikationstabelle (Beispiele):} \\
+Wir berechnen beispielhaft einige Produkte im Körper $\mathbb{F}_4$ unter Ausnutzung der Relation $[x^2 + x + 1] = [0] \implies [x^2] = [x + 1]$ (da $-1 = 1$ in $\mathbb{F}_2$):
+\begin{itemize}
+    \item \textbf{Produkt $[x] \cdot [x]$:}
+    \[
+    [x] \cdot [x] = [x^2] = [x + 1].
+    \]
+    \item \textbf{Produkt $[x] \cdot [x+1]$:}
+    \[
+    [x] \cdot [x+1] = [x^2 + x] = [x^2] + [x] = [x+1] + [x] = [2x + 1] = [1] \quad (\text{da } 2 = 0 \text{ in } \mathbb{F}_2).
+    \]
+    Somit sind $[x]$ und $[x+1]$ multiplikativ invers zueinander: $[x]^{-1} = [x+1]$.
+\end{itemize}
+\end{example}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:00:12 - 01:02:59]
+Man muss hier noch schauen, wie diese miteinander multipliziert werden. Mit $[0]$ und $[1]$ ist das klar. Bei den anderen beiden schauen wir uns das an: Wenn man $[x] \cdot [x+1]$ berechnet, ist das die Klasse von $x^2 + x$. Da $[x^2 + x + 1] = [0]$ gilt, ist das dasselbe wie die Klasse von $[-1]$. Da aber $-1 = 1$ in $\mathbb{F}_2$ ist, ist das gleich $[1]$. Das heißt, $[x]$ und $[x+1]$ sind multiplikativ invers zueinander.
+
+Dann kann man noch schauen, was die Klasse von $x$ im Quadrat ist, also $[x] \cdot [x]$. Es gilt $[x]^2 = [x^2] = [x+1]$. Und so kann man das weiterführen. So kann man also wunderbar damit rechnen. Das heißt: Wenn man ein irreduzibles Polynom hat, erhält man einen Körper.
+\end{spoken-clean}
+
+\begin{math-stroke}[Multiplikation in \texorpdfstring{$\mathbb{F}_4$}{F4}]
+Im Körper $\mathbb{F}_4$ gelten folgende Multiplikationsregeln:
+\begin{align*}
+[x] \cdot [x+1] &= [x^2 + x] = [1], \\
+[x]^2 &= [x+1].
+\end{align*}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:02:59 - 01:05:39]
+Vielleicht noch ein Beispiel, das Sie wahrscheinlich schon kennen und das eine gute Übung ist, um es selbst zu zeigen: Der Körper der komplexen Zahlen $\mathbb{C}$ ist isomorph zum Restklassenkörper des Polynomrings über den reellen Zahlen $\mathbb{R}[x]$ modulo des irreduziblen Polynoms $x^2 + 1$, also $\mathbb{C} \cong \mathbb{R}[x]/\langle x^2 + 1 \rangle$. Das ist eine schöne Übung.
+\end{spoken-clean}
+
+\begin{math-stroke}[Isomorphie der komplexen Zahlen]
+\begin{example}[Die komplexen Zahlen als Restklassenkörper]\label[example]{ex:komplexe-zahlen-restklassen}
+Der Körper der komplexen Zahlen $\mathbb{C}$ ist isomorph zum Restklassenkörper des Polynomrings über den reellen Zahlen $\mathbb{R}[x]$ modulo des irreduziblen Polynoms $x^2 + 1$:
+\[
+\mathbb{C} \cong \mathbb{R}[x]/\langle x^2 + 1 \rangle \quad (\text{Übung}).
+\]
+\end{example}
+\end{math-stroke}
+
+\subsection{Klassifikation endlicher Körper}
+
+\begin{meta-note}[Tafelreinigung]
+Der Dozent wischt die Tafel, um Platz für den Klassifikationssatz endlicher Körper zu machen.
+\end{meta-note}
+
+\begin{spoken-clean}[01:05:39 - 01:08:19]
+Was uns jetzt interessiert, ist der Fall, wenn $K$ ein endlicher Körper ist, also zum Beispiel $K = \mathbb{F}_p$. Dann gibt es für jedes in $\mathbb{F}_p[x]$ irreduzible Polynom $f$ vom Grad $n$ einen Körper $\mathbb{F}_p[x]/\langle f \rangle$, der, wie wir gesehen haben, genau $p^n$ Elemente besitzt. Und wir haben gesehen: Es gibt unendlich viele irreduzible Polynome von beliebig hohem Grad in $\mathbb{F}_p[x]$.
+
+Der folgende Satz --- ich schreibe ihn nur hin, ohne ihn zu beweisen --- besagt: Zu jeder Primzahl $p$ und jedem $n \ge 1$ existiert ein Körper der Ordnung $p^n$. Mehr noch: Er existiert nicht nur, sondern ist auch eindeutig bis auf Isomorphie. Jeder endliche...
+\end{spoken-clean}
+
+\begin{math-stroke}[Klassifikationssatz endlicher Körper]
+\begin{theorem}[Existenz und Eindeutigkeit endlicher Körper]\label[theorem]{thm:klassifikation-endliche-koerper}
+Zu jeder Primzahl $p$ und jeder natürlichen Zahl $n \ge 1$ existiert ein Körper der Ordnung $p^n$, welcher bis auf Isomorphie eindeutig bestimmt ist.
+
+Jeder endliche Körper ist von dieser Form.
+\end{theorem}
+
+\begin{remark}[Freiwilliges Nachlesen]\label[remark]{rem:freiwillig-nachlesen}
+Der Beweis dieses Satzes wird in der Vorlesung Algebra I/II behandelt und kann bei Interesse selbstständig nachgelesen werden.
+\end{remark}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:08:19 - 01:11:09]
+Und jeder endliche Körper ist von dieser Form. Jeder endliche Körper hat also $p^n$ Elemente für eine Primzahl $p$ und ein $n \ge 1$. Bis auf Isomorphismus gibt es nur einen Körper von gegebener Ordnung $p^n$. Das heißt, endliche Körper sind vollständig klassifiziert.
+
+Was Sie mit Ihrem jetzigen Wissen bereits gut sehen und auch nachlesen können, ist, dass jeder endliche Körper die Ordnung $p^n$ haben muss. Das ist nicht sehr schwierig: Sie müssen nur bemerken, dass ein endlicher Körper ein Vektorraum über seinem Primkörper $\mathbb{F}_p$ ist, und daraus folgt das direkt.
+
+Um zu zeigen, dass es für jedes $n$ einen Körper der Ordnung $p^n$ gibt, muss man ein bisschen arbeiten, aber auch das ist machbar. Etwas schwieriger ist es zu zeigen, dass alle Körper der Ordnung $p^n$ isomorph sind. Aber Sie werden das auf jeden Fall in der Algebra-Vorlesung sehen --- entweder lesen Sie es freiwillig nach oder Sie sehen es in Algebra I oder II.
+\end{spoken-clean}
+
+\begin{math-stroke}[Struktur endlicher Körper]
+Jeder endliche Körper $E$ ist ein Vektorraum über seinem Primkörper $\mathbb{F}_p$ für eine Primzahl $p$. Da $E$ endlich ist, ist die Dimension $n = \dim_{\mathbb{F}_p}(E)$ endlich, woraus folgt:
+\[
+|E| = p^n.
+\]
+\end{math-stroke}
+
+\begin{spoken-clean}[01:11:09 - 01:12:58]
+Was Sie auf jeden Fall in Ihr mathematisches Leben mitnehmen sollten, ist, dass nicht alle endlichen Körper von der Form $\mathbb{F}_p$ sind.
+
+Unser Beispiel mit vier Elementen ist kein Körper der Form $\mathbb{F}_p$. Das ist der Körper $\mathbb{F}_4$ (strukturell $\mathbb{F}_2^2$), aber das ist eben nicht der Restklassenring $\mathbb{Z}/4\mathbb{Z}$. Das ist sehr wichtig zu sehen.
+\end{spoken-clean}
+
+\begin{math-stroke}[Unterscheidung von Körpern und Ringen]
+\begin{remark}[Strukturelle Unterschiede]\label[remark]{rem:strukturelle-unterschiede}
+Es ist essenziell, den endlichen Körper $\mathbb{F}_4$ (welcher isomorph zu $\mathbb{F}_2[x]/\langle x^2+x+1\rangle$ ist) nicht mit dem Restklassenring $\mathbb{Z}/4\mathbb{Z}$ zu verwechseln. Letzterer besitzt Nullteiler (da $[2] \cdot [2] = [0]$) und ist somit kein Körper.
+\end{remark}
+\end{math-stroke}
+
+\section{Prüfungsinformationen und Ausblick}
+
+\begin{meta-note}[Tafelreinigung und Übergang]
+Der Dozent wischt die Tafel vollständig, um organisatorische Details zur bevorstehenden Prüfung zu notieren.
+\end{meta-note}
+
+\subsection{Prüfungsinhalt und Übungen}
+
+\begin{spoken-clean}[01:12:58 - 01:16:29]
+Gut, so viel als kleiner Teaser für die Algebra, um zu sehen, was man da alles machen kann. Gibt es dazu noch Fragen? Zu den Körpern oder Ähnlichem? Nein?
+
+Dann möchte ich gerne die verbleibende Zeit nutzen, um mit Ihnen kurz über die Prüfung und die Prüfungsvorbereitung zu sprechen. Die erste Frage betrifft den Prüfungsinhalt: Prüfungsrelevant ist der gesamte Inhalt der Vorlesung, also alles, was wir in der Vorlesung und in den Übungen behandelt haben.
+\end{spoken-clean}
+
+\begin{spoken-clean}[01:16:29 - 01:18:37]
+Das beinhaltet natürlich nicht die Teile im Skript, die wir nicht behandelt haben. Ich werde heute Abend noch ein Dokument hochladen, in dem die Kapitel aufgelistet sind, die wir behandelt haben. In den letzten drei Wochen sind wir ja eher quer durch die letzten drei Kapitel gegangen und haben ein paar Dinge etwas anders gemacht. Da werde ich die Notizen der letzten drei Wochen hochladen. Gibt es hier jemanden, der die Vorlesung mitschreibt? Das gibt es ja eigentlich immer.
+
+Wenn Sie möchten --- Sie müssen natürlich nicht ---, dürfen Sie mir gerne Ihre Mitschrift der letzten drei Wochen schicken. Dann kann ich das kurz überfliegen und allen zugänglich machen, damit alle dieselbe Grundlage haben. Das ist dann prüfungsrelevant. Ich werde es vielleicht noch kurz durchlesen und ein bisschen anpassen. Vielen Dank, super! Ich glaube, alle sind Ihnen dankbar, wenn Sie das tun.
+\end{spoken-clean}
+
+\begin{spoken-clean}[01:18:37 - 01:20:27]
+Und sonst muss ich die Videos auf irgendein KI-Modell hochladen und nach einer Zusammenfassung fragen --- das kommt aber meistens nicht so gut raus. Okay, also das ist der Inhalt. Ein wichtiger Punkt ist allerdings, dass auch die Übungen Teil des Stoffs sind. Die Übungsblätter sind, insbesondere für diese Vorlesung, ein sehr wichtiger Bestandteil, und es ist entscheidend, dass Sie unter dem Semester an diesen Übungen gearbeitet haben.
+
+Wir haben in der Vorlesung vielleicht etwas weniger Stoff behandelt, weil ich nicht zu viel hineinquetschen wollte; dafür sind die Übungsblätter ein bisschen umfangreicher als in anderen Vorlesungen. Ich hoffe, Sie haben diese unter dem Semester bearbeitet, diskutiert und verstanden. Es gibt ja auch Musterlösungen zu allen Übungen. Aber wie gesagt: Die Übungen sind Bestandteil des Stoffs, alles darin Eingeführte ist Teil der Vorlesung. Es gibt diese Woche auch noch ein Übungsblatt $14$, wir haben also wirklich jede Woche ein Übungsblatt gehabt. Aber das waren ja meistens auch lustige Übungsblätter oder interessante Aufgaben, hoffen wir.
+\end{spoken-clean}
+
+\begin{nice-box}[Prüfungsstoff und Relevanz]
+\begin{itemize}
+    \item \textbf{Vorlesungsinhalt:} Alle behandelten Kapitel des Skripts (eine detaillierte Liste wird online bereitgestellt).
+    \item \textbf{Übungsblätter:} Die wöchentlichen Übungsblätter (inklusive des aktuellen Blatts $14$) sind ein integraler Bestandteil des Prüfungsstoffs.
+    \item \textbf{Zusatzmaterial:} Notizen zu den letzten drei Wochen der Vorlesung werden hochgeladen.
+\end{itemize}
+\end{nice-box}
+
+\subsection{Prüfungsformat und Hilfsmittel}
+
+\begin{spoken-clean}[01:20:27 - 01:22:57]
+Kommen wir zur Prüfungsform: Die Prüfung dauert zwei Stunden und findet bereits in der ersten Sessionswoche statt. Zwei Stunden sind gar nicht so lang, das geht wie im Flug vorbei. Etwa ein Drittel der Prüfung --- das ist kein ganz präziser Wert --- wird aus Multiple-Choice-Fragen bestehen. Das sind entweder Fragen, bei denen Sie eine Antwort aus vier Möglichkeiten auswählen müssen, oder Richtig-Falsch-Fragen. Dabei gibt es keine Abzüge für falsche Antworten. Negative Punkte macht man heutzutage aus verschiedenen Gründen eigentlich nicht mehr. Das heißt: Kreuzen Sie auf jeden Fall etwas an, selbst wenn Sie die Antwort nicht wissen. Es ist zwar nicht ideal, dass der Zufall eine Rolle spielt, aber so ist es nun einmal.
+
+Die restlichen zwei Drittel der Prüfung bestehen aus offenen Aufgaben. Dabei spielt die Art und Weise, wie Sie Ihre Antworten aufschreiben, eine ganz wesentliche Rolle --- insbesondere in dieser Vorlesung, da es ein Lernziel ist, Mathematik sauber und präzise darzustellen. Geben Sie sich also Mühe, wirklich schöne, saubere Argumente aufzuschreiben. Wie immer gilt: Bewertet wird das, was auf dem Papier steht, nicht das, was Sie insgeheim gemeint haben.
+
+Manchmal ist das den Studierenden nicht ganz klar, und nach der Prüfung heißt es dann: \qt{Ja, aber ich habe eigentlich das gemeint, und das sollte aus dem Kontext doch klar sein.} Nein, es wird bewertet, was Sie aufschreiben. Geben Sie sich also Mühe. Das haben Sie aber hoffentlich das ganze Semester über geübt, indem Sie Ihre Übungen abgegeben, Feedback erhalten und versucht haben, Ihre Argumentation zu verbessern. Vermeiden Sie es, einfach eine Reihe von Behauptungen hinzuschreiben und zur Sicherheit an jede Zeile einen Äquivalenzpfeil ($\iff$) zu setzen, selbst wenn das in der Hälfte der Fälle gar nicht stimmt. Argumentieren Sie stattdessen sauber und präzise.
+\end{spoken-clean}
+
+\begin{spoken-clean}[01:22:57 - 01:23:49]
+Sie dürfen ein A4-Blatt, also zwei Seiten, Zusammenfassung oder Formelsammlung mitnehmen. Es gibt keine Einschränkungen, was darauf steht: Sie dürfen auch ein Gedicht oder ein Foto darauf drucken --- ganz egal, was Sie wollen. Es wäre lächerlich zu verlangen, dass es handgeschrieben sein muss, und wir können auch nicht überprüfen, ob Sie es selbst geschrieben haben. Bringen Sie also einfach ein doppelseitig beschriebenes A4-Blatt mit; der Inhalt ist uns völlig egal.
+\end{spoken-clean}
+
+\begin{math-stroke}[Struktur der Prüfung]
+\begin{itemize}
+    \item \textbf{Dauer:} $2$ Stunden.
+    \item \textbf{Format:}
+    \begin{itemize}
+        \item $\approx 1/3$ Multiple-Choice-Fragen (keine negativen Punkte für falsche Antworten).
+        \item $\approx 2/3$ offene Aufgaben (Bewertung der mathematischen Präzision und Argumentation).
+    \end{itemize}
+    \item \textbf{Erlaubte Hilfsmittel:} $1$ A4-Blatt ($2$ Seiten) Zusammenfassung (beliebiger Inhalt, gedruckt oder handgeschrieben).
+\end{itemize}
+\end{math-stroke}
+
+\begin{student-interaction}[Studentenfrage]
+Müssen wir die ganzen Axiome auswendig lernen, wie z.B. die Peano-Axiome, oder stehen die auf der Prüfung drauf?
+\end{student-interaction}
+
+\begin{spoken-clean}[01:23:49 - 01:24:19]
+Nein, das kann ich gerne noch spezifizieren: Die Peano-Axiome sollten Sie vielleicht schon können, aber die ganzen logischen Axiome oder die Zermelo-Fraenkel-Axiome müssen Sie nicht auswendig lernen. Sie müssen sie verstanden haben, aber Sie müssen sie nicht alle auswendig aufsagen können. Wenn Sie sie anwenden sollen, schreiben wir sie auf das Prüfungsblatt, zum Beispiel in dem Stil: \qt{Hier sind fünf Axiome gegeben; verwenden Sie diese, um die folgende Aussage formal zu beweisen.}
+\end{spoken-clean}
+
+\subsection{Prüfungsvorbereitung und Tipps}
+
+\begin{spoken-clean}[01:24:19 - 01:26:29]
+Es ist immer schwierig zu sagen. Ich versuche es manchmal so zu erklären: Es gibt zwei Extreme bei Prüfungen. Auf der einen Seite steht die Mathe-Olympiade: Da versucht man natürlich, möglichst unerwartete, trickreiche und schwierige Fragen auszutüfteln, die niemand vorher kennt. Das andere Extrem ist eine Fahrprüfung: Diese ist meistens sehr vorhersehbar, man weiß genau, was man können muss, und muss es dann einfach abrufen.
+
+Obwohl es auch bei der Fahrprüfung unerwartete Situationen gibt --- Sie haben das Auffahren auf die Autobahn oft geübt, aber genau in der Prüfung kommt ein großer Lastwagen und Sie müssen spontan reagieren. Also ist auch die Fahrprüfung nicht völlig starr.
+
+Die Frage ist: Wo liegen die Mathe-Prüfungen an der ETH auf dieser Skala? Natürlich nicht ganz bei der Fahrprüfung, aber sie sollten auch nicht wie die Mathe-Olympiade sein. Wir versuchen, uns irgendwo in der Mitte einzupendeln. Es ist natürlich auch nicht so einfach, gute Prüfungen zu entwerfen.
+\end{spoken-clean}
+
+\begin{math-stroke}[Die Prüfungsskala]
+\begin{center}
+\begin{tikzpicture}[scale=1.5, >=Stealth]
+    % \begin{ai-tikz-planner-invisible-content}
+    % 1. Background: Horizontal line representing the scale.
+    % 2. Midground: Ticks at the ends and the middle.
+    % 3. Foreground: Labels "Mathe-Olympiade" (left), "Fahrprüfung" (right), and the target region (middle).
+    % \end{ai-tikz-planner-invisible-content}
+    \draw[thick, <->] (-3,0) -- (3,0);
+    \draw[thick] (-2.5, 0.1) -- (-2.5, -0.1) node[below=0.1cm, align=center] {Mathe-Olympiade\\(Sehr trickreich)};
+    \draw[thick] (2.5, 0.1) -- (2.5, -0.1) node[below=0.1cm, align=center] {Fahrprüfung\\(Sehr vorhersehbar)};
+    
+    % Target area
+    \draw[dashed, thick, BrickRed] (0, -0.3) rectangle (1, 0.3);
+    \node[BrickRed, above=0.3cm] at (0.5, 0) {Zielbereich};
+\end{tikzpicture}
+\end{center}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:26:29 - 01:26:54]
+Ich versuche immer, ein bisschen Mut zu machen, dass man nicht zu viel Angst vor einer Prüfung haben soll. Wenn man gut gelernt und die Übungen gemacht hat, dann ist das absolut machbar. Aber manchmal wird das missverstanden, als ob die Prüfung einfach würde. Es ist und bleibt eine Mathe-Prüfung an der ETH im ersten Jahr, und die ist naturgemäß nicht einfach. Bereiten Sie sich also gründlich vor.
+
+Denken Sie an die Richtlinie für Kreditpunkte: Ein Credit entspricht etwa $30$ Stunden Arbeit für einen durchschnittlichen Studierenden. Natürlich sind Sie im Vergleich zur Allgemeinbevölkerung alle überdurchschnittlich begabt in Mathematik, aber innerhalb Ihrer Kohorte an der ETH liegt der Durchschnitt eben anders. Für die meisten von Ihnen sind $30$ Stunden pro Kreditpunkt ein sehr realistischer Richtwert --- selbst wenn Sie in der Mittelschule viel weniger für Mathematik tun mussten. Rechnen Sie das einmal durch, um ein realistisches Bild zu bekommen, wie viel Vorbereitung Ihnen noch bevorsteht.
+
+Ich werde noch einige Prüfungen der vergangenen Jahre hochladen. Ich werde mich bei der Erstellung sehr stark an diesen orientieren, wobei wir natürlich keine Fragen zu Themen stellen, die dieses Semester nicht behandelt wurden. Viele von Ihnen wünschen sich eine Probeprüfung, weshalb ich eine bereitstellen werde. Ich muss allerdings sagen, dass die eigentliche Prüfung sich viel stärker an den echten Prüfungen der Vorjahre orientieren wird als an dieser Probeprüfung. Eine Probeprüfung ist für Sie nur mäßig nützlich, denn das Einzige, was ich Ihnen garantieren kann, ist, dass die echte Prüfung nicht genau so aussehen wird wie die Probeprüfung --- sonst wäre es ja witzlos. Wenn ich mir überlege, was ich in der echten Prüfung frage, dann darf das natürlich nicht eins zu eins in der Probeprüfung vorkommen. Seien Sie also nicht enttäuscht, wenn die Prüfung anders aussieht; ich werde diesen Hinweis auch auf die Probeprüfung schreiben. Sie dient hauptsächlich zur Beruhigung. Die echte Prüfung wird sich an den Vorjahren orientieren.
+
+Die Frage ist auch, wie man sich am besten vorbereitet. Das ist ja nicht Ihre erste Prüfungssession an der ETH, Sie kennen das Prozedere also schon. Eine sehr effiziente Methode ist es, immer mal wieder das Buch oder Skript zuzumachen und sich selbst Prüfungsfragen auszudenken. Überlegen Sie sich: Wenn Sie eine Prüfung für diese Vorlesung entwerfen müssten, was würden Sie fragen? Schreiben Sie diese Fragen auf. Im Gegensatz zur offiziellen Probeprüfung ist hier die Wahrscheinlichkeit durchaus positiv, dass eine Ihrer Fragen tatsächlich in ähnlicher Form drankommt. Versuchen Sie dann, Ihre eigenen Fragen zu lösen, oder tauschen Sie sie mit Ihren Kolleginnen und Kollegen aus. Was nicht funktioniert, ist, einfach nur das Skript durchzublättern, zu nicken und zu sagen: \qt{Ah ja, das habe ich verstanden.} Es ist ein riesiger Unterschied, ob man eine Erklärung passiv versteht oder ob man vor einem leeren Blatt sitzt und den Beweis selbstständig reproduzieren muss. Das ist wie beim Autofahren: Dem Fahrlehrer zuzuschauen ist das eine, aber am Steuer sitzen und selbst lenken ist etwas ganz anderes.
+
+Heutzutage bereitet man sich wahrscheinlich auch viel mit generativer KI auf Prüfungen vor. Das kann durchaus hilfreich sein, man muss nur herausfinden, wie man diese Tools effizient nutzt. Verschiedene Studien zeigen allerdings, dass das Lernen mit KI oft zu einer Selbstüberschätzung führt. Studierende, die sich intensiv mit KI vorbereiten, neigen dazu, ihre eigenen Fähigkeiten im Nachhinein zu überschätzen. Man hat das Gefühl: \qt{Ich habe alles verstanden, das ist wunderbar, ich kann es.} Vielleicht sagt Ihnen die KI sogar, Sie seien bestens vorbereitet. Seien Sie also vorsichtig, sich nicht falsch einzuschätzen. Ganz wichtig ist auch, dass Sie Pausen machen. Versuchen Sie nicht, zwölf Stunden am Tag durchzulernen --- das ist physiologisch gar nicht möglich. Oft ist weniger mehr.
+
+Wir haben noch ein paar Minuten Zeit. Gibt es noch Fragen zur Prüfung oder zum Inhalt? Nein? Dann sehe ich dort hinten noch eine letzte Wortmeldung.
+\end{spoken-clean}
+
+\begin{math-stroke}[Prüfungskriterien und Vorbereitung]
+\textbf{Prüfungskriterien:}
+\begin{itemize}
+    \item \textbf{Breite:} Ausgewogene Abdeckung des Vorlesungsstoffs und der Übungen.
+    \item \textbf{Schwierigkeit:} Eine gesunde Mischung aus direkt lösbaren Aufgaben und anspruchsvolleren Transferfragen.
+    \item \textbf{Gewichtung:} Orientierung an der Relevanz der Themen im Semester.
+\end{itemize}
+\end{math-stroke}
+
+\begin{nice-box}[Tipps zur Prüfungsvorbereitung]
+\begin{itemize}
+    \item \textbf{Aktives Lernen:} Das Skript nicht nur passiv lesen, sondern versuchen, Sätze und Beweise auf einem leeren Blatt Papier eigenständig zu reproduzieren.
+    \item \textbf{Eigene Fragen entwerfen:} Eine hervorragende Methode ist es, sich selbst Prüfungsaufgaben auszudenken und diese zu lösen.
+    \item \textbf{Umgang mit KI-Tools:} Generative KI kann beim Lernen unterstützen, birgt jedoch die Gefahr, das eigene Verständnis zu überschätzen. Nutzen Sie KI-Feedback kritisch.
+    \item \textbf{Pausen einlegen:} Physiologisch ist es unmöglich, $12$ Stunden am Stück produktiv zu lernen. Planen Sie feste Erholungsphasen ein.
+\end{itemize}
+\end{nice-box}
+
+\begin{student-interaction}[Studentenfrage]
+Wie sieht es mit der Gewichtung der...
+\end{student-interaction}
+
+\begin{spoken-clean}[01:26:54 - 01:27:19]
+Ah ja, das ist ein wichtiger Punkt: Folgefehler. Wenn man am Anfang die Definition von etwas vergisst, sollte man nicht gleich für ein Drittel (d.\,h. $\approx 1/3$) der Prüfung disqualifiziert sein. Ja, guter Punkt, danke.
+\end{spoken-clean}
+
+\begin{student-interaction}[Studentenfrage]
+Also allgemein, dass die Prüfung so ist...
+\end{student-interaction}
+
+\begin{spoken-clean}[01:27:19 - 01:27:49]
+Ja, das versucht man natürlich. Wir achten darauf, dass sich die Prüfung nicht zu stark auf ein einzelnes Thema konzentriert. Das betrifft auch den Schwierigkeitsgrad: Wir wollen Sie nicht übermäßig ermüden. Es ist zwar schön, wenn man sich 20 Minuten lang in ein Thema vertiefen kann, aber wir müssen in der Prüfung trotzdem differenzieren. Ja, dort drüben noch eine letzte Wortmeldung?
+\end{spoken-clean}
+
+\begin{student-interaction}[Studentenfrage]
+Eher so eine Frage, und zwar, was soll...
+\end{student-interaction}
+
+\begin{spoken-clean}[01:27:49 - 01:28:29]
+Gut, idealerweise gibt es Aufgaben aus allen Bereichen. Es sollte für alle Niveaus etwas dabei sein, damit wir auch zwischen einer $5.5$ und einer $6.0$ differenzieren können --- es sollen ja nicht alle, die den Stoff einigermaßen verstanden haben, direkt die volle Punktzahl erhalten. Das heißt, es muss Aufgaben geben, bei denen man wirklich nachdenken muss. Daneben gibt es aber auch Aufgaben, bei denen man das Ergebnis direkt hinschreiben kann. Aber ob man das direkt hinschreiben kann, hängt natürlich stark davon ab, wie gut man den Stoff verstanden hat.
+\end{spoken-clean}
+
+\begin{student-interaction}[Studentenfrage]
+Also allgemein, dass die Prüfung so ist, fürs schöne Aufschreiben...
+\end{student-interaction}
+
+\begin{spoken-clean}[01:28:29 - 01:29:21]
+Ah, bezüglich des schönen Aufschreibens: Ja, das ist hier besonders wichtig. Mehr als in anderen Vorlesungen ist das saubere Aufschreiben einer Lösung ein wesentlicher Bestandteil der Bewertung, weil es eben ein Lernziel ist, Mathematik präzise darzustellen. Wie viel Zeit Sie dafür benötigen, ist individuell sehr unterschiedlich; das müssen Sie selbst einteilen.
+
+Gut. Das wäre das Ende der Vorlesung. Ganz herzlichen Dank fürs Kommen! Es hat mir viel Spaß gemacht mit Ihnen, und hoffentlich sieht man sich in den kommenden Semestern Ihres Studiums mal wieder. Herzlichen Dank, einen schönen Sommer und viel Erfolg bei der Prüfung! Danke vielmals.
+\end{spoken-clean}
+
+\begin{nice-box}[Zusammenfassung der Schlüsselkonzepte]
+In dieser Vorlesung haben wir die folgenden zentralen algebraischen Konzepte erarbeitet:
+\begin{itemize}
+    \item \textbf{Polynomring $K[x]$:} Die formalen Summen über einem Körper $K$ bilden einen Ring, dessen Struktur stark an die ganzen Zahlen $\mathbb{Z}$ erinnert.
+    \item \textbf{Gradfunktion $\deg(f)$:} Dient als Größenfunktion und ermöglicht eine Division mit Rest. Sie ist additiv unter Multiplikation über Integritätsbereichen.
+    \item \textbf{Division mit Rest:} Für alle $f, g \in K[x]$ mit $f \neq 0$ existieren eindeutige $q, r$ mit $g = q \cdot f + r$ und $\deg(r) < \deg(f)$.
+    \item \textbf{Irreduzibilität:} Ein nicht-konstantes Polynom ist irreduzibel, wenn es keine echten Teiler besitzt. Jedes Polynom lässt sich eindeutig (bis auf Einheiten und Reihenfolge) in irreduzible Faktoren zerlegen.
+    \item \textbf{Restklassenkörper:} Der Restklassenring $K[x]/\langle f \rangle$ ist genau dann ein Körper, wenn $f$ irreduzibel ist. Dies erlaubt die Konstruktion endlicher Körper wie $\mathbb{F}_4$.
+\end{itemize}
+\end{nice-box}
