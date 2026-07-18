@@ -36,7 +36,7 @@ Die Hauptthemen dieser Vorlesung sind:
     \item \textbf{Das Auswahlaxiom (AC):} Formale Definition, Auswahlfunktionen und die Äquivalenz zum kartesischen Produkt.
     \item \textbf{Ordinalzahlen:} Transitivität, Wohlordnung, Nachfolger- und Limes-Ordinalzahlen sowie geometrische Veranschaulichung.
     \item \textbf{Transfinite Methoden:} Transfinite Induktion und Rekursion mit Anwendungen wie dem Basisexistenzsatz für Vektorräume.
-    \item \textbf{Äquivalenzen des Auswahlaxioms:} Das Kuratowski-Zorn-Lemma (KZL), das Teichmüller-Prinzip (TP) und der vollständige Beweis des Äquivalenzsatzes.
+    \item \textbf{Äquivalenzen zum Auswahlaxiom:} Wir besprechen das Kuratowski-Zorn-Lemma (KZL), das Teichmüller-Prinzip (TP) sowie den vollständigen Beweis ihres Äquivalenzsatzes.
 \end{itemize}
 \end{nice-box}
 
@@ -126,7 +126,7 @@ Die schöne formale Definition, mit der wir alle arbeiten können, lautet: Eine 
 
 \begin{math-stroke}
 \begin{definition}[Ordinalzahl]
-    \label[definition]{def:ordinalzahl}
+    \label[definition]{def:ordinalzahl-w8}
 Eine Menge $\alpha$ ist eine \newterm{Ordinalzahl}, falls $\alpha$ \newterm{transitiv} ist und durch die Relation $\in$ \newterm{wohlgeordnet} ist.
 \end{definition}
 
@@ -767,7 +767,7 @@ A_{\delta+1} = A_\delta \cup \{p_\delta\}.
 \]
 Daraus folgt $p_\delta \in A_{\delta+1} \subseteq B$. Da $m$ eine obere Schranke von $B$ ist, muss $p_\delta \le m$ gelten. Dies steht im direkten Widerspruch zu unserer Annahme $m < p_\delta$. 
 
-Folglich ist die obere Schranke $m$ ein maximales Element von $P$. Dies beweist $\text{WOP} \implies \text{KZL}$.
+Daraus schließen wir, dass die obere Schranke $m$ ein maximales Element der Menge $P$ ist. Damit ist die Implikation $\text{WOP} \implies \text{KZL}$ bewiesen.
 \end{short-proof}
 \end{math-stroke}
 
@@ -813,7 +813,10 @@ Sei $\mathcal{F}$ eine Familie von nicht-leeren Mengen. Wir wollen die Existenz 
 
 Wir definieren die Familie $\mathcal{S}$ aller partiellen Auswahlfunktionen auf $\mathcal{F}$:
 \begin{equation}\label{eq:partielle-auswahlfunktionen-actual}
-\mathcal{S} := \left\{ g \subseteq \mathcal{F} \times \bigcup \mathcal{F} \;\middle|\; g \text{ ist eine Funktion, } \operatorname{dom}(g) \subseteq \mathcal{F} \text{ und } \forall X \in \operatorname{dom}(g) \, (g(X) \in X) \right\}.
+\begin{split}
+\mathcal{S} := \Biggl\{ g \subseteq \mathcal{F} \times \bigcup \mathcal{F} \;\Biggm|\; & g \text{ ist eine Funktion, } \operatorname{dom}(g) \subseteq \mathcal{F} \\
+& \text{und } \forall X \in \operatorname{dom}(g) \, (g(X) \in X) \Biggr\}.
+\end{split}
 \end{equation}
 Wir zeigen, dass die Familie $\mathcal{S}$ endlichen Charakter besitzt:
 \begin{itemize}

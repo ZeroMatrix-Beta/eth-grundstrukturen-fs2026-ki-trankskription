@@ -226,7 +226,7 @@ Was im Informationszeitalter wirklich neu war, ist Folgendes: Für Geheimagenten
 
 Das Problem ist also, dass man die Vereinbarung komplett in der Öffentlichkeit durchführen muss. Die Frage lautet: Wie können Alice und Bob einen gemeinsamen geheimen Schlüssel vereinbaren? Ein solcher Schlüssel ist mathematisch gesehen einfach eine Zahl.
 
-Das allererste Verfahren in dieser Richtung ist der Diffie-Hellman-Schlüsselaustausch. Was man sich dabei zunutze macht, ist die folgende Asymmetrie --- ein mathematischer Fakt, von dem man überzeugt ist: Es ist sehr einfach, für gegebene Zahlen $a, b > 0$ den Wert $a^b \pmod n$ zu berechnen. Allgemein ist $a^b$ natürlich extrem schwierig zu berechnen, weil die Zahl rasch astronomisch groß wird. Wenn man aber modulo $n$ rechnet, bleibt der Wert immer klein. Zerlegt man den Exponenten $b$ geschickt, kann man das sehr effizient berechnen --- das ist überhaupt kein Problem.
+Das allererste Verfahren in dieser Richtung ist der Diffie-Hellman-\hspace{0pt}Schlüsselaustausch. Was man sich dabei zunutze macht, ist die folgende Asymmetrie --- ein mathematischer Fakt, von dem man überzeugt ist: Es ist sehr einfach, für gegebene Zahlen $a, b > 0$ den Wert $a^b \pmod n$ zu berechnen. Allgemein ist $a^b$ natürlich extrem schwierig zu berechnen, weil die Zahl rasch astronomisch groß wird. Wenn man aber modulo $n$ rechnet, bleibt der Wert immer klein. Zerlegt man den Exponenten $b$ geschickt, kann man das sehr effizient berechnen --- das ist überhaupt kein Problem.
 \end{spoken-clean}
 
 \begin{spoken-clean}[00:18:21 - 00:20:33]
@@ -244,7 +244,7 @@ Das mathematische Fundament vieler asymmetrischer kryptographischer Protokolle b
     x \equiv a^b \pmod n
     \]
     äußerst effizient (selbst für sehr große Zahlen mittels des Algorithmus des \emph{Square-and-Multiply}).
-    \item \textbf{Schwierige Richtung (Diskretes Logarithmusproblem):} Für gegebene Werte $a, x, n \in \mathbb{N}$ ist es rechnerisch extrem aufwendig, den Exponenten $b$ zu bestimmen, sodass gilt:
+    \item \textbf{Schwierige Richtung (Diskretes Logarithmusproblem):} Für vorgegebene Werte $a, x, n \in \mathbb{N}$ ist es rechnerisch extrem aufwendig, den passenden Exponenten $b$ zu bestimmen, sodass gilt:
     \[
     a^b \equiv x \pmod n.
     \]
@@ -447,7 +447,7 @@ Wie groß ist nun diese Gruppe? Die Ordnung dieser Gruppe --- also die Anzahl de
 \end{spoken-clean}
 
 \begin{math-stroke}[Eulersche $\varphi$-Funktion]
-\begin{definition}[Eulersche $\varphi$-Funktion]\label[definition]{def:euler-phi}
+\begin{definition}[Eulersche $\varphi$-Funktion]\label[definition]{def:euler-phi-w13}
 Die \newterm{Eulersche $\varphi$-Funktion} $\varphi \colon \mathbb{N}_{>0} \to \mathbb{N}$ ordnet jeder natürlichen Zahl $n$ die Anzahl aller zu $n$ teilerfremden natürlichen Zahlen im Intervall $[1, n]$ zu:
 \begin{equation}\label{eq:euler-phi}
 \varphi(n) := |\{ k \in \mathbb{N} \mid 1 \le k \le n \text{ und } \operatorname{ggT}(k, n) = 1 \}|.
@@ -803,9 +803,11 @@ Die Wohldefiniertheit von $\Phi$ folgt aus der Eigenschaft, dass $M$ ein Vielfac
 x \equiv y \pmod M \implies x \equiv y \pmod{m_i} \quad \text{für alle } i.
 \]
 Die Bijektivität von $\Phi$ ist die direkte algebraische Übersetzung von Theorem \ref{thm:chinesischer-restsatz}. Die Homomorphie-Eigenschaft bezüglich Addition und Multiplikation folgt unmittelbar aus der komponentenweisen Definition der Ringoperationen auf dem direkten Produkt:
-\[
-\Phi([x \cdot y]_M) = \left( [x \cdot y]_{m_1}, \dots, [x \cdot y]_{m_r} \right) = \left( [x]_{m_1}, \dots, [x]_{m_r} \right) \cdot \left( [y]_{m_1}, \dots, [y]_{m_r} \right) = \Phi([x]_M) \cdot \Phi([y]_M).
-\]
+\begin{align*}
+\Phi([x \cdot y]_M) &= \left( [x \cdot y]_{m_1}, \dots, [x \cdot y]_{m_r} \right) \\
+&= \left( [x]_{m_1}, \dots, [x]_{m_r} \right) \cdot \left( [y]_{m_1}, \dots, [y]_{m_r} \right) \\
+&= \Phi([x]_M) \cdot \Phi([y]_M).
+\end{align*}
 \end{explanation-of-steps}
 \end{math-stroke}
 
