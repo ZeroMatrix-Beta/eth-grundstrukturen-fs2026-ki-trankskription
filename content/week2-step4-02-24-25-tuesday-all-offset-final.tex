@@ -804,8 +804,9 @@ Das sind die acht Axiome für einen Ring mit Eins.
 
 \section{Axiomensysteme und mathematische Theorien}
 \subsection{Ringtheorie}
+\subsubsection{Signatur der Ringtheorie}
 
-\begin{math-stroke}[Signatur der Ringtheorie]
+\begin{math-stroke}
 Die Signatur der Ringtheorie (für Ringe mit Eins) ist definiert als:
 \[ \mathcal{L}_{\text{Ring}} = \{0, 1, +, \cdot, -\} \]
 wobei:
@@ -833,7 +834,9 @@ Die Axiome der Körpertheorie bestehen aus den acht Axiomen der Ringtheorie, die
 Das sind die elf Axiome der Körpertheorie.
 \end{spoken-clean}
 
-\begin{math-stroke}[Die Axiome der Ringtheorie]
+\subsubsection{Axiome der Ringtheorie}
+
+\begin{math-stroke}
 \begin{axioms}[Ringtheorie]\label[axioms]{ax:ringtheorie}
 Die Axiome der Ringtheorie (für Ringe mit Eins) sind die folgenden $\mathcal{L}_{\text{Ring}}$-Formeln:
 \begin{align}
@@ -866,9 +869,9 @@ Die algebraische Herleitung, die Sie alle aus der Schule oder der Linearen Algeb
 Wir wollen diese Gleichungskette nun Schritt für Schritt formal aus den Axiomen herleiten.
 \end{spoken-clean}
 
-\subsection{Körpertheorie}
+\subsection{Axiome der Körpertheorie}
 
-\begin{math-stroke}[Die Axiome der Körpertheorie]
+\begin{math-stroke}
 \begin{axioms}[Körpertheorie]\label[axioms]{ax:koerpertheorie}
 Die Axiome der Körpertheorie sind die folgenden $\mathcal{L}_{\text{Körper}}$-Formeln:
 \begin{align}
@@ -900,9 +903,9 @@ Der letzte Schritt ist $1 \cdot z = z$. Das ist wieder eine Instanziierung des n
 Wenn wir alle diese einzelnen Gleichungen bewiesen haben, können wir sie über die Transitivität der Gleichheitsrelation --- die wir ja als Äquivalenzrelation bewiesen haben --- zur einzigen Gleichung $y = z$ zusammenfügen. Das zeigt sehr schön, wie mächtig unser formaler Kalkül ist!
 \end{spoken-clean}
 
-\subsection{Eindeutigkeit des multiplikativen Inversen}
+\subsection{Beweis der Eindeutigkeit des Inversen}
 
-\begin{math-stroke}[Beweis der Eindeutigkeit des Inversen]
+\begin{math-stroke}
 Wir beweisen formal die Eindeutigkeit des multiplikativen Inversen in der Körpertheorie:
 \[ \text{KT} \vdash \forall x \forall y \forall z \bigl(\neg(x = 0) \wedge x \cdot y = 1 \wedge x \cdot z = 1 \rightarrow y = z\bigr) \]
 
@@ -943,7 +946,9 @@ Das gibt uns schlussendlich das gewünschte Resultat:
 Damit haben wir die Eindeutigkeit des multiplikativen Inversen in jedem Körper formal bewiesen!
 \end{spoken-clean}
 
-\begin{math-stroke}[Detaillierte formale Schritte]
+\subsubsection{Detaillierte formale Schritte}
+
+\begin{math-stroke}
 Wir schlüsseln die formalen Beweisschritte für die Gleichungskette detailliert auf:
 \begin{enumerate}[label=\textbf{(\arabic*)}]
     \item \textbf{Schritt 1:} $y = y \cdot 1$ ist eine Instanziierung von $\mathbf{KT_5}$ (mit $x \equiv y$).
@@ -1028,9 +1033,9 @@ Die Axiome der Peano-Arithmetik sind die folgenden Formeln, die wir mit $\mathbf
 Und schließlich haben wir das Induktionsschema $\mathbf{PA_6}$. Das ist ein Axiomenschema, weil es für jede beliebige Formel $\varphi$ gilt. Es formalisiert das Prinzip der vollständigen Induktion: Wenn eine Eigenschaft für $0$ gilt, und wenn aus der Gültigkeit für $x$ stets die Gültigkeit für den Nachfolger $S(x)$ folgt, dann gilt diese Eigenschaft für alle natürlichen Zahlen.
 \end{spoken-clean}
 
-\subsection{Ordnungstheorie}
+\subsection{Axiome der Ordnungstheorie}
 
-\begin{math-stroke}[Axiome der Ordnungstheorie]
+\begin{math-stroke}
 \begin{definition}[Strikte Halbordnung]\label[definition]{def:halbordnung_part3}
 Eine \newterm{strikte Halbordnung} (oder partielle Ordnung) auf einer Menge $A$ ist eine Relation $<$ mit der Signatur $\mathcal{L}_{\text{Ordnung}} = \{<\}$, welche die folgenden Axiome erfüllt:
 \begin{align}
@@ -1067,9 +1072,9 @@ Nächste Woche werden wir anfangen, uns mit der Semantik zu beschäftigen. Wir w
 Vielen Dank fürs Kommen, eine erfolgreiche Woche und bis zum nächsten Mal!
 \end{spoken-clean}
 
-\subsection{Peano-Arithmetik}
+\subsection{Die Axiome der Peano-Arithmetik}
 
-\begin{math-stroke}[Die Axiome der Peano-Arithmetik]
+\begin{math-stroke}
 Die Signatur der Peano-Arithmetik ist:
 \[ \mathcal{L}_{\text{PA}} = \{0, S, +, \cdot\} \]
 
@@ -1093,8 +1098,9 @@ Sei $\varphi(x)$ eine beliebige $\mathcal{L}_{\text{PA}}$-Formel mit der freien 
 \end{math-stroke}
 
 \subsection{Zermelo-Fraenkel-Mengenlehre (ZFC)}
+\subsubsection{Das Extensionalitätsaxiom}
 
-\begin{math-stroke}[Das Extensionalitätsaxiom]
+\begin{math-stroke}
 Die Signatur der Mengenlehre ist:
 \[ \mathcal{L}_{\text{ZFC}} = \{\in\} \]
 

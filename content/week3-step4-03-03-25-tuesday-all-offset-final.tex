@@ -33,7 +33,8 @@ Wir haben zuerst den Modus Ponens (\textbf{MP}) und die Verallgemeinerung (\text
 Dann haben wir noch diese Metatheoreme gesehen, die manchmal hilfreich sind, um formale Beweise zu führen: das Deduktionstheorem und der Satz über logische Äquivalenz. Und am Schluss haben wir noch Beispiele von Axiomensystemen angeschaut.
 \end{spoken-clean}
 
-\begin{math-stroke}[Rückblick: Letzte Woche]
+\subsection{Rückblick: Letzte Woche}
+\begin{math-stroke}
 \textbf{Gesehen:}
 \begin{itemize}
     \item \textbf{(MP)} und \textbf{(V):} Modus Ponens und Verallgemeinerung.
@@ -55,7 +56,8 @@ Dann wollen wir, dass die Ordnung dicht ist. Das heißt, wir wollen, dass zwisch
 Okay, das ist einfach ein wichtiger Begriff, den wir auch noch in den Übungen antreffen werden. Es ist ein weiteres Beispiel für eine Menge von nicht-logischen Axiomen, die man anwenden kann, um entsprechende Theorien zu studieren.
 \end{spoken-clean}
 
-\begin{math-stroke}[Dichte lineare Ordnungen (DLO)]
+\subsection{Dichte lineare Ordnungen (DLO)}
+\begin{math-stroke}
 Die Signatur der Theorie der dichten linearen Ordnungen ist $\mathcal{L}_{\text{DLO}} = \{ < \}$, wobei $<$ ein $2$-stelliges Relationssymbol ist.
 
 Die Axiome der Theorie der dichten linearen Ordnungen sind:
@@ -171,7 +173,8 @@ Vielleicht ist es nicht schlecht, das im Laufe des Mathestudiums einmal wirklich
 Ich habe noch eine Bemerkung und einen Link auf die Moodle-Seite gestellt. Die Frage ist ja: Macht man dieses ganze formale Beweisen überhaupt? Wenn man heutzutage Mathematik betreibt, macht eigentlich niemand formale Beweise. Fast niemand führt die Beweise auf die Axiome zurück, weil das jeglichen Rahmen einer Publikation sprengen würde. Schlussendlich sind es auch nur die Logiker, die im Alltag wirklich so nachdenken. Aber es ist natürlich trotzdem spannend, gewisse Beweise wirklich auf ein solides Fundament zu stellen. Mit dem Computer kann man das ja machen. Es gibt tatsächlich eine Community, die fleißig daran arbeitet, große Teile der Mathematik auf solide Fundamente zu stellen.
 \end{spoken-clean}
 
-\begin{math-stroke}[Formale Verifikation und LEAN]
+\subsection{Formale Verifikation und LEAN}
+\begin{math-stroke}
 \begin{center}
 \begin{color-box}{blue}[LEAN Theorem Prover]
 Eines der am weitesten verbreiteten Computerprogramme zur formalen Verifikation ist \newterm{LEAN}. Es verwendet eine etwas andere Logik (Typentheorie), die jedoch logisch im Wesentlichen äquivalent zur hier eingeführten Prädikatenlogik erster Stufe ist.
@@ -195,7 +198,8 @@ Gut. Was wir jetzt noch kurz erwähnen wollen, sind \newterm{semi-formale Beweis
 
 Es ist immer noch mühsam genug, aber eben. In einem semi-formalen Beweis lassen wir die Schritte aus, in denen wir logische Axiome anwenden, und verwenden stattdessen oft natürliche Sprache. Das ist natürlich der erste Schritt auf dem Weg zum Schlendrian, aber man kann nicht alles formal machen --- sonst wären Sie heute noch nicht einmal in der zweiten Woche Ihrer Linearen Algebra. Deswegen geht man solche Schritte. Aber es ist nicht so, dass man deswegen jetzt keine Logik mehr betreibt. Man führt nur gewisse Dinge nicht mehr explizit aus. Wenn man natürliche Sprache verwendet, kann man im Hinterkopf behalten, was man eigentlich gerade tut oder tun sollte.\end{spoken-clean}
 
-\begin{math-stroke}[Semi-formale Beweise]
+\subsection{Semi-formale Beweise}
+\begin{math-stroke}
 \begin{definition}[Semi-formaler Beweis]
 Ein \newterm{semi-formaler Beweis} ist eine Beweisführung, bei der:
 \begin{itemize}
@@ -216,7 +220,8 @@ Ein semi-formaler Beweis hier wäre zum Beispiel: Wir haben $S(0) + S(0)$. Jetzt
 Gut. Noch ein Beispiel, das etwas mühsamer ist: Wir wollen als Nächstes zeigen, dass $S(S(0)) \cdot x = x + x$ gilt. Das ist etwas schwieriger und wir wollen es mit Induktion machen. Hier vielleicht noch zwei Resultate, die Sie in den Übungen ebenfalls semi-formal zeigen: Erstens, dass die Addition assoziativ ist --- also für alle $x, y, z$ gilt $(x + y) + z = x + (y + z)$. Und zweitens, dass die Addition kommutativ ist, also für alle $x, y$ gilt $x + y = y + x$.
 \end{spoken-clean}
 
-\begin{math-stroke}[Übung: Addition und Multiplikation]
+\subsection{Übung: Addition und Multiplikation}
+\begin{math-stroke}
 \begin{example}[Addition von Einsen]
 $\text{PA} \vdash S(0) + S(0) = S(S(0))$
 \end{example}
@@ -247,7 +252,8 @@ Wir wollen zeigen: In der Peano-Arithmetik gilt für alle $x$, dass $S(S(0)) \cd
 Zuerst müssen wir beweisen, dass in der Peano-Arithmetik $\varphi(0)$ gilt. Eigentlich müsste man hier $\varphi[0/\nu]$ schreiben, weil wir $x$ durch $0$ substituieren, aber wenn aus dem Kontext klar ist, welche Variable wir substituieren, müssen wir das nicht explizit hinschreiben. Das ist relativ einfach: Wir haben $S(S(0)) \cdot 0$. Das ist $0$ gemäß \textbf{PA$_4$}. Wenn man etwas mit $0$ multipliziert, ergibt das wieder $0$. Dann verwenden wir \textbf{PA$_2$}, was uns sagt, dass das dasselbe ist wie $0 + 0$. Okay, das ist genau das, was wir zeigen wollten. Die Induktionsverankerung stimmt also.
 \end{spoken-clean}
 
-\begin{math-stroke}[Satz: Multiplikation mit 2]
+\subsubsection{Satz: Multiplikation mit 2}
+\begin{math-stroke}
 \begin{proposition}
     \label{prop:2x_is_xx}
     $\text{PA} \vdash S(S(0)) \cdot x = x + x$
@@ -274,7 +280,8 @@ Jetzt formen wir das um. Wir betrachten $S(S(0)) \cdot S(x)$. Gemäß \textbf{PA
 Das zeigt uns also den Induktionsschritt. Zusammen mit dem Induktionsanfang folgt nach dem Induktionsaxiom \textbf{PA$_6$}, dass die Formel für alle $x$ gilt. Gut, das ist wichtig. Deswegen gibt es diese Woche auf dem Übungsblatt nochmals zwei Übungen, in denen Sie wirklich nochmals einen formalen Beweis ausführen sollen. Vielen Dank fürs Kommen und bis zum nächsten Mal.
 \end{spoken-clean}
 
-\begin{math-stroke}[Induktionsschritt]
+\subsubsection{Induktionsschritt}
+\begin{math-stroke}
 \begin{short-proof}[Fortsetzung des Beweises]
 \textbf{Induktionsschritt ($\varphi(x) \to \varphi(S(x))$):}
 Annahme (IV): $S(S(0)) \cdot x = x + x$.
@@ -326,7 +333,8 @@ Oder Richard Pink hat es eher kulinarisch verglichen: Die ganze Syntaktik ist wi
 Grob gesagt: Wir haben die syntaktische Ebene mit Formeln, Beweisen und Zeichen. Und wir haben die semantische Ebene mit Strukturen, Bedeutung sowie Wahrheit oder Nicht-Wahrheit.
 \end{spoken-clean}
 
-\begin{math-stroke}[Gegenüberstellung: Syntax vs. Semantik]
+\subsection{Gegenüberstellung: Syntax vs. Semantik}
+\begin{math-stroke}
 \begin{center}
 \begin{tabular}{l | l}
     \toprule
@@ -409,7 +417,8 @@ $e$ und mal.
 Genau, wir haben nur das Konstantensymbol $e$ und ein zweistelliges Funktionssymbol $\circ$.
 \end{spoken-clean}
 
-\begin{math-stroke}[Beispiel: Struktur der Gruppentheorie]
+\subsection{Beispiel: Struktur der Gruppentheorie}
+\begin{math-stroke}
 Sei $\mathcal{L} = \mathcal{L}_{GT} = \{e, \circ\}$ die Signatur der Gruppentheorie.
 Wir definieren eine $\mathcal{L}$-Struktur $M$ mit Bereich $A = \mathbb{Z}$:
 \begin{itemize}
@@ -474,7 +483,8 @@ Das ist also nichts Kompliziertes oder Gefährliches, nur etwas mühsam. Gut, un
 Aber hier sind wir: Wir haben eine $\mathcal{L}$-Struktur $M$ und sagen zusätzlich für jede Variable, welches Element im Bereich von $M$ sie repräsentiert. Und dann können wir weiter definieren: Für eine Interpretation $I = (M, j)$ definieren wir die Interpretation $I \frac{a}{\nu}$ einfach als die Interpretation, die durch $M$ gegeben ist, aber mit der modifizierten Variablenbelegung $j \frac{a}{\nu}$.
 \end{spoken-clean}
 
-\begin{math-stroke}[Interpretation]
+\subsubsection{Interpretation}
+\begin{math-stroke}
 \begin{definition}[$\mathcal{L}$-Interpretation]\label[definition]{def:l-interpretation}
 Eine \newterm{$\mathcal{L}$-Interpretation} $I$ ist ein geordnetes Paar:
 \[ I = (M, j) \]

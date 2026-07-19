@@ -183,7 +183,7 @@ Das ist jetzt etwas, was Sie vermutlich nicht verwenden werden, aber was Sie ver
 
 Also, äquivalent über Zermelo-Fraenkel: Wenn man Zermelo-Fraenkel ($\text{ZF}$) annimmt, dann sind drei Sachen äquivalent. Nämlich das Auswahlaxiom ($\text{AC}$), dann das Wohlordnungsprinzip --- darüber werde ich heute mehr sagen. Dieses Wohlordnungsprinzip besagt, dass jede Menge wohlgeordnet werden kann. Was genau eine Wohlordnung ist, werde ich noch erklären. Etwas, was man dann hat, ist, dass je zwei Elemente verglichen werden können und jede nichtleere Teilmenge ein kleinstes Element hat. 
 
-Und dann gibt es noch das Dritte, was äquivalent über $\text{ZF}$ ist, nämlich das Kuratowski-Zorn-Lemma. Das sagt etwas über eine Halbordnung aus. Es ist jetzt nicht so wichtig, was genau es besagt, aber aus diesem Kuratowski-Zorn-Lemma kriegen Sie dann eben zum Beispiel, dass jeder Vektorraum eine Basis hat. Und das ist dann etwas, was Sie in der Realität brauchen werden.
+And dann gibt es noch das Dritte, was äquivalent über $\text{ZF}$ ist, nämlich das Kuratowski-Zorn-Lemma. Das sagt etwas über eine Halbordnung aus. Es ist jetzt nicht so wichtig, was genau es besagt, aber aus diesem Kuratowski-Zorn-Lemma kriegen Sie dann eben zum Beispiel, dass jeder Vektorraum eine Basis hat. Und das ist dann etwas, was Sie in der Realität brauchen werden.
 \end{spoken-clean}
 
 \begin{math-stroke}[Äquivalenzen zum Auswahlaxiom]
@@ -227,6 +227,7 @@ wobei $f$ eine \newterm{Auswahlfunktion} ist.
 \end{explanation-of-steps}
 \end{math-stroke}
 
+\subsection{Visualisierung der Auswahlfunktion}
 \begin{spoken-clean}[00:12:30 - 00:13:50]
 Das hier ist meine Notation --- nicht nur meine, vielleicht hat Herr Urech sie auch eingeführt --- für die Vereinigung über alle Elemente. Man vereinigt alle Elemente hier drin. Die Elemente nenne ich jetzt einfach normal groß $X$. Ich vereinige also alle Mengen groß $X$, die in diesem geschweiften $\mathcal{X}$ liegen. Ich habe jetzt eine Abbildung von da nach da. Das ist die Notation für Abbildungen. Haben Sie das gesehen? Man schreibt das $X$ oft auch dahin, das ist die üblichere Notation, aber ich schreibe es jetzt mal so.
 
@@ -291,6 +292,7 @@ wobei $x_i$ für $x(i)$ steht.
 \end{definition}
 \end{math-stroke}
 
+\subsection{Spezialfall: Kartesisches Produkt zweier Mengen}
 \begin{spoken-clean}[00:15:23 - 00:17:30]
 Und jetzt haben wir das Folgende: die Definition des kartesischen Produktes. Ich schreibe dafür so ein Kreuz. Letztes Jahr haben die Leute protestiert, dass es hier zu viele Kreuze gibt. Der Grund ist, schauen Sie, es geht alles irgendwie synchron: Sie haben ein kleines $x$, das liegt im großen $X$, und das große $X$ liegt im geschweiften $\mathcal{X}$. Mir gefällt das irgendwie. Aber wenn es Ihnen nicht gefällt, dann müssen Sie die Notation für sich persönlich ändern, das dürfen Sie gerne machen. Das Kreuz ist ein Kreuz, das möchte ich nicht ändern. Ich mache es jetzt dick. Das steht für das kartesische Produkt.
 
@@ -341,6 +343,7 @@ Diese Formulierung besagt anschaulich: Das kartesische Produkt einer Familie von
 \end{explanation-of-steps}
 \end{math-stroke}
 
+\subsection{Wann braucht man AC nicht?}
 \begin{spoken-clean}[00:19:30 - 00:21:00]
 Jetzt möchte ich ein bisschen erklären, wann man das Auswahlaxiom überhaupt braucht und wann nicht. Wie gesagt: Wenn Sie eine endliche Indexmenge haben, brauchen Sie es nicht. Dann können Sie mit Induktion zeigen, dass Sie aus endlich vielen Mengen endlich viele Elemente auswählen können. Und wenn Sie ein Merkmal haben, das ein Element aus jeder Menge eindeutig kennzeichnet oder charakterisiert, dann brauchen Sie das Auswahlaxiom ebenfalls nicht.
 
@@ -536,6 +539,7 @@ $\Omega$ ist eine \newterm{Klasse}, keine Menge.
 Der Dozent kündigt eine Pause an. Nach der Pause wird die Vorlesung fortgesetzt.
 \end{meta-note}
 
+\subsection{Natürliche Zahlen als Ordinalzahlen}
 \begin{spoken-clean}[00:31:29 - 00:33:09]
 Okay, wir machen weiter, bitte setzen Sie sich. Vor der Pause habe ich den Begriff einer Ordinalzahl definiert --- hier steht es noch einmal --- und gesagt, dass die Idee ist, dass diese Ordinalzahlen die Position in einer Liste angeben. Die natürlichen Zahlen sind Ordinalzahlen. Ich schreibe das mal als Bemerkung hin: Jede natürliche Zahl $n$ in $\omega$ --- $\omega$ ist immer noch die Menge der natürlichen Zahlen --- ist eine Ordinalzahl.
 
@@ -557,6 +561,7 @@ n &= \{0, \dots, n-1\} \\
 \end{remark}
 \end{math-stroke}
 
+\subsection{Unendliche Ordinalzahlen}
 \begin{spoken-clean}[00:33:09 - 00:34:45]
 $\omega$ ist nämlich auch eine Ordinalzahl. Dass es transitiv ist, ist einfach zu sehen: Wenn Sie eine natürliche Zahl $n$ nehmen --- das ist mein $\beta$ in meinem $\alpha$, wobei $\alpha$ gleich $\omega$ ist ---, dann sind die Elemente von $n$ ja auch wieder natürliche Zahlen. Und es gibt eben immer ein kleinstes Element, das ist mehr oder weniger Induktion: Wenn Sie eine nichtleere Teilmenge der natürlichen Zahlen haben, gibt es ein kleinstes Element.
 
@@ -589,6 +594,7 @@ $\omega$ ist eine Ordinalzahl. Wir können weitere Ordinalzahlen durch die Nachf
 \end{remark}
 \end{math-stroke}
 
+\subsection{Eigenschaften der Klasse der Ordinalzahlen}
 \begin{spoken-clean}[00:36:15 - 00:37:50]
 Um das zu erklären, brauche ich ein Theorem. Dieses Theorem besagt unter anderem, dass dieses groß $\Omega$ formal gesehen fast wie eine Ordinalzahl wirkt. In Zermelo-Fraenkel gilt nämlich Folgendes: Teil 1 besagt, dass für jedes $\alpha \in \Omega$ --- für jede Ordinalzahl --- gilt: $\alpha$ ist die leere Menge, oder die leere Menge ist ein Element von $\alpha$. Teil 2 besagt: Für alle $\alpha \in \beta$, wobei $\beta$ eine Ordinalzahl ist, gilt, dass $\alpha$ auch eine Ordinalzahl ist. Wenn ich also ein Element einer Ordinalzahl habe, ist es selbst auch eine Ordinalzahl. Teil 3 ist die Trichotomie: Für alle $\alpha$ und $\beta$ in $\Omega$ gilt entweder $\alpha \in \beta$, oder $\alpha = \beta$, oder $\beta \in \alpha$.
 
@@ -658,6 +664,7 @@ Kleine Frage nur bei Beweis Hilfssatz steht da unten sei $A$ Menge, $A$ Element 
 \end{student-interaction}
 
 \begin{proof}[Beweis des Hilfssatzes]
+\subsection{Beweis des Hilfssatzes: Setup}
 \begin{spoken-clean}[00:42:10 - 00:43:45]
 Annahme. Ich nehme das Auswahlaxiom an, genau. Und am Schluss kriege ich dann die Bijektion zwischen $\alpha$ und $A$. Die nennt sich dann $v$. Gibt es andere Fragen?
 
@@ -810,8 +817,6 @@ Somit haben wir eine Ordinalzahl $\alpha$ und eine Bijektion $v: \alpha \to A$ g
 
 \section{Das Kuratowski-Zorn-Lemma}
 
-\subsection{Halbordnungen und Ketten}
-
 \begin{spoken-clean}[00:54:40 - 00:56:40]
 Ich war dieses Mal ziemlich schnell. Das ist vielleicht nicht so ein gutes Zeichen, aber ich habe natürlich einige Sachen weggelassen. Ich glaube jedoch, das schadet nicht, weil das keine Beweise sind, bei denen Sie wirklich eine neue Idee sehen; Sie arbeiten einfach mit dem, was Sie haben. 
 
@@ -847,8 +852,6 @@ Eine \newterm{(schwache) lineare Ordnung} auf $P$ ist eine Halbordnung $\le$ auf
 Eine \newterm{Kette} in $P$ ist eine Teilmenge $C \subseteq P$, sodass $\le$ eine lineare Ordnung auf $C$ ist.
 \end{definition}
 \end{math-stroke}
-
-\subsection{Aussage und Äquivalenz}
 
 \begin{spoken-clean}[00:58:40 - 01:00:40]
 Eine obere Schranke ist genau das, was sie sein soll: Eine obere Schranke für eine Teilmenge von $P$ ist ein Element $x \in P$, sodass für alle $y$ in dieser Teilmenge gilt: $y \le x$. Jedes Element ist kleiner oder gleich der oberen Schranke. Okay, das haben wir jetzt auch definiert.

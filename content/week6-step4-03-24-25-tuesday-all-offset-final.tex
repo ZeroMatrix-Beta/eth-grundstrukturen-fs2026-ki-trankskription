@@ -34,6 +34,7 @@ In dieser Vorlesung wird die formale Konstruktion der reellen Zahlen $\mathbb{R}
 
 \section{Einführung und Wiederholung}
 
+\subsection{Das Vollständigkeitsaxiom als Clicker-Frage}
 \begin{spoken-clean}[00:00:00 - 00:01:45]
 Hallo und herzlich willkommen! Ich habe hier eine kleine Clicker-Einstiegsfrage, die Sie auf der Edu-App beantworten können --- eine gute Gelegenheit, um sich kurz zu konzentrieren. Und wenn Sie das gemacht haben, sagen Sie noch kurz Ihrer Nachbarin oder Ihrem Nachbarn Hallo, und dann bitte wählen.
 
@@ -202,6 +203,7 @@ Die Folie zeigt: \qt{Die Axiome der reellen Zahlen}. Die Signatur des Axiomensys
 \end{itemize}
 \end{math-stroke}
 
+\subsection{Körperaxiome der reellen Zahlen}
 \begin{spoken-clean}[00:14:40 - 00:15:56]
 Das erste Set von Axiomen kennen wir bereits: das sind die Körperaxiome. Ich werde sie jetzt nicht an die Tafel schreiben, weil das sehr lang ist, aber Sie kennen sie ja. Wir wollen, dass die Addition assoziativ und kommutativ ist, dass $0$ neutral bezüglich $+$ ist und dass ein Inverses bezüglich der Addition existiert. Die Multiplikation soll assoziativ und kommutativ sein, es soll ein neutrales Element bezüglich der Multiplikation geben sowie multiplikative Inverse für alle Elemente außer der Null. Schließlich haben wir noch die Verknüpfung von Multiplikation und Addition --- das Distributivgesetz ---, die gegeben sein muss, und wir fordern, dass $0 \neq 1$ ist.
 
@@ -240,6 +242,7 @@ Die reellen Zahlen bilden einen Körper bezüglich der Operationen $+$ und $\cdo
 \end{align}
 \end{math-stroke}
 
+\subsection{Ordnungsaxiome der reellen Zahlen}
 \begin{spoken-clean}[00:15:56 - 00:18:20]
 Dann kommt das nächste Set --- das haben wir auch schon gesehen ---, das ist das Set der dichten linearen Ordnung. Wir wollen also, dass das $<$ eine dichte lineare Ordnung ist. Das heißt, wir fordern, dass es irreflexiv ist, dass also $x$ nicht kleiner sein kann als es selbst. Wir wollen, dass es transitiv ist, wir wollen, dass es eine lineare Ordnung ist, und es soll auch dicht sein. Und schlussendlich fordern wir, dass es keine größten und keine kleinsten Elemente haben soll. Okay, so weit auch alles schon gesehen.
 \end{spoken-clean}
@@ -268,6 +271,7 @@ Die Relation $<$ definiert eine dichte lineare Ordnung ohne Endpunkte auf $\math
 \end{align}
 \end{math-stroke}
 
+\subsection{Eigenschaften der reellen Zahlen}
 \begin{spoken-clean}[00:18:20 - 00:20:49]
 Und jetzt kommen noch drei weitere Axiome dazu. Das erste haben wir vielleicht so noch nicht hingeschrieben, aber das kennen wir eigentlich auch: Wir wollen jetzt einfach noch das $<$ mit $+$ und $\cdot$ verknüpfen, also wir wollen, dass die auch noch miteinander kompatibel sind. Das erste Axiom sagt: Wenn wir $x < y$ haben, dann soll auch $x + z < y + z$ sein. Wenn wir also Zahlen auf beiden Seiten addieren, soll das unsere Ordnung erhalten.
 
@@ -368,11 +372,11 @@ Eine Teilmenge $\alpha \subseteq \mathbb{Q}$ heißt \newterm{Dedekindscher Schni
 \end{definition}
 
 \begin{explanation-of-steps}[Bedeutung der Bedingungen]
-\begin{itemize}
-    \item \textbf{(D0)} stellt sicher, dass der Schnitt eine echte Aufteilung der rationalen Zahlen darstellt.
-    \item \textbf{(D1)} erzwingt, dass $\alpha$ ein \qt{Anfangsstück} der rationalen Zahlen ist.
-    \item \textbf{(D2)} sorgt für eine eindeutige Darstellung. Ohne diese Bedingung könnte man eine rationale Zahl $r$ sowohl durch $\{q \in \mathbb{Q} \mid q < r\}$ als auch durch $\{q \in \mathbb{Q} \mid q \le r\}$ repräsentieren. Durch den Ausschluss des Maximums wählen wir die \qt{offene} Variante.
-\end{itemize}
+\begin{enumerate}[label=\textbf{(D\arabic*)}, start=0]
+    \item  stellt sicher, dass der Schnitt eine echte Aufteilung der rationalen Zahlen darstellt.
+    \item  erzwingt, dass $\alpha$ ein \qt{Anfangsstück} der rationalen Zahlen ist.
+    \item  sorgt für eine eindeutige Darstellung. Ohne diese Bedingung könnte man eine rationale Zahl $r$ sowohl durch $\{q \in \mathbb{Q} \mid q < r\}$ als auch durch $\{q \in \mathbb{Q} \mid q \le r\}$ repräsentieren. Durch den Ausschluss des Maximums wählen wir die \qt{offene} Variante.
+\end{enumerate}
 \end{explanation-of-steps}
 \end{math-stroke}
 
@@ -546,7 +550,7 @@ Der Dozent kündigt eine Pause an. Die Vorlesung wird nach der Pause mit der Def
 
 \section{Körperstruktur und Ordnung auf \texorpdfstring{$\mathbb{R}$}{R}}
 
-\subsection{Addition}
+\subsection{Addition von Dedekindschen Schnitten}
 
 \begin{spoken-clean}[00:50:42 - 00:53:12]
 Hier noch eine kleine Ergänzung zu dem, was wir vor der Pause kurz gemacht haben. Wir müssen hier nehmen... wir wissen $p < 2q$, das folgt direkt daraus, dass $p^2 = 2q^2$ ist. Und $q < p$. Damit folgt dann, dass $\bar{q}$, das wir als $p - q$ definiert haben, zwischen $0$ und $q$ liegt. Okay? Jetzt braucht es diese zwei Ungleichungen.

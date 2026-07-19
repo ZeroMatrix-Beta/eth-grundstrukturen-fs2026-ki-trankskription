@@ -21,6 +21,7 @@ Okay, hallo zusammen und willkommen zu einer weiteren Woche in Grundstrukturen.
 Zuerst noch ein kurzer Hinweis: Cornelia Busch war nochmals kurz hier. Sie war die Dozentin, die letzte Woche da war, um Werbung für ihre Studie zu machen. Sie hat mir erzählt, dass sie bisher noch keine Rückmeldung bekommen hat. Sie hat diejenigen, die sich eingeschrieben haben, zwar kontaktiert, aber noch keine Antwort erhalten. Sie bittet Sie daher darum, sich doch bitte bei ihr zu melden. Genau, das wäre das.
 \end{spoken-clean}
 
+\subsection{Existenzbeweis für irrationale Potenzen}
 \begin{spoken-clean}[00:00:39 - 00:01:08]
 Bevor wir mit der Vorlesung fortfahren, möchte ich noch einen kleinen Exkurs in die Philosophie der Mathematik machen --- nur ganz kurz.
 
@@ -99,6 +100,7 @@ Der Dozent wischt die Tafel und bereitet den nächsten Abschnitt der Vorlesung v
 
 \section{Rückblick: Semantik, Strukturen und Interpretationen}
 
+\subsection{Rückblick: Semantische Grundbegriffe}
 \begin{spoken-clean}[00:06:48 - 00:07:47]
 Gut, okay. Dann machen wir jetzt weiter mit dem eigentlichen Stoff unserer Vorlesung.
 
@@ -122,6 +124,7 @@ Zudem haben wir definiert, was eine Variablenbelegung ist: Sie ordnet jeder Vari
 \end{itemize}
 \end{math-stroke}
 
+\subsection{Auswertung von Termen und Formeln}
 \begin{spoken-clean}[00:07:47 - 00:09:40]
 Wenn wir eine solche $\mathcal{L}$-Interpretation $I$ haben, dann ordnet diese jedem Term $\tau$ ein konkretes Objekt in $A$ zu. Das ist genau die Aufgabe einer Interpretation.
 
@@ -139,6 +142,7 @@ Da wir hier mit dem klassischen, intuitiven Wahrheitsbegriff arbeiten, gilt für
 \end{itemize}
 \end{math-stroke}
 
+\subsection{Der Modellbegriff}
 \begin{spoken-clean}[00:09:40 - 00:10:38]
 Darauf aufbauend haben wir definiert, was ein Modell ist. Wenn $\varphi$ eine $\mathcal{L}$-Formel und $\mathcal{M}$ eine $\mathcal{L}$-Struktur ist, dann sagen wir, dass $\mathcal{M}$ ein Modell von $\varphi$ ist --- geschrieben als $\mathcal{M} \models \varphi$ ---, falls die Formel $\varphi$ unter dieser Struktur für jede beliebige Variablenbelegung wahr ist.
 \end{spoken-clean}
@@ -166,6 +170,7 @@ Eine $\mathcal{L}$-Struktur wird dann als Modell bezeichnet, wenn sie die entspr
 % open_loops: none
 \end{ai-global-state-checkpoint-invisible-content}
 
+\subsection{Gruppentheorie als Beispiel}
 \begin{spoken-clean}[00:11:55 - 00:12:15]
 Schauen wir uns dazu ein konkretes Beispiel an. Es ist in der formalen Logik manchmal etwas knifflig mit Beispielen, weil man aufpassen muss, sich nicht im Kreis zu drehen oder falsche Intuitionen zu wecken.
 \end{spoken-clean}
@@ -176,7 +181,7 @@ Nehmen wir die Signatur der Gruppentheorie. Diese besteht aus dem neutralen Kons
 Wenn wir nun eine klassische Gruppe $G$ betrachten, wie Sie sie aus der Analysis oder der Linearen Algebra kennen --- also eine Menge mit einem neutralen Element $1$ und einer Verknüpfung $\circ_G$ ---, dann ist diese Struktur nach unserer Definition nichts anderes als ein Modell der Gruppentheorie-Axiome.
 \end{spoken-clean}
 
-\begin{math-stroke}[Beispiel: Gruppentheorie]
+\begin{math-stroke}[Gruppentheorie als Beispiel]
 \begin{example}[Gruppenstruktur]\label[example]{ex:gruppenstruktur}
 Wir betrachten die Signatur der Gruppentheorie:
 \[ \mathcal{L}_{\text{GT}} = \{e, \circ\} \]
@@ -195,6 +200,7 @@ Sei $G$ eine Gruppe mit neutralem Element $1_G$ und Verknüpfung $\circ_G$. Wir 
 Der Dozent wischt Teile der Tafel, um Platz für die Gruppenaxiome zu schaffen.
 \end{lecture-break}
 
+\subsection{Gruppenaxiome und Modelle}
 \begin{spoken-clean}[00:13:50 - 00:15:47]
 Okay, das ist jetzt eine $\mathcal{L}_{\text{GT}}$-Struktur, also eine Gruppenstruktur $\mathcal{M}$. Das heißt, wir haben einen Bereich, und wir haben dem Konstanten-Symbol tatsächlich eine Konstante zugeordnet und dem binären Funktions-Symbol eine zweistellige Funktion.
 
@@ -246,6 +252,7 @@ Der Korrektheitssatz schlägt eine Brücke zwischen der Syntax und der Semantik.
 \end{explanation-of-steps}
 \end{math-stroke}
 
+\subsection{Beweisidee des Korrektheitssatzes}
 \begin{spoken-clean}[00:20:06 - 00:22:28]
 Das ist auch die grundlegende Idee des Beweises. Wir werden ihn hier nicht im Detail durchgehen, weil er etwas mühsam, wenn auch nicht schwierig ist. Man muss im Wesentlichen zeigen, dass in jedem Modell $\mathcal{M}$ sowohl die logischen Axiome als auch die Formeln in $T$ wahr sind. Das lässt sich leicht überprüfen, denn die logischen Axiome entsprechen ja genau unserem intuitiven Wahrheitsempfinden.
 
@@ -292,13 +299,14 @@ Falls $T$ nicht konsistent ist, so heißt $T$ \newterm{inkonsistent}.
 \end{definition}
 \end{math-stroke}
 
+\subsection{Konsistenz von Theorien}
 \begin{spoken-clean}[00:26:35 - 00:28:32]
 In diesem Fall gilt, dass aus $T$ alles bewiesen werden kann --- also für jede beliebige Formel $\sigma$ gilt $T \vdash \sigma$. Mit dieser Bemerkung können wir festhalten: $T$ ist genau dann konsistent, wenn es mindestens eine Formel $\sigma$ gibt, die man aus $T$ nicht beweisen kann.
 
 Ist klar, weshalb? Wenn $T$ nicht konsistent ist, dann kann man alles aus $T$ beweisen --- diese Richtung kennen wir bereits. Das heißt im Umkehrschluss: Wenn es eine Formel gibt, die man aus $T$ nicht beweisen kann, dann kann $T$ nicht inkonsistent sein, muss also konsistent sein. Wenn $T$ umgekehrt konsistent ist, dann gibt es eine Formel $\sigma$, die nicht beweisbar ist --- ich schreibe das gleich noch an die Tafel.
 \end{spoken-clean}
 
-\begin{math-stroke}
+\begin{math-stroke}[Konsistenz von Theorien]
 \begin{proposition}[Charakterisierung der Konsistenz]\label[proposition]{prop:char-konsistenz}
 Eine Menge $T$ von $\mathcal{L}$-Formeln ist konsistent genau dann, wenn es eine Formel $\sigma$ gibt, so dass gilt:
 \[ T \not\vdash \sigma \]
@@ -321,6 +329,7 @@ Dies bedeutet, dass aus einem Widerspruch jede beliebige Aussage logisch folgt.
 \end{remark}
 \end{math-stroke}
 
+\subsection{Der Gödelsche Vollständigkeitssatz}
 \begin{spoken-clean}[00:28:32 - 00:31:10]
 Und jetzt kommen wir zum Gödelschen Vollständigkeitssatz.
 
@@ -329,7 +338,8 @@ Der sagt aus: Sei $\mathcal{L}$ eine Signatur und $T$ eine Menge von $\mathcal{L
 Wir werden diesen Satz in den nächsten Wochen ausführlich beweisen. Das ist das große Ziel für diesen Teil der Vorlesung. Okay, gibt es dazu Fragen? Wenn nicht, dann machen wir jetzt eine kurze Pause und sehen uns gleich wieder.
 \end{spoken-clean}
 
-\begin{math-stroke}[Existenz eines Modells impliziert Konsistenz]
+\subsection{Existenz eines Modells impliziert Konsistenz}
+\begin{math-stroke}
 \begin{theorem}\label[theorem]{thm:modell-impliziert-konsistenz}
 Falls $T$ ein Modell besitzt, so ist $T$ konsistent.
 \end{theorem}
@@ -355,7 +365,7 @@ Dies widerspricht jedoch direkt der Definition der semantischen Gültigkeit der 
 % open_loops: none
 \end{ai-global-state-checkpoint-invisible-content}
 
-\begin{math-stroke}
+\begin{math-stroke}[Gödelscher Vollständigkeitssatz]
 \begin{theorem}[Gödelscher Vollständigkeitssatz]\label[theorem]{thm:goedelscher-vollstaendigkeitssatz}
 Sei $\mathcal{L}$ eine Signatur und $T$ eine Menge von $\mathcal{L}$-Formeln. Falls $T$ konsistent ist, so besitzt $T$ ein Modell.
 \end{theorem}
@@ -375,8 +385,9 @@ Der Dozent wischt die Tafel und bereitet den nächsten Abschnitt vor.
 Okay, wir machen weiter. Bitte begeben Sie sich an Ihre Plätze und beenden Sie Ihre Gespräche.
 \end{spoken-clean}
 
-\section*{Semantisches Beweisen}
+\section{Semantisches Beweisen}
 
+\subsection{Semantischer Beweisweg}
 \begin{spoken-clean}[00:37:10 - 00:40:05]
 Okay, jetzt machen wir eben genau das, was wir vorhin besprochen haben. Eine Formel $\sigma$ ist aus $T$ formal beweisbar genau dann, wenn $\sigma$ in jedem Modell von $T$ gilt. Was wir jetzt tun wollen, ist zu zeigen, dass das tatsächlich ausreicht.
 
@@ -399,8 +410,9 @@ Es findet eine 15-minütige Pause statt.
 Okay, wir machen weiter. Bitte begeben Sie sich wieder an Ihre Plätze und beenden Sie Ihre Gespräche.
 \end{spoken-clean}
 
-\section*{Mathematisches Beweisen}
+\section{Mathematisches Beweisen}
 
+\subsection{Semantischer Beweisweg (Fortsetzung)}
 \begin{spoken-clean}[00:47:10 - 00:50:05]
 Okay, jetzt setzen wir genau das um, was wir vor der Pause besprochen haben. Eine Formel $\sigma$ ist aus $T$ formal beweisbar genau dann, wenn $\sigma$ in jedem Modell von $T$ gilt. Wir wollen zeigen, dass dieser semantische Weg völlig ausreicht.
 
@@ -415,13 +427,14 @@ Möchten zeigen: $T \vdash \sigma$.
 Anstelle eines formalen Beweises zeigen wir, dass falls $\mathcal{M} \models T$, so ist auch $\mathcal{M} \models \sigma$.
 \end{math-stroke}
 
+\subsection{Beispiel --- Linksinverse und Rechtsinverse in Gruppen}
 \begin{spoken-clean}[00:50:05 - 00:53:36]
 Okay, wir wollen zeigen, dass man in der Gruppentheorie aus den Gruppenaxiomen die Formel $\sigma$ beweisen kann. Wir nehmen dazu an, dass wir eine beliebige Gruppe $(G, e, \circ)$ gegeben haben, und wollen zeigen: Jedes Linksinverse von $x$ ist automatisch auch ein Rechtsinverse.
 
 In den Gruppenaxiomen haben wir ja explizit nur die Existenz eines Linksinversen gefordert. Wenn wir nun aber semantisch beweisen, dass in jeder Gruppe jedes Linksinverse auch ein Rechtsinverse ist, dann wissen wir dank unseres Vollständigkeitssatzes, dass sich diese Aussage auch formal aus den Axiomen beweisen lässt.
 \end{spoken-clean}
 
-\begin{math-stroke}[Beispiel: Linksinverse und Rechtsinverse in Gruppen]
+\begin{math-stroke}[Beispiel --- Linksinverse und Rechtsinverse in Gruppen]
 \begin{example}[Linksinverse ist Rechtsinverse]
 \label[example]{ex:linksinvers-impliziert-rechtsinvers}
 $\sigma \equiv \forall x \forall y (x \cdot y = e \rightarrow y \cdot x = e)$.
@@ -472,7 +485,7 @@ Okay, jetzt kommen wir zu einer weiteren wichtigen Definition, nämlich der Unab
 Ein klassisches Beispiel dafür, das ich vorhin schon kurz erwähnt habe, ist die Kommutativität in Gruppen: Die Aussage, dass für alle $x$ und $y$ gilt $x \circ y = y \circ x$. Das ist eine wohlgeformte $\mathcal{L}_{\text{GT}}$-Formel, aber sie ist völlig unabhängig von den Gruppenaxiomen --- es gibt schließlich sowohl kommutative als auch nicht-kommutative Gruppen.
 \end{spoken-clean}
 
-\begin{math-stroke}
+\begin{math-stroke}[Definition der Unabhängigkeit]
 \begin{definition}[Unabhängigkeit]\label[definition]{def:unabhaengigkeit}
 Eine $\mathcal{L}$-Formel $\sigma$ heißt \newterm{unabhängig} von einer Theorie $T$, falls es Modelle $\mathcal{M}_1, \mathcal{M}_2 \models T$ gibt, so dass gilt:
 \[ \mathcal{M}_1 \models \sigma \quad \text{und} \quad \mathcal{M}_2 \not\models \sigma \]
@@ -514,7 +527,8 @@ Der zweite Punkt, den Hilbert leidenschaftlich gehofft hatte, war die Möglichke
 Aber auch diese Hoffnung wurde durch Gödels Zweiten Unvollständigkeitssatz zunichte gemacht: Kein hinreichend starkes, konsistentes formales System kann seine eigene Konsistenz beweisen. Sobald ein System mächtig genug ist, um die Arithmetik der natürlichen Zahlen zu beschreiben, is es prinzipiell unmöglich, innerhalb dieses Systems dessen eigene Widerspruchsfreiheit zu beweisen.
 \end{spoken-clean}
 
-\begin{math-stroke}[Grenzen der Axiomatisierung]
+\subsubsection{Grenzen der Axiomatisierung}
+\begin{math-stroke}
 \textbf{Eigene Konsistenz beweisen:}
 
 Ein formales System $T$, welches mächtig genug ist, um die Arithmetik der natürlichen Zahlen zu beschreiben, kann seine eigene Konsistenz nicht beweisen (sofern es konsistent ist).
@@ -617,12 +631,14 @@ wobei $\in$ ein zweistelliges (binäres) Relationssymbol ist.
 
 \begin{spoken-clean}[01:18:40 - 01:20:18]
 Schauen wir uns nun diese Axiome im Detail an. Wir beginnen mit den ursprünglichen Axiomen von Zermelo. Wir werden heute wahrscheinlich nicht alle Axiome von 0 bis 6 schaffen, aber wir sollten zumindest bis zum dritten Axiom kommen.
-
-Das erste Axiom ist das Axiom der leeren Menge. Formal lautet es: Es existiert ein $x$, sodass für alle $z$ gilt, dass $z$ kein Element von $x$ ist. Das besagt schlicht und ergreifend, dass die leere Menge existiert --- also eine Menge, die absolut kein Element enthält. Das ist ein ganz wesentlicher Schritt, denn dieses Axiom sichert uns überhaupt erst die Existenz mindestens einer Menge in unserem mathematischen Universum.
 \end{spoken-clean}
 
 \subsubsection{Axiom der leeren Menge (Axiom 0)}
-\begin{math-stroke}
+\begin{spoken-clean}[continued]
+Das erste Axiom ist das Axiom der leeren Menge. Formal lautet es: Es existiert ein $x$, sodass für alle $z$ gilt, dass $z$ kein Element von $x$ ist. Das besagt schlicht und ergreifend, dass die leere Menge existiert --- also eine Menge, die absolut kein Element enthält. Das ist ein ganz wesentlicher Schritt, denn dieses Axiom sichert uns überhaupt erst die Existenz mindestens einer Menge in unserem mathematischen Universum.
+\end{spoken-clean}
+
+\begin{math-stroke}[Axiom der leeren Menge (Axiom 0)]
 \begin{axiom}[Axiom der leeren Menge]\label[axiom]{ax:leere-menge}
 \[ \exists x \forall z \, (z \notin x) \]
 \end{axiom}
@@ -636,14 +652,14 @@ Dieses Axiom sichert zweierlei:
 \end{explanation-of-steps}
 \end{math-stroke}
 
+\subsubsection{Extensionalitätsaxiom (Axiom 1)}
 \begin{spoken-clean}[01:20:18 - 01:22:20]
 Das nächste Axiom hat einen eleganten Namen: das Extensionalitätsaxiom. Formal lautet es: Für alle $x$ und alle $y$ gilt: Wenn für alle $z$ gilt, dass $z \in x$ äquivalent ist zu $z \in y$, dann folgt daraus $x = y$.
 
 Während ich die Tafel wische, können Sie sich kurz überlegen, was dieses Axiom anschaulich bedeutet.
 \end{spoken-clean}
 
-\subsubsection{Extensionalitätsaxiom (Axiom 1)}
-\begin{math-stroke}
+\begin{math-stroke}[Extensionalitätsaxiom (Axiom 1)]
 \begin{axiom}[Extensionalitätsaxiom]\label[axiom]{ax:extensionalitaet}
 \[ \forall x \forall y \, \bigl( \forall z \, (z \in x \leftrightarrow z \in y) \rightarrow x = y \bigr) \]
 \end{axiom}
@@ -679,13 +695,13 @@ Das Extensionalitätsaxiom impliziert direkt, dass die leere Menge eindeutig ist
 Wir bezeichnen diese eindeutige Menge fortan mit dem Symbol $\emptyset$.
 \end{math-stroke}
 
+\subsubsection{Teilmengenbeziehung}
 \begin{spoken-clean}[01:24:10 - 01:26:22]
 Okay, und jetzt können wir eine weitere Definition einführen. Wir definieren das binäre Relationssymbol der Teilmenge, geschrieben als $\subseteq$, wie folgt: Wir sagen, $y$ ist eine Teilmenge von $x$ --- geschrieben $y \subseteq x$ --- genau dann, wenn für alle $z$ gilt: Wenn $z \in y$, dann folgt daraus $z \in x$.
 
 Ebenso können wir die echte Teilmenge definieren, geschrieben als $\subsetneq$. Wir sagen, $y$ ist eine echte Teilmenge von $x$, falls $y \subseteq x$ gilt und $y \neq x$ ist. Eine unmittelbare und wichtige Konsequenz aus dieser Definition ist: Die leere Menge $\emptyset$ ist Teilmenge jeder beliebigen Menge.
 \end{spoken-clean}
 
-\subsubsection{Teilmengenbeziehung}
 \begin{math-stroke}[Definition der Teilmengenbeziehung]
 
 \begin{definition}[Teilmenge]\label[definition]{def:teilmenge}
@@ -715,6 +731,7 @@ Die Aussage $\emptyset \subseteq x$ ist äquivalent zu $\forall z \, (z \in \emp
 % open_loops: none
 \end{ai-global-state-checkpoint-invisible-content}
 
+\subsubsection{Paarmengenaxiom (Axiom 2)}
 \begin{spoken-clean}[01:26:22 - 01:29:00]
 Als Nächstes betrachten wir das Paarmengenaxiom --- damit haben wir dann heute zumindest die ersten drei Axiome beisammen. Dieses Axiom besagt: Für alle $x$ und alle $y$ existiert ein $u$, sodass für alle $z$ gilt: $z \in u$ genau dann, wenn $z = x$ oder $z = y$.
 
@@ -725,8 +742,7 @@ Nicht ganz, nein. Es beschreibt nicht die Vereinigung der beiden Mengen. Es besa
 Nach dem Extensionalitätsaxiom --- also unserem Axiom 1 --- ist diese Menge $u$ wiederum völlig eindeutig bestimmt. Wegen dieser Eindeutigkeit können wir eine feste Notation einführen und schreiben für diese Menge einfach $\{x, y\}$.
 \end{spoken-clean}
 
-\subsubsection{Paarmengenaxiom (Axiom 2)}
-\begin{math-stroke}
+\begin{math-stroke}[Paarmengenaxiom (Axiom 2)]
 \begin{axiom}[Paarmengenaxiom]\label[axiom]{ax:paarmenge}
 \[ \forall x \forall y \exists u \forall z \, (z \in u \leftrightarrow z = x \lor z = y) \]
 \end{axiom}
@@ -737,6 +753,7 @@ Für beliebige Mengen $x$ und $y$ existiert eine Menge $u$, welche genau $x$ und
 \end{explanation-of-steps}
 \end{math-stroke}
 
+\subsubsection{Eigenschaften von Paarmengen und geordneten Paaren}
 \begin{spoken-clean}[01:29:00 - 01:30:45]
 Eine kurze Bemerkung dazu: Wegen des Extensionalitätsaxioms ist die Reihenfolge in der Notation irrelevant, es gilt also $\{x, y\} = \{y, x\}$. Und im Spezialfall $x = y$ erhalten wir $\{x, x\} = \{x\}$, was genau die Einermenge oder das Singleton von $x$ ist. Das Paarmengenaxiom garantiert uns also auch, dass zu jeder Menge $x$ die Einermenge $\{x\}$ existiert. Wir können also zu jeder Menge eine neue Menge konstruieren, die diese als ihr einziges Element enthält.
 
@@ -745,7 +762,6 @@ Darauf aufbauend können wir nun geordnete Paare definieren. Wir schreiben dafü
 Gut! Vielen Dank fürs Kommen, eine erfolgreiche Woche und bis zum nächsten Mal!
 \end{spoken-clean}
 
-\subsubsection{Eigenschaften von Paarmengen und geordneten Paaren}
 \begin{math-stroke}[Paarmengen]
 \begin{remark}[Symmetrie und Einermengen]\label[remark]{rem:paarmengen-eigenschaften}
 Gemäß dem Extensionalitätsaxiom gilt:

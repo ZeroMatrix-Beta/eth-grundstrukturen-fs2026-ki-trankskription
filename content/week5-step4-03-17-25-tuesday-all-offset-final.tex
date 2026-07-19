@@ -190,9 +190,9 @@ Hier nehmen wir die Vereinigung von allen Mengen, die in der Menge $x$ enthalten
 
 \section{Zermelo-Fraenkel-Mengenlehre (ZFC)}
 
-\subsection{Die ersten Axiome der Mengenlehre}
+\subsection{Axiome 0 bis 3 der Mengenlehre}
 
-\begin{math-stroke}[Axiome 0 bis 3 der Mengenlehre]
+\begin{math-stroke}
 \textbf{Signatur der Mengenlehre:}
 \[
 \mathcal{L}_{\text{Set}} = \{ \in \}
@@ -240,6 +240,7 @@ wobei $\in$ ein zweistelliges Relationssymbol ist.
 \end{axioms}
 \end{math-stroke}
 
+\subsection{Vereinigungsfunktion und binäre Vereinigung}
 \begin{spoken-clean}[00:15:06 - 00:17:17]
 Genau, dann können wir die Vereinigungsfunktion definieren. Wir schreiben diese Vereinigung von $x$ --- $x$ ist eine Menge --- und nennen sie $u$. Wir definieren sie durch genau dieses $u$, das gemäß diesem Axiom existiert: Für alle $z$ ist $z$ in $u$ genau dann, wenn ein $w$ existiert, sodass $w$ in $x$ ist und $z$ in $w$. Okay?
 
@@ -284,7 +285,12 @@ Nach dem Paarmengenaxiom existiert die Paarmenge $\{x, y\}$. Wenden wir das Vere
 \begin{spoken-clean}[00:17:17 - 00:20:01]
 Genau, wir nehmen die Paarmenge von $x$ und $y$. Wir wissen, dass sie existiert, und bilden die Vereinigung. Auch da oben wissen wir ja, dass sie existiert --- das ist die Paarmenge von $x$ und $x$.
 
-Gut. Man muss sagen, dass das hier natürlich existiert und eindeutig ist; deswegen können wir es so schreiben, auch wieder mit dem Extensionalitätsaxiom. Okay, dann: Wo sind wir? Drei. Dann kommt jetzt... Ah nein, es geht noch weiter. Wir können jetzt nämlich damit... was wir jetzt machen wollen, ist, die ganzen Zahlen zu definieren. Oder so etwas, was sich herausstellt, ist dann ein Modell für die Peano-Arithmetik. Und dazu definieren wir, wenn wir eine Menge $x$ haben, die Menge $x + 1$ als die Menge, die aus $x$ vereinigt mit der Menge besteht, die nur die Menge $x$ enthält. Also wir nehmen die Menge $x$ zusammen mit der Menge, die nur ein Element enthält, nämlich die Menge $x$. Das gibt uns eine neue Menge, und diese Menge bezeichnen wir mit $x + 1$. Okay, das dürfen wir machen.
+Gut. Man muss sagen, dass das hier natürlich existiert und eindeutig ist; deswegen können wir es so schreiben, auch wieder mit dem Extensionalitätsaxiom.
+\end{spoken-clean}
+
+\subsection{Konstruktion der natürlichen Zahlen nach von Neumann}
+\begin{spoken-clean}[continued]
+Okay, dann: Wo sind wir? Drei. Dann kommt jetzt... Ah nein, es geht noch weiter. Wir können jetzt nämlich damit... was wir jetzt machen wollen, ist, die ganzen Zahlen zu definieren. Oder so etwas, was sich herausstellt, ist dann ein Modell für die Peano-Arithmetik. Und dazu definieren wir, wenn wir eine Menge $x$ haben, die Menge $x + 1$ als die Menge, die aus $x$ vereinigt mit der Menge besteht, die nur die Menge $x$ enthält. Also wir nehmen die Menge $x$ zusammen mit der Menge, die nur ein Element enthält, nämlich die Menge $x$. Das gibt uns eine neue Menge, und diese Menge bezeichnen wir mit $x + 1$. Okay, das dürfen wir machen.
 
 Und jetzt können wir die ganzen Zahlen definieren und sagen: $0$ ist einfach die leere Menge. Dann sagen wir: $1$ ist $0 + 1$, das heißt, das wäre $0$ vereinigt mit der Menge $\{0\}$. Da $0$ ja die leere Menge ist, ist das immer noch die Menge, die nur aus $0$ besteht. Dann haben wir $2$, das ist die Menge $1 + 1$, wenig überraschend. Das wäre $1$ vereinigt mit der Menge $\{1\}$, das heißt, das ist die Menge, die aus der Menge $\{1\}$ besteht, also die Menge $\{0, 1\}$. Und so weiter. $3$ ist $2 + 1$, also $2$ vereinigt mit $\{2\}$. Allgemein sagen wir: $n$ ist $n-1$ vereinigt mit der Menge $\{n-1\}$. Und das wäre dann einfach die Menge $\{0, \dots, n-1\}$.
 
@@ -313,10 +319,11 @@ In dieser Konstruktion ist jede natürliche Zahl $n$ genau die Menge aller klein
 \[
 n = \{0, 1, \dots, n-1\}
 \]
-Die intuitive Idee des \qt{Zählens} und der Pünktchenschreibweise ($\dots$) ist mathematisch noch nicht rigoros, da wir die Existenz der Gesamtheit aller natürlichen Zahlen als fertige Menge noch nicht bewiesen haben. Dazu benötigen wir ein eigenes Axiom: das Unendlichkeitsaxiom.
+Die intuitive Idee des \qt{Zählens} und der Pünktchenschreibweise ($\dots$) ist mathematisch noch nicht rigoros, da wir die Existenz der Gesamtheit aller natürlichen Zahlen als fertige Menge noch nicht bewiesen haben. Aber wir haben kein Axiom, das uns garantiert, dass die Menge aller dieser ineinandergeschachtelten Mengen existiert. Und das wollen wir jetzt als Nächstes mit einem Axiom sicherstellen.
 \end{explanation-of-steps}
 \end{math-stroke}
 
+\subsection{Induktive Mengen}
 \begin{spoken-clean}[00:20:01 - 00:22:54]
 Gut, dann machen wir jetzt die Definition. Wir sagen, eine Menge $x$ heißt induktiv, falls gilt: Für alle $y$, wenn $y$ in $x$ ist, dann ist auch $y \cup \{y\}$ wieder in $x$. Das ist so gemacht, diese Definition, um mit diesen ganzen Zahlen zu arbeiten. Dass man wieder... genau, also das ist eine Möglichkeit, um aus einer Menge wieder eine neue Menge zu machen. Und eine Menge heißt induktiv, falls das eben immer auch wieder enthalten ist. Induktive Mengen sind also insbesondere groß.
 
@@ -360,6 +367,7 @@ Der Dozent fragt im Video, ob wir bereits ein Beispiel für eine induktive Menge
 \end{ai-note}
 \end{math-stroke}
 
+\subsection{Unendlichkeitsaxiom und Aussonderungsaxiom}
 \begin{spoken-clean}[00:22:54 - 00:25:03]
 Das Unendlichkeitsaxiom besagt einfach: Es gibt eine nicht-leere induktive Menge. Und die ist dann auch --- in unserer Vorstellung --- unendlich, weil immer, wenn ein Element darin ist, auch das nächstgrößere Element enthalten ist. Das Unendlichkeitsaxiom sagt: Es existiert eine Menge $I$, sodass $\emptyset \in I$ gilt. Das heißt insbesondere, dass $I$ nicht die leere Menge ist, weil $I$ ein Element enthält, nämlich die leere Menge. Und $I$ ist induktiv. Es gibt also insbesondere eine nicht-leere induktive Menge.
 \end{spoken-clean}
@@ -397,6 +405,7 @@ Dann haben wir das Axiom 5, das Aussonderungsaxiom. Es ist insofern wichtig, als
 Das Axiom sagt also aus: Für jede Menge $x$ und jede Formel $\varphi$ ist... jetzt schreiben wir wieder... ja, das ist die Art, wie wir das schreiben: alle $z$ in $x$, sodass $\varphi(z)$ gilt. Und wir wollen, dass das eine Menge ist.
 \end{spoken-clean}
 
+\subsection{Klassenbildung und Russells Paradoxon}
 \begin{spoken-clean}[00:28:41 - 00:30:51]
 Und das löst jetzt ein bisschen unsere Probleme. Wir sehen hier: Was wichtig ist, ist, dass wir von einer Menge $x$ ausgehen und uns alle Elemente in $x$ anschauen, die diese Formel erfüllen. Und das Aussonderungsaxiom sagt nun, dass das eine Menge ist. Was wir nicht machen dürfen, ist, von allen Elementen --- also ohne diese Menge zu spezifizieren --- einfach zu sagen: alle $z$, sodass $\varphi(z)$. Das ist im Allgemeinen keine Menge.
 
@@ -441,6 +450,7 @@ Folglich kann $R$ keine Menge sein.
 Okay, sehr gut. Damit ist unser Kummer mit der ganzen Logik von Frege und dem Paradoxon von Russell vom Tisch.
 \end{spoken-clean}
 
+\subsection{Definition des Durchschnitts}
 \begin{spoken-clean}[00:33:09 - 00:35:00]
 Okay, und jetzt können wir damit auch wieder den Durchschnitt definieren. Wir definieren das binäre Funktionssymbol Durchschnitt durch: $x_0 \cap x_1 = y$. Wir sagen also, wir definieren diese Menge hier dadurch, dass $y$ aus allen $z$ in $x_1$ besteht, sodass $\varphi(z)$ gilt. Was nehmen wir als $\varphi(z)$? Ja? $z$ ist ein Element von $x_0$. Genau: $z \in x_0$. Wir nehmen also alle Elemente in $x_1$, die auch Elemente von $x_0$ sind. Das ist eine Formel, und gemäß dem Aussonderungsaxiom ist das eine Menge. $x_0$ ist hierbei quasi ein Parameter dieser Formel.
 \end{spoken-clean}
@@ -458,7 +468,10 @@ Nach dem Aussonderungsaxiom existiert diese Menge, da wir die Bedingung $\varphi
 
 \begin{spoken-clean}[00:35:00 - 00:36:56]
 Okay. Und vielleicht noch ein paar Definitionen, um unser Leben leichter zu machen. Wir sagen: \qt{Es existiert ein $x$ in $w$, sodass $\varphi(x)$ gilt}, als Abkürzung für: \qt{Es existiert ein $x$, sodass $x \in w$ und $\varphi(x)$ gilt.} Das ist ein bisschen einfacher zu schreiben. Ebenso definieren wir: \qt{Für alle $x$ in $w$ gilt $\varphi(x)$} als: \qt{Für alle $x$ gilt: Wenn $x \in w$ ist, dann gilt $\varphi(x)$.}
+\end{spoken-clean}
 
+\subsection{Allgemeiner Durchschnitt}
+\begin{spoken-clean}[continued]
 Gut, und dann können wir auch wieder den Durchschnitt schreiben. Wenn wir für $\varphi(u)$ definieren: \qt{Für alle $z$ in $x$ ist $u$ in $z$}, dann können wir den Durchschnitt von $x$ als die Menge $y$ definieren, die aus allen $u$ in der Vereinigung von $x$ besteht, sodass $\varphi(u)$ gilt.
 \end{spoken-clean}
 
@@ -514,6 +527,7 @@ Dann wollte ich noch ein Bild von Ernst Zermelo zeigen. Er hat eben diese Axiome
 Der Dozent korrigiert einen Tippfehler auf der Tafel: Er ersetzt ein logisches Und-Zeichen ($\land$) durch ein Implikationszeichen ($\rightarrow$) in einer der zuvor angeschriebenen Formeln.
 \end{meta-note}
 
+\subsection{Potenzmengenaxiom}
 \begin{spoken-clean}[00:41:37 - 00:43:31]
 Gut. Das nächste Axiom ist das Potenzmengenaxiom. Das sagt uns nun eigentlich einfach, dass die Potenzmenge einer Menge existiert. Also: Für alle $x$ existiert ein $z$, sodass für alle $y$ gilt: $y$ ist in $z$ genau dann, wenn $y$ eine Teilmenge von $x$ ist. Das Teilmengensymbol haben wir letzte Woche definiert.
 
@@ -543,6 +557,7 @@ Die nach diesem Axiom und dem Extensionalitätsaxiom eindeutig bestimmte Potenzm
 Soweit zu den Axiomen 0 bis 6, den Axiomen von Zermelo. Jetzt machen wir einmal, bevor wir noch die zwei letzten aufschreiben, die eher technischer Natur sind, schon einmal ein paar Definitionen und Konstruktionen aus den Axiomen, die wir bereits haben. Das Erste wäre jetzt eben diese Sache mit den ganzen Zahlen. Dazu definieren wir diese Menge $\omega$.
 \end{spoken-clean}
 
+\subsection{Die Menge der natürlichen Zahlen \texorpdfstring{$\omega$}{omega}}
 \begin{spoken-clean}[00:45:01 - 00:46:16]
 Hier ist unser Ziel eigentlich, ein Modell zu finden --- also das Ziel ist ein Modell für die Peano-Arithmetik, das am liebsten unsere ganzen Zahlen, unsere natürlichen Zahlen so enthält, wie wir sie gerne hätten. Und die Idee ist: Wir nehmen $\omega$. Wir wissen jetzt, dass es eine induktive Menge gibt, die die leere Menge enthält. Wir haben ja unsere ganzen Zahlen ein bisschen über die leere Menge definiert, und dann nehmen wir die Menge, die aus der leeren Menge besteht, und dann die Menge, die aus der Menge besteht, welche die leere Menge enthält, und so weiter. Wir haben gesehen: Es gibt tatsächlich irgendeine induktive Menge, welche die leere Menge enthält. Und jetzt wollen wir die kleinste induktive Menge nehmen, welche die leere Menge enthält. Also soll $\omega$ die kleinste induktive Menge sein, welche die leere Menge enthält.
 \end{spoken-clean}
@@ -563,7 +578,8 @@ Wir wissen also, dass eine Menge existiert --- gemäß Axiom 4 existiert eine in
 Da haben wir jetzt schon einiges verwendet: Wir haben die Existenz von $I_0$ verwendet, die existierende Potenzmenge, das Aussonderungsaxiom und dann auch nochmals das Aussonderungsaxiom, um den Durchschnitt zu nehmen. Aber das ist genau das, was man unter der kleinsten induktiven Menge versteht, welche die leere Menge enthält: Wir nehmen den Durchschnitt über alle Mengen, die das tun.
 \end{spoken-clean}
 
-\begin{math-stroke}[Eigenschaften von \texorpdfstring{$\omega$}{omega}]
+\subsection{Eigenschaften von \texorpdfstring{$\omega$}{omega}}
+\begin{math-stroke}
 \begin{claim}
 \label[claim]{clm:omega-inductive}
 Die Menge $\omega$ ist induktiv und es gilt $\emptyset \in \omega$.
@@ -584,7 +600,8 @@ Und da kommt jetzt ein bisschen der knifflige Teil. Wir haben vorher eigentlich 
 Die nächste Bemerkung: $\omega$ enthält die natürlichen Zahlen $0, 1, 2, \dots$ im Sinne dessen, wie wir sie vorher definiert haben. Es ist klar, dass sie darin enthalten sein müssen, weil ja die leere Menge in $\omega$ enthalten ist und $\omega$ induktiv ist. Das heißt, wenn wir jetzt die natürlichen Zahlen im naiven Sinne nehmen, oder so, wie wir sie hier definiert haben, sind sie alle in $\omega$ enthalten. Was man aber nicht beweisen kann, ist, dass es nicht auch noch andere Sachen enthält. Man kann aber auch nicht beweisen, dass es nicht das Ganze ist, also dass es echt enthalten ist. Deswegen nehmen wir einfach an, dass es dasselbe ist.
 \end{spoken-clean}
 
-\begin{math-stroke}[Die natürlichen Zahlen in \texorpdfstring{$\omega$}{omega}]
+\subsection{Die natürlichen Zahlen in \texorpdfstring{$\omega$}{omega}}
+\begin{math-stroke}
 \begin{remark}[Modell der natürlichen Zahlen]
 Die Menge $\omega$ enthält alle von Neumannschen natürlichen Zahlen:
 \[
@@ -603,7 +620,8 @@ Okay. Und der wichtige Teil ist aber --- das ist diese Woche auf dem Übungsblat
 Gut, dann können wir noch kartesische Produkte definieren. Wenn $A$ und $B$ Mengen sind, dann definieren wir eine binäre Funktion, das kartesische Produkt, durch $A \times B$. Das ist einfach die Menge aller geordneten Paare $\langle x, y \rangle$, sodass $x \in A$ und $y \in B$. Das nennen wir das kartesische Produkt.
 \end{spoken-clean}
 
-\begin{math-stroke}[Definition des kartesischen Produkts]
+\subsection{Definition des kartesischen Produkts}
+\begin{math-stroke}
 \begin{definition}[Kartesisches Produkt]\label[definition]{def:cartesian-product}
 Für zwei Mengen $A$ und $B$ definieren wir das \newterm{kartesische Produkt} $A \times B$ durch:
 \[
@@ -618,7 +636,8 @@ Schauen wir nochmals schnell: Was macht man hier ganz formal? Wir haben noch das
 Genau: Das war die Menge, die $\{x\}$ enthält und die Menge, die $\{x, y\}$ enthält --- also die Paarmenge. Genau das heißt: Wo lebt dieses $A \times B$? $A \times B$ ist somit eine Teilmenge der Potenzmenge der Potenzmenge von $A \cup B$.
 \end{spoken-clean}
 
-\begin{math-stroke}[Geordnete Paare und Potenzmengenbeziehung]
+\subsection{Geordnete Paare und Potenzmengenbeziehung}
+\begin{math-stroke}
 \textbf{Kuratowski-Definition geordneter Paare:}
 \[
 \langle x, y \rangle := \bigl\{ \{x\}, \{x, y\} \bigr\}
@@ -641,7 +660,8 @@ Gut, und wenn wir das kartesische Produkt haben, dann können wir auch definiere
 Funktionen sind jetzt einfach Teilmengen des kartesischen Produkts mit gewissen Eigenschaften. Die Menge aller Funktionen von einer Menge $A$ zu einer Menge $B$ schreiben wir als ${}^A B$. Für die Elemente darin schreiben wir $f \colon A \to B$, aber das ist einfach ein Symbol für ein Mengenelement darin. Und das ist gegeben als die Menge aller Teilmengen $f \subseteq A \times B$, sodass für alle $x \in A$ ein eindeutiges $y \in B$ existiert, sodass $\langle x, y \rangle \in f$ ist. Wir müssen also nur sagen, was \qt{existiert eindeutig $y$} bedeutet.
 \end{spoken-clean}
 
-\begin{math-stroke}[Definition von Funktionen]
+\subsection{Definition von Funktionen}
+\begin{math-stroke}
 \begin{definition}[Funktionsmenge]\label[definition]{def:function-set}
 Die Menge aller \newterm{Funktionen} von einer Menge $A$ in eine Menge $B$, bezeichnet mit ${}^A B$, ist definiert durch:
 \[
@@ -666,7 +686,8 @@ Wir definieren Funktionen eigentlich einfach als Graphen. Was ist denn der Graph
 Genau, und wir schreiben für $f \in {}^A B$ eben $f \colon A \to B$, und für $\langle x, y \rangle \in f$ schreiben wir $f(x) = y$. Das macht es einfach einfacher. Und falls $A$ selbst schon ein kartesisches Produkt ist, dann ist $f \colon A \to B$ eine zweistellige Funktion, in die wir $c_1$ und $c_2$ einsetzen können.
 \end{spoken-clean}
 
-\begin{math-stroke}[Funktionsnotation und mehrstellige Funktionen]
+\subsection{Funktionsnotation und mehrstellige Funktionen}
+\begin{math-stroke}
 \textbf{Notationskonventionen:}
 Für eine Funktion $f \in {}^{\displaystyle A} B$ schreiben wir:
 \[
@@ -690,7 +711,8 @@ Jetzt können wir auch sagen, was es heißt, injektiv zu sein. Wir definieren: $
 Diese Sachen sind ein bisschen mühsam hinzuschreiben und abzuschreiben; am besten überlegen Sie sich selbst, wie man das definiert. Vielleicht als kleine Übung: Machen Sie dasselbe noch für \qt{surjektiv} und \qt{bijektiv}. Definiere Surjektivität und Bijektivität.
 \end{spoken-clean}
 
-\begin{math-stroke}[Injektivität]
+\subsection{Injektivität}
+\begin{math-stroke}
 \begin{definition}[Injektive Funktion]\label[definition]{def:injective-function}
 Eine Funktion $f \colon A \to B$ heißt \newterm{injektiv}, falls gilt:
 \[
@@ -713,7 +735,7 @@ Dann können wir noch sagen: Eine Menge $A$ heißt abzählbar, falls es eine Sur
 
 \subsection{Endlichkeit und Abzählbarkeit}
 
-\begin{math-stroke}[Endlichkeit und Abzählbarkeit]
+\begin{math-stroke}
 \begin{definition}[Endliche Menge]\label[definition]{def:finite-set}
 Eine Menge $A$ heißt \newterm{endlich}, falls eine natürliche Zahl $n \in \omega$ und eine Bijektion $f \colon n \to A$ existieren.
 \end{definition}
@@ -739,9 +761,9 @@ Das kann man induktiv als kartesisches Produkt definieren. Das ist vielleicht et
 Und dann sagen wir: Eine $n$-stellige Relation $R$ ist einfach eine Teilmenge $R \subseteq A^n$.
 \end{spoken-clean}
 
-\subsection{Relationen und Ordnungen}
+\subsection{Relationen und lineare Ordnungen}
 
-\begin{math-stroke}[Relationen und lineare Ordnungen]
+\begin{math-stroke}
 \begin{definition}[$n$-stellige Relation]\label[definition]{def:n-ary-relation}
 Eine \newterm{$n$-stellige Relation} $R$ auf einer Menge $A$ ist eine Teilmenge des $n$-fachen kartesischen Produkts von $A$:
 \[
@@ -771,7 +793,8 @@ Und dann kommen wir noch zum Begriff einer Wohlordnung. Das ist ein relativ wich
 Genau: Wenn jede nichtleere Teilmenge ein kleinstes Element hat, dann ist das eine Wohlordnung. Das ist ein wichtiges Konzept. Eine lineare Ordnung $<$ auf $A$ ist also eine Wohlordnung, falls jede Teilmenge $S \subseteq A$, die nicht leer ist, ein minimales Element enthält. Das heißt, es existiert ein $x_0 \in S$, sodass für alle $y \in S$ gilt, dass $y$ nicht in Relation zu $x_0$ steht --- also $y$ ist nicht kleiner als $x_0$.
 \end{spoken-clean}
 
-\begin{math-stroke}[Wohlordnungen]
+\subsection{Wohlordnungen}
+\begin{math-stroke}
 \begin{definition}[Wohlordnung]\label[definition]{def:well-ordering}
 Eine lineare Ordnung $<$ auf einer Menge $A$ heißt eine \newterm{Wohlordnung}, falls jede nichtleere Teilmenge $S \subseteq A$ ein bezüglich $<$ minimales Element besitzt:
 \[
@@ -799,9 +822,9 @@ Das erste ist das Ersetzungsaxiom. Ich werde diese Axiome jetzt nicht im Detail 
 
 \section{ZFC-Axiome von Fraenkel}
 
-\subsection{Das Ersetzungsaxiom}
+\subsection{Das Ersetzungsaxiom (Axiom 7)}
 
-\begin{math-stroke}[Das Ersetzungsaxiom (Axiom 7)]
+\begin{math-stroke}
 \begin{axioms}[Zermelo-Fraenkel-Mengenlehre (Teil 4)]
 \begin{enumerate}[label=\textbf{(\arabic*)}]
     \setcounter{enumi}{6}
@@ -830,9 +853,9 @@ Geben Sie mir noch eine Minute, um das Fundierungsaxiom zu erklären. Wenn man w
 Zermelo hat seine Axiome publiziert, und acht Jahre später hat Fraenkel gesagt: \qt{Ich glaube, wir brauchen noch mehr}, und hat diese zwei vorgeschlagen. Inzwischen sind das alle Zermelo-Fraenkel-Axiome. In der Regel verwendet man auch noch das Auswahlaxiom, das wir in zwei Wochen diskutieren werden. Vielen Dank fürs Kommen und eine gute Woche!
 \end{spoken-clean}
 
-\subsection{Das Fundierungsaxiom}
+\subsection{Das Fundierungsaxiom (Axiom 8)}
 
-\begin{math-stroke}[Das Fundierungsaxiom (Axiom 8)]
+\begin{math-stroke}
 \begin{axioms}[Zermelo-Fraenkel-Mengenlehre (Teil 5)]
 \begin{enumerate}[label=\textbf{(\arabic*)}]
     \setcounter{enumi}{7}
