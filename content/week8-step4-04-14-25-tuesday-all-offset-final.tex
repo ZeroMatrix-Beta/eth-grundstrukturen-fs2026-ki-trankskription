@@ -76,6 +76,7 @@ Eine solche Funktion $f$ heißt \newterm{Auswahlfunktion} (Choice function).
 Die Notation ${}^{\mathcal{F}}\!\bigcup \mathcal{F}$ bezeichnet die Menge aller Abbildungen von der Familie $\mathcal{F}$ in ihre Vereinigungsmenge $\bigcup \mathcal{F}$. Das Auswahlaxiom garantiert die Existenz einer solchen Abbildung $f$, die aus jeder nicht-leeren Menge $X \in \mathcal{F}$ ein repräsentatives Element auswählt, sodass $f(X) \in X$ gilt.
 \end{didactic-insight}
 
+\subsection{Äquivalente Formulierung des Auswahlaxioms}
 \begin{spoken-clean}[00:02:40 - 00:03:50]
 Das ist eine etwas umständliche Art und Weise aufzuschreiben, was wir eigentlich wollen: dass wir aus jeder Menge einer Familie von Mengen ein Element auswählen können. In Worten ausgedrückt: Jede Familie von nicht-leeren Mengen besitzt eine Auswahlfunktion. Und Sie haben gesehen, das ist auch wieder äquivalent zu der Aussage, dass das kartesische Produkt nicht-leerer Mengen nicht leer ist.
 \end{spoken-clean}
@@ -211,6 +212,7 @@ Wie würden Sie es denn schreiben? Also ich\dots
 Einfach die Menge aller kleineren Ordinalzahlen. Also $\omega + 1$ ist die Menge aller kleineren Ordinalzahlen, also $0, 1, 2, 3, \dots$ und $\omega$.
 \end{student-interaction}
 
+\subsection{Nachfolger-Ordinalzahlen}
 \begin{spoken-clean}[00:16:22 - 00:17:11]
 Aber $\omega$ ist --- wie soll ich sagen --- die Menge aller kleineren Ordinalzahlen. Wenn Sie wollen --- das ist natürlich noch schwieriger zu beweisen, das haben wir hier einfach angenommen ---, sind diese alle bereits in $\omega$ enthalten. Macht das Sinn?
 
@@ -248,6 +250,7 @@ Jede Menge $A$ besitzt eine Wohlordnung. Das heißt, es existiert eine Relation 
 \]
 \end{math-stroke}
 
+\subsection{Grundidee des Beweises: AC \texorpdfstring{$\implies$}{implies} WOP}
 \begin{spoken-clean}[00:19:17 - 00:22:24]
 Und vielleicht einfach noch die Grundidee des Beweises --- und das ist auch ein Lemma, das wir später verwenden werden ---, das uns besagt, dass es für jede Menge eine Ordinalzahl und eine Bijektion zwischen dieser Ordinalzahl und der Menge gibt. Die wichtige Grundidee des Beweises ist also: Für jede Menge $M$ existiert eine Ordinalzahl $\lambda$ und eine Bijektion $w_\lambda \colon \lambda \to M$. Wenn wir eine solche Bijektion haben, erhalten wir natürlich sofort eine Wohlordnung auf der Menge $M$. Das ist die Grundidee.
 
@@ -390,6 +393,7 @@ V = \{v_\beta \mid \beta \in \lambda\} \quad \text{mit } v_\beta := w_\lambda(\b
 \]
 \end{math-stroke}
 
+\subsection{Beweisidee: Transfinite Konstruktion}
 \begin{spoken-clean}[00:39:55 - 00:42:10]
 \dots $V$ als Menge $\{v_\beta \mid \beta \in \lambda\}$. Das heißt, wir können die Elemente in $V$ durch die Ordinalzahlen $\beta$ indizieren. Nun gehen wir wie folgt vor: Wir beginnen mit der leeren Menge. Danach nehmen wir sukzessive Vektoren hinzu: Wir gehen zum nächsten Vektor, und wenn dieser linear unabhängig von denjenigen ist, die wir bereits ausgewählt haben, nehmen wir ihn dazu; ist er linear abhängig, lassen wir ihn weg.
 
@@ -410,6 +414,7 @@ Wir müssen nun rekursiv definieren, wie wir die jeweils nächste Menge konstrui
 Falls wir $\beta$ als Nachfolger einer Ordinalzahl schreiben können --- also $\beta = \delta + 1$ ---, dann betrachten wir $t(\delta)$ und fügen den Vektor $v_\delta$ hinzu, sofern dieser linear unabhängig von den bisherigen Vektoren ist. Das heißt, wir bilden $t(\delta) \cup \{v_\delta\}$, falls diese Menge linear unabhängig ist.
 \end{spoken-clean}
 
+\subsection{Definition der Rekursionsfunktion}
 \begin{spoken-clean}[00:43:40 - 00:45:50]
 Andernfalls, wenn die Menge linear abhängig wird, lassen wir sie einfach bei $t(\delta)$ --- also falls $\beta = \delta + 1$ und $t(\delta) \cup \{v_\delta\}$ linear abhängig ist. Das deckt den Fall ab, dass $\beta$ eine Nachfolger-Ordinalzahl ist.
 
@@ -428,6 +433,7 @@ t(\delta) & \text{falls } \beta = \delta + 1 \text{ und } t(\delta) \cup \{v_\de
 \end{equation}
 \end{math-stroke}
 
+\subsection{Konstruktion der Basis-Kandidatenmenge}
 \begin{spoken-clean}[00:45:50 - 00:48:05]
 Das ist unsere Rekursionsdefinition. Nach dem Satz über die transfinite Rekursion existiert nun eine eindeutige Funktion $a$ von $\lambda$ in diese Potenzmenge, sodass für alle $\beta \in \lambda$ gilt: $a(\beta) = f(a|_{\beta})$. Das ist genau das, was wir wollen.
 
@@ -445,7 +451,8 @@ B := \bigcup_{\beta \in \lambda} A_\beta.
 \end{equation}
 \end{math-stroke}
 
-\begin{spoken-clean}[00:48:05 - 00:49:55]
+\subsection{Beweis der Basiseigenschaften}
+\begin{spoken-clean}[00:48:05 - 00:50:20]
 Die Behauptung ist nun, dass $B$ tatsächlich eine Basis von $V$ bildet. Zunächst einmal ist $B$ linear unabhängig. Das kann man zeigen, indem man sieht: Wenn wir eine beliebige endliche Teilmenge von Vektoren in $B$ haben, dann müssen diese Vektoren alle in einer gemeinsamen Teilmenge $A_\beta$ enthalten sein. Da alle $A_\beta$ nach Konstruktion linear unabhängig sind, ist somit auch jede endliche Teilmenge von $B$ linear unabhängig. Das ist die Grundidee --- Sie können das bei Bedarf gerne noch im Detail selbst ausarbeiten.
 \end{spoken-clean}
 
@@ -693,6 +700,7 @@ P = \{p_\beta \mid \beta \in \lambda\}.
 \]
 \end{math-stroke}
 
+\subsection{Definition der Rekursionsfunktion für KZL}
 \begin{spoken-clean}[01:13:04 - 01:15:50]
 Nun wollen wir eine passende Rekursionsfunktion $f$ definieren. Wie üblich beginnen wir für $\beta = 0$ mit der leeren Menge: Wir setzen $f(t) = \emptyset$, falls $\beta = 0$ ist.
 
@@ -722,6 +730,7 @@ t(\delta) \cup \{p_\delta\} & \parbox{0.54\textwidth}{\raggedright falls $\beta 
 \end{equation}
 \end{math-stroke}
 
+\subsection{Konstruktion der Kette}
 \begin{spoken-clean}[01:18:35 - 01:21:38]
 Soweit zur Rekursionsdefinition. Wir fügen das jeweils nächste Element also genau dann hinzu, wenn es harmonisch in die Kette passt. Wir beginnen bei $0$, fügen ein Element hinzu, und wenn das nächste Element größer ist als die bisherigen, nehmen wir es auf; ist es nicht vergleichbar, lassen wir es weg. So erhalten wir eine wohldefinierte Kette.
 
@@ -746,6 +755,7 @@ Dies folgt direkt per transfiniter Induktion über die Konstruktion von $f(t)$ i
 \end{short-proof}
 \end{math-stroke}
 
+\subsection{Nachweis der Maximalität}
 \begin{spoken-clean}[01:21:38 - 01:24:00]
 Die zweite Behauptung ist nun, dass jede obere Schranke $m$ von $B$ ein maximales Element in $P$ sein muss. Das folgt im Wesentlichen direkt aus unserer Konstruktion: Angenommen, diese obere Schranke $m$ wäre nicht maximal. Dann müsste ein Element $p_\delta \in P$ existieren mit $m < p_\delta$.
 
@@ -771,6 +781,7 @@ Daraus schließen wir, dass die obere Schranke $m$ ein maximales Element der Men
 \end{short-proof}
 \end{math-stroke}
 
+\subsection{Teil 2: KZL \texorpdfstring{$\implies$}{implies} TP}
 \begin{spoken-clean}[01:24:00 - 01:26:34]
 Somit haben wir gezeigt, dass aus dem Wohlordnungsprinzip das Kuratowski-Zorn-Lemma folgt. Als Nächstes beweisen wir, dass das Kuratowski-Zorn-Lemma das Teichmüller-Prinzip impliziert (i.e., $\text{KZL} \implies \text{TP}$).
 
@@ -801,6 +812,7 @@ Nach dem Kuratowski-Zorn-Lemma (\cref{thm:kuratowski-zorn-lemma-actual}) besitzt
 \end{short-proof}
 \end{math-stroke}
 
+\subsection{Teil 3: TP \texorpdfstring{$\implies$}{implies} AC}
 \begin{spoken-clean}[01:26:34 - 01:28:40]
 Gut. Jetzt beweisen wir noch den letzten Schritt: dass das Teichmüller-Prinzip das Auswahlaxiom impliziert (i.e., $\text{TP} \implies \text{AC}$).
 
