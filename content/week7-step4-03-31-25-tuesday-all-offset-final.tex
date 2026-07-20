@@ -176,7 +176,7 @@ Der Grund, warum das viele Leute nicht so intuitiv finden, ist das Volumen. Wenn
 
 \section{Das Auswahlaxiom und seine Äquivalenzen}
 
-\subsection{Äquivalenzen zum Auswahlaxiom über ZF}
+\subsection{Äquivalenzen zum Auswahlaxiom}
 
 \begin{spoken-clean}[00:07:30 - 00:09:45]
 Das ist jetzt etwas, was Sie vermutlich nicht verwenden werden, aber was Sie verwenden werden, ist eine andere Sache. Ich mache dann alles formal, aber zuerst schreibe ich mal ein bisschen auf, was die Relevanz dieses Auswahlaxioms in der Realität ist. Die Details folgen dann. 
@@ -198,7 +198,7 @@ And dann gibt es noch das Dritte, was äquivalent über $\text{ZF}$ ist, nämlic
 Jeder Vektorraum besitzt also eine Basis. Vielleicht wird mein Kollege Urech noch etwas dazu sagen, wie man das beweist, oder es gibt vielleicht eine Übungsaufgabe dazu --- die gab es bei mir beim letzten Mal, als ich die Vorlesung gegeben habe. Wenn der Vektorraum endlichdimensional ist, dann können Sie die Basis konstruieren; das haben Sie vielleicht in der Linearen Algebra mit Hilfe von Induktion gemacht. Aber wenn der Vektorraum unendlichdimensional ist, dann wissen Sie a priori nicht, ob er eine Basis besitzt. Er besitzt sie eben nur wegen des Lemmas von Zorn --- oder Kuratowski-Zorn ---, was äquivalent zum Auswahlaxiom ist. Und das ist für mich ungefähr die Relevanz dieses Auswahlaxioms.
 \end{spoken-clean}
 
-\subsection{Formale Formulierung des Auswahlaxioms}
+\subsection{Das Auswahlaxiom}
 
 \begin{spoken-clean}[00:10:15 - 00:12:30]
 Okay, jetzt habe ich Ihnen hoffentlich ein bisschen einen Eindruck gegeben, was das ist und wozu es gut ist. Und jetzt mache ich es etwas genauer. Ich folge jetzt den Notizen, die ich damals geschrieben habe, und die sind im Internet. Vielleicht hat Herr Urech das angekündigt, und wenn nicht, können Sie diese in der Pause vielleicht mal suchen. Sie brauchen also jetzt nicht alles abzuschreiben, dazu gibt es ziemlich ausführliche Notizen. Hoffentlich stimmt die Nummerierung, das kann sich aber auch ändern.
@@ -314,11 +314,14 @@ Das heißt, das Neue ist gleich dem Alten, wenn Sie nur zwei Mengen haben. Wenn 
 \begin{math-stroke}[Spezialfall: Kartesisches Produkt zweier Mengen]
 Für den Spezialfall $I = \{0, 1\}$ erhalten wir das gewohnte kartesische Produkt zweier Mengen:
 \[
-X_0 \times X_1 \ni \langle x_0, x_1 \rangle \in \begin{pmatrix} 0 \mapsto x_0 \\ 1 \mapsto x_1 \end{pmatrix} \in \bigtimes_{i \in I=\{0,1\}} X_i
+X_0 \times X_1 \ni \langle x_0, x_1 \rangle \leftrightarrow \begin{pmatrix} 0 \mapsto x_0 \\ 1 \mapsto x_1 \end{pmatrix} \in \bigtimes_{i \in I=\{0,1\}} X_i
 \]
+\begin{ai-note}[Mathematische Zuordnung]
+Hier wird das geordnete Paar $\langle x_0, x_1 \rangle$ mit der Funktion $\begin{pmatrix} 0 \mapsto x_0 \\ 1 \mapsto x_1 \end{pmatrix}$ identifiziert ($\leftrightarrow$), anstatt eine Element-Beziehung ($\in$) zu verwenden, da die Funktion das Paar nicht als Element enthält, sondern das Paar repräsentiert.
+\end{ai-note}
 \end{math-stroke}
 
-\subsection{Umformulierung des Auswahlaxioms}
+\subsection{Das kartesische Produkt einer Familie von Mengen}
 
 \begin{spoken-clean}[00:17:30 - 00:19:30]
 Und jetzt können wir das Auswahlaxiom eben auch damit formulieren. In meinen Notizen schreibe ich dann noch mehr dazu, warum diese zwei Sachen genau zusammenhängen. Das können Sie sich gerne durchlesen. Jetzt kommt also die Umformulierung des Auswahlaxioms mittels dieses Produkts. Ich schreibe dafür jetzt $\text{AC}'$. Das ist folgende Formel respektive folgender Satz: Für alle $I$ --- also Indexmengen ---, für alle geschweiften $\mathcal{X}$ und für alle großen $X$ --- das waren diese Abbildungen von der Indexmenge nach dem geschweiften $\mathcal{X}$ --- gilt Folgendes: Wenn für alle Indizes die Menge $X_i$ nicht leer ist, dann ist das kartesische Produkt der $X_i$ nicht leer.
@@ -386,7 +389,7 @@ Hat man unendlich viele Paar Schuhe, braucht man kein Auswahlaxiom, um aus jedem
 
 \section{Wohlordnungsprinzip und Ordinalzahlen}
 
-\subsection{Das Wohlordnungsprinzip}
+\subsection{Wohlordnungen}
 
 \begin{spoken-clean}[00:22:30 - 00:25:00]
 Jetzt möchte ich erklären, was das Wohlordnungsprinzip besagt, und dafür brauche ich folgende Definition. Ich führe hier noch eine kleine Notation ein. Sei $<$ eine binäre Relation auf einer Menge $A$. Das heißt, das hier ist eine Teilmenge von $A \times A$. $A \times A$ ist immer noch das kartesische Produkt der Menge mit sich selber --- das alte mit diesen Paaren. Jetzt folgt die Definition, was es bedeutet, dass das hier eine Wohlordnung ist. Ich nenne die Relation jetzt nicht groß $R$, sondern einfach $<$; das darf man ja, oder?
@@ -425,6 +428,8 @@ Sei $<$ eine binäre Relation auf einer Menge $A$, d.h. $< \subseteq A \times A$
 Das \newterm{Wohlordnungsprinzip} ($\text{WOP}$) besagt: Auf jeder Menge $A$ gibt es eine Wohlordnung.
 \end{definition}
 \end{math-stroke}
+
+\subsection{Das Wohlordnungsprinzip}
 
 \begin{spoken-clean}[00:25:00 - 00:26:30]
 In meinen Notizen stehen dann auch noch ein paar Bemerkungen, die jetzt nicht so wichtig sind. Das Wohlordnungsprinzip, $\text{WOP}$, hat den Status eines Axioms, okay? Nicht eines Theorems, sondern eines Axioms. Das Wohlordnungsprinzip besagt: Jede Menge kann wohlgeordnet werden. Auf jeder Menge $A$ gibt es also eine Wohlordnung. Ich möchte jetzt erklären, warum dieses Wohlordnungsprinzip äquivalent zum Auswahlaxiom ist. Das ist das Ziel dieser Vorlesung. Es gibt ein Theorem, das besagt, dass diese beiden über Zermelo-Fraenkel äquivalent sind. Wenn Sie also zusätzlich Zermelo-Fraenkel annehmen, kann man das eine aus dem anderen herleiten.
@@ -506,7 +511,7 @@ $\alpha$ ist eine \newterm{Ordinalzahl} $\iff$
 \end{definition}
 \end{math-stroke}
 
-\subsection{Eigenschaften der Ordinalzahlklasse}
+\subsection{Die Klasse der Ordinalzahlen}
 
 \begin{spoken-clean}[00:30:10 - 00:31:29]
 Und dann definiere ich groß $\Omega$ als die Klasse aller Ordinalzahlen. Haben Sie bei Herrn Urech gehört, dass es einen Unterschied zwischen Klasse und Menge gibt? Nein? Also, ich mache hier geschweifte Klammern und lese das als Klasse. Formal gesehen gibt es das in Zermelo-Fraenkel nicht. In Zermelo-Fraenkel gibt es formal nur Mengen. Alles, was einen Variablennamen trägt --- ein $x$, ein $y$ oder dieses geschweifte $\mathcal{X}$ ---, wird als Menge interpretiert.
@@ -563,6 +568,8 @@ $\omega$ ist nämlich auch eine Ordinalzahl. Dass es transitiv ist, ist einfach 
 Es hört aber nicht bei unendlich auf, also bei $\omega$, sondern es geht noch viel weiter. Es gibt dann eben $\omega + 1$. Das ist der Nachfolger von $\omega$. Das haben Sie gebraucht, um die Menge der natürlichen Zahlen zu definieren --- dieses Symbol $S$ für \qt{successor}. Der Nachfolger ist die Menge $\omega$ vereinigt mit der Menge, die genau $\omega$ enthält. Wir tun also einfach $\omega$ noch als Element dazu. Das ist auch eine Ordinalzahl, das kann man sich überlegen. Insbesondere ist dieses Element hier eine Teilmenge davon, weil ja da wieder $\omega$ steht. Es ist also auch eine Teilmenge.
 \end{spoken-clean}
 
+\subsection{Unendliche Ordinalzahlen}
+
 \begin{spoken-clean}[00:34:45 - 00:36:15]
 Nach $\omega + 1$ kommt $\omega + 2$, sprich $\omega + 1 + 1$. Wir machen das Spielchen einfach nochmals: $S(S(\omega))$ und so weiter. Irgendwann kommt dann mal $\omega + \omega$. Bei mir war das eine Übungsaufgabe zu zeigen, dass das eine wohldefinierte Menge ist. Zuerst muss man definieren, was man meint. Man braucht das Ersetzungsaxiom, um zu zeigen, dass das sinnvoll ist oder um es überhaupt zu definieren. Das schreibt man dann als $\omega \cdot 2$.
 
@@ -588,6 +595,8 @@ $\omega$ ist eine Ordinalzahl. Wir können weitere Ordinalzahlen durch die Nachf
 \end{align*}
 \end{remark}
 \end{math-stroke}
+
+\subsection{Eigenschaften der Klasse der Ordinalzahlen}
 
 \begin{spoken-clean}[00:36:15 - 00:37:50]
 Um das zu erklären, brauche ich ein Theorem. Dieses Theorem besagt unter anderem, dass dieses groß $\Omega$ formal gesehen fast wie eine Ordinalzahl wirkt. In Zermelo-Fraenkel gilt nämlich Folgendes: Teil 1 besagt, dass für jedes $\alpha \in \Omega$ --- für jede Ordinalzahl --- gilt: $\alpha$ ist die leere Menge, oder die leere Menge ist ein Element von $\alpha$. Teil 2 besagt: Für alle $\alpha \in \beta$, wobei $\beta$ eine Ordinalzahl ist, gilt, dass $\alpha$ auch eine Ordinalzahl ist. Wenn ich also ein Element einer Ordinalzahl habe, ist es selbst auch eine Ordinalzahl. Teil 3 ist die Trichotomie: Für alle $\alpha$ und $\beta$ in $\Omega$ gilt entweder $\alpha \in \beta$, oder $\alpha = \beta$, oder $\beta \in \alpha$.
@@ -621,7 +630,7 @@ $\Omega$ ist keine Menge.
 \end{remark}
 \end{math-stroke}
 
-\subsection{Beweis: Auswahlaxiom impliziert Wohlordnungsprinzip}
+\subsection{Hilfssatz und Pushforward einer Relation}
 
 \begin{spoken-clean}[00:39:25 - 00:40:50]
 Jetzt kommt ein Hilfssatz. Ich möchte immer noch zeigen, dass das Auswahlaxiom über Zermelo-Fraenkel das Wohlordnungsprinzip impliziert. Dazu brauche ich diesen Hilfssatz. In Zermelo-Fraenkel impliziert das Auswahlaxiom, dass es für jede Menge $A$ eine Ordinalzahl $\alpha$ und eine Bijektion von $\alpha$ nach $A$ gibt. Das ist der Hauptknackpunkt am ganzen Beweis. Wenn man das hat, geht es relativ schnell. Und das Schnelle mache ich jetzt vor. Okay?
@@ -818,6 +827,8 @@ Was ich jetzt noch tun möchte, ist, das Kuratowski-Zorn-Lemma zu erklären. Ich
 Da geht es um eine halbgeordnete Menge. Wir brauchen also den Begriff der Halbordnung. Ich mache das im schwachen Sinn, also mit $\le$, nicht mit $<$. Das beinhaltet Transitivität und Antisymmetrie: $x \le y$ und $y \le x$ impliziert $x = y$. Auf dieser halbgeordneten Menge hat man dann folgende Annahme: Immer wenn Sie eine Kette darin haben --- das ist eine linear geordnete Teilmenge ---, gibt es eine obere Schranke. Die Aussage des Zornschen Lemmas ist dann, dass die Menge ein maximales Element besitzt. Und dieses maximale Element ist dann zum Beispiel Ihre Basis des Vektorraums. So wenden Sie es an.
 \end{spoken-clean}
 
+\subsection{Halbordnungen und Ketten}
+
 \begin{spoken-clean}[00:56:40 - 00:58:40]
 Also, Kuratowski-Zorn-Lemma. Das hat wieder den Status eines Axioms; das Wort \qt{Lemma} sollte man sich also in Anführungszeichen denken. Ich brauche dafür den Begriff einer Halbordnung. Eine schwache oder nicht-strikte Halbordnung auf einer Menge $P$ --- $P$ steht für \qt{partial} --- ist eine binäre Relation $\le$ auf $P$ mit den folgenden Eigenschaften: Reflexivität hatte ich vorhin vergessen zu erwähnen, also $x \le x$ für jedes $x \in P$. Dann die Antisymmetrie, das ist das, was ich vorhin gesagt habe: Für alle $x, y \in P$ gilt, wenn $x \le y$ und $y \le x$, dann ist $x = y$. Und dann gibt es noch die Transitivität wie immer: Für alle $x, y, z \in P$ gilt, wenn $x \le y$ und $y \le z$, dann ist $x \le z$.
 
@@ -846,10 +857,12 @@ Eine \newterm{Kette} in $P$ ist eine Teilmenge $C \subseteq P$, sodass $\le$ ein
 \end{definition}
 \end{math-stroke}
 
+\subsection{Obere Schranken und maximale Elemente}
+
 \begin{spoken-clean}[00:58:40 - 01:00:40]
 Eine obere Schranke ist genau das, was sie sein soll: Eine obere Schranke für eine Teilmenge von $P$ ist ein Element $x \in P$, sodass für alle $y$ in dieser Teilmenge gilt: $y \le x$. Jedes Element ist kleiner oder gleich der oberen Schranke. Okay, das haben wir jetzt auch definiert.
 
-Dann gibt es den Begriff eines maximalen Elementes. Ein $x \in P$ heißt maximal genau dann, wenn für alle $y \in P$ gilt: Falls $y \ge x$, dann ist $y = x$. Es gibt also kein größeres Element. Das heißt aber nicht, dass dieses $x$ größer oder gleich jedem anderen Element ist! Das ist nicht so. Es gibt einfach nur kein Element, das strikt größer ist. Das ist ein wichtiger Punkt: Weil wir hier nur eine halbgeordnete Menge haben, spielt das eine Rolle. Bei einer Wohlordnung spielte das keine Rolle, aber hier eben schon. In meinen Notizen habe ich noch Bemerkungen dazu gemacht, die lese ich jetzt nicht vor.
+Dann gibt es den Begriff eines maximales Elementes. Ein $x \in P$ heißt maximal genau dann, wenn für alle $y \in P$ gilt: Falls $y \ge x$, dann ist $y = x$. Es gibt also kein größeres Element. Das heißt aber nicht, dass dieses $x$ größer oder gleich jedem anderen Element ist! Das ist nicht so. Es gibt einfach nur kein Element, das strikt größer ist. Das ist ein wichtiger Punkt: Weil wir hier nur eine halbgeordnete Menge haben, spielt das eine Rolle. Bei einer Wohlordnung spielte das keine Rolle, aber hier eben schon. In meinen Notizen habe ich noch Bemerkungen dazu gemacht, die lese ich jetzt nicht vor.
 \end{spoken-clean}
 
 \begin{math-stroke}[Obere Schranke und maximales Element]
@@ -868,6 +881,8 @@ Ein Element $x \in P$ heißt \newterm{maximal} $\iff$
 \end{definition}
 \end{math-stroke}
 
+\subsection{Formulierung des Kuratowski-Zorn-Lemmas}
+
 \begin{spoken-clean}[01:00:40 - 01:02:40]
 Und jetzt kommt das Kuratowski-Zorn-Lemma. Das kann ich jetzt formulieren: Sei $(P, \le)$ eine halbgeordnete Menge, und zwar so, dass für jede Kette $C$ in $P$ eine obere Schranke existiert. Dann besitzt $P$ ein maximales Element.
 \end{spoken-clean}
@@ -877,6 +892,8 @@ Und jetzt kommt das Kuratowski-Zorn-Lemma. Das kann ich jetzt formulieren: Sei $
 Sei $(P, \le)$ eine Halbordnung, sodass für jede Kette $C \subseteq P$ eine obere Schranke existiert. Dann besitzt $P$ ein maximales Element.
 \end{theorem}
 \end{math-stroke}
+
+\subsection{Äquivalenz der Axiome}
 
 \begin{spoken-clean}[01:02:40 - 01:04:40]
 Es gilt nun folgendes Theorem: In $\text{ZF}$ sind äquivalent: erstens das Auswahlaxiom, zweitens das Wohlordnungsprinzip und drittens das Kuratowski-Zorn-Lemma. Dass die ersten beiden äquivalent sind, habe ich gerade bewiesen. Es ginge jetzt noch darum zu zeigen, dass das Auswahlaxiom und das Lemma von Zorn äquivalent sind. Damit werde ich jetzt aber wahrscheinlich nicht mehr anfangen, weil ich mir die Notizen dafür nicht ausgedruckt habe. Ich dachte nicht, dass ich so schnell bin.
@@ -930,6 +947,8 @@ Dazu gibt es noch eine kleine Anekdote. Der amerikanische Mathematiker Bona sagt
 \end{quote}
 Diese berühmte Anekdote illustriert die psychologische Wahrnehmung der drei mathematisch äquivalenten Aussagen: Während das Auswahlaxiom intuitiv selbstverständlich erscheint, wirkt das Wohlordnungsprinzip (wonach z.\,B. auch die reellen Zahlen $\mathbb{R}$ wohlgeordnet werden können, ohne dass man eine solche Wohlordnung explizit angeben kann) völlig kontraintuitiv. Das Lemma von Zorn hingegen ist so komplex formuliert, dass sich jegliche unmittelbare Intuition entzieht.
 \end{didactic-insight}
+
+\subsection{Satz von Tarski}
 
 \begin{spoken-clean}[01:08:40 - 01:10:40]
 Es gibt noch eine andere Anekdote, und zwar geht es da um einen Satz von Tarski. Tarski versuchte, Folgendes in einer Zeitschrift einzureichen: Er wollte zeigen, dass aus dem Auswahlaxiom folgt, dass es für jede unendliche Menge $A$ eine Bijektion zwischen $A$ und dem kartesischen Produkt von $A$ mit sich selber gibt.

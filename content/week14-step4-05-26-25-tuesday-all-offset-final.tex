@@ -272,7 +272,7 @@ Der Beweis der Eindeutigkeit verläuft vollkommen analog zum Fall der ganzen Zah
 \section{Teilbarkeit und der grösste gemeinsame Teiler}
 
 \begin{math-stroke}[Teilbarkeit in K[x]]
-\begin{definition}[Teilbarkeit]\label[definition]{def:teilbarkeit}
+\begin{definition}[Teilbarkeit]\label[definition]{def:teilbarkeit-polynom}
 Seien $f, g \in K[x]$. Wir sagen $g$ \newterm{teilt} $f$ (oder $g$ ist ein \newterm{Teiler} von $f$), falls ein Polynom $h \in K[x]$ existiert, sodass:
 \[
 f = g \cdot h.
@@ -325,7 +325,7 @@ Der größte gemeinsame Teiler ist eindeutig bestimmt, wenn wir zusätzlich ford
 \subsection{Der euklidische Algorithmus für Polynome}
 
 \begin{spoken-clean}[00:30:06 - 00:31:36]
-Gut, und als weitere Bemerkung --- was ich jetzt hier nicht im Detail vorrechne ---: Man kann genau dasselbe machen wie in $\mathbb{Z}$ mit dem euklidischen Algorithmus. Auch in diesem Fall (Polynomring) kann man den euklidischen Algorithmus anwenden, um den $\operatorname{ggT}$ sowie die Bézout-Koeffizienten $A$ und $B$ zu bestimmen. Also...
+Gut, und als weitere Bemerkung --- was ich jetzt hier nicht im Detail vorrechne ---: Man kann genau dasselbe machen wie in $\mathbb{Z}$ mit dem euklidischen Algorithmus. Auch in diesem Fall (Polynomring) kann man den euklidischen Algorithmus (\cref{thm:euclid-correctness}) anwenden, um den $\operatorname{ggT}$ sowie die Bézout-Koeffizienten $A$ und $B$ zu bestimmen. Also...
 \end{spoken-clean}
 
 \begin{math-stroke}[Euklidischer Algorithmus für Polynome]
@@ -364,7 +364,7 @@ Der Dozent wischt die linke und mittlere Tafel, um Platz für die nächsten Sät
 \subsection{Primfaktorzerlegung in \texorpdfstring{$K[x]$}{K[x]}}
 
 \begin{spoken-clean}[00:35:30 - 00:38:02]
-Satz: Jedes Polynom ungleich null lässt sich als Produkt von irreduziblen Polynomen schreiben. Das ist genau das Analogon zum Hauptsatz der Arithmetik, den wir für die ganzen Zahlen gesehen haben. 
+Satz: Jedes Polynom ungleich null lässt sich als Produkt von irreduziblen Polynomen schreiben. Das ist genau das Analogon zum Hauptsatz der Arithmetik (\cref{thm:hauptsatz-der-arithmetik}), den wir für die ganzen Zahlen gesehen haben. 
 
 Wenn wir ein Polynom $f \neq 0$ haben, dann existieren ein $k \ge 0$, irreduzible, normierte Polynome $p_1, \dots, p_k$ und eine Konstante $c \in K^*$, sodass $f = c \cdot p_1 \cdot p_2 \cdots p_k$ ist. Diese Darstellung ist eindeutig bis auf die Reihenfolge der Faktoren.
 \end{spoken-clean}
@@ -382,7 +382,7 @@ Diese Darstellung ist eindeutig bis auf die Reihenfolge der Faktoren $p_1, \dots
 \subsection{Charakterisierung irreduzibler Polynome}
 
 \begin{spoken-clean}[00:38:02 - 00:39:47]
-Das Nächste, was wir haben, ist das Analogon zum Lemma von Euklid. Es besagt: Wenn ein irreduzibles Polynom ein Produkt teilt, dann muss es bereits mindestens einen der Faktoren teilen. 
+Das Nächste, was wir haben, ist das Analogon zum Lemma von Euklid (\cref{prop:lemma-von-euklid}). Es besagt: Wenn ein irreduzibles Polynom ein Produkt teilt, dann muss es bereits mindestens einen der Faktoren teilen. 
 
 Seien $f, g \in K[x]$ und $p$ ein nicht-konstantes Polynom. Dann sind folgende Aussagen äquivalent: Erstens, $p$ ist irreduzibel; und zweitens, falls $p \mid (f \cdot g)$, dann gilt $p \mid f$ oder $p \mid g$.
 \end{spoken-clean}
@@ -435,7 +435,7 @@ Wir können dann die Menge der Äquivalenzklassen betrachten. Wir bezeichnen die
 \end{spoken-clean}
 
 \begin{math-stroke}[Äquivalenzrelation und Restklassen]
-\begin{proposition}[Kongruenz als Äquivalenzrelation]\label[proposition]{prop:kongruenz-aequivalenzrelation}
+\begin{proposition}[Kongruenz als Äquivalenzrelation]\label[proposition]{prop:kongruenz-polynom-aequivalenz}
 Die Relation der Kongruenz modulo $f$ ist eine Äquivalenzrelation auf $K[x]$.
 \end{proposition}
 
@@ -454,7 +454,7 @@ Wir müssen natürlich zeigen, dass dies wohldefiniert ist --- das heißt, unabh
 \begin{definition}[Restklassenring]\label[definition]{def:restklassenring-polynom}
 Die Menge der Äquivalenzklassen bezüglich der Kongruenz modulo $f$ wird mit $K[x]/\langle f \rangle$ (oder auch $K[x]/(f)$) bezeichnet. Die Elemente heißen \newterm{Restklassen} und werden geschrieben als:
 \[
-[a] := a + \langle f \rangle := \{ b \in K[x] \mid b \equiv a \pmod f \ }.
+[a] := a + \langle f \rangle := \{ b \in K[x] \mid b \equiv a \pmod f \}.
 \]
 Wir definieren auf $K[x]/\langle f \rangle$ eine Addition und eine Multiplikation durch:
 \begin{align*}
@@ -471,7 +471,7 @@ Die Addition und Multiplikation auf $K[x]/\langle f \rangle$ sind wohldefiniert,
 \begin{ai-global-state-checkpoint-invisible-content}
 % timestamp: 00:19:00
 % topic: Restklassenring K[x]/(f) und Wohldefiniertheit
-% board_state: def:kongruenz-polynom, prop:kongruenz-aequivalenzrelation, def:restklassenring-polynom
+% board_state: def:kongruenz-polynom, prop:kongruenz-polynom-aequivalenz, def:restklassenring-polynom
 % next_goal: Repräsentantensystem mittels Division mit Rest bestimmen
 % open_loops: none
 \end{ai-global-state-checkpoint-invisible-content}
@@ -561,15 +561,11 @@ Somit ist $[A]$ das multiplikative Inverse von $[a]$ in $K[x]/\langle f \rangle$
 % open_loops: none
 \end{ai-global-state-checkpoint-invisible-content}
 
-\subsection{Konstruktion des endlichen Körpers \texorpdfstring{$\mathbb{F}_4$}{F4}}
+\subsection{Konstruktion und Eigenschaften des endlichen Körpers \texorpdfstring{$\mathbb{F}_4$}{F4}}
 
-\begin{spoken-clean}[00:57:19 - 00:57:34]
+\begin{spoken-clean}[00:57:19 - 00:58:57]
 Schauen wir uns ein konkretes Beispiel an: Wir nehmen den Körper mit zwei Elementen, $\mathbb{F}_2$, und das Polynom $f(x) = x^2 + x + 1$. Das ist ein Polynom vom Grad $2$. Wir können leicht prüfen, ob es irreduzibel ist. Da es Grad $2$ hat, ist es genau dann reduzibel, wenn es eine Nullstelle in $\mathbb{F}_2$ hat. Aber $f(0) = 1 \neq 0$ und $f(1) = 1 \neq 0$. Also hat es keine Nullstelle und ist irreduzibel.
-\end{spoken-clean}
 
-\subsection{Eigenschaften des Körpers \texorpdfstring{$\mathbb{F}_4$}{F4}}
-
-\begin{spoken-clean}[00:57:34 - 00:58:57]
 Wir arbeiten also über dem Körper mit zwei Elementen. Dass dieses Polynom irreduzibel ist, können Sie als kleine Übung selbst zeigen. Das ist nicht schwierig: Da es Grad $2$ hat, müsste es, wenn es nicht irreduzibel wäre, ein Produkt von zwei Polynomen von Grad $1$ sein. Wir kennen die Polynome von Grad $1$ über $\mathbb{F}_2$ --- da gibt es nicht sehr viele, die kann man alle einfach durchmultiplizieren.
 
 Man kann auch einfach prüfen, dass es keine Nullstelle in $\mathbb{F}_2$ hat, das ist also sehr einfach. Für Polynome von hohem Grad ist es manchmal schwieriger zu zeigen, dass sie irreduzibel sind, aber hier ist es extrem einfach.

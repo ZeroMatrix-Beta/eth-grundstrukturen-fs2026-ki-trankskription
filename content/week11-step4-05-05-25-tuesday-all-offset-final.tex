@@ -108,10 +108,10 @@ Der Graph der Königsberger Brücken wäre also ein Beispiel für einen Graphen,
 Das historische Königsberger Brückenproblem (gelöst von Leonhard Euler im Jahr 1736) gilt als die Geburtsstunde der Graphentheorie. Die Frage war, ob man einen Spaziergang durch die Stadt Königsberg so planen kann, dass man jede der sieben Brücken genau einmal überquert und am Ende wieder am Ausgangspunkt ankommt. Euler abstrahierte die Stadtteile als Knoten und die Brücken als Kanten und zeigte, dass dies unmöglich ist, da nicht alle Knoten einen geraden Grad besitzen.
 \end{didactic-insight}
 
-\subsection{Der Satz von Euler}
+\subsection{Zusammenhang und der Satz von Euler}
 
 \begin{spoken-clean}[00:06:45 - 00:08:55]
-Und das können wir hier noch mit dieser Proposition abschließen --- das ist die Proposition 9.3. Sie besagt, dass ein endlicher, ungerichteter, zusammenhängender Graph $G$ --- zusammenhängend haben wir, glaube ich, noch nicht definiert, aber das heißt einfach genau das, was man denkt: Wenn man je zwei beliebige Knoten nimmt, dann existiert ein Kantenzug zwischen ihnen, man kann also je zwei Knoten verbinden --- genau dann ein Euler-Graph ist, wenn jeder Knoten von $G$ einen geraden Grad hat.
+Und das können wir hier noch mit dieser Proposition abschließen --- das ist der Satz von Euler (\cref{prop:satz-von-euler}). Sie besagt, dass ein endlicher, ungerichteter, zusammenhängender Graph $G$ --- zusammenhängend haben wir, glaube ich, noch nicht definiert, aber das heißt einfach genau das, was man denkt: Wenn man je zwei beliebige Knoten nimmt, dann existiert ein Kantenzug zwischen ihnen, man kann also je zwei Knoten verbinden --- genau dann ein Euler-Graph ist, wenn jeder Knoten von $G$ einen geraden Grad hat.
 \end{spoken-clean}
 
 \begin{math-stroke}
@@ -283,6 +283,8 @@ Für gerichtete Graphen gilt ein analoges Resultat (siehe Proposition 9.16 im Sk
 
 \section{Das Dominoproblem}
 
+\subsection{Das Dominoproblem und seine mathematische Modellierung}
+
 \begin{spoken-clean}[00:20:20 - 00:22:30]
 Kommen wir nun zu einer netten kleinen Anwendung dieses Satzes auf ein Problem aus dem Alltag: dem Dominoproblem. Ich weiß nicht, ob Sie heute noch oft Domino spielen, aber betrachten wir folgendes Szenario: Wir haben ein Dominospiel mit den Augenzahlen $0$ bis $16$ und den entsprechenden Dominosteinen.
 
@@ -448,6 +450,8 @@ Die Lösbarkeit des Dominoproblems hängt entscheidend von der Parität der maxi
 % --- TEIL 2 ---
 
 \section{Hamilton-Kreise und Hamilton-Graphen}
+
+\subsection{Hamilton-Graphen und Hamilton-Kreise}
 
 \begin{spoken-clean}[00:31:34 - 00:32:29]
 Soweit klar? Gibt es noch Fragen dazu? Gut. 
@@ -868,6 +872,8 @@ Das bedeutet, wir identifizieren die $2^k$ Ecken des $k$-dimensionalen Würfels 
 Wir identifizieren die $2^k$ Ecken des $k$-dimensionalen Würfels mit binären Wörtern der Länge $k$, also mit den Elementen aus $\{0, 1\}^k$. Zwei Wörter $a, b \in \{0, 1\}^k$ sind genau dann durch eine Kante verbunden, wenn sie sich in exakt einer Stelle unterscheiden.
 \end{spoken-clean}
 
+\subsection{Gray-Codes}
+
 \begin{spoken-clean}[00:43:45 - 00:46:50]
 Wir wollen zeigen, dass eine solche zyklische Folge existiert, bei der sich von Schritt zu Schritt immer nur ein einziges Bit ändert und wir am Ende wieder beim Startwort ankommen. Eine solche Folge nennt man einen Gray-Code.
 
@@ -925,6 +931,8 @@ Wir führen den Beweis per vollständiger Induktion nach der Dimension $k$:
 \end{itemize}
 \end{math-stroke}
 \end{proof}
+
+\subsection{Der vierdimensionale Hyperwürfel}
 
 \begin{spoken-clean}[00:52:40 - 00:54:38]
 Das ist ein weiteres schönes Beispiel für Hamilton-Graphen. Solche Hyperwürfel bekommen sehr schnell extrem viele Ecken und Kanten: Ein eindimensionaler Würfel hat $2$ Ecken, ein zweidimensionaler $4$, ein dreidimensionaler $8$, und der vierdimensionale Würfel besitzt bereits $16$ Ecken. Das ist geometrisch nicht mehr ganz so einfach zu visualisieren, aber es ist bereits ein recht großer Graph.
@@ -1106,6 +1114,8 @@ Das ist natürlich nicht Teil dieser Vorlesung, aber es war für einige Jahre me
 \end{spoken-clean}
 
 \section{Bipartite Graphen}
+
+\subsection{Das Konzept bipartiter Graphen}
 
 \begin{spoken-clean}[00:56:52 - 00:58:30]
 Als letztes Thema für heute möchte ich mit Ihnen den sogenannten Heiratssatz besprechen --- auch wenn der Name historisch gesehen etwas unglücklich gewählt ist.
@@ -1312,6 +1322,8 @@ Anschaulich bedeutet das: Auf der einen Seite haben wir die Knotenmenge $U$, auf
 \end{math-stroke}
 
 \section{Der Heiratssatz von Hall}
+
+\subsection{Der Heiratssatz von Hall}
 
 \begin{spoken-clean}[01:04:39 - 01:05:58]
 Es geht dabei um folgendes Problem, das ich Ihnen kurz erklären möchte. Ich werde gar nicht erst versuchen zu begründen, weshalb dieses Resultat historisch 'Heiratssatz' genannt wurde --- denn diese Namensgebung beruht auf völlig veralteten, heteronormativen und binären Vorstellungen, die wir hier gar nicht weiter betrachten wollen. Der Satz stammt schließlich aus den 1950er Jahren.

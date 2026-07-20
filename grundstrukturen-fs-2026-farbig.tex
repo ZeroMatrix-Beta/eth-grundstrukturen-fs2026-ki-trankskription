@@ -129,11 +129,11 @@
 \colorlet{SecTitleColor}{ThemePrimary}
 \colorlet{SecTitleColorProof}{SecTitleColor!50!ProofTint}
 
-\colorlet{SubSecBar1}{TextBoldColor}
-\colorlet{SubSecBar2}{TextBoldColor!70!white}
+\colorlet{SubSecBar1}{ThemePrimary}
+\colorlet{SubSecBar2}{ThemePrimary!70!white}
 \colorlet{SubSecBar1Proof}{SubSecBar1!50!ProofTint}
 \colorlet{SubSecBar2Proof}{SubSecBar2!50!ProofTint}
-\colorlet{SubSecTitleColor}{TextBoldColor}
+\colorlet{SubSecTitleColor}{ThemePrimary}
 \colorlet{SubSecTitleColorProof}{SubSecTitleColor!50!ProofTint}
 
 \colorlet{SubSubSecBar1}{TextBoldColor}
@@ -204,8 +204,8 @@ bookmarksopen=true
 % --- CLEAN SHADOW BREAKS & SPACING ---
 \tcbset{
   every box/.append style={
-    before skip=16pt plus 4pt minus 2pt, 
-    after skip=16pt plus 4pt minus 2pt,  
+    before skip=8pt plus 2pt minus 2pt, 
+    after skip=8pt plus 2pt minus 2pt,  
     underlay first={
       \fill[white] ([xshift=-15pt,yshift=0pt]frame.south west) rectangle ([xshift=15pt,yshift=-15pt]frame.south east);
     },
@@ -747,11 +747,11 @@ breakable
 
 % SHORT PROOF 
 \newenvironment{short-proof}[1][Beweis]{
-    \par\addvspace{2ex plus 0.5ex minus 0.2ex}
+    \par\addvspace{1.2ex plus 0.3ex minus 0.2ex}
     \insideprooftrue 
     \noindent\textcolor{ProofTint}{\faPenNib}\hspace{0.5em}%
     {\normalfont\sffamily\bfseries\color{ProofTint}#1}%
-    \par\nobreak\vspace{1ex plus .2ex}\vspace{-\parskip}
+    \par\nobreak\vspace{0.6ex plus .1ex}\vspace{-\parskip}
     \@afterindentfalse\@afterheading
 }{
     \unskip\nobreak\hfill\penalty50\hskip2em\null\nobreak\hfill
@@ -761,11 +761,11 @@ breakable
 
 % LONG PROOF 
 \renewenvironment{proof}[1][Beweis]{
-    \par\addvspace{3.5ex plus 1ex minus .2ex}
+    \par\addvspace{1.8ex plus 0.5ex minus 0.2ex}
     \insideprooftrue 
     \noindent\makebox[0pt][r]{\textcolor{ProofTint}{\faPenNib}\hspace{10pt}}%
-    {\normalfont\sffamily\Large\bfseries\color{ProofTint}#1}%
-    \par\nobreak\vspace{1.5ex plus .2ex}\vspace{-\parskip}
+    {\normalfont\sffamily\large\bfseries\color{ProofTint}#1}%
+    \par\nobreak\vspace{0.8ex plus .1ex}\vspace{-\parskip}
     \@afterindentfalse\@afterheading
 }{
     \unskip\nobreak\hfill\penalty50\hskip2em\null\nobreak\hfill
@@ -966,8 +966,8 @@ breakable
 
 \include{content/week6-step4-03-24-25-tuesday-all-offset-final.tex}
 
- \include{content/week7-step4-03-31-25-tuesday-all-offset-final.tex}
-\include{content/week77-step4-03-31-25-tuesday-all-offset-final.tex}
+\include{content/week7-step4-03-31-25-tuesday-all-offset-final.tex}
+
 
 % Easter Break
 
@@ -983,7 +983,7 @@ breakable
 
 \include{content/week13-step4-05-19-25-tuesday-all-offset-copy-1-offset-final-copy1.tex}
 
-\include{content/week14-step4-05-26-25-tuesday-all-offset-final-copy4.tex}
+\include{content/week14-step4-05-26-25-tuesday-all-offset-final.tex}
 
 
 \end{document}

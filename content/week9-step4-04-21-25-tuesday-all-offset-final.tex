@@ -82,6 +82,8 @@ Georg Cantors Entdeckung, dass Unendlichkeit nicht gleich Unendlichkeit ist (z.B
 
 \section{Einführung in die Kardinalzahlen}
 
+\subsection{Gleichmächtigkeit von Mengen}
+
 \begin{spoken-clean}[00:15:23 - 00:17:00]
 Kurze Zeit später wurde seine Theorie dann aber sehr schnell anerkannt --- unter anderem von Hilbert ---, und auch viele seiner früheren Kritiker sahen bald ein, dass diese Mathematik von fundamentaler Bedeutung und nicht mehr wegzudenken ist.
 
@@ -132,6 +134,8 @@ Die Gleichmächtigkeit verhält sich wie eine Äquivalenzrelation auf der Klasse
 \end{enumerate}
 \end{remark}
 \end{math-stroke}
+
+\subsection{Vergleich von Kardinalitäten}
 
 \begin{spoken-clean}[00:18:44 - 00:23:33]
 Und genau, und in der heutigen Mathematik ist auch noch mehr Notation üblich: Falls es eine injektive Abbildung von $B$ nach $A$ gibt, so schreiben wir, dass die Kardinalität von $B$ kleiner gleich der Kardinalität von $A$ ist. Das bedeutet anschaulich, dass $B$ gleichmächtig zu einer Teilmenge von $A$ ist.
@@ -477,7 +481,7 @@ Das ist in der Praxis natürlich äußerst praktisch, um zu zeigen, dass zwei Me
 \end{spoken-clean}
 
 \subsection{Beweis des Cantor-Bernstein-Schröder-Theorems}
-\begin{math-stroke}[Beweis des Cantor-Bernstein-Schröder-Theorems]
+\begin{math-stroke}
 \begin{short-proof}
 Seien $\textcolor{RoyalBlue}{f} \colon \textcolor{ForestGreen}{A} \to \textcolor{BrickRed}{B}$ und $\textcolor{BurntOrange}{g} \colon \textcolor{BrickRed}{B} \to \textcolor{ForestGreen}{A}$ injektive Abbildungen.
 Wir definieren rekursiv eine Folge von Teilmengen von $\textcolor{ForestGreen}{A}$:
@@ -817,6 +821,8 @@ Die \newterm{Kardinalität} (oder Mächtigkeit) $|M|$ einer Menge $M$ ist die kl
 \end{definition}
 \end{math-stroke}
 
+\subsection{Eigenschaften von Kardinalzahlen}
+
 \begin{spoken-clean}[00:57:32 - 00:59:25]
 Bemerkung: Wenn $\kappa$ eine Kardinalzahl ist, was ist dann die Kardinalität von $\kappa$? Das ist natürlich $\kappa$ selbst, weil $\kappa$ ja die kleinste Ordinalzahl ist, die gleichmächtig zu $\kappa$ ist. Für jede Kardinalzahl $\kappa$ gilt also $|\kappa| = \kappa$. Das ist eine sehr nützliche Eigenschaft.
 
@@ -849,14 +855,7 @@ Wir beweisen das zuerst für den Fall, dass $M$ die leere Menge ist. Das ist gan
 \end{spoken-clean}
 
 \begin{math-stroke}
-\begin{theorem}[Satz von Cantor]\label[theorem]{thm:cantor-proof}
-Für jede Menge $M$ gilt:
-\begin{equation}\label{eq:cantor-thm}
-|M| < |\mathcal{P}(M)|
-\end{equation}
-\end{theorem}
-
-\begin{short-proof}[Beweis für $M = \emptyset$]
+\begin{short-proof}[Beweis von \cref{thm:cantor} für $M = \emptyset$]
 Falls $M = \emptyset$, so gilt:
 \[
 \mathcal{P}(\emptyset) = \{\emptyset\} \implies |\mathcal{P}(\emptyset)| = 1 > 0 = |\emptyset|
@@ -976,6 +975,8 @@ Seien $\kappa$ und $\lambda$ Kardinalzahlen.
 \end{definition}
 \end{math-stroke}
 
+\subsection{Zusammenhang mit der Potenzmenge}
+
 \begin{spoken-clean}[01:16:39 - 01:18:55]
 In den Übungen haben Sie bereits eine sehr wichtige Eigenschaft kennengelernt, nämlich dass die Menge aller Funktionen von einer Menge $A$ in die zweielementige Menge $\{0, 1\}$ genau gleichmächtig zur Potenzmenge von $A$ ist. Das heißt: $|{}^A 2| = |\mathcal{P}(A)|$. Nach unserer Definition der Kardinalzahlpotenzierung entspricht das genau $2^{|A|}$.
 
@@ -1001,6 +1002,8 @@ Der Satz von Cantor (Theorem \ref{thm:cantor-proof}) lässt sich in dieser Notat
 \end{equation}
 \end{math-stroke}
 
+\subsection{Arithmetische Gesetze für Kardinalzahlen}
+
 \begin{spoken-clean}[01:18:55 - 01:20:55]
 Nun schauen wir uns die Rechenregeln für diese Operationen an. Diese Proposition besagt, dass die Addition und Multiplikation von Kardinalzahlen assoziativ, kommutativ und distributiv sind --- ganz genau wie bei den natürlichen Zahlen.
 
@@ -1021,6 +1024,8 @@ Für beliebige Kardinalzahlen $\kappa, \lambda, \mu$ gelten die folgenden Gesetz
 \end{enumerate}
 \end{proposition}
 \end{math-stroke}
+
+\subsection{Idempotenzgesetze unendlicher Kardinalzahlen}
 
 \begin{spoken-clean}[01:20:55 - 01:23:00]
 Zum Schluss möchte ich noch einen sehr überraschenden Satz erwähnen. Wenn $\kappa$ eine unendliche Kardinalzahl ist, dann gilt: $\kappa + \kappa = \kappa$ und ebenso $\kappa \cdot \kappa = \kappa$. Das ist für endliche Mengen natürlich völlig falsch, aber für unendliche Mengen stimmt es immer! Das bedeutet: Wenn man zwei unendliche Mengen derselben Mächtigkeit vereinigt oder ihr kartesisches Produkt bildet, dann hat das Ergebnis exakt dieselbe Mächtigkeit wie die ursprünglichen Mengen.

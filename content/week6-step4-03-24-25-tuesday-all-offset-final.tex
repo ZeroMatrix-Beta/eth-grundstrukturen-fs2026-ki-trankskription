@@ -128,6 +128,8 @@ Das Fundierungsaxiom (auch \newterm{Axiom der Fundierung} oder \newterm{Regulari
 \end{explanation-of-steps}
 \end{math-stroke}
 
+\subsection{Konsequenzen des Fundierungsaxioms}
+
 \begin{spoken-clean}[00:05:48 - 00:08:22]
 Gut, und insbesondere ein wichtiges Beispiel hiervon ist --- wie wir gesehen haben ---: Es gibt keine unendlichen absteigenden Sequenzen von Mengen. Also kein $x_0$, das $x_1$ enthält, wobei diese Menge wiederum $x_2$ enthält, und diese Menge $x_3$ enthält und so weiter. Und es gibt keine Zyklen in Mengen, sodass $x_0 \in x_1 \in \dots \in x_n$ gilt und dieses wiederum in $x_0$ enthalten ist. Insbesondere ist $x$ nie in sich selbst enthalten, weil man sonst einen solchen Zyklus hätte.
 
@@ -271,7 +273,7 @@ Die Relation $<$ definiert eine dichte lineare Ordnung ohne Endpunkte auf $\math
 \end{align}
 \end{math-stroke}
 
-\subsection{Eigenschaften der reellen Zahlen}
+\subsection{Kompatibilität und Vollständigkeit}
 \begin{spoken-clean}[00:18:20 - 00:20:49]
 Und jetzt kommen noch drei weitere Axiome dazu. Das erste haben wir vielleicht so noch nicht hingeschrieben, aber das kennen wir eigentlich auch: Wir wollen jetzt einfach noch das $<$ mit $+$ und $\cdot$ verknüpfen, also wir wollen, dass die auch noch miteinander kompatibel sind. Das erste Axiom sagt: Wenn wir $x < y$ haben, dann soll auch $x + z < y + z$ sein. Wenn wir also Zahlen auf beiden Seiten addieren, soll das unsere Ordnung erhalten.
 
@@ -310,6 +312,8 @@ Der Dozent betont, dass die Axiome $\mathbf{R_0}$ bis $\mathbf{R_{16}}$ auch von
 \end{explanation-of-steps}
 \end{math-stroke}
 
+\subsection{Konstruktion der reellen Zahlen}
+
 \begin{spoken-clean}[00:20:49 - 00:23:00]
 Okay. Das Ziel von heute ist, jetzt diese reellen Zahlen --- also jene, die $R_0$ bis $R_{17}$ erfüllen --- zu konstruieren. Und das machen wir jetzt eben über die Dedekind-Schnitte --- Dedekindsche Schnitte, wahrscheinlich korrekterweise, aber man kann es etwas kürzer schreiben.
 
@@ -317,6 +321,8 @@ Was wir jetzt machen: Wir konstruieren die reellen Zahlen ausgehend von den rati
 
 Wir gehen also von einem Modell der rationalen Zahlen aus. Also $\mathbb{Q}$, aber präziser: das besteht aus dem Bereich $\mathbb{Q}$, den Konstanten $0$ und $1$, den binären Funktionen $+$ und $\cdot$ und der binären Relation $<$. In diesem Modell wissen wir schon, dass die Axiome $R_0$ bis $R_{16}$ gelten. Aber $R_{17}$ gilt hier nicht, das haben Sie vielleicht schon einmal in der Analysis oder so gesehen. Wir werden das später auch noch sehen.
 \end{spoken-clean}
+
+\subsection{Geometrische Idee des Dedekindschen Schnitts}
 
 \begin{spoken-clean}[00:23:00 - 00:25:30]
 Gut, und jetzt definieren wir einfach direkt, was ein Dedekind-Schnitt ist. Ich kann das vielleicht noch kurz erklären: Wenn wir uns vorstellen, wir haben hier die rationalen Zahlen $\mathbb{Q}$, dann haben wir gesehen, dass es Lücken gibt, zum Beispiel bei $\sqrt{2}$. Haben Sie alle schon gesehen, dass $\sqrt{2}$ nicht rational ist? Genau. Das heißt, es gibt hier irgendwo $\sqrt{2}$, aber es gibt natürlich ganz viele von diesen Lücken, wo einfach keine rationalen Zahlen sind.
@@ -351,6 +357,8 @@ Da die rationalen Zahlen \qt{Löcher} aufweisen (wie etwa bei $\sqrt{2}$), kann 
 \end{explanation-of-steps}
 \end{math-stroke}
 
+\subsection{Definition des Dedekindschen Schnitts}
+
 \begin{spoken-clean}[00:25:30 - 00:27:30]
 Okay, das heißt, unsere reellen Zahlen werden eigentlich eine Teilmenge der Potenzmenge von $\mathbb{Q}$ sein. Wir wollen, dass das Folgende erfüllt ist:
 
@@ -379,6 +387,8 @@ Eine Teilmenge $\alpha \subseteq \mathbb{Q}$ heißt \newterm{Dedekindscher Schni
 \end{enumerate}
 \end{explanation-of-steps}
 \end{math-stroke}
+
+\subsection{Die Menge der reellen Zahlen}
 
 \begin{spoken-clean}[00:27:30 - 00:29:45]
 Genau. Die Bemerkung ist, was ich vorher schon gesagt habe: Ein Dedekind-Schnitt $\alpha$ teilt $\mathbb{Q}$ in zwei disjunkte Mengen. Man hat $\alpha$ und man hat das Komplement von $\alpha$. Wegen \textbf{(D1)} wissen wir, dass alles in $\alpha$ kleiner ist als alles im Komplement. Und wegen \textbf{(D2)} wissen wir: Wenn die Trennstelle eine rationale Zahl ist, dann gehört diese Zahl zum Komplement und nicht zu $\alpha$.
@@ -437,6 +447,8 @@ Wir verifizieren die Bedingungen aus Definition \ref{def:dedekind-schnitt}:
 \begin{spoken-clean}[00:33:24 - 00:35:23]
 Müssen wir noch beweisen, dass das tatsächlich ein Dedekind-Schnitt ist. Machen wir das mal gründlich. Also, \textbf{(D0)} ist okay: Die Menge ist nicht leer, man kann immer kleinere Zahlen finden. Wir müssen \textbf{(D1)} zeigen, aber das ist auch klar: Wenn $q \in \alpha_p$ ist und $r \in \mathbb{Q}$, sodass $r < q$ ist, dann folgt, dass $r < q$ und $q < p$ ist. Das heißt, $r$ ist auch strikt kleiner als $p$ und somit folgt, dass $r$ auch in $\alpha_p$ ist. Da ist nicht viel dahinter.
 \end{spoken-clean}
+
+\subsection{Injektion von \texorpdfstring{$\mathbb{Q}$}{Q} nach \texorpdfstring{$\mathbb{R}$}{R}}
 
 \begin{spoken-clean}[00:35:23 - 00:37:12]
 Und dann noch das Letzte: Wir müssen zeigen, dass die Menge kein größtes Element hat. Aber das ist auch nicht schwierig. Wenn wir $q \in \alpha_p$ haben, dann nehmen wir einfach $r$ als die Mitte zwischen $p$ und $q$ --- also $(p + q) / 2$. Das ist auch eine rationale Zahl. Dann liegt $r$ zwischen $q$ und $p$, das heißt $q < r$ und $r \in \alpha_p$.
@@ -619,6 +631,8 @@ Somit haben wir zu jedem $r \in \alpha + \beta$ ein strikt größeres Element $r
 \end{math-stroke}
 \end{proof}
 
+\subsection{Das additive Inverse und die Subtraktion}
+
 \begin{spoken-clean}[00:57:15 - 00:59:45]
 Das Nullelement haben wir ja bereits. Was ist das Nullelement? Das haben wir gesagt: das sind alle $p \in \mathbb{Q}$, sodass $p < 0$ ist. Okay.
 
@@ -665,7 +679,8 @@ Die Definition stellt sicher, dass $-\alpha$ wieder ein Dedekindscher Schnitt is
 \end{explanation-of-steps}
 \end{math-stroke}
 
-\begin{math-stroke}[Die Ordnung auf den reellen Zahlen]
+\subsection{Die Ordnung auf den reellen Zahlen}
+\begin{math-stroke}
 \begin{definition}[Ordnung auf $\mathbb{R}$]\label{def:ordnung-reell}
 Für zwei reelle Zahlen $\alpha, \beta \in \mathbb{R}$ definieren wir:
 \begin{enumerate}[label=\textbf{(\roman*)}]
@@ -679,6 +694,8 @@ Für zwei reelle Zahlen $\alpha, \beta \in \mathbb{R}$ definieren wir:
 Eine reelle Zahl $\alpha$ ist genau dann positiv ($\alpha > 0_{\mathbb{R}}$), wenn $0 \in \alpha$. Wegen \textbf{(D2)} existiert dann ein rationales $q \in \alpha$ mit $q > 0$.
 \end{remark}
 \end{math-stroke}
+
+\subsection{Multiplikation von Dedekindschen Schnitten}
 
 \begin{spoken-clean}[01:07:15 - 01:10:00]
 Wenn beide negativ sind, dann ist das ähnlich: dann nehmen wir einfach das Produkt von den Negativen, und dann geht es auch wieder auf. Also: falls $\alpha, \beta \le 0$ sind, definieren wir $\alpha \cdot \beta$ als $(-\alpha) \cdot (-\beta)$. Falls $\alpha \ge 0$ und $\beta \le 0$ ist, dann sagen wir $\alpha \cdot \beta$ ist $-(-\alpha \cdot -\beta)$, was immer das hier bedeutet. Und falls schließlich $\alpha \le 0$ und $\beta \ge 0$ ist, dann definieren wir $\alpha \cdot \beta$ als $-(-\alpha \cdot \beta)$.
@@ -705,6 +722,8 @@ Im Skript wird die Multiplikation oft nur für positive reelle Zahlen explizit h
 \end{explanation-of-steps}
 \end{math-stroke}
 
+\subsection{Die Körperstruktur von \texorpdfstring{$\mathbb{R}$}{R}}
+
 \begin{spoken-clean}[01:10:00 - 01:12:45]
 Das ist ein bisschen... ja, es lässt die Sache im Skript ein bisschen zu schön erscheinen, wenn man die negativen Zahlen weglässt. Aber es ist eben eine rein technische Angelegenheit. Was man jetzt eigentlich tun müsste, ist zu überprüfen, dass die Körperaxiome alle erfüllt sind. Man müsste also prüfen, dass das alles Dedekind-Schnitte sind und dass die Körperaxiome alle erfüllt sind. Sie können sich vorstellen, dass das eine sehr lange Angelegenheit ist.
 
@@ -721,6 +740,8 @@ Verifizieren Sie die Körperaxiome $\mathbf{R_0}$ bis $\mathbf{R_{16}}$ für das
 \[ \alpha \cdot (\beta + \gamma) = \alpha \cdot \beta + \alpha \cdot \gamma \]
 \end{exercise}
 \end{math-stroke}
+
+\subsection{Vollständigkeit von \texorpdfstring{$\mathbb{R}$}{R}}
 
 \begin{spoken-clean}[01:12:45 - 01:15:30]
 Was wir aber noch zeigen wollen, ist immerhin das $R_{17}$ --- wir wollen zumindest zeigen, dass es vollständig ist. Das ist ja der Grund, warum wir das Ganze machen. Die Behauptung ist: Die reellen Zahlen $\mathbb{R}$ erfüllen $R_{17}$. Das heißt, jede nichtleere, nach oben beschränkte Teilmenge $X$ hat ein Supremum.
@@ -752,13 +773,13 @@ Der Beweis ist dafür wirklich natürlich. Wir konstruieren das Supremum $\beta$
 
 \begin{math-stroke}[Nachweis der Schnitteigenschaften für \texorpdfstring{$\beta$}{beta}]
 \begin{enumerate}[label=\textbf{(D\arabic*)}, start=0]
-    \item \textbf{(D0) Nicht-Trivialität:} 
+    \item \textbf{Nicht-Trivialität:} 
     \begin{itemize}
         \item $\beta \neq \emptyset$, da $X \neq \emptyset$ (es existiert ein $\alpha \in X$) und $\alpha \neq \emptyset$.
         \item $\beta \neq \mathbb{Q}$, da $X$ nach oben beschränkt ist. Sei $\gamma \in \mathbb{R}$ eine obere Schranke, d.\,h. $\forall \alpha \in X \colon \alpha \subseteq \gamma$. Dann gilt $\beta = \bigcup_{\alpha \in X} \alpha \subseteq \gamma$. Da $\gamma \neq \mathbb{Q}$, folgt $\beta \neq \mathbb{Q}$.
     \end{itemize}
-    \item \textbf{(D1) Abgeschlossenheit nach unten:} Sei $p \in \beta$ und $q < p$. Dann $\exists \alpha \in X$ mit $p \in \alpha$. Da $\alpha$ ein Schnitt ist, folgt $q \in \alpha \subseteq \beta$.
-    \item \textbf{(D2) Kein Maximum:} Sei $p \in \beta$. Dann $\exists \alpha \in X$ mit $p \in \alpha$. Da $\alpha$ kein Maximum hat, $\exists q \in \alpha$ mit $p < q$. Es folgt $q \in \beta$.
+    \item \textbf{(Abgeschlossenheit nach unten:} Sei $p \in \beta$ und $q < p$. Dann $\exists \alpha \in X$ mit $p \in \alpha$. Da $\alpha$ ein Schnitt ist, folgt $q \in \alpha \subseteq \beta$.
+    \item \textbf{Kein Maximum:} Sei $p \in \beta$. Dann $\exists \alpha \in X$ mit $p \in \alpha$. Da $\alpha$ kein Maximum hat, $\exists q \in \alpha$ mit $p < q$. Es folgt $q \in \beta$.
 \end{enumerate}
 \end{math-stroke}
 
@@ -788,9 +809,7 @@ Das beendet den Beweis. Die Vereinigung ist also genau das Supremum.
 Dieser Beweis offenbart die tiefe Eleganz der Dedekindschen Konstruktion: Das abstrakte analytische Konzept des Supremums (die \qt{kleinste obere Schranke}) kollabiert in der Mengentheorie auf die einfachste aller Operationen --- die Vereinigung ($\bigcup$). In $\mathbb{R}$ ist das Supremum einer Menge von Zahlen nichts anderes als die Menge aller rationalen Zahlen, die in mindestens einer dieser Zahlen enthalten sind.
 \end{didactic-insight}
 
-\section{Alternative Konstruktionen}
-
-\subsection{Cauchy-Folgen}
+\subsection{Alternative Konstruktionen von \texorpdfstring{$\mathbb{R}$}{R}}
 
 \begin{spoken-clean}[01:21:00 - 01:21:10]
 Ich möchte zum Abschluss noch zwei Sachen erwähnen, und zwar gibt es noch andere Konstruktionen, die bekannt sind von den reellen Zahlen. Die bekannteste ist über Cauchy-Folgen. Das Problem ist ja mit den rationalen Zahlen, dass Cauchy-Folgen nicht unbedingt konvergieren. Und jetzt kann man sagen: Okay, wir wollen künstlich, dass alle Cauchy-Folgen konvergieren. Wie machen wir das? Wir nehmen einfach Äquivalenzklassen von Cauchy-Folgen und wir schauen uns all diese Äquivalenzklassen von Cauchy-Folgen an. Das ist die zweite klassische Konstruktion der reellen Zahlen. Die wurde fast gleichzeitig wie Dedekind auch publiziert; ich glaube, Cantor war das, der das gemacht hat.

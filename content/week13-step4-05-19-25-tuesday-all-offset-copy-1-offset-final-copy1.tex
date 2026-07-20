@@ -145,7 +145,7 @@ Diese fundamentale Eigenschaft wurde in der vergangenen Vorlesung bewiesen.
 \subsection{Ringstruktur von \texorpdfstring{$\mathbb{Z}_n$}{Zn}}
 
 \begin{spoken-clean}[00:07:36 - 00:09:39]
-Wie gesehen --- das war das letzte Lemma der vergangenen Woche --- sind diese Operationen wohldefiniert, d.\,h. sie hängen nicht von der Wahl der Repräsentanten ab. Nun haben wir hier diese Operationen definiert, und wenig erstaunlich lässt sich zeigen, dass $\mathbb{Z}_n$ mit dieser Addition und dieser Multiplikation die Struktur eines Rings besitzt.
+Wie gesehen --- das war das Lemma der Verträglichkeit der vergangenen Woche (\cref{lem:vertraglichkeit}) --- sind diese Operationen wohldefiniert, d.\,h. sie hängen nicht von der Wahl der Repräsentanten ab. Nun haben wir hier diese Operationen definiert, und wenig erstaunlich lässt sich zeigen, dass $\mathbb{Z}_n$ mit dieser Addition und dieser Multiplikation die Struktur eines Rings besitzt.
 
 Das ist das folgende Lemma: $\mathbb{Z}_n$ mit diesen Operationen ist ein Ring mit den neutralen Elementen $[0]$ und $[1]$. Dabei ist $[0]$ das neutrale Element bezüglich der Addition und $[1]$ das neutrale Element bezüglich der Multiplikation.
 \end{spoken-clean}
@@ -327,7 +327,7 @@ wenn $a$ und $n$ teilerfremd sind, d.\,h. wenn gilt:
 \begin{spoken-clean}[00:27:46 - 00:29:06]
 Sei $d$ der größte gemeinsame Teiler. Das heißt, $d$ teilt sowohl $a$ als auch $n$. Somit folgt, dass $d$ auch $a \cdot b - k \cdot n$ teilt. Das ist aber nach Voraussetzung genau $1$. Das bedeutet, $d$ ist ein Teiler von $1$, und da $d$ eine natürliche Zahl ist, folgt $d = 1$. Das beweist die eine Richtung.
 
-Falls umgekehrt $\operatorname{ggT}(a, n) = 1$ gilt, wissen wir aus der vergangenen Woche, dass ganze Zahlen $b, \ell \in \mathbb{Z}$ existieren, sodass $a \cdot b + n \cdot \ell = 1$ gilt. Das war der Satz von Bézout, den wir bewiesen haben: Wir finden stets ganze Zahlen $b$ und $\ell$, sodass diese Linearkombination gleich dem größten gemeinsamen Teiler ist.
+Falls umgekehrt $\operatorname{ggT}(a, n) = 1$ gilt, wissen wir aus der vergangenen Woche, dass ganze Zahlen $b, \ell \in \mathbb{Z}$ existieren, sodass $a \cdot b + n \cdot \ell = 1$ gilt. Das war der Satz von Bézout (\cref{prop:ggt-bezout}), den wir bewiesen haben: Wir finden stets ganze Zahlen $b$ und $\ell$, sodass diese Linearkombination gleich dem größten gemeinsamen Teiler ist.
 \end{spoken-clean}
 
 \begin{spoken-clean}[00:29:06 - 00:30:56]
@@ -356,7 +356,7 @@ Da $d \in \mathbb{N}_{>0}$, folgt zwingend $d = 1$.
 
 \par\vspace{1ex}\noindent
 \textbf{Richtung $(\impliedby)$:}
-Angenommen, $\operatorname{ggT}(a, n) = 1$. Nach dem Lemma von Bézout existieren ganze Zahlen $b, \ell \in \mathbb{Z}$, sodass gilt:
+Angenommen, $\operatorname{ggT}(a, n) = 1$. Nach dem Lemma von Bézout (\cref{prop:ggt-bezout}) existieren ganze Zahlen $b, \ell \in \mathbb{Z}$, sodass gilt:
 \[
 a \cdot b + n \cdot \ell = 1 \implies a \cdot b = -\ell \cdot n + 1 \implies a \cdot b \equiv 1 \pmod n.
 \]
@@ -628,13 +628,15 @@ x^n + y^n = z^n
 \end{equation}
 keine Lösungen im Bereich der ganzen Zahlen $x, y, z \in \mathbb{Z} \setminus \{0\}$.
 \end{theorem}
+\end{math-stroke}
 
 \begin{didactic-insight}[Die Bedeutung von Fermats Vermutung]
 Fermats Letzter Satz ist ein Paradebeispiel dafür, wie eine einfach zu formulierende, aber extrem schwer zu beweisende Aussage die mathematische Forschung über Jahrhunderte hinweg befruchten kann. Die Bemühungen, die Gleichung \eqref{eq:grosser-fermat} zu lösen, führten zur Entwicklung zentraler mathematischer Disziplinen wie der algebraischen Zahlentheorie (z.\,B. der Theorie der Ideale von Ernst Eduard Kummer) und der modernen arithmetischen Geometrie. Der schlussendliche Beweis von Andrew Wiles und Richard Taylor im Jahr 1995 schloss dieses historische Kapitel unter Verwendung der hochkomplexen Theorie elliptischer Kurven und Modulformen (Taniyama-Shimura-Vermutung).
 \end{didactic-insight}
-\end{math-stroke}
 
 \section{Der Chinesische Restsatz}
+
+\subsection{Das Problem von Sunzi und historische Einordnung}
 
 \begin{spoken-clean}[00:58:11 - 01:00:35]
 Gut, so viel zur großen Fermat-Vermutung. Das Nächste, was wir uns anschauen wollen, ist der Chinesische Restsatz. \inlinemetanote{schreibt an die Tafel}
@@ -660,7 +662,7 @@ x \equiv a_i \pmod{m_i} \quad \text{für alle } i \in \{1, \dots, r\}.
 \end{theorem}
 \end{math-stroke}
 
-\subsection{Historische Einordnung und das Problem von Sunzi}
+\subsection{Der Chinesische Restsatz}
 
 \begin{spoken-clean}[01:00:35 - 01:03:41]
 Die Frage ist also quasi: Wir suchen eine Zahl $x$, sodass $x \equiv 2 \pmod 3$, $x \equiv 3 \pmod 5$ und $x \equiv 2 \pmod 7$ gilt. Welche Zahl erfüllt diese Bedingungen? Und die erste Frage ist natürlich: Existiert überhaupt so eine Zahl?
@@ -803,7 +805,7 @@ Die Wohldefiniertheit von $\Phi$ folgt aus der Eigenschaft, dass $M$ ein Vielfac
 \[
 x \equiv y \pmod M \implies x \equiv y \pmod{m_i} \quad \text{für alle } i.
 \]
-Die Bijektivität von $\Phi$ ist die direkte algebraische Übersetzung von Theorem \ref{thm:chinesischer-restsatz}. Die Homomorphie-Eigenschaft bezüglich Addition und Multiplikation folgt unmittelbar aus der komponentenweisen Definition der Ringoperationen auf dem direkten Produkt:
+Die Bijektivität von $\Phi$ ist die direkte algebraische Übersetzung von Theorem \cref{thm:chinesischer-restsatz}. Die Homomorphie-Eigenschaft bezüglich Addition und Multiplikation folgt unmittelbar aus der komponentenweisen Definition der Ringoperationen auf dem direkten Produkt:
 \begin{align*}
 \Phi([x \cdot y]_M) &= \left( [x \cdot y]_{m_1}, \dots, [x \cdot y]_{m_r} \right) \\
 &= \left( [x]_{m_1}, \dots, [x]_{m_r} \right) \cdot \left( [y]_{m_1}, \dots, [y]_{m_r} \right) \\
@@ -881,7 +883,7 @@ Bobs öffentlicher Schlüssel, den er nun publiziert, ist das Paar $(e, n)$. Das
 
 Wenn Alice nun eine Nachricht verschlüsselt an Bob senden möchte, repräsentiert sie diese Nachricht als eine Zahl $m \in \{0, \dots, n-1\}$. Sie berechnet das Chiffrat $c \equiv m^e \pmod n$ und sendet dieses $c$ an Bob.
 
-Eve kennt nun den Modul $n$, den Exponenten $e$ und das Chiffrat $c$. Daraus die ursprüngliche Nachricht $m$ zu rekonstruieren, ist extrem schwierig. Für Bob hingegen ist das ganz einfach: Er berechnet $c^d \pmod n$. Da $c \equiv m^e \pmod n$ gilt, entspricht dies $m^{e \cdot d} \pmod n$. Wegen $e \cdot d = k \cdot \varphi(n) + 1$ für ein $k \in \mathbb{N}$ können wir das umschreiben als $m^{k \cdot \varphi(n) + 1} \equiv (m^{\varphi(n)})^k \cdot m \pmod n$. Nach dem Satz von Euler gilt $m^{\varphi(n)} \equiv 1 \pmod n$, sodass sich der Ausdruck zu $1^k \cdot m \equiv m \pmod n$ vereinfacht. Bob erhält also genau die ursprüngliche Nachricht $m$ zurück. Das ist mathematisch sehr elegant! Die Sicherheit beruht im Wesentlichen darauf, dass es extrem schwierig ist, modulo $n$ die $e$-te Wurzel zu ziehen, solange man die Primfaktorzerlegung von $n$ nicht kennt.
+Eve kennt nun den Modul $n$, den Exponenten $e$ und das Chiffrat $c$. Daraus die ursprüngliche Nachricht $m$ zu rekonstruieren, ist extrem schwierig. Für Bob hingegen ist das ganz einfach: Er berechnet $c^d \pmod n$. Da $c \equiv m^e \pmod n$ gilt, entspricht dies $m^{e \cdot d} \pmod n$. Wegen $e \cdot d = k \cdot \varphi(n) + 1$ für ein $k \in \mathbb{N}$ können wir das umschreiben als $m^{k \cdot \varphi(n) + 1} \equiv (m^{\varphi(n)})^k \cdot m \pmod n$. Nach dem Satz von Euler (\cref{thm:satz-von-euler}) gilt $m^{\varphi(n)} \equiv 1 \pmod n$, sodass sich der Ausdruck zu $1^k \cdot m \equiv m \pmod n$ vereinfacht. Bob erhält also genau die ursprüngliche Nachricht $m$ zurück. Das ist mathematisch sehr elegant! Die Sicherheit beruht im Wesentlichen darauf, dass es extrem schwierig ist, modulo $n$ die $e$-te Wurzel zu ziehen, solange man die Primfaktorzerlegung von $n$ nicht kennt.
 
 Noch ein kleiner Fun Fact: Das Verfahren heißt RSA, benannt nach den drei Wissenschaftlern Rivest, Shamir und Adleman, die es erfunden haben. Das war ein riesiger Durchbruch, für den sie gefeiert wurden, ein Patent erhielten und viel Geld verdienten. Später stellte sich jedoch heraus, als entsprechende Archive geöffnet wurden, dass Mathematiker im Geheimdienst dieses Verfahren bereits etwa zehn Jahre zuvor entdeckt hatten. Sie durften ihre Entdeckung damals allerdings nicht publizieren. Die großen Geheimdienste --- namentlich die amerikanischen und britischen --- sind auch heute noch wichtige Arbeitgeber für Mathematiker. Ich habe einige Kollegen, die für Geheimdienste arbeiten; dort kann man tatsächlich Forschung in reiner Mathematik betreiben. Was die dort im Geheimen schon alles herausgefunden haben, wissen wir natürlich nicht.
 

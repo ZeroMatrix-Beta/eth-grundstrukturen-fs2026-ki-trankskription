@@ -59,6 +59,8 @@ Um jedoch einigermaßen voranzukommen, werden wir die Dinge jetzt in --- wie sol
 Das dient einfach dazu, dass Sie gewisse Sachen lernen, für die Sie in anderen Vorlesungen keine Zeit haben, und damit Sie einen Einblick kriegen in das, was es in der Mathematik so alles gibt. Auch hier ist es überall wieder wichtig, dass Sie die Übungen lösen, denn es geht darum, dass Sie lernen, saubere mathematische Argumente zu führen --- das ist es, was Sie am Ende können sollten.
 \end{spoken-clean}
 
+\subsection{Das Königsberger Brückenproblem}
+
 \begin{spoken-clean}[00:03:08 - 00:05:40]
 Gut, jetzt aber zur Graphentheorie. Ein bisschen Geschichte: Da gehen wir jetzt etwas weiter zurück als zu den Leuten, denen wir bisher begegnet sind. Wir gehen zurück zu Leonhard Euler, dem Sie bestimmt auch schon begegnet sind. Er war gewissermaßen ein Schweizer Mathematiker --- er wurde $1707$ in Basel geboren. Das war also noch sehr früh in der Mathematik.
 
@@ -195,6 +197,8 @@ Ein \newterm{Graph} ist eine Menge $V$, deren Elemente wir \newterm{Knoten} nenn
 \end{definition}
 \end{meta-note}
 
+\subsection{Definition eines Graphen}
+
 \begin{spoken-clean}[00:13:36 - 00:16:52]
 Was ist also ein Graph? Ein Graph ist einfach eine Menge $V$, deren Elemente wir Knoten nennen, zusammen mit einer Teilmenge des kartesischen Produkts von $V$ mit sich selbst. Betrachten wir zuerst einmal diese Definition: Das sind die sogenannten Kanten.
 
@@ -215,6 +219,8 @@ Ein \newterm{Graph} ist ein Paar $G = (V, E)$ (oder allgemeiner $G = (V, E_0, \d
 \end{itemize}
 \end{definition}
 \end{math-stroke}
+
+\subsection{Adjazenz und ungerichtete Graphen}
 
 \begin{spoken-clean}[00:16:52 - 00:20:32]
 Hier gibt es auch noch ein bisschen Terminologie: Wir sagen, zwei Knoten $x, y \in V$ heißen \newterm{adjazent}, falls das Paar $\langle x, y \rangle$ in $E$ enthalten ist. Sie liegen also nebeneinander --- ein bisschen snobistisch ausgedrückt.
@@ -263,6 +269,8 @@ In diesem Fall identifizieren wir die geordneten Paare $\langle x, y \rangle$ un
 \end{definition}
 \end{math-stroke}
 
+\subsection{Schlingen, Multigraphen und schlichte Graphen}
+
 \begin{spoken-clean}[00:22:54 - 00:25:30]
 Wir sagen, ein Graph ist \newterm{gerichtet} oder ein \newterm{Digraph}, falls er nicht ungerichtet ist. Okay. Wunderbar, an Definitionen muss man sich ein bisschen gewöhnen.
 
@@ -289,6 +297,8 @@ Ein Graph $G = (V, E)$ heißt \newterm{schlicht} (oder \newterm{einfach}, engl. 
 \end{definition}
 \end{math-stroke}
 
+\subsection{Die Adjazenzmatrix}
+
 \begin{spoken-clean}[00:25:30 - 00:28:30]
 Schauen wir uns noch ein paar Beispiele an --- oder machen wir direkt weiter. Ich glaube, zu den Beispielen muss man nicht mehr viel sagen, das ist klar: Dieser Graph hier ist schlicht, jener dort ist wegen der Mehrfachkante nicht schlicht. Dieser hier ist wieder schlicht, aber der dort wegen der Schlinge nicht.
 
@@ -312,8 +322,6 @@ Machen wir ein Beispiel: Wir haben den Graphen mit den Knoten $1, 2, 3, 4$ und K
 
 Falls wir mehrere Kanten zwischen zwei Knoten haben, ist es analog: Wir zählen einfach, wie viele Kanten es dazwischen gibt. Falls wir $G$ als $(V, E_0, \dots, E_k)$ schreiben --- wir haben also verschiedene Kantenmengen, aber immer noch endlich viele ---, dann ist die Adjazenzmatrix $A(G)$ definiert als die Summe von $\ell = 0$ bis $k$ über $A(G_\ell)$. Der Eintrag $a_{ij}$ ist dann einfach die Anzahl der Kanten von $v_i$ nach $v_j$.
 \end{spoken-clean}
-
-\subsection{Die Adjazenzmatrix}§
 
 \begin{math-stroke}[Beispiele für schlichte Graphen und Adjazenzmatrix]
 \begin{center}
@@ -870,7 +878,7 @@ Sei $G[H]$ ein Kantenzug der Länge $\ell$ von $x_0$ nach $x_\ell$:
 \subsection{Pfadzählung mittels Adjazenzmatrix}
 
 \begin{spoken-clean}[01:14:24 - 01:17:18]
-Gut, und nun endlich einmal ein nettes Resultat, damit wir nicht nur Definitionen haben: die Proposition $9.1$.
+Gut, und nun endlich einmal ein nettes Resultat, damit wir nicht nur Definitionen haben: die Proposition 9.1 (\cref{prop:pfadzaehlung-adjazenz}).
 
 Sie besagt: Wenn wir einen endlichen Graphen haben --- sei $V = \{v_1, \dots, v_n\}$ eine Menge von Knoten und $G$ ein endlicher Graph mit dieser Knotenmenge, potenziell mit Mehrfachkanten, und er soll gerichtet sein ---, dann betrachten wir die Adjazenzmatrix $A = A(G)$.
 
