@@ -878,7 +878,7 @@ Das erste ist das Ersetzungsaxiom. Ich werde diese Axiome jetzt nicht im Detail 
 \begin{explanation-of-steps}[Präzisierung zur Klassenfunktion $F(x)$]
 Da die Sprache der Mengenlehre $\mathcal{L}_{\text{Set}} = \{\in\}$ keine echten Funktionssymbole enthält, ist $F(x)$ kein Symbol des formalen Kalküls, sondern eine \newterm{Metanotation (Syntactic Sugar)}:
 \begin{itemize}
-    \item Eine funktionale Formel $\varphi(x, y)$ (inklusive möglicher weiterer Parameter $w_1, \dots, w_k$) mit $\forall x \exists! y \, \varphi(x, y)$ nennen wir eine \newterm{Klassenfunktion} $F$. Wir schreiben $y = F(x)$ als Abkürzung für $\varphi(x, y)$.
+    \item Eine funktionale Formel $\varphi(x, y)$ (inklusive weiterer Parameter $w_1, \dots, w_k$) mit $\forall x \exists! y \, \varphi(x, y)$ nennen wir eine \newterm{Klassenfunktion} $F$. Wir schreiben $y = F(x)$ als Abkürzung für $\varphi(x, y)$.
     \item Das Bild einer Menge $A$ unter $F$ bezeichnen wir informell mit $F[A] := \{ F(x) \mid x \in A \}$, was formal exakt der Menge $B = \{ y \mid \exists x \in A \, \varphi(x, y) \}$ entspricht.
     \item Das Ersetzungsaxiom garantiert, dass dieses Bild $B$ stets eine Menge ist.
 \end{itemize}
