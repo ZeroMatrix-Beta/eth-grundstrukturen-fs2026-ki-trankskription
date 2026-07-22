@@ -1599,6 +1599,9 @@ Wir nehmen an, die Behauptung gilt für alle bipartiten Graphen mit $|A| \le n$.
     E(X) \cup E(A_1) = E_2(X) \;\dot{\cup}\; E(A_1) = E_2(X) \;\dot{\cup}\; B_1.
     \]
     Daraus folgt für die Mächtigkeiten:
+    \begin{explanation-of-steps}[Aufteilung der Nachbarschaften]
+    Warum ist $E(X) \cup E(A_1) = E_2(X) \;\dot{\cup}\; B_1$? Die Menge $E(X)$ enthält Nachbarn von $X$, die teils in $B_1$ und teils in $B_2$ liegen. Die Nachbarn in $B_2$ bilden genau die Menge $E_2(X)$. Die Nachbarn in $B_1$ werden durch die Vereinigung mit $B_1$ absorbiert. Da $B_1$ und $B_2$ disjunkt sind, ist auch $E_2(X) \subseteq B_2$ disjunkt zu $B_1$.
+    \end{explanation-of-steps}
     \[
     |X| + |A_1| \le |E_2(X)| + |B_1|.
     \]

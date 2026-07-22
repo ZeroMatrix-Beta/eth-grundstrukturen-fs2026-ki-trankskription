@@ -929,7 +929,7 @@ breakable
     \vspace{0.2cm}
     {\color{ThemeAccent1}\rule{0.6\linewidth}{1.5pt}\par}
     \vspace{2.0cm}
-    {\sffamily\fontsize{18pt}{24pt}\selectfont\bfseries\color{TextEmphColor} Lecture Notes \par}
+    {\sffamily\fontsize{18pt}{24pt}\selectfont\bfseries\color{TextEmphColor} Lecture Transcript \& Notes \par}
     \vspace{0.6cm}
     {\sffamily\fontsize{15pt}{22pt}\selectfont\color{TextBoldColor} Lecturer: \textbf{Christian Urech} \par}
     \vspace{0.3cm}
@@ -939,9 +939,24 @@ breakable
 \end{minipage}
 \vfill
 \begin{minipage}{\textwidth}
-    {\sffamily\small\color{HeaderFooterFaint} LLM-assisted lecture notes at ETH Zurich $\cdot$ FS 2026}
+    \begin{tcolorbox}[
+        arc=6pt,
+        boxrule=0.7pt,
+        colback=MidnightBlue!3!white,
+        colframe=MidnightBlue!30!white,
+        left=10pt, right=10pt, top=8pt, bottom=8pt
+    ]
+    {\sffamily\bfseries\small\color{MidnightBlue!90!black}\faInfoCircle\quad Transcription Notice \& Disclaimer \par}
+    \vspace{0.25cm}
+    \sffamily\small\color{black!75}
+    \begin{itemize}[leftmargin=1.5em, itemsep=3pt, topsep=0pt, parsep=0pt]
+        \item[\textcolor{MidnightBlue!80!black}{\small\faRobot}] \textbf{AI-Generated Transcript:} These lecture notes were automatically generated using AI/LLM systems (audio and video transcription) from ETH Zurich lecture recordings.
+        \item[\textcolor{MidnightBlue!80!black}{\small\faUserShield}] \textbf{Unofficial Document:} This is \emph{not} an official document of ETH Zurich or the lecturers and has \emph{not} been manually reviewed or proofread (unreviewed draft).
+        \item[\textcolor{MidnightBlue!80!black}{\small\faExclamationTriangle}] \textbf{Disclaimer:} AI models can make mistakes (e.g. notation, indices, or mathematical reasoning). Use at your own risk --- no guarantee of accuracy or completeness.
+    \end{itemize}
+    \end{tcolorbox}
 \end{minipage}
-\vspace*{1.5cm}
+\vspace*{0.5cm}
 \end{titlepage}
 
 % ==========================================

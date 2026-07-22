@@ -747,7 +747,7 @@ breakable
 
 % SHORT PROOF 
 \newenvironment{short-proof}[1][Beweis]{
-    \par\addvspace{1.2ex plus 0.3ex minus 0.2ex}
+    \par\if@nobreak\vspace{-1ex}\else\addvspace{1.2ex plus 0.3ex minus 0.2ex}\fi
     \insideprooftrue 
     \noindent\textcolor{ProofTint}{\faPenNib}\hspace{0.5em}%
     {\normalfont\sffamily\bfseries\color{ProofTint}#1}%
@@ -761,7 +761,7 @@ breakable
 
 % LONG PROOF 
 \renewenvironment{proof}[1][Beweis]{
-    \par\addvspace{1.8ex plus 0.5ex minus 0.2ex}
+    \par\if@nobreak\vspace{-1ex}\else\addvspace{1.8ex plus 0.5ex minus 0.2ex}\fi
     \insideprooftrue 
     \noindent\makebox[0pt][r]{\textcolor{ProofTint}{\faPenNib}\hspace{10pt}}%
     {\normalfont\sffamily\large\bfseries\color{ProofTint}#1}%
@@ -929,7 +929,7 @@ breakable
     \vspace{0.2cm}
     {\color{ThemeAccent1}\rule{0.6\linewidth}{1.5pt}\par}
     \vspace{2.0cm}
-    {\sffamily\fontsize{18pt}{24pt}\selectfont\bfseries\color{TextEmphColor} Vorlesungsskript \par}
+    {\sffamily\fontsize{18pt}{24pt}\selectfont\bfseries\color{TextEmphColor} Vorlesungstranskript \& Mitschrift \par}
     \vspace{0.6cm}
     {\sffamily\fontsize{15pt}{22pt}\selectfont\color{TextBoldColor} Dozent: \textbf{Christian Urech} \par}
     \vspace{0.3cm}
@@ -939,9 +939,24 @@ breakable
 \end{minipage}
 \vfill
 \begin{minipage}{\textwidth}
-    {\sffamily\small\color{HeaderFooterFaint} LLM-gestützte Mitschrift der Vorlesung an der ETH Zürich $\cdot$ FS 2026}
+    \begin{tcolorbox}[
+        arc=6pt,
+        boxrule=0.7pt,
+        colback=MidnightBlue!3!white,
+        colframe=MidnightBlue!30!white,
+        left=10pt, right=10pt, top=8pt, bottom=8pt
+    ]
+    {\sffamily\bfseries\small\color{MidnightBlue!90!black}\faInfoCircle\quad Hinweispflicht \& Transkriptions-Disclaimer \par}
+    \vspace{0.25cm}
+    \sffamily\small\color{black!75}
+    \begin{itemize}[leftmargin=1.5em, itemsep=3pt, topsep=0pt, parsep=0pt]
+        \item[\textcolor{MidnightBlue!80!black}{\small\faRobot}] \textbf{KI-generierte Mitschrift:} Dieses Dokument wurde automatisiert mittels KI/LLM-Systemen (audio- und bildbasierte Transkription) aus den Vorlesungsaufzeichnungen erstellt.
+        \item[\textcolor{MidnightBlue!80!black}{\small\faUserShield}] \textbf{Inoffizielles Dokument:} Es handelt sich um \emph{kein} offizielles Unterrichtsmaterial der ETH Zürich oder der Dozenten und wurde \emph{nicht} manuell korrigiert oder gegengelesen (unreviewed draft).
+        \item[\textcolor{MidnightBlue!80!black}{\small\faExclamationTriangle}] \textbf{Haftungsausschluss:} Künstliche Intelligenzen können Fehler machen (z.\,B. Notation, Indizes oder logische Zusammenhänge). Nutzung auf eigene Verantwortung --- ohne Gewähr für Richtigkeit, Vollständigkeit oder Prüfungsrelevanz.
+    \end{itemize}
+    \end{tcolorbox}
 \end{minipage}
-\vspace*{1.5cm}
+\vspace*{0.5cm}
 \end{titlepage}
 
 % ==========================================

@@ -120,7 +120,7 @@ Für beliebige Polynome $f, g \in K[x]$ gilt:
 \]
 \end{lemma}
 
-\begin{short-proof}
+\begin{short-proof}[Beweis der Gradaussagen]
 Falls $f = 0$ oder $g = 0$ gilt, ist die Aussage mit der Konvention $-\infty + d = -\infty$ für alle $d \in \mathbb{N} \cup \{-\infty\}$ trivialerweise erfüllt.
 
 Seien nun $f, g \neq 0$ mit:
@@ -439,7 +439,7 @@ Wir können dann die Menge der Äquivalenzklassen betrachten. Wir bezeichnen die
 Die Relation der Kongruenz modulo $f$ ist eine Äquivalenzrelation auf $K[x]$.
 \end{proposition}
 
-\begin{short-proof}
+\begin{short-proof}[Beweis von \cref{prop:kongruenz-polynom-aequivalenz}]
 Die Reflexivität, Symmetrie und Transitivität folgen unmittelbar aus den Teilbarkeitseigenschaften im Polynomring $K[x]$ analog zum Fall der ganzen Zahlen $\mathbb{Z}$.
 \end{short-proof}
 \end{math-stroke}
@@ -497,7 +497,7 @@ Das heißt, die Abbildung:
 ist eine BJektion.
 \end{theorem}
 
-\begin{short-proof}
+\begin{short-proof}[Beweis von \cref{thm:eindeutige-repraesentanten}]
 \textbf{Surjektivität (Existenz):} Nach dem Satz über die Division mit Rest (\cref{thm:division-mit-rest}) existieren für jedes $g \in K[x]$ Polynome $q, r \in K[x]$ mit:
 \[
 g = q \cdot f + r \quad \text{und} \quad \deg(r) < \deg(f).
@@ -531,7 +531,7 @@ Und jetzt kommt der ganz wichtige Satz, der uns sagt, wann dieser Restklassenrin
 Sei $f \in K[x] \setminus K$ ein nicht-konstantes Polynom. Der Restklassenring $K[x]/\langle f \rangle$ ist genau dann ein Körper, wenn $f$ irreduzibel ist.
 \end{theorem}
 
-\begin{short-proof}
+\begin{short-proof}[Beweis von \cref{thm:koerper-eigenschaft}]
 \textbf{Hinrichtung ($\implies$):} Angenommen, $f$ ist reduzibel. Dann existieren nicht-konstante Polynome $g, h \in K[x]$ mit $f = g \cdot h$ und $\deg(g), \deg(h) < \deg(f)$.
 Im Restklassenring $K[x]/\langle f \rangle$ gilt dann:
 \[
@@ -551,6 +551,14 @@ Gehen wir zu den Restklassen über, erhalten wir:
 \]
 Somit ist $[A]$ das multiplikative Inverse von $[a]$ in $K[x]/\langle f \rangle$. Da jedes Element ungleich Null ein Inverses besitzt, ist $K[x]/\langle f \rangle$ ein Körper.
 \end{short-proof}
+
+\begin{explanation-of-steps}[Konstruktion endlicher Körper (Galois-Körper)]
+Dieses Theorem bildet das Fundament für die Konstruktion aller endlichen Körper:
+\begin{itemize}
+    \item \textbf{Analogie $\mathbb{Z}$ vs. $K[x]$:} Ein irreduzibles Polynom $f \in K[x]$ spielt im Polynomring genau dieselbe Rolle wie eine Primzahl $p \in \mathbb{Z}$ im Ring der ganzen Zahlen.
+    \item \textbf{Erzeugung endlicher Körper $\mathbb{F}_{p^k}$:} Wählen wir $K = \mathbb{F}_p = \mathbb{Z}/p\mathbb{Z}$ als Grundkörper und ein irreduzibles Polynom $f \in \mathbb{F}_p[x]$ vom Grad $k$, so ist der Quotientenring $\mathbb{F}_p[x]/\langle f \rangle$ ein Körper mit exakt $p^k$ Elementen.
+\end{itemize}
+\end{explanation-of-steps}
 \end{math-stroke}
 
 \begin{ai-global-state-checkpoint-invisible-content}
@@ -611,9 +619,10 @@ Wir berechnen beispielhaft einige Produkte im Körper $\mathbb{F}_4$ unter Ausnu
     [x] \cdot [x] = [x^2] = [x + 1].
     \]
     \item \textbf{Produkt $[x] \cdot [x+1]$:}
-    \[
-    [x] \cdot [x+1] = [x^2 + x] = [x^2] + [x] = [x+1] + [x] = [2x + 1] = [1] \quad (\text{da } 2 = 0 \text{ in } \mathbb{F}_2).
-    \]
+    \begin{align*}
+    [x] \cdot [x+1] &= [x^2 + x] = [x^2] + [x] \\
+    &= [x+1] + [x] = [2x + 1] = [1] \quad (\text{da } 2 = 0 \text{ in } \mathbb{F}_2).
+    \end{align*}
     Somit sind $[x]$ und $[x+1]$ multiplikativ invers zueinander: $[x]^{-1} = [x+1]$.
 \end{itemize}
 \end{example}
@@ -679,7 +688,10 @@ Um zu sehen, dass es für jedes $n$ einen Körper der Ordnung $p^n$ gibt, muss m
 \end{spoken-clean}
 
 \begin{math-stroke}[Struktur endlicher Körper]
-Jeder endliche Körper $E$ ist ein Vektorraum über seinem Primkörper $\mathbb{F}_p$ für eine Primzahl $p$. Da $E$ endlich ist, ist die Dimension $n = \dim_{\mathbb{F}_p}(E)$ endlich, woraus folgt:
+Jeder endliche Körper $E$ besitzt notwendigerweise eine Primzahlcharakteristik $p>0$ und enthält somit einen zu $\mathbb{F}_p$ isomorphen Teilkörper (den Primkörper). Man kann $E$ daher als Vektorraum über $\mathbb{F}_p$ auffassen. Da $E$ endlich ist, ist die Dimension $n = \dim_{\mathbb{F}_p}(E)$ endlich. 
+\begin{explanation-of-steps}[Kardinalität des Vektorraums]
+Da jeder $n$-dimensionale Vektorraum über einem Körper $K$ isomorph zu $K^n$ ist, gibt es für jede der $n$ Basisrichtungen genau $|K| = p$ Wahlmöglichkeiten. Daraus ergibt sich die Gesamtzahl der Elemente in $E$:
+\end{explanation-of-steps}
 \[
 |E| = p^n.
 \]

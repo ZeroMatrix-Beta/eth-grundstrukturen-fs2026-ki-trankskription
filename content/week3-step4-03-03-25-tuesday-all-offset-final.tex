@@ -148,8 +148,10 @@ Sei $\varphi$ eine $\mathcal{L}_{\text{PA}}$-Formel und $\nu$ eine freie Variabl
 \mathbf{PA_6}\colon \quad \bigl( \varphi(0) \land \forall \nu \, (\varphi(\nu) \to \varphi(S(\nu))) \bigr) \to \forall \nu \, \varphi(\nu)
 \end{equation}
 
-\begin{explanation-of-steps}[Warum ein Schema?]
+\begin{explanation-of-steps}[Warum ein Schema? (und Notationshinweis)]
 In der Prädikatenlogik erster Stufe können wir nicht über Mengen von Formeln quantifizieren. Wir können also nicht ein einzelnes Axiom schreiben, das besagt: \qt{Für alle Formeln $\varphi$ gilt...}. Stattdessen führen wir für jede mögliche Formel $\varphi$ ein eigenes Axiom ein, das die Struktur von \eqref{eq:pa6} besitzt. In der Logik zweiter Ordnung könnte man dies mit einem einzigen Axiom regeln, was jedoch andere metallogische Probleme aufwirft.
+
+(Zudem ist die Schreibweise $\varphi(0)$ und $\varphi(S(\nu))$ eine informelle Kurznotation für die formale Substitution $\varphi(\nu/0)$ und $\varphi(\nu/S(\nu))$.)
 \end{explanation-of-steps}
 \end{math-stroke}
 
@@ -277,7 +279,7 @@ Gut, und jetzt wollen wir noch den Induktionsschritt zeigen. Wir zeigen: In der 
 
 Jetzt formen wir das um. Wir betrachten $S(S(0)) \cdot S(x)$. Gemäß \textbf{PA$_5$} ist das dasselbe wie $(S(S(0)) \cdot x) + S(S(0))$. Da wissen wir nun gemäß Induktionsannahme, dass das dasselbe ist wie $(x + x) + S(S(0))$. Jetzt können wir die Assoziativität und Kommutativität verwenden, die Sie in den Übungen zeigen. Wir können das umschreiben als $(x + S(S(0))) + x$. Und $x + S(S(0))$ ist nach \textbf{PA$_3$} dasselbe wie $S(x + S(0))$, was wiederum $S(S(x + 0))$ ist, also $S(S(x))$. Also haben wir $S(S(x)) + x$. Und das ist wiederum $S(x) + S(x)$, wenn man die Axiome richtig anwendet.
 
-Das zeigt uns also den Induktionsschritt. Zusammen mit dem Induktionsanfang folgt nach dem Induktionsaxiom \textbf{PA$_6$}, dass die Formel für alle $x$ gilt. Gut, das ist wichtig. Deswegen gibt es diese Woche auf dem Übungsblatt nochmals zwei Übungen, in denen Sie wirklich nochmals einen formalen Beweis ausführen sollen. Vielen Dank fürs Kommen und bis zum nächsten Mal.
+Das zeigt uns also den Induktionsschritt. Zusammen mit dem Induktionsanfang folgt nach dem Induktionsaxiom \textbf{PA$_6$}, dass die Formel für alle $x$ gilt. Gut, das ist wichtig. Deswegen gibt es diese Woche auf dem Übungsblatt nochmals zwei Übungen, in denen Sie wirklich nochmals einen formalen Beweis ausführen sollen.
 \end{spoken-clean}
 
 \subsubsection{Induktionsschritt}
@@ -539,7 +541,7 @@ Gut, jetzt haben wir Terme interpretiert. Jetzt kommt der nächste Schritt: Wir 
 
 Wir schreiben dafür $I \models \varphi$ und lesen das als: \qt{Die Interpretation $I$ ist ein Modell für $\varphi$} oder \qt{$\varphi$ ist wahr in $I$}. Auch das machen wir wieder induktiv über den Aufbau der Formeln. Wir fangen an mit den atomaren Formeln. Das waren Gleichungen zwischen Termen oder Relationen zwischen Termen.
 
-Also: $I \models \tau_1 = \tau_2$ gilt genau dann, wenn die Interpretationen der Terme gleich sind, also wenn $I(\tau_1) = I(\tau_2)$ als Elemente in unserem Bereich $A$ gilt. Und für ein Relationssymbol: $I \models R \tau_1 \dots \tau_n$ gilt genau dann, wenn das Tupel der Interpretationen $(I(\tau_1), \dots, I(\tau_n))$ in der Relation $R^M$ liegt. Das ist der Anfang. Und dann kommen die logischen Verknüpfungen und die Quantoren. Aber das machen wir dann beim nächsten Mal im Detail. Vielen Dank fürs Kommen und bis bald.
+Also: $I \models \tau_1 = \tau_2$ gilt genau dann, wenn die Interpretationen der Terme gleich sind, also wenn $I(\tau_1) = I(\tau_2)$ als Elemente in unserem Bereich $A$ gilt. Und für ein Relationssymbol: $I \models R \tau_1 \dots \tau_n$ gilt genau dann, wenn das Tupel der Interpretationen $(I(\tau_1), \dots, I(\tau_n))$ in der Relation $R^M$ liegt. Das ist der Anfang. Und dann kommen die logischen Verknüpfungen und die Quantoren.
 \end{spoken-clean}
 
 \section{Wahrheitsbegriff in der Modelltheorie}

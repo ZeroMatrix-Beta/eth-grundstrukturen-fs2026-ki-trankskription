@@ -262,9 +262,9 @@ Sei $\mathcal{L}$ eine Signatur, $\Phi$ eine Menge von $\mathcal{L}$-Formeln und
 
 Wir sagen, $\psi$ ist \newterm{beweisbar aus} $\Phi$, geschrieben als:
 \[ \Phi \vdash \psi \]
-falls es eine endliche Sequenz $\varphi_0, \varphi_1, \dots, \varphi_n$ von $\mathcal{L}$-Formeln gibt, sodass:
+falls es eine endliche Sequenz $\varphi_0, \varphi_1, \dots, \varphi_n$ von $\mathcal{L}$-Formeln gibt, sodass jedes $\varphi_i$ entweder ein Element aus $\Phi$, eine Instanz der logischen Axiomenschemata (\cref{ax:aussagenlogisch,ax:quantoren,ax:gleichheit}) oder mittels Modus Ponens beziehungsweise Verallgemeinerung aus früheren Formeln hervorgegangen ist, und gilt:
 \begin{equation}\label{eq:beweis-ende}
-\varphi_n \equiv \psi \quad (\text{d.\,h. } \varphi_n \text{ und } \psi \text{ sind identisch})
+\varphi_n \equiv \psi \quad (\text{d.\,h. } \varphi_n \text{ und } \psi \text{ sind identisch}).
 \end{equation}
 \end{definition}
 \end{math-stroke}
@@ -716,6 +716,10 @@ Wir konstruieren die formale Beweissequenz $\varphi_0, \varphi_1, \varphi_2, \va
 \end{short-proof}
 \end{math-stroke}
 
+\begin{spoken-clean}[Prüfungshinweis zu den logischen Axiomen]
+Jemand hat in der Pause gefragt, ob man die logischen Axiome für die Prüfung auswendig kennen muss: Das müssen Sie ausdrücklich nicht. Auch der Dozent kennt diese nicht alle auswendig.
+\end{spoken-clean}
+
 \begin{spoken-clean}[01:01:12 - 01:02:27]
 Jetzt können wir das Deduktionstheorem anwenden. Es besagt: Wenn wir aus $\Phi \cup \{\psi\}$ die Formel $\varphi$ herleiten können, dann lässt sich aus $\Phi$ die Implikation $\psi \rightarrow \varphi$ beweisen. 
 
@@ -819,12 +823,12 @@ wobei:
 \end{math-stroke}
 
 \begin{spoken-clean}[01:05:57 - 01:08:42]
-Als Nächstes betrachten wir die Körpertheorie. Ein Körper ist im Wesentlichen ein kommutativer Ring mit Eins, bei dem jedes Element außer der Null ein multiplikatives Inverses besitzt. Zudem wollen wir ausschließen, dass der Körper nur aus einem einzigen Element besteht; wir fordern also $0 \neq 1$. 
+Als Nächstes betrachten wir die Körpertheorie. Ein Körper ist im Wesentlichen ein kommutativer Ring mit Eins, bei dem jedes Element außer der Null ein multiplikatives Inverses besitzt. Zudem wollen wir ausschließen, dass der Körper nur aus einem einzigen Element besteht; wir fordern also $0 \neq 1$ ($\neg(0 = 1)$). 
 
 Die Signatur der Körpertheorie $\mathcal{L}_{\text{Körper}}$ ist identisch mit der Signatur der Ringtheorie:
 \[ \mathcal{L}_{\text{Körper}} = \{0, 1, +, \cdot, -\} \]
 
-Die Axiome der Körpertheorie bestehen aus den acht Axiomen der Ringtheorie, die wir hier als $\mathbf{KT_0}$ bis $\mathbf{KT_7}$ bezeichnen, plus drei weiteren Axiomen:
+Die Axiome der Körpertheorie bestehen aus den acht Axiomen der Ringtheorie, die wir hier als $\mathbf{KT_0}$ bis $\mathbf{KT_7}$ ($\mathbf{RT_0}$--$\mathbf{RT_7}$) bezeichnen, plus drei weiteren Axiomen:
 \begin{itemize}
     \item \textbf{KT$_{\mathbf{8}}$ (Kommutativität der Multiplikation):} Für alle $x, y$ gilt $x \cdot y = y \cdot x$.
     \item \textbf{KT$_{\mathbf{9}}$ (Existenz des multiplikativen Inversen):} Für alle $x$ gilt: Wenn $x \neq 0$, dann existiert ein $y$, sodass $x \cdot y = 1$.
@@ -909,7 +913,7 @@ Wenn wir alle diese einzelnen Gleichungen bewiesen haben, können wir sie über 
 Wir beweisen formal die Eindeutigkeit des multiplikativen Inversen in der Körpertheorie:
 \[ \text{KT} \vdash \forall x \forall y \forall z \bigl(\neg(x = 0) \wedge x \cdot y = 1 \wedge x \cdot z = 1 \rightarrow y = z\bigr) \]
 
-\begin{short-proof}
+\begin{short-proof}[Beweis der Eindeutigkeit des Inversen]
 Unter Verwendung des Deduktionstheorems ($\text{DT}$) definieren wir die Voraussetzungsmenge:
 \[ \Phi := \text{KT} \cup \{x \cdot y = 1, \ x \cdot z = 1\} \]
 Wir zeigen, dass $\Phi \vdash y = z$ gilt, indem wir die Gleichungskette formal herleiten:
@@ -1052,26 +1056,6 @@ Eine \newterm{lineare Ordnung} (oder totale Ordnung) ist eine strikte Halbordnun
 \end{definition}
 \end{math-stroke}
 
-\begin{spoken-clean}[01:27:42 - 01:30:08]
-Als letztes Beispiel für heute betrachten wir das fundamentale Axiomensystem der modernen Mathematik: die Mengenlehre, genauer gesagt die Zermelo-Fraenkel-Mengenlehre mit Auswahlaxiom, abgekürzt $\text{ZFC}$. 
-
-Die Signatur der Mengenlehre $\mathcal{L}_{\text{ZFC}}$ ist überraschend einfach. Sie besteht aus einem einzigen zweistelligen Relationssymbol, dem Element-Symbol $\in$:
-\[ \mathcal{L}_{\text{ZFC}} = \{\in\} \]
-
-Obwohl die Signatur so minimalistisch ist, sind die Axiome von $\text{ZFC}$ äußerst tiefgründig und komplex. Sie bilden das Fundament, auf dem fast die gesamte moderne Mathematik aufgebaut werden kann. Wir werden diese Axiome in den kommenden Wochen noch sehr detailliert und Schritt für Schritt besprechen. 
-
-Heute möchte ich Ihnen nur das allererste und grundlegendste Axiom vorstellen, das Extensionalitätsaxiom, oft mit $\mathbf{Ext}$ abgekürzt:
-\[ \forall x \forall y \Bigl(\forall z (z \in x \leftrightarrow z \in y) \rightarrow x = y\Bigr) \]
-
-Dieses Axiom besagt anschaulich: Zwei Mengen sind genau dann identisch, wenn sie exakt dieselben Elemente enthalten. Eine Menge ist also vollständig durch ihre Elemente charakterisiert. Es gibt keine \qt{Zusatzinformationen} oder innere Strukturen, die zwei Mengen mit identischen Elementen voneinander unterscheiden könnten. 
-
-Das ist alles, was wir heute durchgehen wollten. Wir haben formale Beweise kennengelernt, das Deduktionstheorem besprochen und verschiedene wichtige Axiomensysteme der Mathematik formalisiert: die Ringtheorie, die Körpertheorie, die Ordnungstheorie, die Peano-Arithmetik und das erste Axiom der Mengenlehre. 
-
-Nächste Woche werden wir anfangen, uns mit der Semantik zu beschäftigen. Wir werden definieren, was eine Struktur ist und was es bedeutet, dass eine Formel in einer Struktur wahr ist. 
-
-Vielen Dank fürs Kommen, eine erfolgreiche Woche und bis zum nächsten Mal!
-\end{spoken-clean}
-
 \subsection{Die Axiome der Peano-Arithmetik}
 
 \begin{math-stroke}
@@ -1095,10 +1079,34 @@ Sei $\varphi(x)$ eine beliebige $\mathcal{L}_{\text{PA}}$-Formel mit der freien 
 \mathbf{PA_6}\colon &\quad \Bigl(\varphi(0) \wedge \forall x \bigl(\varphi(x) \rightarrow \varphi(S(x))\bigr)\Bigr) \rightarrow \forall x \varphi(x) \label{eq:PA6_part3}
 \end{align}
 \end{axioms}
+
+\begin{explanation-of-steps}[Präzisierung des Induktionsschemas]
+Die Schreibweise $\varphi(0)$ und $\varphi(S(x))$ ist eine bequeme Kurzschreibweise für Substitutionen (vgl. \cref{def:substitution}). Formal korrekt ausgedrückt handelt es sich um $\varphi(x/0)$ bzw. $\varphi(x/S(x))$, bei denen die freie Variable $x$ durch den jeweiligen Term ersetzt wird.
+\end{explanation-of-steps}
 \end{math-stroke}
 
 \subsection{Zermelo-Fraenkel-Mengenlehre (ZFC)}
 \subsubsection{Das Extensionalitätsaxiom}
+
+\begin{spoken-clean}[01:27:42 - 01:30:08]
+Als letztes Beispiel für heute betrachten wir das fundamentale Axiomensystem der modernen Mathematik: die Mengenlehre, genauer gesagt die Zermelo-Fraenkel-Mengenlehre mit Auswahlaxiom, abgekürzt $\text{ZFC}$. 
+
+Die Signatur der Mengenlehre $\mathcal{L}_{\text{ZFC}}$ ist überraschend einfach. Sie besteht aus einem einzigen zweistelligen Relationssymbol, dem Element-Symbol $\in$:
+\[ \mathcal{L}_{\text{ZFC}} = \{\in\} \]
+
+Obwohl die Signatur so minimalistisch ist, sind die Axiome von $\text{ZFC}$ äußerst tiefgründig und komplex. Sie bilden das Fundament, auf dem fast die gesamte moderne Mathematik aufgebaut werden kann. Wir werden diese Axiome in den kommenden Wochen noch sehr detailliert und Schritt für Schritt besprechen. 
+
+Heute möchte ich Ihnen nur das allererste und grundlegendste Axiom vorstellen, das Extensionalitätsaxiom, oft mit $\mathbf{Ext}$ abgekürzt:
+\[ \forall x \forall y \Bigl(\forall z (z \in x \leftrightarrow z \in y) \rightarrow x = y\Bigr) \]
+
+Dieses Axiom besagt anschaulich: Zwei Mengen sind genau dann identisch ($x = y$), wenn sie exakt dieselben Elemente enthalten ($\forall z (z \in x \leftrightarrow z \in y)$). Eine Menge ist also vollständig durch ihre Elemente charakterisiert. Es gibt keine \qt{Zusatzinformationen} oder innere Strukturen, die zwei Mengen mit identischen Elementen voneinander unterscheiden könnten. 
+
+Das ist alles, was wir heute durchgehen wollten. Wir haben formale Beweise kennengelernt, das Deduktionstheorem besprochen und verschiedene wichtige Axiomensysteme der Mathematik formalisiert: die Ringtheorie, die Körpertheorie, die Ordnungstheorie, die Peano-Arithmetik und das erste Axiom der Mengenlehre. 
+
+Nächste Woche werden wir anfangen, uns mit der Semantik zu beschäftigen. Wir werden definieren, was eine Struktur ist und was es bedeutet, dass eine Formel in einer Struktur wahr ist. 
+
+Vielen Dank fürs Kommen, eine erfolgreiche Woche und bis zum nächsten Mal!
+\end{spoken-clean}
 
 \begin{math-stroke}
 Die Signatur der Mengenlehre ist:

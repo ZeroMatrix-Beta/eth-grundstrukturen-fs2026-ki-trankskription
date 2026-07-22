@@ -594,6 +594,14 @@ $\omega$ ist eine Ordinalzahl. Wir können weitere Ordinalzahlen durch die Nachf
 \omega \cdot 3, \dots, \omega \cdot \omega &= \omega^2, \omega^3, \dots, \omega^\omega, \omega^{\omega^\omega}, \dots
 \end{align*}
 \end{remark}
+
+\begin{didactic-insight}[Besonderheiten transfiniter Ordinalzahl-Arithmetik]
+Bei der Addition und Multiplikation transfiniter Ordinalzahlen muss man auf die Reihenfolge achten:
+\begin{itemize}
+    \item \textbf{Nicht-Kommutativität der Addition:} Es gilt $1 + \omega = \omega$, jedoch $\omega + 1 \neq \omega$ (da $\omega + 1$ das maximale Element $\omega$ besitzt, $\omega$ selbst aber kein maximales Element hat).
+    \item \textbf{Rolle des Ersetzungsaxioms:} Um zu beweisen, dass Limes-Ordinalzahlen wie $\omega \cdot 2 = \bigcup_{n \in \omega} (\omega + n)$ existieren, benötigt man zwingend das Ersetzungsaxiom (\cref{ax:replacement}), da nur dieses garantiert, dass das Bild der Klassenfunktion $n \mapsto \omega + n$ über der Menge $\omega$ wieder eine Menge bildet.
+\end{itemize}
+\end{didactic-insight}
 \end{math-stroke}
 
 \subsection{Eigenschaften der Klasse der Ordinalzahlen}

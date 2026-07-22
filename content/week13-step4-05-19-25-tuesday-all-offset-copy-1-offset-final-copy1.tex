@@ -40,7 +40,7 @@ In dieser Vorlesung setzen wir die Untersuchung der Arithmetik modulo $n$ fort u
 \section{Äquivalenzrelationen modulo \texorpdfstring{$n$}{n}}
 
 \begin{spoken-clean}[00:00:00 - 00:01:57]
-Hallo zusammen, wir fangen an. \inlinemetanote{wartet, bis sich die Studierenden beruhigt haben} Wir hatten letzte Woche am Ende noch die Äquivalenzrelationen modulo $n$ gesehen. Das heißt, wir haben gesehen, dass $a$ kongruent zu $b$ modulo $n$ ist, falls $n$ ein Teiler von $a - b$ ist. Mit anderen Worten: Wenn wir $a$ und $b$ durch $n$ teilen, erhalten wir denselben Rest. So kann man sich das auch anschauen.
+Hallo zusammen, wir fangen an. \inlinemetanote{wartet, bis sich die Studierenden beruhigt haben} Wir hatten letzte Woche am Ende noch die Äquivalenzrelationen modulo $n$ gesehen. Das heißt, wir haben gesehen, dass $a$ kongruent zu $b$ modulo $n$ ist ($a \equiv b \pmod n$), falls $n$ ein Teiler von $a - b$ ist ($n \mid (a - b)$). Mit anderen Worten: Wenn wir $a$ und $b$ durch $n$ teilen, erhalten wir denselben Rest. So kann man sich das auch anschauen.
 
 Das heißt, wir schauen uns alle Zahlen an, die denselben Rest ergeben, wenn wir durch $n$ teilen. Gut, und wir haben gesehen, dass das eine Äquivalenzrelation ist. Wenn wir eine Äquivalenzrelation haben, dann gibt uns das Äquivalenzklassen. Das heißt, wir erhalten eine Partition der ganzen Zahlen in ihre Äquivalenzklassen --- wir erhalten also Äquivalenzklassen, und das gibt uns eine Partition von $\mathbb{Z}$.
 \end{spoken-clean}
@@ -289,6 +289,9 @@ Das ist äußerst elegant und war eine revolutionäre Idee --- obwohl sie mathem
         \item Alice berechnet $[a^s]^r = [a^{s \cdot r}] \in \mathbb{Z}_n$.
         \item Bob berechnet $[a^r]^s = [a^{r \cdot s}] \in \mathbb{Z}_n$.
     \end{itemize}
+    \begin{explanation-of-steps}[Potenzgesetze in $\mathbb{Z}_n$]
+    Streng genommen verwenden wir hier implizit, dass die Potenzgesetze (wie $(a^r)^s = a^{r \cdot s}$) auch beim Rechnen mit Restklassen erhalten bleiben. Da die Multiplikation in $\mathbb{Z}_n$ wohldefiniert ist, folgt dies durch iterierte Anwendung der Eigenschaft $[x] \cdot [y] = [x \cdot y]$.
+    \end{explanation-of-steps}
 \end{enumerate}
 Da $s \cdot r = r \cdot s$ in $\mathbb{Z}$ gilt, erhalten beide Parteien dieselbe Restklasse:
 \begin{equation}\label{eq:dh-schluessel}
@@ -805,7 +808,7 @@ Die Wohldefiniertheit von $\Phi$ folgt aus der Eigenschaft, dass $M$ ein Vielfac
 \[
 x \equiv y \pmod M \implies x \equiv y \pmod{m_i} \quad \text{für alle } i.
 \]
-Die Bijektivität von $\Phi$ ist die direkte algebraische Übersetzung von Theorem \cref{thm:chinesischer-restsatz}. Die Homomorphie-Eigenschaft bezüglich Addition und Multiplikation folgt unmittelbar aus der komponentenweisen Definition der Ringoperationen auf dem direkten Produkt:
+Die Bijektivität von $\Phi$ ist die direkte algebraische Übersetzung von \cref{thm:chinesischer-restsatz}. Die Homomorphie-Eigenschaft bezüglich Addition und Multiplikation folgt unmittelbar aus der komponentenweisen Definition der Ringoperationen auf dem direkten Produkt:
 \begin{align*}
 \Phi([x \cdot y]_M) &= \left( [x \cdot y]_{m_1}, \dots, [x \cdot y]_{m_r} \right) \\
 &= \left( [x]_{m_1}, \dots, [x]_{m_r} \right) \cdot \left( [y]_{m_1}, \dots, [y]_{m_r} \right) \\
@@ -835,6 +838,21 @@ Seien $m, n \in \mathbb{N}_{\ge 2}$ teilerfremd, d.\,h. $\operatorname{ggT}(m, n
 \varphi(m \cdot n) = \varphi(m) \cdot \varphi(n).
 \end{equation}
 \end{proposition}
+
+\begin{explanation-of-steps}[Einheitengruppen-Isomorphismus und Multiplikativität]
+Der Beweis nutzt den Ringisomorphismus $\Phi \colon \mathbb{Z}_{mn} \stackrel{\cong}{\to} \mathbb{Z}_m \times \mathbb{Z}_n$ aus \cref{prop:ringisomorphismus-crt}:
+\begin{itemize}
+    \item Ein Ringisomorphismus induziert stets einen Gruppenisomorphismus der Einheitengruppen:
+    \[
+    \mathbb{Z}_{mn}^* \cong (\mathbb{Z}_m \times \mathbb{Z}_n)^* \cong \mathbb{Z}_m^* \times \mathbb{Z}_n^*.
+    \]
+    \item Durch Abzählen der Elemente folgt unmittelbar:
+    \[
+    \varphi(mn) = |\mathbb{Z}_{mn}^*| = |\mathbb{Z}_m^* \times \mathbb{Z}_n^*| = |\mathbb{Z}_m^*| \cdot |\mathbb{Z}_n^*| = \varphi(m) \cdot \varphi(n).
+    \]
+    \item Für ein Produkt zweier verschiedener Primzahlen $p, q$ ergibt sich speziell $\varphi(pq) = (p-1)(q-1)$.
+\end{itemize}
+\end{explanation-of-steps}
 
 \begin{short-proof}
 Der Ringisomorphismus $\Phi \colon \mathbb{Z}_{m \cdot n} \to \mathbb{Z}_m \times \mathbb{Z}_n$ induziert eine Bijektion zwischen den jeweiligen Einheitengruppen:

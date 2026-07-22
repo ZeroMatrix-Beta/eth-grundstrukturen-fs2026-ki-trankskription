@@ -579,7 +579,7 @@ Nehmen wir an, dass wir eine Zahl als zwei verschiedene Produkte schreiben könn
 \end{spoken-clean}
 
 \begin{math-stroke}[Ansatz zur Eindeutigkeit]
-Wir nehmen an, wir haben zwei Primfaktorzerlegungen für eine Zahl $a \in \mathbb{N}_{_{>1}}$:
+Wir nehmen an, wir haben zwei Primfaktorzerlegungen für eine Zahl $a \in \mathbb{N}_{>1}$:
 \begin{equation}\label{eq:eindeutigkeit-ansatz-p3}
 a = p_1 \cdot p_2 \cdots p_k = q_1 \cdot q_2 \cdots q_m
 \end{equation}
@@ -618,7 +618,10 @@ Aus \eqref{eq:p1-q1-abschatzung} und \eqref{eq:q1-p1-abschatzung} folgt:
 \[ p_1 = q_1 \]
 Wir kürzen diesen Faktor in \eqref{eq:eindeutigkeit-ansatz-p3}:
 \[ p_2 \cdots p_k = q_2 \cdots q_m \]
-Nach Induktionsannahme ist diese Zerlegung eindeutig, woraus $k = m$ und $p_i = q_i$ für alle $i \in \{1, \dots, k\}$ folgt.
+\begin{explanation-of-steps}[Implizite Induktion]
+Streng genommen führen wir hier eine vollständige Induktion über die Anzahl der Primfaktoren $k$ (oder alternativ über die Größe der Zahl $a$). Für $k=0$ (die Zahl $1$) ist die Eindeutigkeit trivial. Nehmen wir an, die Eindeutigkeit gilt für Produkte aus $k-1$ Primfaktoren. Durch das Kürzen von $p_1 = q_1$ betrachten wir nun die echt kleinere Zahl $a' = a / p_1 = p_2 \cdots p_k$. Diese hat nur noch $k-1$ Faktoren auf der linken Seite. Nach Induktionsannahme ist ihre Zerlegung eindeutig.
+\end{explanation-of-steps}
+Nach Induktionsannahme ist diese verbleibende Zerlegung eindeutig, woraus $k = m$ und $p_i = q_i$ für alle $i \in \{2, \dots, k\}$ folgt.
 \end{math-stroke}
 \end{proof}
 

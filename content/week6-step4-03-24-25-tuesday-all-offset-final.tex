@@ -148,6 +148,10 @@ Aus dem Fundierungsaxiom \ref{ax:fundierung} folgen wichtige strukturelle Eigens
     \item \textbf{Irreflexivität der Elementrelation:} Keine Menge kann sich selbst als Element enthalten:
     \[ \forall x \colon x \notin x \]
 \end{itemize}
+
+\begin{explanation-of-steps}[Beweis von $x \notin x$ mittels Fundierung]
+Wäre $x \in x$, so betrachten wir die Einermenge $u = \{x\}$ (Paarmengenaxiom mit $y=x$). Nach dem Fundierungsaxiom besitzt $u \neq \emptyset$ ein Element $y \in u$ mit $y \cap u = \emptyset$. Da $u$ nur das Element $x$ enthält, muss $y = x$ gelten, also $x \cap \{x\} = \emptyset$. Falls $x \in x$, so läge $x$ sowohl in $x$ als auch in $\{x\}$, was $x \cap \{x\} = \emptyset$ widerspricht. Folglich muss $x \notin x$ gelten.
+\end{explanation-of-steps}
 \end{math-stroke}
 
 \begin{spoken-clean}[00:08:22 - 00:09:01]

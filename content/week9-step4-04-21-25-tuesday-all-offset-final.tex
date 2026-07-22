@@ -107,14 +107,14 @@ Wir schreiben dafür:
 \]
 \end{definition}
 
-\begin{example}[Gleichmächtigkeit von \texorpdfstring{$\omega + \omega$}{omega + omega} und \texorpdfstring{$\omega$}{omega}]\label[example]{ex:omega-plus-omega}
+\begin{example}[\texorpdfstring{Gleichmächtigkeit von $\omega + \omega$ und $\omega$}{Gleichmächtigkeit von omega + omega und omega}]\label[example]{ex:omega-plus-omega}
 Es gilt:
 \[
 |\omega + \omega| = |\omega|
 \]
 \end{example}
 
-\begin{short-proof}
+\begin{short-proof}[Beweis von \cref{ex:omega-plus-omega}]
 Wir definieren die Abbildung $f \colon \omega + \omega \to \omega$ durch:
 \[
 f(\alpha) := \begin{cases}
@@ -480,6 +480,7 @@ Nun müssen wir noch zeigen, dass $h$ surjektiv ist. Dazu nehmen wir ein $y \in 
 Das ist in der Praxis natürlich äußerst praktisch, um zu zeigen, dass zwei Mengen gleichmächtig sind. Es ist nämlich oft sehr mühsam, eine explizite Bijektion direkt zu konstruieren. Es ist viel einfacher, stattdessen zwei Injektionen zu finden.
 \end{spoken-clean}
 
+\newpage
 \subsection{Beweis des Cantor-Bernstein-Schröder-Theorems}
 \begin{math-stroke}
 \begin{short-proof}
@@ -618,7 +619,7 @@ Es gilt:
 |\omega| \le |\mathbb{Q}|
 \]
 \end{proposition}
-\begin{short-proof}
+\begin{short-proof}[Beweis von \cref{prop:omega-le-q}]
 Wir definieren die kanonische Einbettung $i \colon \omega \to \mathbb{Q}$ durch:
 \[
 i(n) := \frac{n}{1}
@@ -658,7 +659,7 @@ Es gilt:
 |\mathbb{Q}| \le |\omega|
 \]
 \end{proposition}
-\begin{short-proof}
+\begin{short-proof}[Beweis von \cref{prop:q-le-omega}]
 Jede rationale Zahl $x \in \mathbb{Q} \setminus \{0\}$ lässt sich eindeutig als gekürzter Bruch darstellen:
 \[
 x = \frac{p}{q} \quad \text{mit } p \in \mathbb{Z} \setminus \{0\}, \ q \in \omega \setminus \{0\} \quad \text{und} \quad \operatorname{ggT}(|p|, q) = 1
@@ -681,7 +682,7 @@ Es gilt:
 |\mathbb{Q}| = |\omega|
 \]
 \end{corollary}
-\begin{short-proof}
+\begin{short-proof}[Beweis von \cref{cor:q-countable}]
 Die Behauptung folgt unmittelbar aus Proposition \ref{prop:omega-le-q} ($|\omega| \le |\mathbb{Q}|$), Proposition \ref{prop:q-le-omega} ($|\mathbb{Q}| \le |\omega|$) und dem Cantor-Bernstein-Schröder-Theorem (Theorem \ref{thm:cantor-bernstein-schroeder}).
 \end{short-proof}
 \end{math-stroke}
@@ -703,7 +704,7 @@ Es gilt:
 |\mathbb{R}| \le |\mathcal{P}(\omega)|
 \]
 \end{proposition}
-\begin{short-proof}
+\begin{short-proof}[Beweis von \cref{prop:r-le-p-omega}]
 Wir haben die reellen Zahlen $\mathbb{R}$ über Dedekindsche Schnitte als Teilmenge der Potenzmenge der rationalen Zahlen definiert (Definition \ref{def:reelle-zahlen}):
 \[
 \mathbb{R} \subseteq \mathcal{P}(\mathbb{Q}) \implies |\mathbb{R}| \le |\mathcal{P}(\mathbb{Q})|
@@ -734,7 +735,7 @@ Es gilt:
 |\mathcal{P}(\omega)| \le |\mathbb{R}|
 \]
 \end{proposition}
-\begin{short-proof}
+\begin{short-proof}[Beweis von \cref{prop:p-omega-le-r}]
 Wir konstruieren eine explizite Injektion $f \colon \mathcal{P}(\omega) \to \mathbb{R}$. Für jede Teilmenge $X \subseteq \omega$ definieren wir das Bild $f(X)$ über eine unendliche Reihe:
 \begin{equation}\label{eq:ternary-injection}
 f(X) := \sum_{n \in X} \frac{1}{3^{n+1}}
@@ -752,7 +753,7 @@ Es gilt:
 |\mathbb{R}| = |\mathcal{P}(\omega)|
 \]
 \end{theorem}
-\begin{short-proof}
+\begin{short-proof}[Beweis von \cref{thm:r-equals-p-omega}]
 Die Behauptung folgt direkt aus Proposition \ref{prop:r-le-p-omega} ($|\mathbb{R}| \le |\mathcal{P}(\omega)|$), Proposition \ref{prop:p-omega-le-r} ($|\mathcal{P}(\omega)| \le |\mathbb{R}|$) und dem Cantor-Bernstein-Schröder-Theorem (Theorem \ref{thm:cantor-bernstein-schroeder}).
 \end{short-proof}
 \end{math-stroke}
@@ -811,7 +812,7 @@ Es kann natürlich viele solche Ordinalzahlen geben. Wenn $M$ beispielsweise abz
 \end{spoken-clean}
 
 \begin{math-stroke}[Kardinalität unter dem Wohlordnungsprinzip]
-Gemäß dem Wohlordnungsprinzip (\textbf{WOP}) existiert für jede Menge $M$ eine Ordinalzahl $\alpha \in \Omega$ mit $|M| = |\alpha|$.
+Gemäß dem Wohlordnungsprinzip (\textbf{WOP}, \cref{thm:wohlordnungsprinzip}) existiert für jede Menge $M$ eine Ordinalzahl $\alpha \in \Omega$ mit $|M| = |\alpha|$.
 
 \begin{definition}[Kardinalität einer Menge]\label[definition]{def:kardinalitaet-menge}
 Die \newterm{Kardinalität} (oder Mächtigkeit) $|M|$ einer Menge $M$ ist die kleinste Ordinalzahl $\alpha$, die gleichmächtig zu $M$ ist:
@@ -996,7 +997,7 @@ Insbesondere gilt für die kleinste unendliche Kardinalzahl $\omega$:
 \[
 2^{\aleph_0} = |\mathcal{P}(\omega)|
 \]
-Der Satz von Cantor (Theorem \ref{thm:cantor-proof}) lässt sich in dieser Notation wie folgt formulieren:
+Der Satz von Cantor (Theorem \ref{thm:cantor}) lässt sich in dieser Notation wie folgt formulieren:
 \begin{equation}\label{eq:cantor-arithmetic}
 \kappa < 2^\kappa \quad \text{für jede Kardinalzahl } \kappa
 \end{equation}

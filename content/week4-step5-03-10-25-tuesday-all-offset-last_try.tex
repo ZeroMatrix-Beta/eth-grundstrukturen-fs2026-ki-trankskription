@@ -689,10 +689,11 @@ Zwei Mengen sind genau dann gleich, wenn sie dieselben Elemente enthalten:
     \item \textbf{Rückrichtung ($\impliedby$):} Falls $x = y$, so gilt $\forall z \, (z \in x \leftrightarrow z \in y)$. Dies ist ein rein logisches Theorem, welches aus dem Substitutivitätsaxiom der Gleichheit ($\text{L}_{15}$) folgt.
 \end{itemize}
 
-\textbf{Eindeutigkeit der leeren Menge:}
-Das Extensionalitätsaxiom impliziert direkt, dass die leere Menge eindeutig ist. Falls $x_1$ und $x_2$ beide leere Mengen sind, so gilt:
+\begin{proposition}[Eindeutigkeit der leeren Menge]\label[proposition]{prop:eindeutigkeit-leere-menge}
+Das Extensionalitätsaxiom (\cref{ax:extensionalitaet}) impliziert direkt, dass die leere Menge eindeutig ist. Falls $x_1$ und $x_2$ beide leere Mengen sind, so gilt:
 \[ \forall z \, (z \notin x_1 \land z \notin x_2) \implies \forall z \, (z \in x_1 \leftrightarrow z \in x_2) \implies x_1 = x_2 \]
 Wir bezeichnen diese eindeutige Menge fortan mit dem Symbol $\emptyset$.
+\end{proposition}
 \end{math-stroke}
 
 \subsubsection{Teilmengenbeziehung}

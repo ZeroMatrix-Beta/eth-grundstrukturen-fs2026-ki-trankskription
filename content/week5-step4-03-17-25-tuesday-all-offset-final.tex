@@ -230,6 +230,17 @@ wobei $\in$ ein zweistelliges Relationssymbol ist.
     \langle x, y \rangle := \bigl\{ \{x\}, \{x, y\} \bigr\}
     \]
     
+    \begin{explanation-of-steps}[Eigenschaft des geordneten Paars nach Kuratowski]
+    Die Kuratowski-Definition kodiert die Reihenfolge rein mengenlehretisch ohne neue Grundsymbole in $\mathcal{L}_{\text{Set}}$:
+    \begin{itemize}
+        \item Aus der Definition folgt die fundamentale Eigenschaft geordneter Paare:
+        \[
+        \langle x, y \rangle = \langle u, v \rangle \iff x = u \land y = v.
+        \]
+        \item Falls $x = y$, gilt $\langle x, x \rangle = \{\{x\}, \{x, x\}\} = \{\{x\}\}$.
+    \end{itemize}
+    \end{explanation-of-steps}
+    
     \item \textbf{Vereinigungsaxiom:}
     \label[axiom]{ax:union-set}
     \[
@@ -259,11 +270,14 @@ Genau, wir nehmen die Paarmenge von $x$ und $y$. Wir wissen, dass diese existier
 Gut. Man muss dazu sagen, dass das hier natürlich existiert und eindeutig ist; deswegen können wir es so schreiben, auch wieder mit dem Extensionalitätsaxiom.
 \end{spoken-clean}
 
+\subsection{Vereinigungsfunktion und binäre Vereinigung}
 \begin{math-stroke}[Vereinigungsfunktion und binäre Vereinigung]
-\textbf{Wir definieren die Vereinigungsfunktion:}
+\begin{definition}[Vereinigungsfunktion]\label[definition]{def:vereinigung-funktion}
+Die \newterm{Vereinigungsfunktion} $\bigcup x$ einer Menge $x$ ist definiert durch:
 \[
 \bigcup x = u :\iff \forall z \, \bigl( z \in u \leftrightarrow \exists w \, (w \in x \land z \in w) \bigr)
 \]
+\end{definition}
 
 \begin{example}[Einfache Identität]
 Jede Menge $x$ lässt sich als Vereinigung ihrer Einermenge (Singleton) darstellen:
@@ -272,13 +286,14 @@ x = \bigcup \{x\}
 \]
 \end{example}
 
-\textbf{Wir definieren die binäre Vereinigungsfunktion:}
-Für zwei Mengen $x$ und $y$ definieren wir die Vereinigung $x \cup y$ durch:
+\begin{definition}[Binäre Vereinigung]\label[definition]{def:binaere-vereinigung}
+Für zwei Mengen $x$ und $y$ ist die \newterm{binäre Vereinigung} $x \cup y$ definiert durch:
 \[
 x \cup y := \bigcup \{x, y\}
 \]
+\end{definition}
 \begin{explanation-of-steps}
-Nach dem Paarmengenaxiom existiert die Paarmenge $\{x, y\}$. Wenden wir das Vereinigungsaxiom auf diese Paarmenge an, erhalten wir genau die Menge aller Elemente, die in $x$ oder in $y$ liegen. Die Eindeutigkeit dieser Menge folgt direkt aus dem Extensionalitätsaxiom.
+Nach dem Paarmengenaxiom (\cref{ax:pair-set}) existiert die Paarmenge $\{x, y\}$. Wenden wir das Vereinigungsaxiom (\cref{ax:union-set}) auf diese Paarmenge an, erhalten wir genau die Menge aller Elemente, die in $x$ oder in $y$ liegen. Die Eindeutigkeit dieser Menge folgt direkt aus dem Extensionalitätsaxiom (\cref{ax:extensionality}).
 \end{explanation-of-steps}
 \end{math-stroke}
 
@@ -298,13 +313,15 @@ Gut, das können wir jetzt einfach... wir werden das später dann noch sehen. So
 \end{spoken-clean}
 
 \begin{math-stroke}[Konstruktion der natürlichen Zahlen nach von Neumann]
-\textbf{Wir definieren den Nachfolger einer Menge:}
-Für eine Menge $x$ definieren wir den Nachfolger $x + 1$ (oft auch als $S(x)$ bezeichnet) durch:
+\begin{definition}[Nachfolger einer Menge]\label[definition]{def:nachfolger-menge}
+Für eine Menge $x$ ist der \newterm{Nachfolger} $x + 1$ (auch $S(x)$) definiert durch:
 \[
 x + 1 := x \cup \{x\}
 \]
+\end{definition}
 
-\textbf{Definition der natürlichen Zahlen (von Neumannsches Modell):}
+\begin{definition}[Von Neumannsches Modell der natürlichen Zahlen]\label[definition]{def:von-neumann-zahlen}
+Die natürlichen Zahlen werden im von Neumannschen Modell rekursiv wie folgt definiert:
 \begin{align*}
 0 &:= \emptyset \\
 1 &:= 0 + 1 = \emptyset \cup \{\emptyset\} = \{0\} \\
@@ -313,6 +330,7 @@ x + 1 := x \cup \{x\}
 &\ \vdots \\
 n &:= (n-1) + 1 = \{0, \dots, n-2\} \cup \{n-1\} = \{0, \dots, n-1\}
 \end{align*}
+\end{definition}
 
 \begin{explanation-of-steps}
 In dieser Konstruktion ist jede natürliche Zahl $n$ genau die Menge aller kleineren natürlichen Zahlen:
@@ -342,6 +360,7 @@ Die leere Menge, genau.
 Aber sonst haben wir noch gar nicht so viele Mengen aufgrund dieser Axiome gesehen. Das heißt, von diesen Axiomen 0 bis 3 her können wir noch keine induktiven Mengen konstruieren; wir können nicht sagen, ob es nicht-leere induktive Mengen gibt. Und das ist dann genau das Axiom 4, das Unendlichkeitsaxiom.
 \end{spoken-clean}
 
+\subsection{Induktive Mengen}
 \begin{math-stroke}[Induktive Mengen]
 \begin{definition}[Induktive Menge]
 \label[definition]{def:inductive-set}
@@ -352,11 +371,12 @@ Eine Menge $x$ heißt \newterm{induktiv}, falls gilt:
 \end{enumerate}
 \end{definition}
 
-\textbf{Formale Definition als einstelliges Prädikat:}
-Wir definieren das einstellige Prädikat $\operatorname{ind}(x)$ durch:
+\begin{definition}[Prädikat für induktive Mengen]\label[definition]{def:induktives-praedikat}
+Das einstellige Prädikat \newterm{$\operatorname{ind}(x)$} für die Induktivität einer Menge $x$ ist definiert durch:
 \[
 \operatorname{ind}(x) :\iff \emptyset \in x \land \forall y \, \bigl( y \in x \rightarrow y \cup \{y\} \in x \bigr)
 \]
+\end{definition}
 
 \begin{example}[Die leere Menge als Randfall]
 \label[example]{ex:empty-set-inductive}
@@ -393,10 +413,18 @@ Das Unendlichkeitsaxiom besagt einfach: Es gibt eine nicht-leere induktive Menge
 \end{axioms}
 
 \textbf{Notation für ausgesonderte Teilmengen:}
-Die durch das Aussonderungsaxiom eindeutig bestimmte Teilmenge $y \subseteq x$ schreiben wir als:
+Die durch das Aussonderungsaxiom und das Extensionalitätsaxiom eindeutig bestimmte Teilmenge $y \subseteq x$ schreiben wir als:
 \[
 y = \{ z \in x \mid \varphi(z) \}
 \]
+
+\begin{explanation-of-steps}[Präzisierung zur Aussonderungsschreibweise]
+Ebenso wie bei der Klassenfunktion ist $\{ z \in x \mid \varphi(z) \}$ eine bequem zu lesende \newterm{Metanotation (Syntactic Sugar)}:
+\begin{itemize}
+    \item Die formale Sprache $\mathcal{L}_{\text{Set}}$ kennt keine Mengenklammer-Operatoren mit Bedingungen.
+    \item Die Notation $\{ z \in x \mid \varphi(z) \}$ ist schlicht eine Abkürzung für diejenige eindeutige Menge $y$, deren Elemente genau jene $z \in x$ sind, für die $\varphi(z)$ gilt (wobei $\varphi(z)$ hier informell als Kurzschreibweise für die Formel $\varphi(z, w_1, \dots, w_n)$ mit Parametern steht).
+\end{itemize}
+\end{explanation-of-steps}
 \end{math-stroke}
 
 \begin{spoken-clean}[00:25:03 - 00:28:41]
@@ -433,7 +461,7 @@ Sei $\varphi(z) \equiv z \notin z$. Die Kollektion
 ist keine Menge.
 \end{example}
 
-\begin{short-proof}
+\begin{short-proof}[Beweis von Russells Paradoxon]
 Angenommen, $R = \{ z \mid z \notin z \}$ wäre eine Menge. Dann gilt nach der Definition der Kollektion für jedes Objekt $x$:
 \[
 x \in R \iff x \notin x
@@ -456,13 +484,14 @@ Okay, und jetzt können wir damit auch wieder den Durchschnitt definieren. Wir d
 \end{spoken-clean}
 
 \begin{math-stroke}[Definition des Durchschnitts]
-\textbf{Wir definieren das binäre Funktionssymbol Durchschnitt ($\cap$):}
-Für zwei Mengen $x_0$ und $x_1$ definieren wir den Durchschnitt $x_0 \cap x_1$ durch:
+\begin{definition}[Binärer Durchschnitt]\label[definition]{def:binaerer-durchschnitt}
+Für zwei Mengen $x_0$ und $x_1$ ist der \newterm{binäre Durchschnitt} $x_0 \cap x_1$ definiert durch:
 \[
 x_0 \cap x_1 = y :\iff y = \{ z \in x_1 \mid z \in x_0 \}
 \]
+\end{definition}
 \begin{explanation-of-steps}
-Nach dem Aussonderungsaxiom existiert diese Menge, da wir die Bedingung $\varphi(z) \equiv z \in x_0$ auf die bereits existierende Menge $x_1$ anwenden. Hierbei fungiert $x_0$ als Parameter der Formel.
+Nach dem Aussonderungsaxiom (\cref{ax:specification}) existiert diese Menge, da wir die Bedingung $\varphi(z) \equiv z \in x_0$ auf die bereits existierende Menge $x_1$ anwenden. Hierbei fungiert $x_0$ als Parameter der Formel.
 \end{explanation-of-steps}
 \end{math-stroke}
 
@@ -476,11 +505,12 @@ Gut, und dann können wir auch wieder den Durchschnitt schreiben. Wenn wir für 
 \end{spoken-clean}
 
 \begin{math-stroke}[Allgemeiner Durchschnitt]
-\textbf{Wir definieren den allgemeinen Durchschnitt ($\bigcap$):}
-Sei $\varphi(u) \equiv \forall z \, (z \in x \rightarrow u \in z)$. Für eine nichtleere Menge von Mengen $x$ definieren wir den Durchschnitt $\bigcap x$ durch:
+\begin{definition}[Allgemeiner Durchschnitt]\label[definition]{def:allgemeiner-durchschnitt}
+Sei $\varphi(u) \equiv \forall z \, (z \in x \rightarrow u \in z)$. Für eine nichtleere Menge von Mengen $x$ ist der \newterm{allgemeine Durchschnitt} $\bigcap x$ definiert durch:
 \[
 \bigcap x = y :\iff y = \bigl\{ u \in \bigcup x \;\big|\; \forall z \, (z \in x \rightarrow u \in z) \bigr\}
 \]
+\end{definition}
 \end{math-stroke}
 
 \begin{spoken-clean}[00:36:56 - 00:38:38]
@@ -565,10 +595,12 @@ Hier ist unser Ziel eigentlich, ein Modell zu finden --- also das Ziel ist ein M
 \begin{math-stroke}[Die Menge der natürlichen Zahlen \texorpdfstring{$\omega$}{omega}]
 \textbf{Ziel:} Konstruktion eines Modells für die Peano-Arithmetik ($\text{PA}$).
 
-\textbf{Wir definieren die Menge $\omega$:}
+\begin{definition}[Die Menge der natürlichen Zahlen $\omega$]\label[definition]{def:menge-omega}
+Die Menge der natürlichen Zahlen \newterm{$\omega$} (von Neumannsches $\omega$) ist definiert als der Durchschnitt aller induktiven Teilmengen einer gegebenen induktiven Menge $I_0$:
 \[
 \omega := \bigcap \{ X \in \mathcal{P}(I_0) \mid \operatorname{ind}(X) \}
 \]
+\end{definition}
 wobei $I_0$ eine nach dem Unendlichkeitsaxiom existierende induktive Menge ist.
 \end{math-stroke}
 
@@ -638,19 +670,22 @@ Genau: Das war die Menge, die $\{x\}$ enthält und die Menge, die $\{x, y\}$ ent
 
 \subsection{Geordnete Paare und Potenzmengenbeziehung}
 \begin{math-stroke}
-\textbf{Kuratowski-Definition geordneter Paare:}
+\begin{definition}[Kuratowski-Definition geordneter Paare]\label[definition]{def:kuratowski-paar}
+Das \newterm{geordnete Paar} $\langle x, y \rangle$ zweier Objekte $x$ und $y$ ist nach Kuratowski definiert durch:
 \[
 \langle x, y \rangle := \bigl\{ \{x\}, \{x, y\} \bigr\}
 \]
+\end{definition}
 
-\textbf{Existenz und Schranke des kartesischen Produkts:}
-Das kartesische Produkt $A \times B$ existiert als Menge und es gilt:
+\begin{proposition}[Existenz und Schranke des kartesischen Produkts]\label[proposition]{prop:kartesisches-produkt-schranke}
+Das kartesische Produkt $A \times B$ existiert als Menge und ist eine Teilmenge der doppelten Potenzmenge:
 \[
 A \times B \subseteq \mathcal{P}\bigl(\mathcal{P}(A \cup B)\bigr)
 \]
+\end{proposition}
 \begin{explanation-of-steps}
 Da für $x \in A$ und $y \in B$ gilt, dass $\{x\} \subseteq A \cup B$ und $\{x, y\} \subseteq A \cup B$, sind diese Mengen Elemente der Potenzmenge: $\{x\}, \{x, y\} \in \mathcal{P}(A \cup B)$. 
-Daraus folgt, dass das geordnete Paar $\langle x, y \rangle = \{\{x\}, \{x, y\}\}$ eine Teilmenge der Potenzmenge ist, also ein Element der doppelten Potenzmenge: $\langle x, y \rangle \in \mathcal{P}\bigl(\mathcal{P}(A \cup B)\bigr)$.
+Daraus folgt, dass das geordnete Paar $\langle x, y \rangle = \{\{x\}, \{x, y\}\}$ (\cref{def:kuratowski-paar}) eine Teilmenge der Potenzmenge ist, also ein Element der doppelten Potenzmenge: $\langle x, y \rangle \in \mathcal{P}\bigl(\mathcal{P}(A \cup B)\bigr)$.
 \end{explanation-of-steps}
 \end{math-stroke}
 
@@ -669,11 +704,12 @@ Die Menge aller \newterm{Funktionen} von einer Menge $A$ in eine Menge $B$, beze
 \]
 \end{definition}
 
-\textbf{Formale Definition der eindeutigen Existenz ($\exists!$):}
-Der Quantor der eindeutigen Existenz $\exists! y \, \varphi(y)$ ist eine Abkürzung für:
+\begin{notation}[Quantor der eindeutigen Existenz $\exists!$]\label[notation]{not:eindeutige-existenz}
+Der Quantor der \newterm{eindeutigen Existenz} $\exists! y \, \varphi(y)$ ist eine Abkürzung für:
 \[
 \exists! y \, \varphi(y) :\iff \exists y \, \bigl( \varphi(y) \land \forall z \, (\varphi(z) \rightarrow z = y) \bigr)
 \]
+\end{notation}
 \end{math-stroke}
 
 \begin{spoken-clean}[01:02:05 - 01:02:54]
@@ -688,7 +724,7 @@ Genau, und wir schreiben für $f \in {}^A B$ eben $f \colon A \to B$, und für $
 
 \subsection{Funktionsnotation und mehrstellige Funktionen}
 \begin{math-stroke}
-\textbf{Notationskonventionen:}
+\begin{notation}[Funktionsschreibweisen]\label[notation]{not:funktionsschreibweisen}
 Für eine Funktion $f \in {}^{\displaystyle A} B$ schreiben wir:
 \[
 f \colon A \to B
@@ -697,12 +733,14 @@ Für ein geordnetes Paar $\langle x, y \rangle \in f$ schreiben wir:
 \[
 f(x) = y
 \]
+\end{notation}
 
-\textbf{Zweistellige Funktionen:}
+\begin{definition}[Zweistellige Funktion]\label[definition]{def:zweistellige-funktion}
 Falls der Definitionsbereich $A$ selbst ein kartesisches Produkt zweier Mengen ist, d.\,h. $A = C_1 \times C_2$, so ist $f \colon C_1 \times C_2 \to B$ eine \newterm{zweistellige Funktion}. Wir schreiben dann abkürzend:
 \[
 f(c_1, c_2) = y \quad \text{anstelle von} \quad f(\langle c_1, c_2 \rangle) = y
 \]
+\end{definition}
 \end{math-stroke}
 
 \begin{spoken-clean}[01:04:01 - 01:05:16]
@@ -817,7 +855,7 @@ Aber was wir sehen werden --- wahrscheinlich schon in zwei Wochen ---, ist, dass
 \begin{spoken-clean}[01:19:48 - 01:21:39]
 Soweit zu ein paar Beispielen, wie man mit der Mengenlehre gewisse Begriffe definieren kann; das funktioniert alles gut. Jetzt möchte ich gerne heute diese Zermelo-Fraenkel-Geschichte abschließen, deswegen noch die zwei Axiome von Fraenkel. Das sind die Axiome 7 und 8. Zermelo hat schon die Hauptarbeit geleistet, aber Fraenkel hat bemerkt, dass das vielleicht noch nicht ganz alles ist.
 
-Das erste ist das Ersetzungsaxiom. Ich werde diese Axiome jetzt nicht im Detail diskutieren, da wir nur zwei Lektionen für die ganze Geschichte haben. Es besagt: Wenn $\varphi(x, y)$ eine Formel mit zwei freien Variablen ist, sodass für jedes $x$ ein eindeutiges $y$ existiert, für das $\varphi(x, y)$ gilt --- das heißt, wenn Sie $x$ festlegen, gibt es ein eindeutiges $y$ ---, dann erhalten wir ein Funktionssymbol, das wir folgendermaßen definieren: $F(x) = y$, falls $\varphi(x, y)$ gilt. Ein solches Funktionssymbol heißt Klassenfunktion.
+Das erste ist das Ersetzungsaxiom. Ich werde diese Axiome jetzt nicht im Detail diskutieren, da wir nur zwei Lektionen für die ganze Geschichte haben. Es besagt: Wenn $\varphi(x, y)$ eine Formel mit zwei freien Variablen ist, sodass für jedes $x$ ein eindeutiges $y$ existiert, für das $\varphi(x, y)$ gilt --- das heißt, wenn Sie $x$ festlegen, gibt es ein eindeutiges $y$ ---, dann erlaubt uns das, gedanklich eine Zuordnung $x \mapsto y$ zu betrachten. Eine solche durch eine Formel definierte Zuordnung nennt man eine Klassenfunktion (oft notiert als $F(x) = y \iff \varphi(x, y)$).
 \end{spoken-clean}
 
 \section{ZFC-Axiome von Fraenkel}
@@ -837,12 +875,14 @@ Das erste ist das Ersetzungsaxiom. Ich werde diese Axiome jetzt nicht im Detail 
 \end{enumerate}
 \end{axioms}
 
-\textbf{Klassenfunktionen:}
-Eine Formel $\varphi(x, y)$, die die Bedingung $\forall x \exists! y \, \varphi(x, y)$ erfüllt, definiert eine \newterm{Klassenfunktion} $F$. Das Bild einer Menge $A$ unter $F$ bezeichnen wir mit:
-\[
-F[A] := \{ F(x) \mid x \in A \} = \{ y \mid \exists x \in A \, \varphi(x, y) \}
-\]
-Das Ersetzungsaxiom garantiert, dass dieses Bild $F[A]$ stets eine Menge ist.
+\begin{explanation-of-steps}[Präzisierung zur Klassenfunktion $F(x)$]
+Da die Sprache der Mengenlehre $\mathcal{L}_{\text{Set}} = \{\in\}$ keine echten Funktionssymbole enthält, ist $F(x)$ kein Symbol des formalen Kalküls, sondern eine \newterm{Metanotation (Syntactic Sugar)}:
+\begin{itemize}
+    \item Eine funktionale Formel $\varphi(x, y)$ (inklusive möglicher weiterer Parameter $w_1, \dots, w_k$) mit $\forall x \exists! y \, \varphi(x, y)$ nennen wir eine \newterm{Klassenfunktion} $F$. Wir schreiben $y = F(x)$ als Abkürzung für $\varphi(x, y)$.
+    \item Das Bild einer Menge $A$ unter $F$ bezeichnen wir informell mit $F[A] := \{ F(x) \mid x \in A \}$, was formal exakt der Menge $B = \{ y \mid \exists x \in A \, \varphi(x, y) \}$ entspricht.
+    \item Das Ersetzungsaxiom garantiert, dass dieses Bild $B$ stets eine Menge ist.
+\end{itemize}
+\end{explanation-of-steps}
 \end{math-stroke}
 
 \begin{spoken-clean}[01:21:39 - 01:24:03]

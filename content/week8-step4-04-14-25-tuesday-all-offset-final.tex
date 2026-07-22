@@ -131,8 +131,8 @@ Die schöne formale Definition, mit der wir alle arbeiten können, lautet: Eine 
 Eine Menge $\alpha$ ist eine \newterm{Ordinalzahl}, falls $\alpha$ \newterm{transitiv} ist und durch die Relation $\in$ \newterm{wohlgeordnet} ist.
 \end{definition}
 
-\par\vspace{1ex}\noindent
-\textbf{Beispiele für Ordinalzahlen (Natürliche Zahlen):}
+\begin{examples}[Kanonische Ordinalzahlen]\label[examples]{ex:kanonische-ordinalzahlen}
+Die folgenden Mengen sind Beispiele für Ordinalzahlen:
 \begin{align*}
 0 &:= \emptyset \\
 1 &:= \{0\} = \{\emptyset\} \\
@@ -145,6 +145,7 @@ Eine Menge $\alpha$ ist eine \newterm{Ordinalzahl}, falls $\alpha$ \newterm{tran
 &\ \;\vdots \\
 \omega \cdot 2 &:= \omega \cup \{\omega + n \mid n \in \omega\}
 \end{align*}
+\end{examples}
 \end{math-stroke}
 
 \begin{spoken-clean}[00:08:49 - 00:10:45]
@@ -243,11 +244,12 @@ Tatsächlich liegt das in der Natur der Sache, denn das Auswahlaxiom ist von den
 Jede Menge $A$ besitzt eine Wohlordnung. Das heißt, es existiert eine Relation $<$ auf $A$, sodass $(A, <)$ wohlgeordnet ist.
 \end{theorem}
 
-\par\vspace{1ex}\noindent
-\textbf{Äquivalenz:}
+\begin{corollary}[Äquivalenz von AC und WOP]\label[corollary]{cor:ac-wop-aequivalenz}
+Das Auswahlaxiom ($\text{AC}$) und das Wohlordnungsprinzip ($\text{WOP}$) sind äquivalent:
 \[
 \text{AC} \iff \text{WOP}
 \]
+\end{corollary}
 \end{math-stroke}
 
 \subsection{Grundidee des Beweises: AC \texorpdfstring{$\implies$}{implies} WOP}
@@ -380,9 +382,9 @@ Ein schönes Beispiel, das wir uns anschauen können, ist der Satz, dass jeder V
 \begin{theorem}[Basisexistenzsatz]\label[theorem]{thm:basisexistenz}
 Jeder Vektorraum $V$ besitzt eine Basis.
 \end{theorem}
+\end{math-stroke}
 
-\par\vspace{1ex}\noindent
-\textbf{Beweisvorbereitung (Wohlordnung der Vektoren):}
+\begin{math-stroke}[Beweisvorbereitung (Wohlordnung der Vektoren)]
 Nach dem Wohlordnungsprinzip (\cref{thm:wohlordnungsprinzip}) existiert eine Ordinalzahl $\lambda \in \Omega$ und eine Bijektion:
 \[
 w_\lambda \colon \lambda \to V.
@@ -461,7 +463,7 @@ Die Behauptung ist nun, dass $B$ tatsächlich eine Basis von $V$ bildet. Zunäch
 Die Menge $B$ ist linear unabhängig.
 \end{claim}
 
-\begin{short-proof}
+\begin{short-proof}[Beweis der linearen Unabhängigkeit]
 Sei $M \subseteq B$ eine beliebige endliche Teilmenge von Vektoren. Da $M$ endlich ist, existieren Indizes $\beta_1, \dots, \beta_k \in \lambda$ mit $M \subseteq \bigcup_{i=1}^k A_{\beta_i}$. Da die Kette der $A_\beta$ bezüglich Inklusion total geordnet ist, existiert ein maximaler Index $\beta_{\max} \in \{\beta_1, \dots, \beta_k\}$, sodass gilt:
 \[
 M \subseteq A_{\beta_{\max}}.
@@ -474,7 +476,7 @@ Da $A_{\beta_{\max}}$ nach Konstruktion linear unabhängig ist, ist auch die end
 Die Menge $B$ erzeugt den Vektorraum $V$, d.\,h. $\operatorname{Sp}(B) = V$.
 \end{claim}
 
-\begin{short-proof}
+\begin{short-proof}[Beweis der Erzeugendeneigenschaft]
 Angenommen, $\operatorname{Sp}(B) \neq V$. Da $V = \{v_\beta \mid \beta \in \lambda\}$, existiert ein kleinster Index $\delta \in \lambda$, sodass $v_\delta \notin \operatorname{Sp}(B)$.
 Nach Konstruktion von $A_{\delta+1}$ gilt:
 \[
@@ -750,7 +752,7 @@ B := \bigcup_{\beta \in \lambda} A_\beta.
 \begin{claim}\label[claim]{clm:kzl-kette-actual}
 Die Menge $B$ ist eine Kette in $P$.
 \end{claim}
-\begin{short-proof}
+\begin{short-proof}[Beweis der Ketteneigenschaft]
 Dies folgt direkt per transfiniter Induktion über die Konstruktion von $f(t)$ in \eqref{eq:kzl-rekursion-f-actual}, da in jedem Nachfolgerschritt ein Element $p_\delta$ nur dann hinzugefügt wird, wenn es eine obere Schranke für die bisherige Kette $t(\delta)$ darstellt.
 \end{short-proof}
 \end{math-stroke}
@@ -768,7 +770,7 @@ Dieser Widerspruch zeigt, dass die obere Schranke $m$ tatsächlich ein maximales
 \begin{claim}\label[claim]{clm:kzl-maximales-element-actual}
 Die Kette $B$ besitzt eine obere Schranke $m \in P$, welche ein maximales Element von $P$ ist.
 \end{claim}
-\begin{short-proof}
+\begin{short-proof}[Beweis der Maximalität]
 Nach Voraussetzung des Lemmas besitzt die Kette $B$ eine obere Schranke $m \in P$. Angenommen, $m$ ist nicht maximal. Dann existiert ein Element $p_\delta \in P$ mit $m < p_\delta$. 
 
 Da $m$ eine obere Schranke von $B$ ist, ist $p_\delta$ ebenfalls eine obere Schranke für alle $A_\gamma$ mit $\gamma \le \delta$. Nach Konstruktion der Rekursionsfunktion $f$ in \eqref{eq:kzl-rekursion-f-actual} gilt für den Schritt $\beta = \delta + 1$:
@@ -791,7 +793,7 @@ Ich skizziere die Beweisidee kurz zu Ende, wenn ich darf: Da $\mathcal{F}$ endli
 \end{spoken-clean}
 
 \begin{math-stroke}[Teil 2: KZL $\implies$ TP]
-\begin{short-proof}
+\begin{short-proof}[Beweis von KZL $\implies$ TP]
 Sei $\mathcal{F}$ eine nicht-leere Familie von Mengen mit endlichem Charakter. Wir betrachten die partiell geordnete Menge $(\mathcal{F}, \subseteq)$. 
 
 Um das Kuratowski-Zorn-Lemma anzuwenden, müssen wir zeigen, dass jede Kette $\mathcal{C} \subseteq \mathcal{F}$ eine obere Schranke in $\mathcal{F}$ besitzt. Wir definieren den Kandidaten für die obere Schranke als die Vereinigung der Kette:
@@ -820,7 +822,7 @@ Wenn wir eine Familie $\mathcal{F}$ von nicht-leeren Mengen haben, wollen wir ei
 \end{spoken-clean}
 
 \begin{math-stroke}[Teil 3: TP $\implies$ AC]
-\begin{short-proof}
+\begin{short-proof}[Beweis von TP $\implies$ AC]
 Sei $\mathcal{F}$ eine Familie von nicht-leeren Mengen. Wir wollen die Existenz einer Auswahlfunktion $f \colon \mathcal{F} \to \bigcup \mathcal{F}$ zeigen.
 
 Wir definieren die Familie $\mathcal{S}$ aller partiellen Auswahlfunktionen auf $\mathcal{F}$:
@@ -845,6 +847,10 @@ Wir zeigen nun per Widerspruch, dass der Definitionsbereich von $f_0$ die gesamt
 \end{itemize}
 Folglich gilt $\operatorname{dom}(f_0) = \mathcal{F}$. Die maximale partielle Auswahlfunktion $f_0$ ist somit eine vollständige Auswahlfunktion für $\mathcal{F}$. Dies beweist $\text{TP} \implies \text{AC}$ und schließt den Äquivalenzkreis.
 \end{short-proof}
+
+\begin{didactic-insight}[Einzelelement-Auswahl ohne AC]
+Beachten Sie hier ein feines formallogisches Detail: Im Beweis sagen wir: \qt{Wir können somit ein Element $y \in Y$ wählen.} Um ein Element aus einer \emph{einzelnen} nicht-leeren Menge $Y$ zu wählen, benötigen wir das Auswahlaxiom \emph{nicht}. Die Existenz eines solchen Elements wird bereits durch die logische Schlussregel der Existenzbeseitigung (Existential Instantiation) in Verbindung mit der Prämisse $Y \neq \emptyset$ gesichert. Das Auswahlaxiom wird nur zwingend erforderlich, wenn wir \emph{simultan} für unendlich viele Mengen eine Auswahl treffen müssen, ohne eine explizite Konstruktionsregel angeben zu können.
+\end{didactic-insight}
 \end{math-stroke}
 \end{proof}
 

@@ -102,7 +102,7 @@ Aber es gibt selbstverständlich noch ganz viele andere Lehrbücher über Logik.
 \end{itemize}
 \end{math-stroke}
 
-\subsection{Übungen}
+\subsection{Organisation der Übungen}
 
 \begin{spoken-clean}[00:07:30 - 00:09:50]
 Gut, dann zur Organisation der Übungen. Die Übungen finden jeweils am Mittwoch statt, natürlich in ganz unterschiedlichen Räumen. Das können Sie nachschauen; es kommt darauf an, für welche Übungsgruppe Sie sich eingeschrieben haben. Der Übungskoordinator ist Konstantin Andritsch. Bei Fragen zu den Übungen können Sie ihm direkt eine E-Mail schreiben und sich an ihn wenden.
@@ -279,7 +279,7 @@ Hier sind es wirklich nur Zeichen auf der syntaktischen Ebene. Später werden da
 \end{math-stroke}
 
 \begin{spoken-clean}[00:32:57 - 00:34:00]
-Das Zweite sind logische Operatoren. \inlinemetanote{schreibt an die Tafel} Davon gibt es vier: Es gibt diesen Haken, der heißt \qt{nicht}. Dann gibt es ein Dach nach oben, das ist \qt{und}. Ein nach oben offener Keil, das ist \qt{oder}. Und dann gibt es noch das Zeichen --- einfach ein Pfeil ---, das heißt \qt{impliziert}. 
+Das Zweite sind logische Operatoren. \inlinemetanote{schreibt an die Tafel} Davon gibt es vier: Es gibt diesen Haken, der heißt \qt{nicht} ($\neg$). Dann gibt es ein Dach nach oben, das ist \qt{und} ($\wedge$). Ein nach oben offener Keil, das ist \qt{oder} ($\vee$). Und dann gibt es noch das Zeichen --- einfach ein Pfeil ---, das heißt \qt{impliziert} ($\rightarrow$). 
 
 Die Namen dieser Zeichen sind natürlich bereits sehr suggestiv, und es ist auch klar, wie wir diese später interpretieren werden, aber auch hier gilt: A priori sind das nur Zeichen.
 \end{spoken-clean}
@@ -298,9 +298,9 @@ Die Namen dieser Zeichen sind natürlich bereits sehr suggestiv, und es ist auch
 \end{math-stroke}
 
 \begin{spoken-clean}[00:34:00 - 00:35:25]
-Gut, dann haben wir \textbf{(c)}, das wären die logischen Quantoren. \inlinemetanote{schreibt an die Tafel} Da gibt es zwei: \qt{es existiert} --- das ist der Existenzquantor --- und \qt{für alle} --- der Allquantor. 
+Gut, dann haben wir \textbf{(c)}, das wären die logischen Quantoren. \inlinemetanote{schreibt an die Tafel} Da gibt es zwei: \qt{es existiert} --- das ist der Existenzquantor ($\exists$) --- und \qt{für alle} --- der Allquantor ($\forall$). 
 
-Unter \textbf{(d)} gibt es noch ein Relationszeichen, und das ist die Gleichheitsrelation, also das Gleichheitszeichen. Das Zeichen heißt \qt{gleich}. Diese Symbole \textbf{(a)}, \textbf{(b)}, \textbf{(c)} und \textbf{(d)} heißen Logiksymbole. 
+Unter \textbf{(d)} gibt es noch ein Relationszeichen, und das ist die Gleichheitsrelation, also das Gleichheitszeichen ($=$). Das Zeichen heißt \qt{gleich}. Diese Symbole \textbf{(a)}, \textbf{(b)}, \textbf{(c)} und \textbf{(d)} heißen Logiksymbole. 
 
 Nun gibt es noch nicht-logische Symbole, die wir ebenfalls verwenden werden. Das wäre unter \textbf{(e)}: Konstantensymbole.
 \end{spoken-clean}
@@ -418,7 +418,7 @@ Sei $\mathcal{L}$ eine Signatur. Ein \newterm{$\mathcal{L}$-Term} ist eine Zeich
 \begin{spoken-clean}[00:43:25 - 00:45:05]
 Dann haben wir noch \textbf{(T2)}: Wenn wir schon Terme haben\dots \inlinemetanote{schreibt an die Tafel} Seien $\tau_1$ bis $\tau_n$ $\mathcal{L}$-Terme. Wenn $F$ ein $n$-stelliges Funktionssymbol in $\mathcal{L}$ ist, dann ist $F \tau_1 \dots \tau_n$ auch wieder ein $\mathcal{L}$-Term. 
 
-So, wie wir es jetzt machen, schreiben wir einfach $F$ und hängen hinten die Argumente dran. Das braucht keine Klammern und so weiter --- ich werde das nach der Pause noch etwas genauer ausführen. Aber so, wie wir es meistens schreiben, ist es eigentlich $F(\tau_1, \dots, \tau_n)$. 
+So, wie wir es jetzt machen, schreiben wir einfach $F$ und hängen hinten die Argumente dran ($F \tau_1 \dots \tau_n$). Das braucht keine Klammern und so weiter --- ich werde das nach der Pause noch etwas genauer ausführen. Aber so, wie wir es meistens schreiben, ist es eigentlich $F(\tau_1, \dots, \tau_n)$. 
 
 Man kann also einfach Variablen und Konstanten nehmen, darauf Funktionen anwenden und dann natürlich auch wieder Funktionen von Funktionen von Variablen und Konstanten bilden und so weiter. Das ist dann jeweils wieder ein $\mathcal{L}$-Term. Man kann endlich viele davon nehmen und sie wieder in eine neue Funktion einsetzen --- oder in dieselbe --- und erhält so weitere $\mathcal{L}$-Terme.
 \end{spoken-clean}
@@ -605,12 +605,26 @@ Falls $\nu$ in diesem Bereich vorkommt, so heißt sie \newterm{gebunden} durch d
 Man muss hier ein bisschen aufpassen: Eine Variable kann in einer Formel sowohl frei als auch gebunden vorkommen. Zum Beispiel ist in der Formel $(x = y \wedge \forall x (x = z))$ das erste Vorkommen von $x$ frei, während das zweite Vorkommen im Bereich des Allquantors liegt und somit gebunden ist. Wir bezeichnen mit $\operatorname{frei}(\varphi)$ die Menge der freien Variablen in der Formel $\varphi$.
 \end{spoken-clean}
 
+\begin{math-stroke}[Variablen in einem Term]
+\begin{definition}[Variablen in einem Term]\label[definition]{def:variablen-in-term}
+Für einen $\mathcal{L}$-Term $\tau$ ist die Menge $\operatorname{var}(\tau)$ der in $\tau$ vorkommenden Variablen rekursiv wie folgt definiert:
+\begin{enumerate}[label=\textbf{(VT\arabic*)}, start=0]
+    \item Ist $\tau \equiv x$ eine Variable, so ist $\operatorname{var}(x) := \{x\}$.
+    \item Ist $\tau \equiv c$ eine Konstante, so ist $\operatorname{var}(c) := \emptyset$.
+    \item Ist $\tau \equiv F \tau_1 \dots \tau_n$, wobei $F$ ein $n$-stelliges Funktionssymbol ist, so ist:
+    \[
+    \operatorname{var}(F \tau_1 \dots \tau_n) := \operatorname{var}(\tau_1) \cup \dots \cup \operatorname{var}(\tau_n)
+    \]
+\end{enumerate}
+\end{definition}
+\end{math-stroke}
+
 \begin{math-stroke}[Freie und gebundene Variablen]
 \begin{definition}[Freie und gebundene Variablen]\label[definition]{def:frei-gebunden}
 \begin{itemize}
-    \item Ein Vorkommen einer Variablen $\nu$ in einer Formel $\varphi$ heißt \newterm{gebunden}, falls es im Bereich eines Quantors $\exists \nu$ oder $\forall \nu$ liegt.
+    \item Ein Vorkommen einer Variablen $\nu$ in einer Formel $\varphi$ heißt \newterm{gebunden}, falls es im Bereich eines Quantors $\exists \nu$ oder $\forall \nu$ (\cref{def:bereich-quantor}) liegt.
     \item Ein Vorkommen einer Variablen $\nu$ heißt \newterm{frei}, falls es nicht gebunden ist.
-    \item Wir bezeichnen mit $\operatorname{frei}(\varphi)$ die Menge aller Variablen, die in $\varphi$ mindestens ein freies Vorkommen besitzen.
+    \item Wir bezeichnen mit $\operatorname{frei}(\varphi)$ die Menge aller Variablen, die in $\varphi$ mindestens ein freies Vorkommen besitzen (bezogen auf die Menge $\operatorname{var}(\tau)$ der Variablen in ihren Termen, vgl. \cref{def:variablen-in-term}).
 \end{itemize}
 \end{definition}
 \end{math-stroke}
@@ -655,7 +669,7 @@ Dieser Prozess heißt \newterm{Substitution}. Wir substituieren $\nu$ durch $\ta
 
 \begin{math-stroke}[Substitution]
 \begin{definition}[Substitution]\label[definition]{def:substitution}
-Sei $\varphi$ eine $\mathcal{L}$-Formel, $\nu$ eine Variable und $\tau$ ein $\mathcal{L}$-Term. Die Formel $\varphi(\nu/\tau)$ entsteht aus $\varphi$, indem jedes \emph{freie} Vorkommen von $\nu$ durch den Term $\tau$ ersetzt wird.
+Sei $\varphi$ eine $\mathcal{L}$-Formel, $\nu$ eine Variable und $\tau$ ein $\mathcal{L}$-Term. Die Formel $\varphi(\nu/\tau)$ entsteht aus $\varphi$, indem jedes \emph{freie} Vorkommen (\cref{def:frei-gebunden}) von $\nu$ durch den Term $\tau$ ersetzt wird.
 \end{definition}
 \end{math-stroke}
 
@@ -675,7 +689,7 @@ Wir sagen daher: Eine Substitution ist \newterm{zulässig}, wenn keine Variable 
 
 \begin{math-stroke}[Zulässige Substitution]
 \begin{definition}[Zulässige Substitution]\label[definition]{def:zulaessige-substitution}
-Eine Substitution $\varphi(\nu/\tau)$ heißt \newterm{zulässig}, falls keine Variable, die in $\tau$ vorkommt, an einer Stelle für $\nu$ substituiert wird, die im Bereich eines Quantors dieser Variablen liegt (d.\,h. keine Variable in $\tau$ wird durch die Substitution \qt{eingefangen}).
+Eine Substitution $\varphi(\nu/\tau)$ (\cref{def:substitution}) heißt \newterm{zulässig}, falls keine Variable in $\tau$ (\cref{def:variablen-in-term}) an einer Stelle für $\nu$ substituiert wird, die im Bereich eines Quantors dieser Variablen liegt (d.\,h. keine Variable in $\tau$ wird durch die Substitution \qt{eingefangen}, vgl. \cref{def:frei-gebunden}).
 \end{definition}
 \end{math-stroke}
 
@@ -759,6 +773,10 @@ Das sind unsere Axiome. Ich würde von Ihnen erwarten, dass Sie sich hinsetzen u
     \mathbf{L_{11}}\colon &\quad \forall \nu (\psi \rightarrow \varphi) \rightarrow (\psi \rightarrow \forall \nu \varphi) && (\nu \notin \operatorname{frei}(\psi)) \nonumber \\
     \mathbf{L_{12}}\colon &\quad \forall \nu (\varphi \rightarrow \psi) \rightarrow (\exists \nu \varphi \rightarrow \psi) && (\nu \notin \operatorname{frei}(\psi)) \nonumber
 \end{align}
+
+\begin{explanation-of-steps}[Notation $\varphi(\nu)$ und $\varphi(\tau)$]
+In den Axiomen $\mathbf{L_9}$ und $\mathbf{L_{10}}$ wird eine informelle, aber sehr gebräuchliche Kurzschreibweise verwendet: $\varphi(\nu)$ deutet an, dass die Variable $\nu$ in $\varphi$ frei vorkommt, und $\varphi(\tau)$ steht für die zulässige Substitution $\varphi(\nu/\tau)$.
+\end{explanation-of-steps}
 
 \textbf{III. Gleichheitsaxiome:}
 \begin{align}
