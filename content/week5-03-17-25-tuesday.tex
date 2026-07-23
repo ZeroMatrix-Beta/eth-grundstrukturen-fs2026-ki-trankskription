@@ -15,7 +15,7 @@
 
 % Primary Language: German
 
-\lecturechapter{Dienstag}{17. Mär}{17. März 2025}{Zermelo-Fraenkel-Mengenlehre (ZFC)}
+\lecturechapter[5]{Dienstag}{17. Mär}{17. März 2025}{Zermelo-Fraenkel-Mengenlehre (ZFC)}
 
 \begin{nice-box}[Syllabus: Heutige Themen]
 In der heutigen Vorlesung behandeln wir die folgenden Themen:
@@ -28,6 +28,9 @@ In der heutigen Vorlesung behandeln wir die folgenden Themen:
 \end{itemize}
 \end{nice-box}
 
+\section{Wiederholung und Grundlagen der Axiomatik}
+
+\subsection{Clicker-Frage zur Modelltheorie}
 \begin{spoken-clean}[00:00:00 - 00:01:21]
 Ich dachte, wir hatten bis jetzt auch nicht viel Zeit für Fragen. Das ist jetzt noch ein bisschen eine Repetitionsfrage zu dem, was wir die letzten Wochen gemacht haben. Diese Frage kommt aus einer alten Prüfung, glaube ich; sie war mehr oder weniger so gestellt.
 
@@ -134,6 +137,7 @@ Ja. Aber man kann natürlich einen Schritt heraus machen, metamathematisch, und 
 Die Frage des Studenten berührt ein fundamentales Resultat der mathematischen Logik: den \newterm{Zweiten Gödelschen Unvollständigkeitssatz}. Dieser besagt, dass jede konsistente, hinreichend starke formale Theorie (wie die Peano-Arithmetik $\text{PA}$ oder die Mengenlehre $\text{ZFC}$) ihre eigene Konsistenz nicht beweisen kann. Ein formaler Beweis der Konsistenz von $\text{PA}$ ist nur in einer stärkeren Metatheorie (wie $\text{ZFC}$) möglich. Allerdings lässt sich die Konsistenz dieser stärkeren Theorie wiederum nur in einer noch stärkeren Theorie beweisen, was zu einem unendlichen Regress führt.
 \end{didactic-insight}
 
+\subsection{Historische Entwicklung des formalen Axiombegriffs}
 \begin{spoken-clean}[00:06:36 - 00:08:20]
 Gut. Ja, womit wir jetzt aber weitermachen --- wir haben letzte Woche kurz damit angefangen ---, das sind die Zermelo-Fraenkel-Axiome der Mengenlehre. Wartet mal... Genau, also das ist die Mengenlehre, und das ist so die ultimative Theorie gewissermaßen. Da definieren wir nicht, was eine Menge ist. Das macht insofern auch logisch keinen Sinn, sondern wir sagen einfach: Eine Menge ist etwas, das diese Axiome erfüllt. Mengen erfüllen das, und dann arbeiten wir mit diesen Eigenschaften. Dann müssen wir gar nicht genau sagen, was eine Menge ist.
 
@@ -188,14 +192,14 @@ Okay, und jetzt machen wir da weiter. Da kommt das dritte Axiom, das Vereinigung
 Hier nehmen wir die Vereinigung von allen Mengen, die in der Menge $x$ enthalten sind. Wir haben hier $x$ als eine Menge von Mengen, und jetzt wissen wir: Es gibt eine Menge $u$, die genau aus den Elementen besteht, die in Elementen von $x$ enthalten sind.
 \end{spoken-clean}
 
-\section{Zermelo-Fraenkel-Mengenlehre (ZFC)}
+\section{Das Extensionalitäts- und Nullmengenaxiom (Axiome 0 \& 1)}
 
-\subsection{Axiome 0 bis 3 der Mengenlehre}
+\subsection{Signatur der Mengenlehre und Extensionalität}
 
 \begin{math-stroke}
 \textbf{Signatur der Mengenlehre:}
 \[
-\mathcal{L}_{\text{Set}} = \{ \in \}
+\mathcal{L}_{\text{Set}} := \{ \in \}
 \]
 wobei $\in$ ein zweistelliges Relationssymbol ist.
 
@@ -215,32 +219,53 @@ wobei $\in$ ein zweistelliges Relationssymbol ist.
     \forall x \forall y \, \bigl( \forall z \, (z \in x \leftrightarrow z \in y) \rightarrow x = y \bigr)
     \]
     Zwei Mengen sind gleich, wenn sie dieselben Elemente enthalten.
-    
+\end{enumerate}
+\end{axioms}
+\end{math-stroke}
+
+\section{Das Paarmengenaxiom (Axiom 2)}
+
+\subsection{Formulierung und geordnete Paare nach Kuratowski}
+
+\begin{math-stroke}
+\begin{axioms}[Zermelo-Fraenkel-Mengenlehre (Teil 2)]
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \setcounter{enumi}{2}
     \item \textbf{Paarmengenaxiom:}
     \label[axiom]{ax:pair-set}
     \[
     \forall x \forall y \exists u \forall z \, \bigl( z \in u \leftrightarrow (z = x \lor z = y) \bigr)
     \]
     Aus zwei Mengen $x$ und $y$ lässt sich die ungeordnete Paarmenge $\{x, y\}$ bilden.
-    
-    \par\vspace{1ex}\noindent
+\end{enumerate}
+\end{axioms}
+
 \textbf{Geordnete Paare:}
-    Mithilfe des Paarmengenaxioms definieren wir das \newterm{geordnete Paar} $\langle x, y \rangle$ nach Kuratowski durch:
+Mithilfe des Paarmengenaxioms definieren wir das \newterm{geordnete Paar} $\langle x, y \rangle$ nach Kuratowski durch:
+\[
+\langle x, y \rangle := \bigl\{ \{x\}, \{x, y\} \bigr\}
+\]
+
+\begin{explanation-of-steps}[Eigenschaft des geordneten Paars nach Kuratowski]
+Die Kuratowski-Definition kodiert die Reihenfolge rein mengenlehretisch ohne neue Grundsymbole in $\mathcal{L}_{\text{Set}}$:
+\begin{itemize}
+    \item Aus der Definition folgt die fundamentale Eigenschaft geordneter Paare:
     \[
-    \langle x, y \rangle := \bigl\{ \{x\}, \{x, y\} \bigr\}
+    \langle x, y \rangle = \langle u, v \rangle \iff x = u \land y = v.
     \]
-    
-    \begin{explanation-of-steps}[Eigenschaft des geordneten Paars nach Kuratowski]
-    Die Kuratowski-Definition kodiert die Reihenfolge rein mengenlehretisch ohne neue Grundsymbole in $\mathcal{L}_{\text{Set}}$:
-    \begin{itemize}
-        \item Aus der Definition folgt die fundamentale Eigenschaft geordneter Paare:
-        \[
-        \langle x, y \rangle = \langle u, v \rangle \iff x = u \land y = v.
-        \]
-        \item Falls $x = y$, gilt $\langle x, x \rangle = \{\{x\}, \{x, x\}\} = \{\{x\}\}$.
-    \end{itemize}
-    \end{explanation-of-steps}
-    
+    \item Falls $x = y$, gilt $\langle x, x \rangle = \{\{x\}, \{x, x\}\} = \{\{x\}\}$.
+\end{itemize}
+\end{explanation-of-steps}
+\end{math-stroke}
+
+\section{Das Vereinigungsaxiom (Axiom 3)}
+
+\subsection{Das allgemeine Vereinigungsaxiom}
+
+\begin{math-stroke}
+\begin{axioms}[Zermelo-Fraenkel-Mengenlehre (Teil 3)]
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \setcounter{enumi}{3}
     \item \textbf{Vereinigungsaxiom:}
     \label[axiom]{ax:union-set}
     \[
@@ -270,7 +295,7 @@ Genau, wir nehmen die Paarmenge von $x$ und $y$. Wir wissen, dass diese existier
 Gut. Man muss dazu sagen, dass das hier natürlich existiert und eindeutig ist; deswegen können wir es so schreiben, auch wieder mit dem Extensionalitätsaxiom.
 \end{spoken-clean}
 
-\subsection{Vereinigungsfunktion und binäre Vereinigung}
+\subsection{Formale Definition der Vereinigung}
 \begin{math-stroke}[Vereinigungsfunktion und binäre Vereinigung]
 \begin{definition}[Vereinigungsfunktion]\label[definition]{def:vereinigung-funktion}
 Die \newterm{Vereinigungsfunktion} $\bigcup x$ einer Menge $x$ ist definiert durch:
@@ -303,7 +328,9 @@ Genau, wir nehmen die Paarmenge von $x$ und $y$. Wir wissen, dass sie existiert,
 Gut. Man muss sagen, dass das hier natürlich existiert und eindeutig ist; deswegen können wir es so schreiben, auch wieder mit dem Extensionalitätsaxiom.
 \end{spoken-clean}
 
-\subsection{Konstruktion der natürlichen Zahlen nach von Neumann}
+\section{Das Unendlichkeitsaxiom und die Menge \texorpdfstring{$\omega$}{omega} (Axiom 6)}
+
+\subsection{Die von Neumann-Konstruktion der natürlichen Zahlen}
 \begin{spoken-clean}[continued]
 Okay, dann: Wo sind wir? Drei. Dann kommt jetzt... Ah nein, es geht noch weiter. Wir können jetzt nämlich damit... was wir jetzt machen wollen, ist, die ganzen Zahlen zu definieren. Oder so etwas, was sich herausstellt, ist dann ein Modell für die Peano-Arithmetik. Und dazu definieren wir, wenn wir eine Menge $x$ haben, die Menge $x + 1$ als die Menge, die aus $x$ vereinigt mit der Menge besteht, die nur die Menge $x$ enthält. Also wir nehmen die Menge $x$ zusammen mit der Menge, die nur ein Element enthält, nämlich die Menge $x$. Das gibt uns eine neue Menge, und diese Menge bezeichnen wir mit $x + 1$. Okay, das dürfen wir machen.
 
@@ -360,7 +387,6 @@ Die leere Menge, genau.
 Aber sonst haben wir noch gar nicht so viele Mengen aufgrund dieser Axiome gesehen. Das heißt, von diesen Axiomen 0 bis 3 her können wir noch keine induktiven Mengen konstruieren; wir können nicht sagen, ob es nicht-leere induktive Mengen gibt. Und das ist dann genau das Axiom 4, das Unendlichkeitsaxiom.
 \end{spoken-clean}
 
-\subsection{Induktive Mengen}
 \begin{math-stroke}[Induktive Mengen]
 \begin{definition}[Induktive Menge]
 \label[definition]{def:inductive-set}
@@ -387,7 +413,7 @@ Der Dozent fragt im Video, ob wir bereits ein Beispiel für eine induktive Menge
 \end{ai-note}
 \end{math-stroke}
 
-\subsection{Unendlichkeitsaxiom und Aussonderungsaxiom}
+\subsection{Das Unendlichkeitsaxiom}
 \begin{spoken-clean}[00:22:54 - 00:25:03]
 Das Unendlichkeitsaxiom besagt einfach: Es gibt eine nicht-leere induktive Menge. Und die ist dann auch --- in unserer Vorstellung --- unendlich, weil immer, wenn ein Element darin ist, auch das nächstgrößere Element enthalten ist. Das Unendlichkeitsaxiom sagt: Es existiert eine Menge $I$, sodass $\emptyset \in I$ gilt. Das heißt insbesondere, dass $I$ nicht die leere Menge ist, weil $I$ ein Element enthält, nämlich die leere Menge. Und $I$ ist induktiv. Es gibt also insbesondere eine nicht-leere induktive Menge.
 \end{spoken-clean}
@@ -427,6 +453,9 @@ Ebenso wie bei der Klassenfunktion ist $\{ z \in x \mid \varphi(z) \}$ eine bequ
 \end{explanation-of-steps}
 \end{math-stroke}
 
+\section{Das Aussonderungsaxiom und Klassenbildung (Axiom 4)}
+
+\subsection{Das Aussonderungsaxiom}
 \begin{spoken-clean}[00:25:03 - 00:28:41]
 Dann haben wir das Axiom 5, das Aussonderungsaxiom. Es ist insofern wichtig, als es uns sagt, dass wir von einer gegebenen Menge, wenn wir eine Formel haben, die Elemente in der Menge, die diese Formel erfüllen, als Teilmenge erhalten. Machen wir das präzise: Für jede Formel $\varphi(z)$ mit nur einer freien Variablen gilt... Das Axiom sagt jetzt: Für alle $x$ existiert ein $y$, sodass für alle $z$ gilt: $z$ ist in $y$ genau dann, wenn $z$ in $x$ ist und $\varphi(z)$ gilt. Wir sehen, das ist ein Axiomenschema. Das heißt, für jede Formel mit einer freien Variablen gibt es ein Axiom.
 
@@ -478,7 +507,7 @@ Folglich kann $R$ keine Menge sein.
 Okay, sehr gut. Damit ist unser Kummer mit der ganzen Logik von Frege und dem Paradoxon von Russell vom Tisch.
 \end{spoken-clean}
 
-\subsection{Definition des Durchschnitts}
+\subsection{Definition von Schnittmengen (Binärer Durchschnitt)}
 \begin{spoken-clean}[00:33:09 - 00:35:00]
 Okay, und jetzt können wir damit auch wieder den Durchschnitt definieren. Wir definieren das binäre Funktionssymbol Durchschnitt durch: $x_0 \cap x_1 = y$. Wir sagen also, wir definieren diese Menge hier dadurch, dass $y$ aus allen $z$ in $x_1$ besteht, sodass $\varphi(z)$ gilt. Was nehmen wir als $\varphi(z)$? Ja? $z$ ist ein Element von $x_0$. Genau: $z \in x_0$. Wir nehmen also alle Elemente in $x_1$, die auch Elemente von $x_0$ sind. Das ist eine Formel, und gemäß dem Aussonderungsaxiom ist das eine Menge. $x_0$ ist hierbei quasi ein Parameter dieser Formel.
 \end{spoken-clean}
@@ -557,7 +586,9 @@ Dann wollte ich noch ein Bild von Ernst Zermelo zeigen. Er hat eben diese Axiome
 Der Dozent korrigiert einen Tippfehler auf der Tafel: Er ersetzt ein logisches Und-Zeichen ($\land$) durch ein Implikationszeichen ($\rightarrow$) in einer der zuvor angeschriebenen Formeln.
 \end{meta-note}
 
-\subsection{Potenzmengenaxiom}
+\section{Das Potenzmengenaxiom (Axiom 5)}
+
+\subsection{Formulierung des Potenzmengenaxioms}
 \begin{spoken-clean}[00:41:37 - 00:43:31]
 Gut. Das nächste Axiom ist das Potenzmengenaxiom. Das sagt uns nun eigentlich einfach, dass die Potenzmenge einer Menge existiert. Also: Für alle $x$ existiert ein $z$, sodass für alle $y$ gilt: $y$ ist in $z$ genau dann, wenn $y$ eine Teilmenge von $x$ ist. Das Teilmengensymbol haben wir letzte Woche definiert.
 
@@ -651,6 +682,8 @@ Okay. Und der wichtige Teil ist aber --- das ist diese Woche auf dem Übungsblat
 
 Gut, dann können wir noch kartesische Produkte definieren. Wenn $A$ und $B$ Mengen sind, dann definieren wir eine binäre Funktion, das kartesische Produkt, durch $A \times B$. Das ist einfach die Menge aller geordneten Paare $\langle x, y \rangle$, sodass $x \in A$ und $y \in B$. Das nennen wir das kartesische Produkt.
 \end{spoken-clean}
+
+\section{Konstruktionen: Produkte, Funktionen und Relationen}
 
 \subsection{Definition des kartesischen Produkts}
 \begin{math-stroke}
@@ -858,7 +891,7 @@ Soweit zu ein paar Beispielen, wie man mit der Mengenlehre gewisse Begriffe defi
 Das erste ist das Ersetzungsaxiom. Ich werde diese Axiome jetzt nicht im Detail diskutieren, da wir nur zwei Lektionen für die ganze Geschichte haben. Es besagt: Wenn $\varphi(x, y)$ eine Formel mit zwei freien Variablen ist, sodass für jedes $x$ ein eindeutiges $y$ existiert, für das $\varphi(x, y)$ gilt --- das heißt, wenn Sie $x$ festlegen, gibt es ein eindeutiges $y$ ---, dann erlaubt uns das, gedanklich eine Zuordnung $x \mapsto y$ zu betrachten. Eine solche durch eine Formel definierte Zuordnung nennt man eine Klassenfunktion (oft notiert als $F(x) = y \iff \varphi(x, y)$).
 \end{spoken-clean}
 
-\section{ZFC-Axiome von Fraenkel}
+\section{Das Ersetzungsaxiom (Fraenkel, Axiom 7)}
 
 \subsection{Das Ersetzungsaxiom (Axiom 7)}
 
@@ -893,7 +926,9 @@ Geben Sie mir noch eine Minute, um das Fundierungsaxiom zu erklären. Wenn man w
 Zermelo hat seine Axiome publiziert, und acht Jahre später hat Fraenkel gesagt: \qt{Ich glaube, wir brauchen noch mehr}, und hat diese zwei vorgeschlagen. Inzwischen sind das alle Zermelo-Fraenkel-Axiome. In der Regel verwendet man auch noch das Auswahlaxiom, das wir in zwei Wochen diskutieren werden. Vielen Dank fürs Kommen und eine gute Woche!
 \end{spoken-clean}
 
-\subsection{Das Fundierungsaxiom (Axiom 8)}
+\section{Das Fundierungsaxiom (Fraenkel, Axiom 8)}
+
+\subsection{Das Fundierungsaxiom (Regularitätsaxiom)}
 
 \begin{math-stroke}
 \begin{axioms}[Zermelo-Fraenkel-Mengenlehre (Teil 5)]

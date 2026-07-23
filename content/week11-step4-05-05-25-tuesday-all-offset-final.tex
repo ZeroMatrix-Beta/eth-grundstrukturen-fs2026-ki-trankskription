@@ -1,1636 +1,965 @@
-% ==========================================
-% LatexRefinement Step Output: step4-05-05-25-tuesday-all-offset-final.tex
-% Model: gemini-3.5-flash
-% Temperature: 0.36
-% TopP: 0.95
-% TopK: 40
-% MaxOutputTokens: 65535
-% ThinkingBudget: 32768
-% ThinkingLevel: HIGH
-% Prompt Tokens: 38'456
-% Candidates Tokens: 27'090 (inkl. Thinking Tokens)
-% Cached Tokens: 0
-% Processed on: 2026-07-10 13:49:53
-% ==========================================
-
-\lecturechapter{Dienstag}{5. Mai}{5. Mai 2026}{Graphentheorie}
-
-\begin{nice-box}[Syllabus / Agenda]
-In dieser Vorlesung beschäftigen wir uns mit den folgenden zentralen Themen der Graphentheorie:
+\begin{nice-box}[Vorlesungsübersicht \& Kontext]
+In dieser elften Vorlesungswoche der Graphentheorie vertiefen wir zentrale Konzepte der Graphenstrukturen und deren Anwendungen:
 \begin{itemize}
-    \item \textbf{Das Handschlaglemma:} Formulierung, Beweis und alltägliche Interpretation.
-    \item \textbf{Euler-Linien und Euler-Graphen:} Der Satz von Euler, das Königsberger Brückenproblem und das Dominoproblem als praktische Anwendung.
-    \item \textbf{Hamilton-Kreise und Hamilton-Graphen:} Definition, Beispiele (platonische Körper, Hyperwürfel) und die Konstruktion von Gray-Codes.
-    \item \textbf{Bipartite Graphen:} Definition, Zwei-Färbbarkeit und Nachbarschaften.
-    \item \textbf{Der Heiratssatz von Hall:} Formulierung, Interpretation und ein vollständiger Induktionsbeweis.
+    \item \textbf{Das Handschlaglemma:} Formaler Beweis und alltägliche Interpretation.
+    \item \textbf{Euler-Linien \& Euler-Graphen:} Charakterisierung durch den Satz von Euler und Anwendung auf das Dominoproblem.
+    \item \textbf{Hamilton-Kreise:} Definition, platonische Körper und die Existenz von Gray-Codes im $k$-dimensionalen Hyperwürfel.
+    \item \textbf{Bipartite Graphen \& Heiratssatz von Hall:} Nachbarschaftsmengen und der Heiratssatz als fundamentales Resultat der diskreten Mathematik.
 \end{itemize}
 \end{nice-box}
 
 \section{Das Handschlaglemma}
 
 \begin{spoken-clean}[00:00:00 - 00:01:58]
-Hallo zusammen, wir fangen an. Herzlich willkommen zur elften Woche. Wir sind noch mittendrin in der Graphentheorie --- also ein ganz kleiner Einblick in das, worum es in einem Teil der Graphentheorie geht. Letzte Woche haben wir noch kurz mit einem Lemma aufgehört. Ich wollte das noch kurz umformulieren. 
+Hallo zusammen, wir fangen an. Herzlich willkommen zur \textbf{11.} Woche. Wir sind noch mittendrin in der Graphentheorie --- also ein ganz kleiner Einblick in ein bisschen, um was es in der Graphentheorie, Teilen der Graphentheorie geht.
 
-Dieses Lemma heißt auch das Handschlaglemma. Das Schöne an der Graphentheorie ist: Man kann es oft so in alltägliche Situationen umformen --- oder viele Sachen sind vielleicht auch Probleme aus dem realen Leben ---, und dann kann man auf einmal sehen: Ah, das ist einfach ein Graph, und dann kann man das mit irgendeinem graphentheoretischen Lemma lösen. 
+Letzte Woche haben wir noch kurz mit dem einen Lemma aufgehört. Ich wollte das noch kurz umformulieren: Dieses Lemma heißt auch das Handschlaglemma. \inlinemetanote{schreibt an die Tafel} Das Schöne an der Graphentheorie ist, man kann sie oft so in alltägliche Situationen umformen --- oder viele Sachen sind vielleicht auch Probleme aus dem realen Leben ---, und dann kann man, wenn man sieht, dass das einfach ein Graphenproblem ist, das mit irgendeinem graphentheoretischen Lemma lösen.
 
-Das Handschlaglemma sagt, dass auf einer Party mit $n$ Gästen die Anzahl der Gäste, die einer ungeraden Anzahl von Personen die Hand geben, gerade ist. Und das war im Prinzip genau das, was wir am Ende der letzten Stunde bewiesen haben.
+Das Handschlaglemma sagt: Auf einer Party mit $n$ Gästen ist die Anzahl der Gäste, die einer ungeraden Anzahl von Gästen die Hand geben, gerade. Okay, und das war im Prinzip genau das, was wir am Ende der letzten Stunde bewiesen haben.
+
+Der Beweis ist: \inlinemetanote{schreibt an die Tafel} Wir betrachten einfach den Graphen $G = (V, E)$, wobei $V$ genau die Gäste sind, und $E$ --- da es ein ungerichteter Graph ist --- einfach die Paare von Gästen sind, die sich die Hand geben. Und wir haben gesehen, dass die Anzahl der $x \in V$, sodass der Grad von $x$ ungerade ist, immer gerade ist.
+
+Vielleicht, okay, wir gehen natürlich davon aus, dass sich die Leute nicht selbst die Hand schütteln. Das geht nicht. Oder wenn man sich selbst die Hand schüttelt, dann zählt das wie zweimal die Hand schütteln, weil man sich ja selbst quasi die Hand geschüttelt hat. Also machen wir nicht. Also einfach nur, um zu sagen, dass das der Fall ist --- gut, sich eine konkrete Situation von gewissen Resultaten vorzustellen.
 \end{spoken-clean}
 
-\begin{math-stroke}
-\begin{lemma}[Handschlaglemma]\label[lemma]{lem:handschlaglemma}
-Auf einer Party mit $n$ Gästen ist die Anzahl der Gäste, die einer ungeraden Anzahl von Gästen die Hand geben, gerade.
+\begin{math-stroke}[Das Handschlaglemma]
+\begin{lemma}[Handschlaglemma]\label{lem:handschlaglemma}
+Auf einer Party mit $n$ Gästen ist die Anzahl Gäste, die einer ungeraden Anzahl von Gästen die Hand geben, gerade.
 \end{lemma}
-\end{math-stroke}
 
-\begin{proof}[Beweis des Handschlaglemmas]
-\begin{spoken-clean}[00:01:58 - 00:03:38]
-Der Beweis geht so: Wir betrachten einfach den Graphen $G = (V, E)$. Dabei ist $V$ genau die Menge der Gäste, und $E$ --- da es ein ungerichteter Graph ist --- sind einfach die Paare von Gästen, die sich die Hand geben. Und wir haben gesehen, dass die Anzahl der Knoten $x \in V$, deren Grad ungerade ist, immer gerade ist. 
-
-Wir gehen natürlich davon aus, dass sich die Leute nicht selbst die Hand schütteln. Das geht nicht. Oder wenn man sich selbst die Hand schüttelt, dann zählt das wie zweimal Händeschütteln, weil man sich ja selbst quasi die Hand geschüttelt hat. Das machen wir also nicht. Das wollte ich einfach noch erwähnen, dass das der Fall ist. Gut, das dient einfach dazu, sich eine konkrete Situation für gewisse Resultate vorzustellen.
-\end{spoken-clean}
-
-\begin{math-stroke}
-Betrachte den ungerichteten Graphen $G = (V, E)$, wobei:
+\begin{short-proof}
+Wir modellieren die Situation durch einen ungerichteten Graphen $G = (V, E)$ mit:
 \begin{itemize}
-    \item \textbf{V:} $V := \{\text{Gäste}\}$
-    \item \textbf{E:} $E := \{\{x, y\} \mid x \text{ und } y \text{ geben sich die Hand}\}$
+    \item \textbf{Knotenmenge $V$:} $V := \{\text{Gäste}\}$,
+    \item \textbf{Kantenmenge $E$:} $E := \{\{x, y\} \mid x \text{ und } y \text{ geben sich die Hand}\}$.
 \end{itemize}
-Aus dem allgemeinen Handschlaglemma für Graphen wissen wir, dass die Summe der Grade aller Knoten stets gerade ist:
+Da die Summe der Grade aller Knoten in jedem endlichen Graphen stets gerade ist (nämlich gleich $2|E|$), muss die Anzahl der Knoten mit ungeradem Grad ebenfalls gerade sein:
 \[
-\sum_{v \in V} \deg(v) = 2|E|
+\left| \{ x \in V \mid \deg(x) \text{ ungerade} \} \right| \in 2\mathbb{N}.
 \]
-Daraus folgt unmittelbar, dass die Anzahl der Knoten mit ungeradem Grad gerade sein muss:
-\[
-\left| \bigl\{ z \in V \;\big|\; \deg(z) \text{ ist ungerade} \bigr\} \right| \equiv 0 \pmod 2
-\]
+Dies beweist die Behauptung.
+\end{short-proof}
 \end{math-stroke}
-\end{proof}
 
 \section{Euler-Linien und Euler-Graphen}
+\subsection{Definitionen und Charakterisierung}
 
-\begin{spoken-clean}[00:03:38 - 00:05:40]
-Das Letzte, wofür wir letzte Woche leider keine Zeit mehr hatten, war diese Sache mit den Euler-Linien. Das ist die folgende Definition:
+\begin{spoken-clean}[00:01:58 - 00:04:10]
+Und das Letzte, wofür wir letzte Woche leider keine Zeit mehr hatten, war noch diese Sache mit den Euler-Linien. Das ist die folgende Definition: Eine Euler-Linie eines Graphen $G$ ist ein geschlossener Kantenzug, der sämtliche Kanten von $G$ enthält. \inlinemetanote{schreibt an die Tafel}
 
-Eine Euler-Linie eines Graphen $G$ ist ein geschlossener Kantenzug, der sämtliche Kanten von $G$ enthält.
+Okay, also wir hatten Kantenzüge nur für Graphen mit nur einer Relation definiert, aber man kann das ähnlich auch für Graphen mit Mehrfachkanten definieren --- haben wir aber nicht gemacht, das wäre einmal hier. Und es ist wirklich ein Kantenzug, das heißt, jede Kante kommt höchstens einmal vor im Kantenzug. Es dürfen aber dieselben Knoten mehrmals verwendet werden.
 
-Wir hatten Kantenzüge bisher nur für Graphen mit einer einzigen Relation definiert. Man kann das ähnlich auch für Graphen mit Mehrfachkanten definieren, aber das haben wir nicht gemacht. Deswegen nehmen wir hier an: Es ist ein Kantenzug, was bedeutet, dass jede Kante höchstens einmal im Kantenzug vorkommt. Es dürfen aber dieselben Knoten mehrmals verwendet werden.
+Und genau, wenn man einen geschlossenen Kantenzug hat, der alle Kanten von $G$ enthält, dann ist das eine eulersche Linie --- ich schreibe lieber Euler-Linie ---, also ganz gemäß dem Königsberger Brückenproblem. Und ein Graph heißt Euler-Graph, wenn er eine Euler-Linie enthält. \inlinemetanote{schreibt an die Tafel}
 
-Und wenn man einen geschlossenen Kantenzug hat, der alle Kanten von $G$ enthält, dann ist das eine Euler-Linie --- ganz gemäß dem Königsberger Brückenproblem. Ein Graph heißt Euler-Graph, wenn er eine Euler-Linie enthält.
+Okay. Also der Graph der Königsberger Brücken wäre also ein Beispiel für einen Graphen, der kein Euler-Graph ist, wohingegen das Haus vom Nikolaus ein Graph ist, der ein Euler-Graph ist, wie wir letztes Mal kurz am Anfang als Motivation diskutiert haben. Und das können wir hier noch in dieser Proposition abschließen --- das ist die Proposition \textbf{9.3}.
 \end{spoken-clean}
 
-\begin{math-stroke}
-\begin{definition}[Euler-Linie und Euler-Graph]\label[definition]{def:euler-linie}
-Sei $G = (V, E)$ ein ungerichteter Graph.
+\begin{math-stroke}[Definition der Euler-Linie und des Euler-Graphen]
+\begin{definition}[Euler-Linie und Euler-Graph]\label{def:euler-linie}
+Sei $G = (V, E)$ ein Graph.
 \begin{itemize}
-    \item Eine \newterm{Euler-Linie} von $G$ ist ein geschlossener Kantenzug, der jede Kante von $G$ genau einmal enthält.
-    \item Ein Graph $G$ heißt \newterm{Euler-Graph}, falls er eine Euler-Linie besitzt.
+    \item Eine \newterm{Euler-Linie} von $G$ ist ein geschlossener Kantenzug, der sämtliche Kanten von $G$ enthält.
+    \item Ein Graph $G$ heißt \newterm{Euler-Graph}, wenn er eine Euler-Linie besitzt.
 \end{itemize}
 \end{definition}
-
-\begin{explanation-of-steps}
-Ein Kantenzug ist eine Folge von Knoten und Kanten, bei der sich Kanten nicht wiederholen dürfen. Knoten dürfen jedoch beliebig oft besucht werden. Ein geschlossener Kantenzug beginnt und endet am selben Knoten.
-\end{explanation-of-steps}
 \end{math-stroke}
 
-\begin{ai-global-state-checkpoint-invisible-content}
-% timestamp: 00:05:40
-% topic: Einführung Euler-Linien und Euler-Graphen
-% board_state: lem:handschlaglemma, def:euler-linie
-% next_goal: Formulierung der Proposition 9.3 (Satz von Euler)
-% open_loops: none
-\end{ai-global-state-checkpoint-invisible-content}
+\begin{spoken-clean}[00:04:10 - 00:06:20]
+Die sagt, dass ein endlicher, ungerichteter, zusammenhängender Graph... zusammenhängend haben wir, glaube ich, nicht definiert. Das heißt einfach das, was man denkt: Wenn man je zwei Knoten nimmt, dann existiert ein Kantenzug zwischen diesen Knoten. Man kann also je zwei Knoten miteinander verbinden --- das ist die Definition, das heißt, es existiert ein Kantenzug zwischen je zwei Knoten. \inlinemetanote{schreibt an die Tafel}
 
-\begin{spoken-clean}[00:05:40 - 00:06:45]
-Der Graph der Königsberger Brücken wäre also ein Beispiel für einen Graphen, der kein Euler-Graph ist, wohingegen das Haus vom Nikolaus ein Graph ist, der ein Euler-Graph ist --- das haben wir ja letztes Mal kurz am Anfang als Motivation diskutiert.
+Also ein endlicher, ungerichteter, zusammenhängender Graph $G$ ist genau dann ein Euler-Graph, wenn jeder Knoten von $G$ geraden Grad hat. \inlinemetanote{schreibt an die Tafel}
+
+Das ist der Satz von Euler, mit dem er gezeigt hat, dass eben das Königsberger Brückenproblem keine Lösung hat, weil man dort halt eben viele Knoten hat, die ungeraden Grad haben. Okay? Und die andere Sache ist: Es zeigt nicht nur... okay, Euler hat gesehen, das ist eine notwendige Bedingung, also wenn es ein Euler-Graph ist, dann muss diese Bedingung erfüllt sein. Aber das ist eben auch eine hinreichende Bedingung: Wenn alle Knoten einen geraden Grad haben, dann gibt es eine Euler-Linie.
 \end{spoken-clean}
 
-\begin{didactic-insight}[Das Königsberger Brückenproblem]
-Das historische Königsberger Brückenproblem (gelöst von Leonhard Euler im Jahr 1736) gilt als die Geburtsstunde der Graphentheorie. Die Frage war, ob man einen Spaziergang durch die Stadt Königsberg so planen kann, dass man jede der sieben Brücken genau einmal überquert und am Ende wieder am Ausgangspunkt ankommt. Euler abstrahierte die Stadtteile als Knoten und die Brücken als Kanten und zeigte, dass dies unmöglich ist, da nicht alle Knoten einen geraden Grad besitzen.
-\end{didactic-insight}
-
-\subsection{Zusammenhang und der Satz von Euler}
-
-\begin{spoken-clean}[00:06:45 - 00:08:55]
-Und das können wir hier noch mit dieser Proposition abschließen --- das ist der Satz von Euler (\cref{prop:satz-von-euler}). Sie besagt, dass ein endlicher, ungerichteter, zusammenhängender Graph $G$ --- zusammenhängend haben wir, glaube ich, noch nicht definiert, aber das heißt einfach genau das, was man denkt: Wenn man je zwei beliebige Knoten nimmt, dann existiert ein Kantenzug zwischen ihnen, man kann also je zwei Knoten verbinden --- genau dann ein Euler-Graph ist, wenn jeder Knoten von $G$ einen geraden Grad hat.
-\end{spoken-clean}
-
-\begin{math-stroke}
-\begin{definition}[Zusammenhängender Graph]\label[definition]{def:zusammenhaengend}
-Ein Graph $G = (V, E)$ heißt \newterm{zusammenhängend}, wenn zu je zwei Knoten $u, v \in V$ ein Kantenzug existiert, der $u$ und $v$ verbindet.
+\begin{math-stroke}[Charakterisierung von Euler-Graphen]
+\begin{definition}[Zusammenhängender Graph]\label{def:zusammenhaengend}
+Ein Graph $G = (V, E)$ heißt \newterm{zusammenhängend}, wenn zwischen je zwei Knoten $x, y \in V$ ein Kantenzug existiert.
 \end{definition}
 
-\begin{proposition}[Satz von Euler]\label[proposition]{prop:satz-von-euler}
-Ein endlicher, ungerichteter, zusammenhängender Graph $G$ ist genau dann ein Euler-Graph, wenn jeder Knoten von $G$ einen geraden Grad besitzt:
-\[
-\forall v \in V \colon \deg(v) \equiv 0 \pmod 2
-\]
+\begin{proposition}[Satz von Euler]\label{prop:satz-von-euler}
+Ein endlicher, ungerichteter, zusammenhängender Graph $G$ ist genau dann ein Euler-Graph, wenn jeder Knoten von $G$ geraden Grad hat.
 \end{proposition}
 \end{math-stroke}
 
-\begin{proof}[Beweis des Satzes von Euler]
-\begin{spoken-clean}[00:08:55 - 00:11:15]
-Das ist der berühmte Satz von Euler, mit dem er gezeigt hat, dass das Königsberger Brückenproblem keine Lösung besitzt, weil dort eben einige Knoten einen ungeraden Grad haben.
+\subsection{Beweis des Satzes von Euler}
 
-Das Spannende ist: Das ist nicht nur eine notwendige Bedingung --- also dass jeder Euler-Graph diese Eigenschaft erfüllen muss ---, sondern es ist auch eine hinreichende Bedingung. Wenn alle Knoten einen geraden Grad haben, dann existiert garantiert eine Euler-Linie.
+\begin{spoken-clean}[00:06:20 - 00:08:30]
+Okay. Ja, der Beweis ist im Wesentlichen einfach das Argument von Euler. Falls $G$ eine Euler-Linie hat, so ist jeder Knoten von $G$ von geradem Grad, weil er so oft Anfangs- wie Endpunkt dieser Linie ist. \inlinemetanote{schreibt an die Tafel} Und genau, daraus folgt, dass jeder Knoten einen geraden Grad hat.
 
-Der Beweis für die eine Richtung ist im Wesentlichen einfach das Argument von Euler: Falls $G$ eine Euler-Linie besitzt, so ist jeder Knoten beim Durchlaufen genau so oft Anfangs- wie Endpunkt einer Kante dieser Linie. Daraus folgt direkt, dass jeder Knoten einen geraden Grad haben muss.
+Und für die Umkehrung beziehungsweise die Rückrichtung konstruieren wir so eine Euler-Linie, wenn wir wissen, dass das der Fall ist. Zuerst einmal, okay, er ist zusammenhängend; und wenn der Graph zusammenhängend ist, dann heißt das insbesondere, dass es keine Knoten gibt von Ordnung Null (d.\,h.\ isolierte Knoten). Wenn ein Knoten von Ordnung Null wäre, dann könnte man ihn mit niemandem verbinden. Das heißt, jeder Knoten hat mindestens Grad \textbf{2}. \inlinemetanote{schreibt an die Tafel}
 \end{spoken-clean}
 
-\begin{math-stroke}
-\textbf{Hinrichtung (\texorpdfstring{\textbf{(a)} $\implies$ \textbf{(b)}}{a -> b}):}
-Sei $G$ ein Euler-Graph mit einer Euler-Linie $L$. Da $L$ ein geschlossener Kantenzug ist, der jede Kante von $G$ genau einmal enthält, können wir die Kanten entlanggehen. 
-
-Bei jedem Durchgang durch einen Knoten $v \in V$ betreten wir den Knoten über eine Kante und verlassen ihn über eine andere Kante. Jedes Mal, wenn die Linie $L$ den Knoten $v$ passiert, werden somit genau zwei Kanten verbraucht, die an $v$ angrenzen. 
-
-Da jede Kante von $G$ in $L$ genau einmal vorkommt, muss der Grad jedes Knotens $v$ gerade sein, da er sich als das Doppelte der Anzahl der Durchgänge durch $v$ darstellt (wobei der Start- und Endknoten der Linie beim ersten Verlassen und letzten Betreten ebenfalls genau zwei Kanten beisteuert). Somit gilt:
-\[
-\forall v \in V \colon \deg(v) \equiv 0 \pmod 2
-\]
+\begin{math-stroke}[Beweis des Satzes von Euler (Teil 1)]
+\begin{short-proof}[Beweis von \cref{prop:satz-von-euler}]
+\textbf{Hinrichtung ($\implies$):}
+Falls $G$ eine Euler-Linie besitzt, so ist jeder Knoten $v \in V$ von geradem Grad. Da die Euler-Linie ein geschlossener Kantenzug ist, tritt sie bei jedem Durchgang durch einen Knoten $v$ über eine Kante ein und über eine andere Kante wieder aus. Da jede Kante genau einmal durchlaufen wird, ist jeder Knoten $v$ genau so oft Anfangs- wie Endpunkt einer Kante der Linie. Somit ist der Grad jedes Knotens gerade.
+\end{short-proof}
 \end{math-stroke}
 
-\begin{spoken-clean}[00:11:15 - 00:13:38]
-Für die Umkehrung konstruieren wir explizit eine solche Euler-Linie unter der Voraussetzung, dass jeder Knoten einen geraden Grad hat.
+\begin{spoken-clean}[00:08:30 - 00:11:00]
+Und was wir jetzt tun: Wir nehmen einen Knoten $x_0$. Wir starten jetzt an einem Knoten $x_0$, wir beginnen jetzt bei $x_0$, und jetzt laufen wir einfach los zu irgendeinem anderen Knoten $x_1$, $x_2$ und so weiter. Und zwar starten wir im Knoten $x_0$, und dann gehen wir vom Knoten $x_i$ weiter zum Knoten $x_{i+1}$ --- und das immer auf einer Kante, die wir noch nicht besucht haben, also auf einer, sagen wir mal, unbesuchten Kante. \inlinemetanote{schreibt an die Tafel}
 
-Zunächst einmal ist der Graph zusammenhängend. Das bedeutet insbesondere, dass es keine isolierten Knoten vom Grad $0$ gibt --- denn einen solchen Knoten könnte man ja mit keinem anderen verbinden. Da alle Grade gerade und größer als $0$ sein müssen, hat jeder Knoten mindestens den Grad $2$.
+Und das können wir immer, weil wenn wir auf einer unbesuchten Kante in einen Knoten reingehen, dann gibt es auch noch eine unbesuchte Kante, die wieder rausgeht, weil sonst hätte der entsprechende Knoten ja eine ungerade Ordnung (d.\,h.\ einen ungeraden Grad).
 
-Was wir jetzt tun: Wir wählen einen beliebigen Startknoten $x_0$. Wir beginnen bei $x_0$ und laufen einfach los zu irgendeinem Nachbarknoten $x_1$, dann weiter zu $x_2$ und so weiter. Allgemein gehen wir von einem Knoten $x_i$ weiter zu einem Knoten $x_{i+1}$, und zwar immer über eine Kante, die wir noch nicht besucht haben --- also über eine noch unbesuchte Kante.
+Okay, und jetzt irgendwann kommen wir... also $G$ ist ein endlicher Graphen. Das heißt, wir kommen irgendwann zurück zu $x_0$. \inlinemetanote{schreibt an die Tafel} Das heißt, es existiert ein geschlossener Kantenzug --- $K_0$ nennen wir ihn --- beginnend in $x_0$. Okay, und falls dieser $K_0$ jetzt bereits alle Kanten enthält, ist gut, dann sind wir fertig.
 \end{spoken-clean}
 
-\begin{ai-global-state-checkpoint-invisible-content}
-% timestamp: 00:12:00
-% topic: Beweis des Satzes von Euler (Rückrichtung)
-% board_state: prop:satz-von-euler, proof:euler-forward
-% next_goal: Konstruktion des geschlossenen Kantenzugs K_0
-% open_loops: none
-\end{ai-global-state-checkpoint-invisible-content}
-
-\begin{math-stroke}
-\textbf{Rückrichtung (\texorpdfstring{\textbf{(b)} $\implies$ \textbf{(a)}}{b -> a}) --- Teil 1:}
-Wir nehmen an, dass jeder Knoten von $G$ einen geraden Grad besitzt. Da $G$ zusammenhängend ist und wir triviale isolierte Knoten ausschließen, gilt:
+\begin{math-stroke}[Beweis des Satzes von Euler (Teil 2)]
+\begin{short-proof}[Rückrichtung ($\impliedby$)]
+\textbf{Schritt 1: Konstruktion eines ersten geschlossenen Kantenzugs $K_0$}
+Da $G$ zusammenhängend ist und jeder Knoten geraden Grad hat, besitzt jeder Knoten mindestens Grad $2$. Wir starten an einem beliebigen Knoten $x_0 \in V$ und konstruieren einen Pfad, indem wir sukzessive über unbesuchte Kanten laufen: 
 \[
-\forall v \in V \colon \deg(v) \ge 2
+x_0 \to x_1 \to x_2 \to \dots \to x_i \to x_{i+1}.
 \]
-Wir starten die Konstruktion an einem beliebigen Knoten $x_0 \in V$. Wir bilden einen Kantenzug, indem wir von einem Knoten $x_i$ zu einem Nachbarknoten $x_{i+1}$ über eine noch unbesuchte Kante gehen.
+Da jeder Knoten geraden Grad hat, besitzt jeder besuchte Zwischenknoten nach dem Betreten stets noch mindestens eine unbesuchte Kante zum Verlassen. Da der Graph $G$ endlich ist, muss dieser Prozess nach endlich vielen Schritten abbrechen, was nur durch die Rückkehr zum Startknoten $x_0$ geschehen kann. Somit erhalten wir einen geschlossenen Kantenzug $K_0$ beginnend in $x_0$.
+\end{short-proof}
 \end{math-stroke}
 
-\begin{spoken-clean}[00:13:38 - 00:15:10]
-Das können wir auch immer tun: Wenn wir über eine unbesuchte Kante in einen Knoten hineingehen, dann muss es dort auch immer eine unbesuchte Kante geben, über die wir wieder herausgehen können --- andernfalls hätte dieser Knoten ja einen ungeraden Grad.
+\begin{spoken-clean}[00:11:00 - 00:13:30]
+Okay, wenn es jetzt aber noch Kanten gibt, die nicht in $K_0$ enthalten sind, dann muss einer der Knoten, die auf $K_0$ liegen, an eine solche Kante angrenzen, weil der Graph ja zusammenhängend ist. Es kann also nicht sein, dass alle unbesuchten Kanten nicht an die Knoten in $K_0$ angrenzen.
 
-Da der Graph $G$ endlich ist, müssen wir irgendwann wieder beim Startknoten $x_0$ ankommen. Das heißt, es existiert ein geschlossener Kantenzug --- nennen wir ihn $K_0$ ---, der in $x_0$ beginnt und endet.
-
-Falls $K_0$ bereits alle Kanten des Graphen enthält, sind wir fertig. Wenn es aber noch Kanten gibt, die nicht in $K_0$ enthalten sind, dann muss wegen des Zusammenhangs des Graphen mindestens einer der Knoten auf $K_0$ an eine solche unbesuchte Kante angrenzen. Es kann also nicht sein, dass alle unbesuchten Kanten isoliert von den Knoten in $K_0$ liegen.
+Ansonsten gibt es auf $K_0$ einen Knoten $x_1$, von dem natürlich eine gerade Anzahl von Kanten ausgeht, die nicht auf $K_0$ liegen. \inlinemetanote{schreibt an die Tafel und zeichnet ein Diagramm}
 \end{spoken-clean}
 
-\begin{math-stroke}
-\textbf{Rückrichtung (\texorpdfstring{\textbf{(b)} $\implies$ \textbf{(a)}}{b -> a}) --- Teil 2:}
-Da jeder Knoten geraden Grad hat, können wir, wann immer wir einen Knoten $v \neq x_0$ betreten, diesen auch wieder über eine unbesuchte Kante verlassen. Da der Graph $G$ endlich ist, müssen uns irgendwann die unbesuchten Kanten ausgehen. Dies kann nur am Startknoten $x_0$ geschehen. 
+\begin{math-stroke}[Beweis des Satzes von Euler (Teil 3)]
+\begin{short-proof}[Rückrichtung ($\impliedby$) - Fortsetzung]
+\textbf{Schritt 2: Erweiterung des Kantenzugs bei unvollständiger Abdeckung}
+Falls $K_0$ noch nicht alle Kanten von $G$ enthält, existiert wegen des Zusammenhangs von $G$ mindestens eine unbesuchte Kante, die an einen Knoten $x_1 \in K_0$ angrenzt. Da $K_0$ an jedem Knoten eine gerade Anzahl von Kanten verbraucht, hat $x_1$ bezüglich der verbleibenden unbesuchten Kanten immer noch einen geraden Grad.
+\end{short-proof}
+\end{math-stroke}
 
-Somit erhalten wir einen ersten geschlossenen Kantenzug $K_0$, der in $x_0$ startet und endet.
-\[
-\text{Falls } E(K_0) = E(G), \text{ dann ist } K_0 \text{ eine Euler-Linie und wir sind fertig.}
-\]
-Falls noch unbesuchte Kanten existieren, so muss wegen des Zusammenhangs von $G$ mindestens eine dieser Kanten an einen Knoten $x_n \in V(K_0)$ angrenzen.
+\begin{spoken-clean}[00:13:30 - 00:15:10]
+Okay, also wir machen jetzt hier genau dasselbe noch einmal und erhalten hier irgendeinen anderen geschlossenen Kantenzug. Okay, und jetzt können wir einfach die zwei zusammenhängen: Jetzt gehen wir zuerst hier entlang, dann machen wir diesen neuen Kantenzug, und dann machen wir wieder den Rest des ersten Kantenzugs fertig --- dann haben wir einen neuen Kantenzug, der größer ist. \inlinemetanote{schreibt an die Tafel und zeichnet Diagramme}
+\end{spoken-clean}
+
+\begin{math-stroke}[Beweis des Satzes von Euler (Teil 4)]
+\begin{short-proof}[Rückrichtung ($\impliedby$) - Abschluss]
+Wir starten nun an $x_1$ und konstruieren im verbleibenden Teilgraphen analog einen weiteren geschlossenen Kantenzug $K_1$. Da $G$ endlich ist, terminiert auch dieser. Wir können nun $K_0$ und $K_1$ zu einem einzigen, größeren geschlossenen Kantenzug verbinden, indem wir $K_0$ bis $x_1$ durchlaufen, dann den gesamten Kantenzug $K_1$ absolvieren und schließlich den Rest von $K_0$ beenden.
+\par\vspace{1ex}\noindent
+Diesen Prozess wiederholen wir induktiv, bis alle Kanten des Graphen $G$ abgedeckt sind. Dies liefert die gewünschte Euler-Linie.
+\end{short-proof}
 \end{math-stroke}
 
 \begin{spoken-clean}[00:15:10 - 00:17:28]
-Es gibt also auf $K_0$ einen Knoten --- nennen wir ihn $x_n$ ---, von dem natürlich eine gerade Anzahl von Kanten ausgeht, die nicht auf $K_0$ liegen. Wir haben hier also unseren geschlossenen Kantenzug $K_0$ von $x_0$ nach $x_0$, irgendwo liegt $x_n$, und von dort gehen noch unbesuchte Kanten aus --- und zwar eine gerade Anzahl.
+Und jetzt können wir das... das machen wir jetzt aber nicht, das können Sie im Skript nachlesen. Es gibt noch andere Versionen von diesem Satz, und zwar kann man noch sagen --- okay, das ist jetzt eine geschlossene Euler-Linie, aber man kann auch eine offene Euler-Linie definieren. Das ist ein Kantenzug, der alle Kanten von dem Graphen $G$ enthält, der aber nicht am selben Ort anfängt, an dem er aufhört. \inlinemetanote{schreibt an die Tafel}
 
-Jetzt machen wir an dieser Stelle genau dasselbe: Wir starten in $x_n$ und laufen entlang neuer Kanten, bis wir wieder zu $x_n$ zurückkehren. Wir erhalten so einen weiteren geschlossenen Kantenzug $K_1$. Nun können wir diese beiden Kantenzüge ganz einfach zusammenhängen: Wir laufen zuerst auf $K_0$ bis $x_n$, durchlaufen dann den gesamten Kantenzug $K_1$, und setzen danach den Weg auf $K_0$ fort. So erhalten wir einen neuen, größeren geschlossenen Kantenzug.
+Und da kann man auch wieder zeigen: Ein endlicher, ungerichteter, zusammenhängender Graph $G$ hat eine offene Euler-Linie genau dann, wenn er genau zwei Knoten mit ungeradem Grad hat. Dann beginnen wir auf dem einen und hören beim anderen auf. \inlinemetanote{schreibt an die Tafel}
 
-Dieses Verfahren wiederholen wir nun so lange, bis wir eine Euler-Linie haben. Das funktioniert deshalb, weil wir in jedem Schritt nur eine gerade Anzahl von Kanten entfernen, sodass die verbleibenden unbesuchten Kanten in jedem Knoten weiterhin einen geraden Grad aufweisen.
+Und man kann natürlich auch ein ähnliches Resultat für gerichtete Graphen formulieren und beweisen (siehe Skript). Okay, da muss man noch etwas präziser sein mit dem Eingangsgrad und Ausgangsgrad (d.\,h.\ $\deg^-(v)$ und $\deg^+(v)$), die es bei jedem Knoten gibt; diese müssen dann übereinstimmen, und dann kann man so etwas wieder sehr ähnlich beweisen.
 \end{spoken-clean}
 
-\begin{math-stroke}
-\textbf{Rückrichtung (\texorpdfstring{\textbf{(b)} $\implies$ \textbf{(a)}}{b -> a}) --- Teil 3:}
-Wir betrachten den Teilgraphen $G' = (V, E \setminus E(K_0))$. In $G'$ hat jeder Knoten weiterhin einen geraden Grad. 
-
-Sei $x_n \in V(K_0)$ ein Knoten, der eine unbesuchte Kante in $G'$ besitzt. Wir starten in $x_n$ und konstruieren analog zu $K_0$ einen geschlossenen Kantenzug $K_1$ in $G'$, der in $x_n$ beginnt und endet.
-
-Wir können nun $K_0$ und $K_1$ zu einem einzigen, größeren geschlossenen Kantenzug verbinden, indem wir $K_0$ bis zum Knoten $x_n$ durchlaufen, dann den gesamten Kantenzug $K_1$ abschreiten, und anschließend den Rest von $K_0$ bis $x_0$ vollenden.
-
-\begin{center}
-\begin{tikzpicture}[scale=1.2, >=stealth, thick]
-  % \begin{ai-tikz-planner-invisible-content}
-  % 1. Background: Kantenzug K_0 als lila Fünfeck.
-  % 2. Midground: Kantenzug K_1 als grünes Viereck, das K_0 im Knoten x_n schneidet.
-  % 3. Foreground: Pfeile, die den Durchlaufweg andeuten.
-  % \end{ai-tikz-planner-invisible-content}
-  
-  % K_0 (lila)
-  \draw[MidnightBlue, fill=MidnightBlue!5] (0,0) -- (2,1) -- (3,-1) -- (1,-2) -- (-1,-1) -- cycle;
-  \node[MidnightBlue] at (1,-1) {$K_0$};
-  \fill (0,0) circle (2pt) node[above left] {$x_0$};
-  
-  % Schnittknoten x_n
-  \coordinate (Xn) at (3,-1);
-  \fill[BrickRed] (Xn) circle (2.5pt) node[right=3pt] {$x_n$};
-  
-  % K_1 (grün)
-  \draw[ForestGreen, fill=ForestGreen!5] (3,-1) -- (5,0) -- (6,-1.5) -- (4.5,-2.5) -- cycle;
-  \node[ForestGreen] at (4.8,-1.5) {$K_1$};
-  
-  % Durchlaufpfeile
-  \draw[->, MidnightBlue, line width=1.5pt] (0,0) -- (1,0.5);
-  \draw[->, ForestGreen, line width=1.5pt] (3,-1) -- (4, -0.5);
-\end{tikzpicture}
-\end{center}
-
-Da der Graph $G$ endlich ist, führt die wiederholte Anwendung dieses Verfahrens nach endlich vielen Schritten zu einem geschlossenen Kantenzug, der alle Kanten von $G$ enthält. Dies beweist, dass $G$ ein Euler-Graph ist.
-\end{math-stroke}
-\end{proof}
-
-\begin{ai-global-state-checkpoint-invisible-content}
-% timestamp: 00:18:00
-% topic: Abschluss Satz von Euler, Einführung offene Euler-Linien
-% board_state: prop:satz-von-euler, proof:euler-backward-complete
-% next_goal: Formulierung des Korollars für offene Euler-Linien
-% open_loops: none
-\end{ai-global-state-checkpoint-invisible-content}
-
-\subsection{Offene Euler-Linien}
-% New subsection: Offene Euler-Linien
-
-\begin{spoken-clean}[00:17:28 - 00:18:56]
-Gut, soweit klar? Ich denke, die Idee des Beweises ist klar. Man kann das natürlich mehr oder weniger detailliert aufschreiben --- da gibt es verschiedene Möglichkeiten. Das hier ist eine Variante, vielleicht etwas kompakter, aber die Grundidee ist das Entscheidende.
-
-Es gibt auch noch andere Versionen dieses Satzes, die wir hier nicht im Detail besprechen, die Sie aber im Skript nachlesen können. Bisher haben wir über geschlossene Euler-Linien gesprochen, aber man kann auch eine offene Euler-Linie definieren. Das ist ein Kantenzug, der zwar alle Kanten des Graphen $G$ enthält, aber nicht am selben Knoten beginnt, an dem er endet.
-
-Auch hier lässt sich zeigen: Ein endlicher, ungerichteter Graph $G$ besitzt genau dann eine offene Euler-Linie, wenn er zusammenhängend ist und genau zwei Knoten mit ungeradem Grad existieren. In diesem Fall beginnen wir den Kantenzug an dem einen Knoten mit ungeradem Grad und beenden ihn an dem anderen.
-\end{spoken-clean}
-
-\begin{math-stroke}[Offene Euler-Linien]
-\begin{definition}[Offene Euler-Linie]\label[definition]{def:offene-euler-linie}
-Eine \newterm{offene Euler-Linie} in einem ungerichteten Graphen $G = (V, E)$ ist ein (nicht geschlossener) Kantenzug, der jede Kante von $G$ genau einmal enthält.
-\end{definition}
-
-\begin{corollary}[Existenz einer offenen Euler-Linie]\label[corollary]{cor:offene-euler-linie}
-Ein endlicher, ungerichteter Graph $G$ besitzt genau dann eine offene Euler-Linie, wenn $G$ zusammenhängend ist (bis auf isolierte Knoten) und genau zwei Knoten $u, v \in V$ ungeraden Grad besitzen. In diesem Fall beginnt die offene Euler-Linie in $u$ und endet in $v$ (oder umgekehrt).
-\end{corollary}
-\end{math-stroke}
-
-\begin{spoken-clean}[00:18:56 - 00:20:20]
-Ähnliche Resultate gibt es auch für gerichtete Graphen --- das ist die Proposition 9.16 im Skript, die Sie dort gerne nachlesen können.
-\end{spoken-clean}
-
-\begin{math-stroke}[Weitere Versionen des Satzes]
-\begin{remark}[Gerichtete Euler-Graphen]\label[remark]{rem:gerichtete-euler-graphen}
-Für gerichtete Graphen gilt ein analoges Resultat (siehe Proposition 9.16 im Skript): Ein gerichteter, stark zusammenhängender Graph besitzt genau dann einen geschlossenen Euler-Zug, wenn für jeden Knoten der Eingangsgrad gleich dem Ausgangsgrad ist:
-\[
-\forall v \in V \colon d_{\text{in}}(v) = d_{\text{out}}(v)
-\]
+\begin{math-stroke}[Offene Euler-Linien und gerichtete Graphen]
+\begin{remark}[Offene Euler-Linien und gerichtete Graphen]
+\begin{itemize}
+    \item \textbf{Offene Euler-Linie:} Ein endlicher, ungerichteter, zusammenhängender Graph $G$ besitzt eine offene Euler-Linie genau dann, wenn er genau zwei Knoten von ungeradem Grad besitzt. Der Kantenzug beginnt an einem dieser beiden Knoten und endet am anderen.
+    \item \textbf{Gerichtete Graphen:} Für gerichtete Graphen existieren analoge Resultate (siehe Proposition 9.16 im Skript). Hierbei müssen der Eingangsgrad ($\deg^-(v)$) und der Ausgangsgrad ($\deg^+(v)$) an jedem Knoten $v$ übereinstimmen.
+\end{itemize}
 \end{remark}
 \end{math-stroke}
 
-\section{Das Dominoproblem}
+\section{Das Dominoproblem als graphentheoretische Anwendung}
 
-\subsection{Das Dominoproblem und seine mathematische Modellierung}
+\begin{spoken-clean}[00:17:28 - 00:19:30]
+Jetzt noch eine kleine, nette Anwendung von diesem Satz auf ein Problem aus dem Alltag --- das ist das Dominoproblem. Ich weiß nicht, ich glaube, Domino spielt man nicht mehr so oft, aber wir haben das Folgende: Wir haben ein Dominospiel mit Augenzahlen $0$ bis $16$. Okay, also wir haben hier $0$ bis $16$, wir haben jetzt da Dominosteine. Ein Dominostein sieht so aus, hat hier eine Zahl und hier eine Zahl. \inlinemetanote{zeichnet einen Dominostein an die Tafel}
 
-\begin{spoken-clean}[00:20:20 - 00:22:30]
-Kommen wir nun zu einer netten kleinen Anwendung dieses Satzes auf ein Problem aus dem Alltag: dem Dominoproblem. Ich weiß nicht, ob Sie heute noch oft Domino spielen, aber betrachten wir folgendes Szenario: Wir haben ein Dominospiel mit den Augenzahlen $0$ bis $16$ und den entsprechenden Dominosteinen.
-
-Ein Dominostein sieht bekanntlich so aus: Er hat zwei Hälften mit jeweils einer Zahl, sagen wir $m$ und $n$, die beide zwischen $0$ und $16$ liegen. Für jedes ungeordnete Paar $\{m, n\}$ gibt es genau einen Stein --- es wird also nicht zwischen $\{m, n\}$ und $\{m, n\}$ unterschieden. Die Frage ist nun: Wie viele Steine hat ein solches Dominospiel insgesamt?
+Und $a$ und $b$ (im Audio: $m$ und $n$) sind beide zwischen $0$ und $16$. Okay? Und es gibt für jedes solche ungeordnete Paar genau einen Stein. Es gibt also nicht $\{a, b\}$ und $\{b, a\}$ als verschiedene Steine, sondern es gibt nur einen. Okay, wir haben ein Dominospiel, das heißt: Wie viele Steine hat man da? Wie viele Möglichkeiten gibt es, zwei aus $17$ auszuwählen, plus noch... da gibt es ja noch alle Möglichkeiten, bei denen man $0$ $0$, $1$ $1$ hat, also man kann ja zweimal dieselbe Zahl haben. Das heißt, man hat noch $17$ Steine dazu.
 \end{spoken-clean}
 
-\begin{math-stroke}[Mathematische Formulierung des Dominoproblems]
-Wir betrachten ein Dominospiel mit den Augenzahlen $\{0, 1, \dots, 16\}$.
-Ein Dominostein wird repräsentiert durch ein ungeordnetes Paar $\{m, n\}$ mit $m, n \in \{0, \dots, 16\}$. Für jedes Paar existiert genau ein Stein (inklusive der Doubletten $\{m, m\}$).
-\end{math-stroke}
-
-\begin{spoken-clean}[00:22:30 - 00:23:51]
-Wie viele Möglichkeiten gibt es, zwei Zahlen aus $17$ auszuwählen? Dazu kommen noch die Doubletten, bei denen man zweimal dieselbe Zahl hat, also $0$-$0$, $1$-$1$ und so weiter. Das heißt, wir müssen noch $17$ weitere Steine dazuzählen.
-\end{spoken-clean}
-
-\begin{ai-global-state-checkpoint-invisible-content}
-% timestamp: 00:24:00
-% topic: Das Dominoproblem (Kombinatorik und Fragestellung)
-% board_state: def:general-domino, eq:domino-count
-% next_goal: Modellierung des Dominoproblems als Graph
-% open_loops: none
-\end{ai-global-state-checkpoint-invisible-content}
-
-\begin{math-stroke}[Berechnung der Anzahl der Dominosteine]
-Die Anzahl der Steine berechnet sich kombinatorisch aus den Paaren unterschiedlicher Zahlen plus den Doubletten (Steine mit zwei gleichen Zahlen):
+\begin{math-stroke}[Das Dominospiel]
+Ein Dominostein wird durch ein ungeordnetes Paar $\{a, b\}$ mit $a, b \in \{0, 1, \dots, 16\}$ repräsentiert.
+\par\vspace{1ex}\noindent
+Die Gesamtzahl der Dominosteine bei Augenzahlen von $0$ bis $16$ (insgesamt $17$ verschiedene Werte) berechnet sich durch die Kombinationen ohne Wiederholung plus die Steine mit gleichen Augenzahlen (Schlingen):
 \[
-\text{Anzahl Steine} = \binom{17}{2} + 17 = \frac{17 \cdot 16}{2} + 17 = 136 + 17 = 153
+\binom{17}{2} + 17 = \frac{17 \cdot 16}{2} + 17 = 136 + 17 = 153 \text{ Steine}.
 \]
-Es gibt somit insgesamt $153$ Dominosteine in diesem Spiel.
 \end{math-stroke}
 
-\begin{spoken-clean}[00:23:51 - 00:25:23]
-Die spannende Frage beim Dominoproblem lautet nun: Können wir all diese Steine zu einer einzigen, unverzweigten, geschlossenen Kette aneinanderreihen?
+\begin{spoken-clean}[00:19:30 - 00:20:50]
+Und die Frage is --- das Dominoproblem fragt nun ---: Können wir alle Steine zu einer unverzweigten, geschlossenen Kette aneinanderreihen? \inlinemetanote{schreibt an die Tafel} Okay, also gibt es das so, dass man hier irgendwie eine $1$ und eine $2$ hat, und dann hat man beim nächsten eine $2$ und eine $3$, und so weiter, bis man dann irgendwann wieder zurückkommt zu einer $1$ und hier ein $k$ oder so? \inlinemetanote{zeichnet eine Kette an die Tafel}
 
-Können wir die Steine also so anordnen, dass wir mit einem Stein $\{n_1, n_2\}$ beginnen, daran den Stein $\{n_2, n_3\}$ legen, und so weiter, bis wir am Ende wieder beim Ausgangswert $n_1$ ankommen?
+Was ist die Antwort? Wollen Sie mal überlegen, während ich das hier auswische? \inlinemetanote{wischt die Tafel} Es geht also darum, einen gewissen Graphen zu konstruieren und dann zu sehen, ob es darin eine Euler-Linie gibt oder nicht.
+
+Okay, was wäre die Antwort? Ja, nein? Nein, ja? Wer denkt ja? Einfach mal um zu sehen. Okay. Wer denkt nein? Wer ist unsicher? Okay. Gibt's Argumente? Also... die Antwort ist ja. \inlinemetanote{schreibt an die Tafel}
 \end{spoken-clean}
 
-\begin{math-stroke}[Die Fragestellung]
-\textbf{Frage:} Können wir alle $153$ Dominosteine so aneinanderreihen, dass sie eine einzige, geschlossene, unverzweigte Kette bilden?
+\begin{math-stroke}[Das Dominoproblem als Graphenproblem]
+\textbf{Fragestellung:} Können wir alle $153$ Dominosteine zu einer einzigen, geschlossenen, unverzweigten Kette aneinanderreihen?
+
 \begin{center}
-\begin{tikzpicture}[scale=1.0, >=stealth, thick]
-  % \begin{ai-tikz-planner-invisible-content}
-  % 1. Background: Eine Kette von Dominosteinen als Rechtecke.
-  % 2. Midground: Zahlen auf den Steinen.
-  % 3. Foreground: Verbindungslinien.
-  % \end{ai-tikz-planner-invisible-content}
-  \draw (0,0) rectangle (1.5,0.6);
-  \draw (0.75,0) -- (0.75,0.6);
-  \node at (0.375,0.3) {$n_1$};
-  \node at (1.125,0.3) {$n_2$};
-  
-  \draw (1.8,0) rectangle (3.3,0.6);
-  \draw (2.55,0) -- (2.55,0.6);
-  \node at (2.175,0.3) {$n_2$};
-  \node at (2.925,0.3) {$n_3$};
-  
-  \node at (4.0,0.3) {$\dots$};
-  
-  \draw (4.7,0) rectangle (6.2,0.6);
-  \draw (5.45,0) -- (5.45,0.6);
-  \node at (5.075,0.3) {$n_{\ell}$};
-  \node at (5.825,0.3) {$n_1$};
-  
-  \draw[dashed, <->] (1.5,0.3) -- (1.8,0.3);
-  \draw[dashed, <->] (3.3,0.3) -- (3.7,0.3);
-  \draw[dashed, <->] (4.3,0.3) -- (4.7,0.3);
+\begin{tikzpicture}[scale=1.2, thick]
+  \node[draw, minimum width=1.2cm, minimum height=0.6cm] (D1) at (0,0) {$1 \mid 2$};
+  \node[draw, minimum width=1.2cm, minimum height=0.6cm] (D2) at (2,0) {$2 \mid 3$};
+  \node (dots) at (3.8,0) {$\dots$};
+  \node[draw, minimum width=1.2cm, minimum height=0.6cm] (D3) at (5.6,0) {$k \mid 1$};
+  \draw[dashed] (D1) -- (D2);
+  \draw[dashed] (D2) -- (dots);
+  \draw[dashed] (dots) -- (D3);
 \end{tikzpicture}
 \end{center}
 \end{math-stroke}
 
-\begin{spoken-clean}[00:25:23 - 00:26:25]
-Was ist die Antwort? Überlegen Sie kurz, während ich die Tafel wische.
+\begin{spoken-clean}[00:20:50 - 00:23:00]
+Wer hat eine Erklärung dafür? Also wir schauen uns jetzt folgenden Graphen an: Wir nehmen den Graphen $G = (V, E)$, und als Knoten nehmen wir die Zahlen von $0$ bis $16$. Wir haben also diese $17$ Knoten. \inlinemetanote{schreibt an die Tafel}
 
-Es geht im Wesentlichen darum, einen passenden Graphen zu konstruieren und zu prüfen, ob dieser eine Euler-Linie besitzt oder nicht. Was meinen Sie, wie lautet die Antwort? Ja oder nein?
+Und wir sagen, dass zwischen zwei Knoten eine Kante ist, wenn es einen Dominostein gibt. Das sind also unsere Knoten, und die Kanten sind jetzt genau unsere Dominosteine. Okay, jeder Dominostein verbindet ja zwei von diesen Knoten, das macht durchaus Sinn. Wir sagen also, die Kanten --- das sind hier alle Paare $\{a, b\}$, wobei eben $a$ und $b$ in $V$ sind. \inlinemetanote{schreibt an die Tafel}
 
-Wer von Ihnen tippt auf Ja? Okay. Wer denkt Nein? Und wer ist sich unsicher? \inlinemetanote{Der Dozent wischt die Wandtafel sauber, um Platz für den Beweis zu schaffen.}
+Okay, jetzt haben wir gesagt, da sehen wir eine gewisse Symmetrie. Wir haben definiert, ein Graph ist regulär vom Grad $n$, wenn jeder Knoten Grad $n$ hat. Das heißt, dieser Graph hier ist regulär vom Grad... wie viel? Ja? $16$? Ja, genau. Wenn man noch die Loops (d.\,h.\ Schlingen) dazu nimmt: $16 + 2 = 18$, genau. Also $18$, weil wenn man eine Zahl hier nimmt, kann man sie zu jeder anderen Zahl verbinden --- das gibt einmal $16$ Kanten, die davon ausgehen, sich selbst ausgenommen. Und dann gibt es aber noch eine Schlinge von dem Knoten zu sich selbst, und das erhöht den Grad um zwei. Das ist zwar nur eine Kante, aber sie geht zurück --- das ist wie mit der person, die sich selbst die Hand schüttelt. Das heißt also $16 + 2 = 18$.
 \end{spoken-clean}
 
-\begin{meta-note}[Tafelreinigung]
-Der Dozent wischt die linke und mittlere Tafel vollständig, um die graphentheoretische Modellierung des Dominoproblems aufzuschreiben.
-\end{meta-note}
-
-\begin{spoken-clean}[00:26:25 - 00:28:18]
-Die Antwort lautet tatsächlich: Ja! Das wäre eine hervorragende Clicker-Frage gewesen. Hat jemand eine Erklärung dafür?
-
-Wir modellieren das Problem mit einem Graphen $G = (V, E)$. Als Knotenmenge $V$ wählen wir die Augenzahlen von $0$ bis $16$ --- wir haben also genau $17$ Knoten.
-
-Eine Kante zwischen zwei Knoten existiert genau dann, wenn es den entsprechenden Dominostein gibt. Unsere Kanten repräsentieren also exakt die Dominosteine. Da jeder Dominostein zwei Zahlen miteinander verbindet, ist das eine sehr natürliche Modellierung. Die Kantenmenge $E$ besteht somit aus allen ungeordneten Paaren $\{a, b\}$ mit $a, b \in V$.
-\end{spoken-clean}
-
-\begin{math-stroke}[Graphentheoretische Modellierung des Dominoproblems]
-\textbf{Antwort:} \textbf{JA}, eine solche Kette existiert immer.
-
-\textbf{Beweis (Modellierung als Graph):}
-Wir konstruieren einen Graphen $G = (V, E)$ wie folgt:
+\begin{math-stroke}[Modellierung des Dominoproblems]
+Wir modellieren das Problem als ungerichteten Graphen $G = (V, E)$ mit:
 \begin{itemize}
-    \item \textbf{Knotenmenge $V$:} Die Augenzahlen von $0$ bis $16$:
-    \[
-    V := \{0, 1, \dots, 16\} \implies |V| = 17.
-    \]
-    \item \textbf{Kantenmenge $E$:} Die Kanten entsprechen exakt den Dominosteinen. Da es für jedes Paar $\{a, b\}$ (inklusive der Doppelsteine $\{a, a\}$) genau einen Stein gibt, definieren wir:
-    \[
-    E := \bigl\{ \{a, b\} \;\big|\; a, b \in V \bigr\}.
-    \]
+    \item \textbf{Knotenmenge $V$:} $V := \{0, 1, \dots, 16\}$ (die $17$ Augenzahlen),
+    \item \textbf{Kantenmenge $E$:} $E := \{\{a, b\} \mid a, b \in V\}$ (die $153$ Dominosteine).
 \end{itemize}
+\par\vspace{1ex}\noindent
+Dieser Graph $G$ entspricht dem vollständigen Graphen $K_{17}$ mit einer zusätzlichen Schlinge an jedem der $17$ Knoten.
+\par\vspace{1ex}\noindent
+\textbf{Gradberechnung:} Für jeden Knoten $v \in V$ gilt:
+\[
+\deg(v) = \underbrace{16}_{\text{Kanten zu anderen Knoten}} + \underbrace{2}_{\text{Schlinge } \{v, v\}} = 18.
+\]
+Daher ist der Graph $G$ regulär vom Grad $18$.
 \end{math-stroke}
 
-\begin{spoken-clean}[00:28:18 - 00:29:55]
-Hierbei sehen wir eine schöne Symmetrie. Zur Erinnerung: Ein Graph heißt regulär vom Grad $d$, wenn jeder Knoten den Grad $d$ besitzt.
+\begin{spoken-clean}[00:23:00 - 00:26:34]
+Können wir auch hinschreiben, warum das klar ist: $16 + 2$. Das heißt eigentlich --- vom Typ her kann man sagen ---, es ist der vollständige Graph $K_{17}$. Das war der schlichte reguläre Graph vom Grad $16$, bei dem man $17$ Punkte nimmt und jeden Punkt mit jedem anderen verbindet, außer mit sich selbst. Aber hier machen wir einfach an jedem Knoten noch eine Schlinge dran --- also mit $17$ Schlingen dazu. \inlinemetanote{schreibt an die Tafel}
 
-Dieser Graph ist regulär vom Grad --- was meinen Sie? Genau, vom Grad $18$. Wenn wir einen beliebigen Knoten betrachten, können wir ihn mit jedem der anderen $16$ Knoten verbinden, was uns $16$ Kanten liefert.
+Okay? Und jetzt können wir sagen, daraus folgt: Da der Graph regulär vom Grad $18$ ist, hat jeder Knoten den Grad $18$. Das heißt, es gibt eine geschlossene Euler-Linie. \inlinemetanote{schreibt an die Tafel} Genau, das ist jetzt sozusagen eine Anwendung von dieser eulerschen Charakterisierung auf ein ganz konkretes Problem.
 
-Zusätzlich gibt es an jedem Knoten noch eine Schlinge zu sich selbst (für die Doubletten). Eine solche Schlinge erhöht den Knotengrad um $2$ --- das ist wie beim Händeschütteln mit sich selbst. Insgesamt ergibt das also $16 + 2 = 18$.
+Dasselbe gilt, wenn man andere Dominospiele nimmt: Wenn wir sagen, wir haben andere Augenzahlen, sagen wir, wenn wir nur Zahlen bis $15$ haben, dann geht es natürlich nicht, weil wir dann einen regulären Graphen vom Grad $17$ haben, und dann gibt es keine Lösung mehr. Okay, soweit... soweit klar? \inlinemetanote{Dozent wischt die Tafel und bereitet das nächste Thema vor}
 \end{spoken-clean}
 
-\begin{spoken-clean}[00:29:55 - 00:31:34]
-Im Prinzip haben wir hier den vollständigen Graphen $K_{17}$ --- das ist der einfache Graph vom Grad $16$, bei dem wir $17$ Knoten haben und jeden mit jedem anderen verbinden. An jeden dieser Knoten fügen wir nun noch eine Schlinge an, wir haben also zusätzlich $17$ Schlingen.
-
-Da der Graph regulär vom Grad $18$ ist, hat jeder Knoten einen geraden Grad. Nach unserem Satz existiert somit eine geschlossene Euler-Linie.
-
-Das ist eine sehr schöne Anwendung der Euler-Graphen auf ein konkretes Alltagsproblem. Wenn man ein anderes Dominospiel betrachten würde --- beispielsweise mit Augenzahlen nur bis $15$ ---, dann würde es nicht funktionieren. In diesem Fall hätten wir einen regulären Graphen vom Grad $17$, und da dieser ungerade ist, gäbe es keine Lösung.
-\end{spoken-clean}
-
-\begin{math-stroke}[Analyse des Graphen und Gradberechnung]
-\begin{ai-global-state-checkpoint-invisible-content}
-% timestamp: 00:31:00
-% topic: Dominoproblem als Euler-Graph gelöst
-% board_state: def:general-cartesian-product, prop:satz-von-euler
-% next_goal: Abschluss des Beweises und Ausblick auf De-Bruijn-Folgen
-% open_loops: none
-\end{ai-global-state-checkpoint-invisible-content}
-
-Der konstruierte Graph $G$ ist ein ungerichteter Graph mit Mehrfachkanten und Schleifen (Schlingen). Wir bestimmen den Grad eines beliebigen Knotens $v \in V$:
-\begin{itemize}
-    \item Es gibt genau $16$ Kanten zu allen anderen $16$ Knoten $u \neq v$ (entspricht den Steinen $\{v, u\}$).
-    \item Es gibt genau $1$ Schlinge am Knoten $v$ (entspricht dem Doublettenstein $\{v, v\}$). Eine Schlinge erhöht den Grad des Knotens um genau $2$.
-\end{itemize}
-Daraus ergibt sich für jeden Knoten $v \in V$:
-\[
-\deg(v) = 16 + 2 = 18.
-\]
-Der Graph $G$ ist somit ein regulärer Graph vom Grad $18$. Wir können ihn darstellen als den vollständigen Graphen $K_{17}$ erweitert um eine Schlinge an jedem der $17$ Knoten:
-\[
-G = K_{17} \text{ mit } 17 \text{ Schlingen.}
-\]
-
-\textbf{Schlussfolgerung:}
-\begin{enumerate}[label=\textbf{(\arabic*)}]
-    \item Da $G$ zusammenhängend ist und jeder Knoten einen geraden Grad besitzt ($\deg(v) = 18 \equiv 0 \pmod 2$), existiert nach dem Satz von Euler (\cref{prop:satz-von-euler}) eine geschlossene Euler-Linie.
-    \item Diese Euler-Linie entspricht einer geschlossenen, unverzweigten Kette, die jeden der $153$ Dominosteine genau einmal verwendet.
-\end{enumerate}
+\begin{math-stroke}[Lösung des Dominoproblems]
+Da $G$ zusammenhängend ist und jeder Knoten einen geraden Grad ($\deg(v) = 18$) besitzt, existiert nach \cref{prop:satz-von-euler} eine geschlossene Euler-Linie.
+\par\vspace{1ex}\noindent
+\textbf{Antwort:} Ja, es ist möglich, alle Steine zu einer geschlossenen Kette aneinanderzureihen.
+\par\vspace{1ex}\noindent
+\textbf{Gegenbeispiel (Augenzahlen $0$ bis $15$):} Bei $16$ Augenzahlen wäre der entsprechende Graph $K_{16}$ mit Schlingen regulär vom Grad $15 + 2 = 17$. Da der Grad ungerade ist, existiert keine geschlossene Euler-Linie.
 \end{math-stroke}
 
-\begin{didactic-insight}[Verallgemeinerung des Dominoproblems]
-Die Lösbarkeit des Dominoproblems hängt entscheidend von der Parität der maximalen Augenzahl ab. 
-\begin{itemize}
-    \item Bei einer maximalen Augenzahl $N$ ist der Grad jedes Knotens im entsprechenden Graphen gleich $N + 2$.
-    \item Ist $N$ gerade (wie im klassischen Spiel mit $N=6$ oder hier mit $N=16$), so ist der Grad $N+2$ ebenfalls gerade. Eine geschlossene Kette existiert somit immer!
-    \item Ist $N$ jedoch ungerade (z.B. bei einem Spiel mit Augenzahlen $0$ bis $15$), so ist der Grad $N+2$ ungerade. In diesem Fall besitzt der Graph keine Euler-Linie, und eine vollständige geschlossene Kette ist mathematisch unmöglich!
-\end{itemize}
-\end{didactic-insight}
+\begin{spoken-clean}[00:30:15 - 00:31:46]
+Gibt es vielleicht noch ein paar Fragezeichen aus dem Publikum? Aber... ja, schauen Sie sich das nochmals an. Das sind eigentlich recht schöne, amüsante Sachen.
 
-% --- TEIL 2 ---
+Okay, es gibt auch noch ein weiteres Beispiel mit diesen De-Bruijn-Folgen, das können Sie im Skript nachschlagen, wenn Sie das interessiert. Wir gehen weiter zu einem anderen Konzept, das etwas schwieriger ist.
+
+Wir hatten jetzt also Kantenzüge angeschaut, die alle Kanten genau einmal durchlaufen. Jetzt könnten wir uns fragen: Was ist mit einem Kantenzug, der nicht unbedingt alle Kanten einmal durchläuft, aber alle Knoten genau einmal besucht? Und zwar wollen wir einen Kreis, das heißt einen geschlossenen Kantenzug, der jeden Knoten nur einmal enthält. Das ist die folgende Definition.
+\end{spoken-clean}
 
 \section{Hamilton-Kreise und Hamilton-Graphen}
 
-\subsection{Hamilton-Graphen und Hamilton-Kreise}
+\begin{spoken-clean}[00:31:46 - 00:33:32]
+Sei $G = (V, E)$ ein ungerichteter, endlicher Graph. Ein Hamilton-Kreis ist ein Kreis in $G$, der alle Knoten von $G$ enthält. Und wir sagen, dass $G$ ein Hamilton-Graph ist, falls $G$ einen Hamilton-Kreis enthält.
 
-\begin{spoken-clean}[00:31:34 - 00:32:29]
-Soweit klar? Gibt es noch Fragen dazu? Gut. 
-
-Dann gehen wir weiter zu einem anderen Konzept. Bisher haben wir Kantenzüge betrachtet, die jede Kante genau einmal durchlaufen. Nun können wir uns fragen: Was ist mit einem Kantenzug, der nicht zwingend alle Kanten, dafür aber alle Knoten genau einmal besucht? Wir suchen also nach einem Kreis --- das heißt einem geschlossenen Kantenzug, der jeden Knoten genau einmal enthält. Das führt uns zur folgenden Definition:
+Okay, und vielleicht einfach eine Bemerkung hierzu: Es gibt anscheinend kein einfaches Kriterium, um zu entscheiden, ob ein Graph ein Hamilton-Graph ist oder nicht. Das ist also nicht so wie bei Euler-Graphen, bei denen man einfach die Grade aller Knoten anschaut und dann direkt weiß, ob der Graph eulersche Linien besitzt oder nicht. Für Hamilton-Graphen gibt es im Allgemeinen kein einfaches Kriterium. Bei großen Graphen ist das nicht so einfach zu entscheiden, ob es so etwas gibt oder nicht. Aber es gibt durchaus Beispiele, bei denen die Existenz klar ist.
 \end{spoken-clean}
 
-\begin{math-stroke}
-\begin{definition}[Hamilton-Kreis und Hamilton-Graph]\label[definition]{def:hamilton-kreis}
+\begin{math-stroke}[Definition des Hamilton-Kreises]
+\begin{definition}[Hamilton-Kreis und Hamilton-Graph]\label{def:hamilton-kreis}
 Sei $G = (V, E)$ ein ungerichteter, endlicher Graph.
 \begin{itemize}
-    \item Ein \newterm{Hamilton-Kreis} ist ein Kreis in $G$, der alle Knoten von $G$ enthält.
-    \item Ein Graph $G$ heißt \newterm{Hamilton-Graph}, falls $G$ einen Hamilton-Kreis besitzt.
-    \item Ein \newterm{Hamilton-Weg} ist ein einfacher Weg in $G$, der alle Knoten von $G$ enthält, aber nicht geschlossen sein muss.
+    \item Ein \newterm{Hamilton-Kreis} von $G$ ist ein Kreis (d.\,h.\ ein geschlossener Kantenzug ohne Knotenwiederholungen), der sämtliche Knoten von $G$ enthält.
+    \item Ein Graph $G$ heißt \newterm{Hamilton-Graph}, wenn er einen Hamilton-Kreis besitzt.
 \end{itemize}
 \end{definition}
 \end{math-stroke}
 
-\begin{spoken-clean}[00:32:29 - 00:34:16]
-Wir nennen einen Graphen $G$ einen Hamilton"=Graphen, falls er einen Hamilton"=Kreis besitzt.
+\begin{spoken-clean}[00:33:32 - 00:35:31]
+Also das einfachste Beispiel ist wieder der vollständige Graph $K_n$ ohne Schlingen. Sagen wir, das soll $n \ge 3$ sein --- ich glaube, sogar strikt größer als $2$ ---, dieser ist ein Hamilton-Graph.
 
-Eine wichtige Bemerkung dazu: Im Gegensatz zu Euler"=Graphen gibt es für Hamilton"=Graphen leider kein einfaches, universelles Kriterium. Bei Euler"=Graphen müssen wir lediglich prüfen, ob alle Knotengrade gerade sind, und wissen sofort Bescheid.
+Okay, das sieht man ganz einfach: Man beginnt bei $v_1$, man läuft zu irgendeinem anderen Knoten $v_2$. Da wissen wir, dass dieser mit jedem beliebigen anderen Knoten verbunden ist --- es ist ja jeder mit jedem verbunden ---, das heißt, von $v_2$ kann man jetzt zu jedem beliebigen anderen Knoten laufen. Man kann jetzt auf $v_3$ gehen, und so weiter, bis man am Schluss bei $v_n$ anlangt; und von $v_n$ wissen wir, dass er auch wieder mit $v_1$ verbunden ist. Okay, beim vollständigen Graphen $K_n$ ist es also recht einfach.
 
-Für Hamilton"=Graphen ist das Problem im Allgemeinen mathematisch sehr schwierig. Bei großen Graphen ist es extrem aufwendig zu entscheiden, ob ein solcher Kreis existiert. Es gibt jedoch einige klassische Beispiele, bei denen die Existenz leicht zu sehen ist. Das einfachste Beispiel ist der vollständige Graph $K_n$ für $n \ge 3$.
+Dann noch ein Beispiel, das vielleicht noch interessant ist, bei dem man das schön hinzeichnen kann. Ich mache da noch schnell ein Bild davon.
+
+Sie kennen doch die platonischen Körper, oder? Das sind die fünf regulären Polyeder --- also Polyeder, bei denen alle Seitenflächen gleich sind. Und da wissen wir, es gibt genau fünf von diesen: Tetraeder, Würfel, Oktaeder, Dodekaeder und Ikosaeder. Haben Sie wahrscheinlich einmal in der Schule oder sonst wo gesehen. Es lohnt sich, sich das mal anzuschauen. Glauben Sie mir einfach, dass es genau diese fünf gibt.
 \end{spoken-clean}
 
-\begin{ai-global-state-checkpoint-invisible-content}
-% timestamp: 00:33:45
-% topic: Einführung Hamilton-Kreise und Hamilton-Graphen
-% board_state: def:hamilton-kreis
-% next_goal: Beispiele für Hamilton-Graphen (K_n, Platonische Körper)
-% open_loops: none
-\end{ai-global-state-checkpoint-invisible-content}
-
-\begin{math-stroke}[Der vollständige Graph \texorpdfstring{$K_n$}{K\_n}]
-\begin{example}[Vollständige Graphen]\label[example]{ex:vollstaendige-graphen-hamilton}
-Der vollständige Graph $K_n$ ist für alle $n \ge 3$ ein Hamilton-Graph.
+\begin{math-stroke}[Vollständige Graphen als Hamilton-Graphen]
+\begin{example}[Vollständiger Graph $K_n$]\label{ex:kn-hamilton}
+Der vollständige Graph $K_n$ mit $n \ge 3$ Knoten ist ein Hamilton-Graph.
 \end{example}
+\begin{short-proof}
+Sei $V = \{v_1, v_2, \dots, v_n\}$. Da in $K_n$ alle Paare von Knoten durch eine Kante verbunden sind, existiert der geschlossene Kantenzug:
+\[
+v_1 \to v_2 \to v_3 \to \dots \to v_n \to v_1
+\]
+Dieser Kantenzug besucht jeden Knoten genau einmal und kehrt zum Startknoten zurück. Somit ist er ein Hamilton-Kreis.
+\end{short-proof}
 \end{math-stroke}
 
-\begin{spoken-clean}[00:34:16 - 00:35:22]
-Das sieht man ganz leicht: Wir starten bei einem beliebigen Knoten $v_1$ und gehen zu einem Nachbarn $v_2$. Da im vollständigen Graphen jeder Knoten mit jedem anderen verbunden ist, können wir von $v_2$ aus jeden beliebigen unbesuchten Knoten wählen.
+\begin{spoken-clean}[00:35:31 - 00:37:58]
+Und was wir jetzt machen können: Wir können die Kantengraphen von diesen Körpern anschauen. Das heißt, wir nehmen jetzt einfach... unsere Knoten sind die Ecken von diesen Polyedern, und die Kanten sind die Kanten. Jedem von diesen platonischen Körpern können wir also einen Graphen zuordnen. Da haben wir diese fünf Graphen. Da sehen wir die Knoten und die entsprechenden Kanten dazu --- und die sind alle Hamilton-Graphen.
 
-Wir können also von $v_2$ zu $v_3$ gehen, und so weiter, bis wir schließlich beim letzten Knoten $v_n$ ankommen. Da auch $v_n$ mit $v_1$ verbunden ist, können wir den Kreis schließen. Für den vollständigen Graphen $K_n$ ist die Sache also sehr einfach.
-\end{spoken-clean}
+Wir sehen hier die entsprechenden Kreise: Beim Tetraeder ist das hier der Kantengraph, und dann nehmen wir einfach diesen Kreis hier --- wir sehen, er enthält alle Knoten. Oder beim Würfel können wir den Kantengraph so zeichnen, und da haben wir einen solchen Kreis. Beim Oktaeder sehen wir das auch, wenn man ihn flach auf die Ebene drückt, ist das ein planarer Graph, und da ist es dieser Kreis.
 
-\begin{math-stroke}[Visualisierung des Hamilton-Kreises in \texorpdfstring{$K_4$}{K\_4}]
-\begin{center}
-\begin{tikzpicture}[scale=1.2, thick, >=stealth]
-  % \begin{ai-tikz-planner-invisible-content}
-  % 1. Background: Vollständiger Graph K_4 mit dünnen grauen Kanten.
-  % 2. Foreground: Der Hamilton-Kreis (v1 -> v2 -> v3 -> v4 -> v1) in dicker roter Linie.
-  % 3. Nodes: Die vier Knoten v1, v2, v3, v4.
-  % \end{ai-tikz-planner-invisible-content}
-  
-  % Coordinates
-  \coordinate (V1) at (0,2);
-  \coordinate (V2) at (2,2);
-  \coordinate (V3) at (2,0);
-  \coordinate (V4) at (0,0);
-  
-  % Background edges (non-cycle edges of K_4)
-  \draw[gray!50, thin] (V1) -- (V3);
-  \draw[gray!50, thin] (V2) -- (V4);
-  
-  % Hamilton Cycle (BrickRed, ultra thick)
-  \draw[BrickRed, ultra thick, ->] (V1) -- (V2) node[midway, above] {\footnotesize $e_1$};
-  \draw[BrickRed, ultra thick, ->] (V2) -- (V3) node[midway, right] {\footnotesize $e_2$};
-  \draw[BrickRed, ultra thick, ->] (V3) -- (V4) node[midway, below] {\footnotesize $e_3$};
-  \draw[BrickRed, ultra thick, ->] (V4) -- (V1) node[midway, left]  {\footnotesize $e_4$};
-  
-  % Nodes
-  \filldraw[fill=white, draw=black] (V1) circle (3pt) node[above left] {$v_1$};
-  \filldraw[fill=white, draw=black] (V2) circle (3pt) node[above right] {$v_2$};
-  \filldraw[fill=white, draw=black] (V3) circle (3pt) node[below right] {$v_3$};
-  \filldraw[fill=white, draw=black] (V4) circle (3pt) node[below left] {$v_4$};
-\end{tikzpicture}
-\end{center}
-\end{math-stroke}
+Ja, und Dodekaeder und Ikosaeder sind noch etwas komplizierter, aber man kann sie eigentlich sehr schön darstellen: Man kann sich vorstellen, man nimmt diese Körper, macht einen dieser Kreise ganz groß und drückt den Rest nach innen --- so kann man sie alle schön planar auf der Ebene zeichnen, wenn man möchte. Und da sieht man dann, dass sie alle Hamilton-Graphen sind.
 
-\subsection{Beispiele und platonische Körper}
-
-\begin{spoken-clean}[00:35:22 - 00:36:46]
-Ein weiteres, optisch sehr schönes Beispiel können wir über den Projektor betrachten. Ich zeige Ihnen dazu eine Abbildung. \inlinemetanote{schaltet den Projektor ein und zeigt eine Folie mit den platonischen Körpern}
-
-Sie kennen sicherlich die platonischen Körper --- die fünf regulären Polyeder, bei denen alle Seitenflächen zueinander kongruente regelmäßige Vielecke sind. Es gibt genau fünf davon: Tetraeder, Würfel, Oktaeder, Dodekaeder und Ikosaeder. Das haben Sie bestimmt schon einmal in der Schule gesehen.
-
-Wir können nun die Kantengraphen dieser Körper betrachten. Das bedeutet: Die Knoten des Graphen entsprechen den Ecken des Polyeders, und die Kanten des Graphen entsprechen den geometrischen Kanten. Jedem dieser platonischen Körper können wir so einen Graphen zuordnen. Auf der Folie sehen wir diese fünf Graphen mit ihren Knoten und Kanten.
-\end{spoken-clean}
-
-\begin{spoken-clean}[00:36:46 - 00:38:07]
-Diese Graphen sind alle Hamilton-Graphen. Wir sehen hier die rot markierten Hamilton-Kreise.
-
-Beim Tetraeder sehen wir im Kantengraphen direkt einen Kreis, der alle vier Knoten enthält. Auch beim Würfel können wir den Kantengraphen so zeichnen, dass sich ein klarer Hamilton-Kreis ergibt. Beim Oktaeder ist es genauso, wenn man den Graphen flach in die Ebene projiziert.
-
-Dodekaeder und Ikosaeder sind etwas komplizierter. Man kann sich anschaulich vorstellen, dass man eine der Begrenzungsflächen ganz groß zieht und den Rest des Körpers flach hineindrückt --- so lassen sich diese Graphen übersichtlich als ebene Graphen darstellen. Und wie man auf den Abbildungen sieht, besitzen sie alle einen Hamilton-Kreis.
+Okay, das wäre also ein weiteres Beispiel für Hamilton-Graphen: die Kantengraphen der fünf platonischen Körper.
 \end{spoken-clean}
 
 \begin{math-stroke}[Kantengraphen der platonischen Körper]
-\begin{example}[Platonische Körper]\label[example]{ex:platonische-koerper}
-Die Kantengraphen der fünf platonischen Körper (Tetraeder, Würfel, Oktaeder, Dodekaeder, Ikosaeder) sind alle Hamilton-Graphen.
+\begin{example}[Kantengraphen der platonischen Körper]\label{ex:platonische-koerper}
+Die Kantengraphen der fünf platonischen Körper (Tetraeder, Würfel, Oktaeder, Dodekaeder, Ikosaeder) sind Hamilton-Graphen.
 \end{example}
 
 \begin{center}
-\begin{tikzpicture}[scale=1.0, thick, >=stealth]
-  % \begin{ai-tikz-planner-invisible-content}
-  % 1. Background: Drei repräsentative platonische Kantengraphen (Tetraeder, Würfel, Oktaeder).
-  % 2. Foreground: Hamilton-Kreise in BrickRed hervorgehoben.
-  % \end{ai-tikz-planner-invisible-content}
-
-  % --- TETRAEDER ---
-  \begin{scope}[shift={(0,0)}]
-    \coordinate (A) at (0,1.8);
-    \coordinate (B) at (-1.5,-0.6);
-    \coordinate (C) at (1.5,-0.6);
-    \coordinate (D) at (0,0.2);
-    
-    % Non-cycle edges
-    \draw[gray!40, thin] (A) -- (D);
-    \draw[gray!40, thin] (B) -- (C);
-    
-    % Hamilton Cycle
-    \draw[BrickRed, ultra thick] (A) -- (B) -- (D) -- (C) -- cycle;
-    
-    % Nodes
-    \foreach \p in {A,B,C,D} \filldraw[fill=white, draw=black] (\p) circle (2.5pt);
-    \node[below=0.8cm of B, xshift=1.5cm] {\textbf{Tetraeder}};
-  \end{scope}
-
-  % --- WÜRFEL ---
-  \begin{scope}[shift={(4.5,0)}]
-    \coordinate (A1) at (-1.2,1.2);
-    \coordinate (B1) at (1.2,1.2);
-    \coordinate (C1) at (1.2,-1.2);
-    \coordinate (D1) at (-1.2,-1.2);
-    
-    \coordinate (A2) at (-0.6,0.6);
-    \coordinate (B2) at (0.6,0.6);
-    \coordinate (C2) at (0.6,-0.6);
-    \coordinate (D2) at (-0.6,-0.6);
-    
-    % Non-cycle edges
-    \draw[gray!40, thin] (A1) -- (B1);
-    \draw[gray!40, thin] (C1) -- (D1);
-    \draw[gray!40, thin] (A2) -- (D2);
-    \draw[gray!40, thin] (B2) -- (C2);
-    
-    % Hamilton Cycle
-    \draw[BrickRed, ultra thick] (A1) -- (A2) -- (B2) -- (B1) -- (C1) -- (C2) -- (D2) -- (D1) -- cycle;
-    
-    % Nodes
-    \foreach \p in {A1,B1,C1,D1,A2,B2,C2,D2} \filldraw[fill=white, draw=black] (\p) circle (2.5pt);
-    \node[below=1.4cm of D1, xshift=1.2cm] {\textbf{Würfel}};
-  \end{scope}
-
-  % --- OKTAEDER ---
-  \begin{scope}[shift={(9,0)}]
-    \coordinate (U) at (0,1.5);
-    \coordinate (D) at (0,-1.5);
-    \coordinate (L) at (-1.5,0);
-    \coordinate (R) at (1.5,0);
-    \coordinate (I1) at (-0.5,-0.3);
-    \coordinate (I2) at (0.5,0.3);
-    
-    % Non-cycle edges
-    \draw[gray!40, thin] (U) -- (D);
-    \draw[gray!40, thin] (L) -- (R);
-    
-    % Hamilton Cycle
-    \draw[BrickRed, ultra thick] (U) -- (L) -- (I1) -- (D) -- (R) -- (I2) -- cycle;
-    
-    % Nodes
-    \foreach \p in {U,D,L,R,I1,I2} \filldraw[fill=white, draw=black] (\p) circle (2.5pt);
-    \node[below=1.7cm of L, xshift=1.5cm] {\textbf{Oktaeder}};
-  \end{scope}
-\end{tikzpicture}
+\begin{tabular}{cc}
+    \textbf{Tetraeder-Graph} & \textbf{Würfel-Graph ($Q_3$)} \\
+    \begin{tikzpicture}[scale=1.2, thick]
+      \node[circle, draw, fill=white] (v1) at (0, 1.2) {};
+      \node[circle, draw, fill=white] (v2) at (-1.1, -0.6) {};
+      \node[circle, draw, fill=white] (v3) at (1.1, -0.6) {};
+      \node[circle, draw, fill=white] (v4) at (0, 0) {};
+      \draw (v1) -- (v2) -- (v3) -- (v1);
+      \draw (v1) -- (v4);
+      \draw (v2) -- (v4);
+      \draw (v3) -- (v4);
+      % Hamilton cycle
+      \draw[ultra thick, BrickRed, ->] (v1) -- (v2);
+      \draw[ultra thick, BrickRed, ->] (v2) -- (v4);
+      \draw[ultra thick, BrickRed, ->] (v4) -- (v3);
+      \draw[ultra thick, BrickRed, ->] (v3) -- (v1);
+    \end{tikzpicture} &
+    \begin{tikzpicture}[scale=1.2, thick]
+      % Outer square
+      \node[circle, draw, fill=white] (o1) at (-1.2, 1.2) {};
+      \node[circle, draw, fill=white] (o2) at (1.2, 1.2) {};
+      \node[circle, draw, fill=white] (o3) at (1.2, -1.2) {};
+      \node[circle, draw, fill=white] (o4) at (-1.2, -1.2) {};
+      % Inner square
+      \node[circle, draw, fill=white] (i1) at (-0.6, 0.6) {};
+      \node[circle, draw, fill=white] (i2) at (0.6, 0.6) {};
+      \node[circle, draw, fill=white] (i3) at (0.6, -0.6) {};
+      \node[circle, draw, fill=white] (i4) at (-0.6, -0.6) {};
+      % Connections
+      \draw (o1) -- (i1); \draw (o2) -- (i2); \draw (o3) -- (i3); \draw (o4) -- (i4);
+      \draw (o1) -- (o2) -- (o3) -- (o4) -- (o1);
+      \draw (i1) -- (i2) -- (i3) -- (i4) -- (i1);
+      % Hamilton cycle
+      \draw[ultra thick, BrickRed, ->] (o1) -- (o2);
+      \draw[ultra thick, BrickRed, ->] (o2) -- (o3);
+      \draw[ultra thick, BrickRed, ->] (o3) -- (i3);
+      \draw[ultra thick, BrickRed, ->] (i3) -- (i2);
+      \draw[ultra thick, BrickRed, ->] (i2) -- (i1);
+      \draw[ultra thick, BrickRed, ->] (i1) -- (i4);
+      \draw[ultra thick, BrickRed, ->] (i4) -- (o4);
+      \draw[ultra thick, BrickRed, ->] (o4) -- (o1);
+    \end{tikzpicture}
+\end{tabular}
 \end{center}
 \end{math-stroke}
 
-\subsection{Der \texorpdfstring{$k$}{k}-dimensionale Würfel und Gray-Codes}
+\begin{spoken-clean}[00:37:58 - 00:39:52]
+Ein weiteres Beispiel wäre noch der Kantengraph von einem Würfel beliebiger Dimension. Das ist also noch ein weiteres Beispiel: der Kantengraph des $k$-dimensionalen Würfels. Das ist auch ein Hamilton-Graph, und zwar für alle $k \ge \textbf{2}$.
 
-\begin{spoken-clean}[00:38:07 - 00:40:08]
-Ein weiteres interessantes Beispiel ist der Kantengraph eines Hyperwürfels beliebiger Dimension $k$. \inlinemetanote{schreibt an die Tafel}
+Für $k = 2$ sehen wir: Das ist einfach das Quadrat. Ein zweidimensionaler Würfel ist ein Quadrat, und klar, da kann man einfach einmal rundherumlaufen. Das ist ein Kreis, und das ist ein Hamilton-Kreis, das ist offensichtlich.
 
-Für $k=2$ erhalten wir einfach das Quadrat. Ein zweidimensionaler Würfel ist ein Quadrat, und dort können wir offensichtlich einmal im Kreis herumlaufen --- das ist ein Hamilton-Kreis.
-
-Für $k=3$ --- den klassischen dreidimensionalen Würfel --- müssen wir auch nicht allzu lange überlegen. Ich zeichne den Weg einmal farbig ein: Wir können beispielsweise so laufen, dann nach oben, rüber, nach hinten, und über die verbleibenden Ecken wieder zurück nach vorne zum Startpunkt. Das ergibt einen geschlossenen Kreis, bei dem jeder Knoten exakt einmal besucht wird.
+Für $k = 3$... Okay, da müssen wir uns auch nicht sehr viel überlegen, das ist auch klar. Da kann man jetzt irgendwie laufen --- was weiß ich, zum Beispiel so: Vielleicht müssen wir eine Farbe nehmen. Man kann irgendwie so laufen, zum Beispiel so, und dann hoch, und dann rüber und nach hinten, und dann so und so und so, und da wieder nach vorne. Wir sehen, das gibt einen Kreis, und alle Knoten werden genau einmal durchlaufen.
 \end{spoken-clean}
 
-\begin{math-stroke}[Der \texorpdfstring{$k$}{k}-dimensionale Würfel \texorpdfstring{$Q_k$}{Q\_k}]
-\begin{definition}[$k$-dimensionaler Würfel]\label[definition]{def:k-dim-cube}
-Der \newterm{$k$-dimensionaler Würfel} (oder Hyperwürfel) $Q_k$ ist der ungerichtete Graph, dessen Knotenmenge $V = \{0, 1\}^k$ aus allen binären Wörtern der Länge $k$ besteht. Zwei Knoten $a, b \in V$ sind genau dann durch eine Kante verbunden, wenn sie sich in genau einer Koordinate unterscheiden.
-\end{definition}
-
-% \begin{center}
-% \begin{tikzpicture}[scale=1.4, thick, >=stealth]
-%   % Coordinates Front Face
-%   \coordinate (000) at (0, 0);
-%   \coordinate (100) at (3.6, 0);
-%   \coordinate (110) at (3.6, 3.6);
-%   \coordinate (010) at (0, 3.6);
-  
-%   % Coordinates Back Face (offset for clean 3D perspective)
-%   \coordinate (001) at (1.7, 1.5);
-%   \coordinate (101) at (5.3, 1.5);
-%   \coordinate (111) at (5.3, 5.1);
-%   \coordinate (011) at (1.7, 5.1);
-  
-%   % 1. Background / Non-Hamilton Edges (Gray, dashed/subtle for depth)
-%   \draw[gray!50, line width=1.3pt, dashed] (000) -- (010);
-%   \draw[gray!50, line width=1.3pt, dashed] (100) -- (101);
-%   \draw[gray!50, line width=1.3pt, dashed] (110) -- (111);
-%   \draw[gray!50, line width=1.3pt, dashed] (001) -- (011);
-  
-%   % 2. Hamilton Cycle / Gray-Code Path (BrickRed, bold, with directional arrows)
-%   % Back face part of cycle: 010 -> 011 -> 111 -> 101 -> 001 -> 000
-%   \draw[->, BrickRed, line width=2.2pt] (010) -- (011);
-%   \draw[->, BrickRed, line width=2.2pt] (011) -- (111);
-%   \draw[->, BrickRed, line width=2.2pt] (111) -- (101);
-%   \draw[->, BrickRed, line width=2.2pt] (101) -- (001);
-%   \draw[->, BrickRed, line width=2.2pt] (001) -- (000);
-  
-%   % Front face part of cycle: 000 -> 100 -> 110 -> 010
-%   \draw[->, BrickRed, line width=2.2pt] (000) -- (100);
-%   \draw[->, BrickRed, line width=2.2pt] (100) -- (110);
-%   \draw[->, BrickRed, line width=2.2pt] (110) -- (010);
-  
-%   % 3. Vertices (Styled as clean circles with shadows)
-%   % Back vertices first (for proper layering)
-%   \node[circle, draw=ThemeSecondary, fill=white, line width=1.2pt, inner sep=3pt, drop shadow] at (001) {};
-%   \node[circle, draw=ThemeSecondary, fill=white, line width=1.2pt, inner sep=3pt, drop shadow] at (101) {};
-%   \node[circle, draw=ThemeSecondary, fill=white, line width=1.2pt, inner sep=3pt, drop shadow] at (111) {};
-%   \node[circle, draw=ThemeSecondary, fill=white, line width=1.2pt, inner sep=3pt, drop shadow] at (011) {};
-  
-%   % Front vertices
-%   \node[circle, draw=ThemePrimary, fill=white, line width=1.4pt, inner sep=3.2pt, drop shadow] at (000) {};
-%   \node[circle, draw=ThemePrimary, fill=white, line width=1.4pt, inner sep=3.2pt, drop shadow] at (100) {};
-%   \node[circle, draw=ThemePrimary, fill=white, line width=1.4pt, inner sep=3.2pt, drop shadow] at (110) {};
-%   \node[circle, draw=ThemePrimary, fill=white, line width=1.4pt, inner sep=3.2pt, drop shadow] at (010) {};
-  
-%   % 4. Labels with custom offsets and white backgrounds to prevent line overlap
-%   \node[font=\sffamily\footnotesize\bfseries, text=ThemeSecondary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(001)+(-0.35,0.25)$) {$001$};
-%   \node[font=\sffamily\footnotesize\bfseries, text=ThemeSecondary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(101)+(0.4,-0.2)$) {$101$};
-%   \node[font=\sffamily\footnotesize\bfseries, text=ThemeSecondary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(111)+(0.4,0.25)$) {$111$};
-%   \node[font=\sffamily\footnotesize\bfseries, text=ThemeSecondary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(011)+(-0.35,0.25)$) {$011$};
-  
-%   \node[font=\sffamily\footnotesize\bfseries, text=ThemePrimary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(000)+(-0.4,-0.3)$) {$000$};
-%   \node[font=\sffamily\footnotesize\bfseries, text=ThemePrimary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(100)+(0.4,-0.3)$) {$100$};
-%   \node[font=\sffamily\footnotesize\bfseries, text=ThemePrimary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(110)+(0.4,0.3)$) {$110$};
-%   \node[font=\sffamily\footnotesize\bfseries, text=ThemePrimary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(010)+(-0.4,0.3)$) {$010$};
-  
-%   % 5. Explanatory Legend / Caption badge below
-%   \node[draw=ThemePrimary!60, fill=ThemeBgLight, rounded corners=4pt, inner xsep=10pt, inner ysep=6pt, font=\sffamily\small, drop shadow] at (2.65, -1.2) {
-%     \begin{tabular}{c}
-%       \textbf{\textcolor{BrickRed}{Roter Pfeilpfad:}} Hamilton-Kreis im $Q_3$ \\
-%       \footnotesize Zyklischer Gray-Code: $000 \to 100 \to 110 \to 010 \to 011 \to 111 \to 101 \to 001 \to 000$
-%     \end{tabular}
-%   };
-% \end{tikzpicture}
-% \end{center}
-
-% \begin{center}
-% \begin{tikzpicture}[scale=1.4, thick, >=stealth]
-%   \begin{ai-tikz-planner-invisible-content}
-%   % 1. Background: 3D-Würfel Q_3 in sauberer Kabinett-Projektion mit gestrichelten grauen Kanten (gray!50, dashed) für Tiefenwirkung.
-%   % 2. Foreground: Ein mathematisch korrekter Hamilton-Kreis (Gray-Code: 000 -> 100 -> 110 -> 010 -> 011 -> 111 -> 101 -> 001 -> 000) in dicker roter Linie (BrickRed, line width=2.2pt) mit gerichteten Pfeilen.
-%   % 3. Styling: Knoten als weiße Kreise mit drop shadow, farbliche Kennzeichnung (ThemePrimary vs. ThemeSecondary) zur didaktischen Trennung der vorderen und hinteren Würfelebene.
-%   % 4. Labels: Eigens positionierte Textknoten mit weißer Füllung gegen Kanten-Kollisionen. Explikative Tabellen-Legende unter der Grafik.
-%   \end{ai-tikz-planner-invisible-content}
-
-%   % Coordinates Front Face
-%   \coordinate (000) at (0, 0);
-%   \coordinate (100) at (3.6, 0);
-%   \coordinate (110) at (3.6, 3.6);
-%   \coordinate (010) at (0, 3.6);
-  
-%   % Coordinates Back Face (offset for clean 3D perspective)
-%   \coordinate (001) at (1.7, 1.5);
-%   \coordinate (101) at (5.3, 1.5);
-%   \coordinate (111) at (5.3, 5.1);
-%   \coordinate (011) at (1.7, 5.1);
-  
-%   % 1. Background / Non-Hamilton Edges (Gray, dashed/subtle for depth)
-%   \draw[gray!50, line width=1.3pt, dashed] (000) -- (010);
-%   \draw[gray!50, line width=1.3pt, dashed] (100) -- (101);
-%   \draw[gray!50, line width=1.3pt, dashed] (110) -- (111);
-%   \draw[gray!50, line width=1.3pt, dashed] (001) -- (011);
-  
-%   % 2. Hamilton Cycle / Gray-Code Path (BrickRed, bold, with directional arrows)
-%   % Back face part of cycle: 010 -> 011 -> 111 -> 101 -> 001 -> 000
-%   \draw[->, BrickRed, line width=2.2pt] (010) -- (011);
-%   \draw[->, BrickRed, line width=2.2pt] (011) -- (111);
-%   \draw[->, BrickRed, line width=2.2pt] (111) -- (101);
-%   \draw[->, BrickRed, line width=2.2pt] (101) -- (001);
-%   \draw[->, BrickRed, line width=2.2pt] (001) -- (000);
-  
-%   % Front face part of cycle: 000 -> 100 -> 110 -> 010
-%   \draw[->, BrickRed, line width=2.2pt] (000) -- (100);
-%   \draw[->, BrickRed, line width=2.2pt] (100) -- (110);
-%   \draw[->, BrickRed, line width=2.2pt] (110) -- (010);
-  
-%   % 3. Vertices (Styled as clean circles with shadows)
-%   % Back vertices first (for proper layering)
-%   \node[circle, draw=ThemeSecondary, fill=white, line width=1.2pt, inner sep=3pt, drop shadow] at (001) {};
-%   \node[circle, draw=ThemeSecondary, fill=white, line width=1.2pt, inner sep=3pt, drop shadow] at (101) {};
-%   \node[circle, draw=ThemeSecondary, fill=white, line width=1.2pt, inner sep=3pt, drop shadow] at (111) {};
-%   \node[circle, draw=ThemeSecondary, fill=white, line width=1.2pt, inner sep=3pt, drop shadow] at (011) {};
-  
-%   % Front vertices
-%   \node[circle, draw=ThemePrimary, fill=white, line width=1.4pt, inner sep=3.2pt, drop shadow] at (000) {};
-%   \node[circle, draw=ThemePrimary, fill=white, line width=1.4pt, inner sep=3.2pt, drop shadow] at (100) {};
-%   \node[circle, draw=ThemePrimary, fill=white, line width=1.4pt, inner sep=3.2pt, drop shadow] at (110) {};
-%   \node[circle, draw=ThemePrimary, fill=white, line width=1.4pt, inner sep=3.2pt, drop shadow] at (010) {};
-  
-%   % 4. Labels with custom offsets and white backgrounds to prevent line overlap
-%   \node[font=\sffamily\footnotesize\bfseries, text=ThemeSecondary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(001)+(-0.35,0.25)$) {$001$};
-%   \node[font=\sffamily\footnotesize\bfseries, text=ThemeSecondary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(101)+(0.4,-0.2)$) {$101$};
-%   \node[font=\sffamily\footnotesize\bfseries, text=ThemeSecondary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(111)+(0.4,0.25)$) {$111$};
-%   \node[font=\sffamily\footnotesize\bfseries, text=ThemeSecondary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(011)+(-0.35,0.25)$) {$011$};
-  
-%   \node[font=\sffamily\footnotesize\bfseries, text=ThemePrimary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(000)+(-0.4,-0.3)$) {$000$};
-%   \node[font=\sffamily\footnotesize\bfseries, text=ThemePrimary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(100)+(0.4,-0.3)$) {$100$};
-%   \node[font=\sffamily\footnotesize\bfseries, text=ThemePrimary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(110)+(0.4,0.3)$) {$110$};
-%   \node[font=\sffamily\footnotesize\bfseries, text=ThemePrimary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(010)+(-0.4,0.3)$) {$010$};
-  
-%   % 5. Explanatory Legend / Caption badge below
-%   \node[draw=ThemePrimary!60, fill=ThemeBgLight, rounded corners=4pt, inner xsep=10pt, inner ysep=6pt, font=\sffamily\small, drop shadow] at (2.65, -1.2) {
-%     \begin{tabular}{c}
-%       \textbf{\textcolor{BrickRed}{Roter Pfeilpfad:}} Hamilton-Kreis im $Q_3$ \\
-%       \footnotesize Zyklischer Gray-Code: $000 \to 100 \to 110 \to 010 \to 011 \to 111 \to 101 \to 001 \to 000$
-%     \end{tabular}
-%   };
-% \end{tikzpicture}
-% \end{center}
+\begin{math-stroke}[Der $k$-dimensionale Würfel $Q_k$]
+\begin{example}[Der $k$-dimensionale Würfel]\label{ex:qk-hamilton}
+Der Kantengraph des $k$-dimensionalen Hyperwürfels $Q_k$ ist für alle $k \ge 2$ ein Hamilton-Graph.
+\end{example}
 
 \begin{center}
 \begin{tikzpicture}[scale=1.4, thick, >=stealth]
   \begin{ai-tikz-planner-invisible-content}
-  % 1. Background: 3D-Würfel Q_3 in sauberer Kabinett-Projektion mit gestrichelten grauen Kanten (gray!50, dashed) für Tiefenwirkung.
-  % 2. Foreground Layering: Knoten werden zuerst gezeichnet, und der Hamilton-Kreis (Gray-Code: 000 -> 100 -> 110 -> 010 -> 011 -> 111 -> 101 -> 001 -> 000) wird danach als gerichtete Pfeile (BrickRed, line width=2.2pt) über die Knoten hinweg gezeichnet, wobei auf die benannten Knoten (n000 bis n111) referenziert wird. Dadurch liegen die Pfeile im Vordergrund und enden sauber an den Knotengrenzen.
-  % 3. Styling: Knoten als weiße Kreise mit drop shadow, farbliche Kennzeichnung (ThemePrimary vs. ThemeSecondary) zur didaktischen Trennung der vorderen und hinteren Würfelebene.
-  % 4. Labels: Eigens positionierte Textknoten mit weißer Füllung gegen Kanten-Kollisionen. Explikative Tabellen-Legende unter der Grafik.
+  % 1. Background: 3D-Würfel Q_3 in Kabinett-Projektion mit gestrichelten grauen Kanten für Tiefenwirkung.
+  % 2. Foreground: Hamilton-Kreis (Gray-Code) als gerichtete Pfeile (BrickRed, line width=2pt) über die Knoten hinweg gezeichnet.
+  % 3. Labels: Eigens positionierte Textknoten mit weißer Füllung gegen Kanten-Kollisionen.
   \end{ai-tikz-planner-invisible-content}
 
   % Coordinates Front Face
-  \coordinate (000) at (0, 0);
-  \coordinate (100) at (3.6, 0);
-  \coordinate (110) at (3.6, 3.6);
-  \coordinate (010) at (0, 3.6);
+  \coordinate (c000) at (0, 0);
+  \coordinate (c100) at (2.5, 0);
+  \coordinate (c110) at (2.5, 2.5);
+  \coordinate (c010) at (0, 2.5);
   
-  % Coordinates Back Face (offset for clean 3D perspective)
-  \coordinate (001) at (1.7, 1.5);
-  \coordinate (101) at (5.3, 1.5);
-  \coordinate (111) at (5.3, 5.1);
-  \coordinate (011) at (1.7, 5.1);
+  % Coordinates Back Face
+  \coordinate (c001) at (1.2, 1.0);
+  \coordinate (c101) at (3.7, 1.0);
+  \coordinate (c111) at (3.7, 3.5);
+  \coordinate (c011) at (1.2, 3.5);
   
-  % 1. Background / Non-Hamilton Edges (Gray, dashed/subtle for depth)
-  \draw[gray!50, line width=1.3pt, dashed] (000) -- (010);
-  \draw[gray!50, line width=1.3pt, dashed] (100) -- (101);
-  \draw[gray!50, line width=1.3pt, dashed] (110) -- (111);
-  \draw[gray!50, line width=1.3pt, dashed] (001) -- (011);
+  % Background / Non-Hamilton Edges (Gray, dashed)
+  \draw[gray!50, dashed] (c000) -- (c010);
+  \draw[gray!50, dashed] (c100) -- (c101);
+  \draw[gray!50, dashed] (c110) -- (c111);
+  \draw[gray!50, dashed] (c001) -- (c011);
   
-  % 2. Vertices (Styled as clean circles with shadows) - Drawn BEFORE the Hamilton cycle path
-  % Back vertices first (for proper layering)
-  \node (n001) [circle, draw=ThemeSecondary, fill=white, line width=1.2pt, inner sep=3pt, drop shadow] at (001) {};
-  \node (n101) [circle, draw=ThemeSecondary, fill=white, line width=1.2pt, inner sep=3pt, drop shadow] at (101) {};
-  \node (n111) [circle, draw=ThemeSecondary, fill=white, line width=1.2pt, inner sep=3pt, drop shadow] at (111) {};
-  \node (n011) [circle, draw=ThemeSecondary, fill=white, line width=1.2pt, inner sep=3pt, drop shadow] at (011) {};
+  % Vertices
+  \node (nc001) [circle, draw, fill=white, inner sep=2.5pt] at (c001) {};
+  \node (nc101) [circle, draw, fill=white, inner sep=2.5pt] at (c101) {};
+  \node (nc111) [circle, draw, fill=white, inner sep=2.5pt] at (c111) {};
+  \node (nc011) [circle, draw, fill=white, inner sep=2.5pt] at (c011) {};
   
-  % Front vertices
-  \node (n000) [circle, draw=ThemePrimary, fill=white, line width=1.4pt, inner sep=3.2pt, drop shadow] at (000) {};
-  \node (n100) [circle, draw=ThemePrimary, fill=white, line width=1.4pt, inner sep=3.2pt, drop shadow] at (100) {};
-  \node (n110) [circle, draw=ThemePrimary, fill=white, line width=1.4pt, inner sep=3.2pt, drop shadow] at (110) {};
-  \node (n010) [circle, draw=ThemePrimary, fill=white, line width=1.4pt, inner sep=3.2pt, drop shadow] at (010) {};
+  \node (nc000) [circle, draw, fill=white, inner sep=2.5pt] at (c000) {};
+  \node (nc100) [circle, draw, fill=white, inner sep=2.5pt] at (c100) {};
+  \node (nc110) [circle, draw, fill=white, inner sep=2.5pt] at (c110) {};
+  \node (nc010) [circle, draw, fill=white, inner sep=2.5pt] at (c010) {};
   
-  % 3. Hamilton Cycle / Gray-Code Path in Foreground (BrickRed, bold, with directional arrows)
-  % Back face part of cycle: 010 -> 011 -> 111 -> 101 -> 001 -> 000
-  \draw[->, BrickRed, line width=2.2pt] (n010) -- (n011);
-  \draw[->, BrickRed, line width=2.2pt] (n011) -- (n111);
-  \draw[->, BrickRed, line width=2.2pt] (n111) -- (n101);
-  \draw[->, BrickRed, line width=2.2pt] (n101) -- (n001);
-  \draw[->, BrickRed, line width=2.2pt] (n001) -- (n000);
+  % Hamilton Cycle (BrickRed, bold)
+  \draw[->, BrickRed, line width=2pt] (nc010) -- (nc011);
+  \draw[->, BrickRed, line width=2pt] (nc011) -- (nc111);
+  \draw[->, BrickRed, line width=2pt] (nc111) -- (nc101);
+  \draw[->, BrickRed, line width=2pt] (nc101) -- (nc001);
+  \draw[->, BrickRed, line width=2pt] (nc001) -- (nc000);
+  \draw[->, BrickRed, line width=2pt] (nc000) -- (nc100);
+  \draw[->, BrickRed, line width=2pt] (nc100) -- (nc110);
+  \draw[->, BrickRed, line width=2pt] (nc110) -- (nc010);
   
-  % Front face part of cycle: 000 -> 100 -> 110 -> 010
-  \draw[->, BrickRed, line width=2.2pt] (n000) -- (n100);
-  \draw[->, BrickRed, line width=2.2pt] (n100) -- (n110);
-  \draw[->, BrickRed, line width=2.2pt] (n110) -- (n010);
-  
-  % 4. Labels with custom offsets and white backgrounds to prevent line overlap
-  \node[font=\sffamily\footnotesize\bfseries, text=ThemeSecondary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(001)+(-0.35,0.25)$) {$001$};
-  \node[font=\sffamily\footnotesize\bfseries, text=ThemeSecondary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(101)+(0.4,-0.2)$) {$101$};
-  \node[font=\sffamily\footnotesize\bfseries, text=ThemeSecondary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(111)+(0.4,0.25)$) {$111$};
-  \node[font=\sffamily\footnotesize\bfseries, text=ThemeSecondary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(011)+(-0.35,0.25)$) {$011$};
-  
-  \node[font=\sffamily\footnotesize\bfseries, text=ThemePrimary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(000)+(-0.4,-0.3)$) {$000$};
-  \node[font=\sffamily\footnotesize\bfseries, text=ThemePrimary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(100)+(0.4,-0.3)$) {$100$};
-  \node[font=\sffamily\footnotesize\bfseries, text=ThemePrimary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(110)+(0.4,0.3)$) {$110$};
-  \node[font=\sffamily\footnotesize\bfseries, text=ThemePrimary, fill=white, inner xsep=2pt, inner ysep=1pt, rounded corners=2pt] at ($(010)+(-0.4,0.3)$) {$010$};
-  
-  % 5. Explanatory Legend / Caption badge below
-  \node[draw=ThemePrimary!60, fill=ThemeBgLight, rounded corners=4pt, inner xsep=10pt, inner ysep=6pt, font=\sffamily\small, drop shadow] at (2.65, -1.2) {
-    \begin{tabular}{c}
-      \textbf{\textcolor{BrickRed}{Roter Pfeilpfad:}} Hamilton-Kreis im $Q_3$ \\
-      \footnotesize Zyklischer Gray-Code: $000 \to 100 \to 110 \to 010 \to 011 \to 111 \to 101 \to 001 \to 000$
-    \end{tabular}
-  };
+  % Labels
+  \node[left] at (c000) {\footnotesize $000$};
+  \node[right] at (c100) {\footnotesize $100$};
+  \node[above right] at (c110) {\footnotesize $110$};
+  \node[above left] at (c010) {\footnotesize $010$};
+  \node[above left] at (c001) {\footnotesize $001$};
+  \node[right] at (c101) {\footnotesize $101$};
+  \node[above right] at (c111) {\footnotesize $111$};
+  \node[above] at (c011) {\footnotesize $011$};
 \end{tikzpicture}
 \end{center}
 \end{math-stroke}
 
-\begin{spoken-clean}[00:41:24 - 00:42:44]
-Für ein beliebiges $k$ können wir uns den $k$-dimensionalen Würfel wie folgt vorstellen: Wir betrachten im $\mathbb{R}^k$ alle Punkte, deren Koordinaten ausschließlich aus Nullen und Einsen bestehen --- das sind unsere Knoten. Zwei Knoten sind genau dann durch eine Kante verbunden, wenn sie sich in genau einer Koordinate unterscheiden.
+\begin{spoken-clean}[00:39:52 - 00:41:53]
+Okay, und für beliebiges $k$ müssen wir uns das wie folgt vorstellen: Wir schauen uns jetzt den $k$-dimensionalen Würfel an. Wir betrachten im $\mathbb{R}^k$ all die Punkte --- die Knoten sind genau die Punkte, bei denen alle Koordinaten aus Nullen und Einsen bestehen.
 
-Das bedeutet, wir identifizieren die $2^k$ Ecken des $k$-dimensionalen Würfels mit den binären Wörtern der Länge $k$.
+Und zwei davon sind genau dann verbunden, wenn sie sich in genau einer Stelle unterscheiden. Das ist unser Würfel. Das heißt, wir identifizieren die... wie viele Ecken hat eigentlich ein $k$-dimensionaler Würfel? Ja?
 \end{spoken-clean}
 
-\begin{spoken-clean}[00:42:44 - 00:43:45]
-Wir identifizieren die $2^k$ Ecken des $k$-dimensionalen Würfels mit binären Wörtern der Länge $k$, also mit den Elementen aus $\{0, 1\}^k$. Zwei Wörter $a, b \in \{0, 1\}^k$ sind genau dann durch eine Kante verbunden, wenn sie sich in exakt einer Stelle unterscheiden.
+\begin{student-interaction}[Student Answer]
+$2^k$.
+\end{student-interaction}
+
+\begin{spoken-clean}[00:39:52 - 00:41:53]
+$2^k$, genau. Wir identifizieren die $2^k$ Ecken des $k$-dimensionalen Würfels mit binären Wörtern der Länge $k$. Was ist ein binäres Wort? Das ist einfach ein Wort bestehend aus Nullen und Einsen --- also die Elemente in $\{0, 1\}^k$.
+
+Und zwei solche Wörter $a$ und $b$ sind durch eine Kante verbunden, falls sie sich in genau einer Stelle unterscheiden. Okay. Und wir schauen uns dann nach der Pause an, weshalb daraus folgt beziehungsweise weshalb das zeigt, dass es immer einen Hamilton-Kreis im $k$-dimensionalen Würfel gibt. Gut, wir machen in einer Viertelstunde weiter.
 \end{spoken-clean}
 
-\subsection{Gray-Codes}
+\begin{math-stroke}[Formale Definition des $k$-dimensionalen Würfels]
+\begin{definition}[$k$-dimensionaler Würfel $Q_k$]\label{def:qk-formal}
+Der \newterm{$k$-dimensionale Würfel} $Q_k$ ist der ungerichtete Graph $G = (V, E)$ mit:
+\begin{itemize}
+    \item \textbf{Knotenmenge $V$:} $V := \{0, 1\}^k$ (die Menge aller binären Wörter der Länge $k$),
+    \item \textbf{Kantenmenge $E$:} $E := \{\{a, b\} \mid a, b \in V \text{ mit } d_H(a, b) = 1\}$, wobei $d_H(a, b)$ den Hamming-Abstand bezeichnet (die Anzahl der Stellen, in denen sich $a$ and $b$ unterscheiden).
+\end{itemize}
+\end{definition}
+\end{math-stroke}
 
-\begin{spoken-clean}[00:43:45 - 00:46:50]
-Wir wollen zeigen, dass eine solche zyklische Folge existiert, bei der sich von Schritt zu Schritt immer nur ein einziges Bit ändert und wir am Ende wieder beim Startwort ankommen. Eine solche Folge nennt man einen Gray-Code.
+\begin{lecture-break}[Vorlesungspause]
+Der Dozent kündigt eine 15-minütige Pause an. Das Video wird nach der Pause bei Zeitstempel 00:14:22 fortgesetzt.
+\end{lecture-break}
 
-Der Name stammt historisch aus der Codierungstheorie, in der man untersucht, wie man Codewörter so wählt, dass man Informationen möglichst fehlerresistent übertragen kann --- Stichwort fehlerkorrigierende Codes. Aber das ist für uns an dieser Stelle nicht weiter wichtig.
+\begin{spoken-clean}[00:43:56 - 00:46:03]
+Also, wir haben hier unseren $k$-dimensionalen Würfel. Und wir wollen zeigen, dass dieser Kantengraph hier ein Hamilton-Graph ist. Das folgt aus der folgenden Behauptung, die wir beweisen werden. Was sagt diese Behauptung? Sie sagt:
 
-Für uns ist der mathematische Beweis entscheidend, dass eine solche Folge für jede Dimension $k$ existiert. Der Beweis ist erfreulich einfach und erfolgt per vollständiger Induktion nach $k$.
+Es gibt eine zyklische Folge --- nennen wir sie $a_1$ bis $a_{2^k}$ --- aus den $2^k$ verschiedenen binären Wörtern der Länge $k$, sodass sich $a_\ell$ und $a_{\ell+1}$ für $\ell = 1$ bis $2^k - 1$ sowie $a_{2^k}$ und $a_1$ in genau einer Stelle unterscheiden.
+
+Wir müssen also zeigen, dass eine solche Folge existiert, bei der wir immer nur ein Bit wechseln und am Schluss wieder am Anfang ankommen. Eine solche Folge nennt man einen Gray-Code.
 \end{spoken-clean}
 
-\begin{math-stroke}[Existenz von Gray-Codes]
-\begin{proposition}[Existenz von Gray-Codes]\label[proposition]{prop:gray-code-existenz}
-Für jedes $k \ge 1$ existiert eine zyklische Folge $(a_1, \dots, a_{2^k})$ aller $2^k$ verschiedenen binären Wörter der Länge $k$, sodass sich aufeinanderfolgende Wörter $a_{\ell}$ und $a_{\ell+1}$ (sowie das letzte Wort $a_{2^k}$ und das erste Wort $a_1$) in genau einer Stelle unterscheiden. Ein solcher Zyklus entspricht genau einem Hamilton-Kreis im Hyperwürfel $Q_k$.
+\begin{math-stroke}[Existenz eines Gray-Codes]
+\begin{proposition}[Existenz eines Gray-Codes]\label{prop:gray-code-existenz}
+Für jedes $k \in \mathbb{N}_{>0}$ existiert eine zyklische Folge $(a_1, a_2, \dots, a_{2^k})$ aller $2^k$ binären Wörter der Länge $k$, sodass sich aufeinanderfolgende Wörter (sowie das letzte und das erste Wort) in genau einer Stelle unterscheiden:
+\begin{itemize}
+    \item $d_H(a_\ell, a_{\ell+1}) = 1 \quad \forall \ell \in \{1, \dots, 2^k-1\}$,
+    \item $d_H(a_{2^k}, a_1) = 1$.
+\end{itemize}
+Eine solche Folge heißt \newterm{Gray-Code} $k$-ter Ordnung.
 \end{proposition}
 \end{math-stroke}
 
-\begin{proof}[Beweis der Existenz von Gray-Codes]
-\begin{spoken-clean}[00:46:50 - 00:48:18]
-Wir führen den Beweis per Induktion nach $k$. Der Induktionsanfang für $k=1$ ist trivial: Bei Wörtern der Länge $1$ nehmen wir einfach die Folge $(0, 1)$. Die beiden Wörter unterscheiden sich in genau einer Stelle, und der Rückweg von $1$ zu $0$ ebenfalls.
+\begin{spoken-clean}[00:46:03 - 00:48:21]
+Okay. Ich weiß nicht Genaueres darüber, weshalb das Gray-Code heißt. Das kommt wahrscheinlich aus der Codierungstheorie, in der man untersucht, wie man Wörter gut wählt, um Informationen verlässlich zu übermitteln --- fehlerkorrigierende Codes und so weiter. Aber das ist für uns nicht so wichtig; wichtig ist für uns nur zu beweisen, dass es eine solche Folge immer gibt.
 
-Für den Induktionsschritt von $k$ auf $k+1$ nehmen wir an, dass bereits ein zyklischer Gray-Code der Länge $2^k$ existiert, den wir als $(a_1, \dots, a_{2^k})$ schreiben.
+Und der Beweis ist nicht schwierig, das ist einfach Induktion nach $k$. Für $k = 1$ ist die Sache klar: Bei Wörtern der Länge $1$ nehmen wir einfach die Folge $(0, 1)$. $1$ unterscheidet sich in einer Stelle von $0$, und $0$ unterscheidet sich in einer Stelle von $1$.
+
+Um anschließend von $k$ auf $k+1$ zu schließen, nehmen wir an, es gibt einen Gray-Code $k$-ter Ordnung --- das sei die Folge $(a_1, a_2, \dots, a_{2^k})$. Daraus können wir jetzt ganz einfach einen Gray-Code für $k+1$ bauen.
+
+Und zwar machen wir das so: Wir hängen zuerst überall eine $0$ vorne an, also machen wir $0a_1, 0a_2, \dots, 0a_{2^k}$. Diese unterscheiden sich untereinander jeweils nur in einer Stelle, da sich die $a_i$ jeweils nur in einer Stelle unterscheiden.
+
+Und jetzt machen wir am Übergang mit $1a_{2^k}$ weiter. Diese beiden ($0a_{2^k}$ und $1a_{2^k}$) unterscheiden sich auch wieder nur in einer Stelle, nämlich in der ersten. Und jetzt gehen wir einfach die Folge rückwärts zurück, bis wir bei $1a_1$ angelangt sind. Das ist dann offensichtlich auch wieder ein Gray-Code. Und ein solcher Gray-Code entspricht natürlich genau einem Hamilton-Kreis auf dem Kantengraphen des Würfels.
 \end{spoken-clean}
 
-\begin{spoken-clean}[00:48:18 - 00:49:28]
-Daraus konstruieren wir nun einen Gray-Code für die Dimension $k+1$. Das machen wir wie folgt: Zuerst stellen wir allen Wörtern unseres bekannten Codes eine $0$ voran, wir bilden also die Folge $(0a_1, 0a_2, \dots, 0a_{2^k})$.
-\end{spoken-clean}
-
-\begin{spoken-clean}[00:49:28 - 00:50:58]
-Diese Wörter unterscheiden sich untereinander weiterhin jeweils nur in einer Stelle, da dies bereits für die $a_i$ galt. Als nächstes Element wählen wir $1a_{2^k}$. Dieses unterscheidet sich vom vorherigen Wort $0a_{2^k}$ ebenfalls nur in einer einzigen Stelle --- nämlich der neu hinzugefügten ersten Stelle.
-
-Anschließend spiegeln wir die restliche Folge und stellen jeweils eine $1$ voran: Wir gehen also rückwärts von $1a_{2^k-1}$ bis $1a_1$.
-\end{spoken-clean}
-
-\begin{spoken-clean}[00:50:58 - 00:52:40]
-Diese Wörter unterscheiden sich aufeinanderfolgend ebenfalls jeweils nur in einer Stelle. Am Ende schließt sich der Kreis vom letzten Wort $1a_1$ zurück zum ersten Wort $0a_1$ wiederum durch die Änderung von genau einer Stelle --- nämlich der ersten. Damit haben wir einen gültigen Gray-Code für $k+1$ konstruiert.
-\end{spoken-clean}
-
-\begin{math-stroke}
-Wir führen den Beweis per vollständiger Induktion nach der Dimension $k$:
+\begin{math-stroke}[Beweis der Existenz von Gray-Codes]
+\begin{short-proof}[Beweis von \cref{prop:gray-code-existenz}]
+Wir führen den Beweis mittels vollständiger Induktion nach $k \in \mathbb{N}_{>0}$:
 \begin{itemize}
-    \item \textbf{Induktionsanfang ($k=1$):} Die Folge $(a_1, a_2) := (0, 1)$ ist ein zyklischer Gray-Code der Länge $2^1 = 2$, da sich $0$ und $1$ in genau einer Stelle unterscheiden.
-    \item \textbf{Induktionsschritt ($k \to k+1$):} Sei $(a_1, a_2, \dots, a_{2^k})$ ein zyklischer Gray-Code der Länge $2^k$. Wir konstruieren eine neue Folge $(b_1, \dots, b_{2^{k+1}})$ der Länge $2^{k+1}$ durch Spiegelung und Voranstellen von $0$ bzw. $1$:
+    \item \textbf{Induktionsanfang ($k=1$):}
+    Die Folge $(0, 1)$ ist ein Gray-Code der Ordnung $1$, da $d_H(0, 1) = 1$ and $d_H(1, 0) = 1$.
+    \item \textbf{Induktionsschritt ($k \to k+1$):}
+    Sei $(a_1, a_2, \dots, a_{2^k})$ ein Gray-Code $k$-ter Ordnung. Wir konstruieren eine Folge für $k+1$ durch Spiegelung und Präfix-Erweiterung:
     \[
-    b_i := \begin{cases}
-    0a_i & \text{für } 1 \le i \le 2^k \\
-    1a_{2^{k+1} - i + 1} & \text{für } 2^k + 1 \le i \le 2^{k+1}
-    \end{cases}
+    (0a_1, 0a_2, \dots, 0a_{2^k}, 1a_{2^k}, 1a_{2^k-1}, \dots, 1a_1)
     \]
-    Wir verifizieren die Gray-Code-Eigenschaften für die Übergänge:
-    \begin{enumerate}[label=\textbf{(\arabic*)}]
-        \item \textbf{Innerhalb der ersten Hälfte ($1 \le i < 2^k$):} $b_i = 0a_i$ und $b_{i+1} = 0a_{i+1}$ unterscheiden sich nur in einer Stelle, da sich $a_i$ und $a_{i+1}$ nach Induktionsvoraussetzung nur in einer Stelle unterscheiden.
-        \item \textbf{Am Übergangspunkt ($i = 2^k$):} $b_{2^k} = 0a_{2^k}$ und $b_{2^k+1} = 1a_{2^k}$ unterscheiden sich exakt nur in der ersten (vorangestellten) Stelle.
-        \item \textbf{Innerhalb der zweiten Hälfte ($2^k + 1 \le i < 2^{k+1}$):} $b_i = 1a_{2^{k+1}-i+1}$ und $b_{i+1} = 1a_{2^{k+1}-i}$ unterscheiden sich analog zur ersten Hälfte nur in einer Stelle.
-        \item \textbf{Am zyklischen Rücklauf ($i = 2^{k+1}$):} Das letzte Element $b_{2^{k+1}} = 1a_1$ und das erste Element $b_1 = 0a_1$ unterscheiden sich ebenfalls exakt nur in der ersten Stelle.
-    \end{enumerate}
-    Die konstruierte Folge ist somit ein wohldefinierter, zyklischer Gray-Code der Länge $2^{k+1}$.
+    \textbf{Verifikation der Hamming-Abstände:}
+    \begin{itemize}
+        \item Für die erste Hälfte gilt $d_H(0a_\ell, 0a_\ell+1) = d_H(a_\ell, a_\ell+1) = 1$ nach Induktionsvoraussetzung.
+        \item Am Übergangspunkt gilt $d_H(0a_{2^k}, 1a_{2^k}) = 1$ (Unterschied nur im ersten Bit).
+        \item Für die gespiegelte zweite Hälfte gilt analog $d_H(1a_\ell, 1a_{\ell-1}) = 1$.
+        \item Am Rückkehrpunkt gilt $d_H(1a_1, 0a_1) = 1$.
+    \end{itemize}
+    Somit ist die konstruierte Folge ein gültiger Gray-Code der Ordnung $k+1$.
 \end{itemize}
-\end{math-stroke}
-\end{proof}
-
-\subsection{Der vierdimensionale Hyperwürfel}
-
-\begin{spoken-clean}[00:52:40 - 00:54:38]
-Das ist ein weiteres schönes Beispiel für Hamilton-Graphen. Solche Hyperwürfel bekommen sehr schnell extrem viele Ecken und Kanten: Ein eindimensionaler Würfel hat $2$ Ecken, ein zweidimensionaler $4$, ein dreidimensionaler $8$, und der vierdimensionale Würfel besitzt bereits $16$ Ecken. Das ist geometrisch nicht mehr ganz so einfach zu visualisieren, aber es ist bereits ein recht großer Graph.
-
-Auf der Folie sehen Sie ein Beispiel dafür, wie ein Hamilton-Kreis im vierdimensionalen Würfel aussieht. Hier sind alle $16$ Ecken dargestellt, und wir können einen möglichen Gray-Code ablaufen. Man sieht sehr schön, dass sich von Schritt zu Schritt immer nur genau eine einzige Stelle verändert.
-
-Die rote Linie zeigt den Hamilton-Kreis im projizierten Kantengraphen des vierdimensionalen Würfels. Sie können gerne nachprüfen, dass dieser Weg tatsächlich jeden der $16$ Knoten genau einmal besucht und am Ende wieder geschlossen ist. Solche Hyperwürfel sind mathematisch sehr elegant und einfach zu definieren, aber anschaulich manchmal gar nicht so leicht zu greifen.
-\end{spoken-clean}
-
-\begin{meta-note}[Tafelreinigung]
-Der Dozent wischt die Tafel gründlich, um Platz für das nächste Thema zu schaffen, während auf dem Projektor eine Folie des vierdimensionalen Hyperwürfels ($Q_4$, Tesseract) mit einem rot markierten Hamilton-Kreis zu sehen ist.
-\end{meta-note}
-
-% \begin{math-stroke}[Der vierdimensionale Hyperwürfel \texorpdfstring{$Q_4$}{Q\_4}]
-% \begin{center}
-% \begin{tikzpicture}[scale=1.5, thick, >=stealth]
-%   % \begin{ai-tikz-planner-invisible-content}
-%   % 1. Background: Projektion des Tesseracts (Q_4) mit dünnen grauen Linien.
-%   % 2. Foreground: Ein Hamilton-Kreis (Gray-Code) in dicker roter Linie (BrickRed).
-%   % \end{ai-tikz-planner-invisible-content}
-  
-%   % Inner Cube Coordinates
-%   \coordinate (0000) at (-0.5,-0.5,-0.5);
-%   \coordinate (1000) at (0.5,-0.5,-0.5);
-%   \coordinate (1100) at (0.5,0.5,-0.5);
-%   \coordinate (0100) at (-0.5,0.5,-0.5);
-%   \coordinate (0010) at (-0.3,-0.3,0.5);
-%   \coordinate (1010) at (0.7,-0.3,0.5);
-%   \coordinate (1110) at (0.7,0.7,0.5);
-%   \coordinate (0110) at (-0.3,0.7,0.5);
-  
-%   % Outer Cube Coordinates
-%   \coordinate (0001) at (-1.5,-1.5,-1.5);
-%   \coordinate (1001) at (1.5,-1.5,-1.5);
-%   \coordinate (1101) at (1.5,1.5,-1.5);
-%   \coordinate (0101) at (-1.5,1.5,-1.5);
-%   \coordinate (0011) at (-1.0,-1.0,1.5);
-%   \coordinate (1011) at (2.0,-1.0,1.5);
-%   \coordinate (1111) at (2.0,2.0,1.5);
-%   \coordinate (0111) at (-1.0,2.0,1.5);
-
-%   % Non-cycle edges (gray, thin)
-%   \draw[gray!30, thin] (0000) -- (1000);
-%   \draw[gray!30, thin] (1100) -- (0100);
-%   \draw[gray!30, thin] (0010) -- (1010);
-%   \draw[gray!30, thin] (1110) -- (0110);
-%   \draw[gray!30, thin] (0001) -- (1001);
-%   \draw[gray!30, thin] (1101) -- (0101);
-%   \draw[gray!30, thin] (0011) -- (1011);
-%   \draw[gray!30, thin] (1111) -- (0111);
-%   \draw[gray!30, thin] (0000) -- (0001);
-%   \draw[gray!30, thin] (1000) -- (1001);
-%   \draw[gray!30, thin] (1100) -- (1101);
-%   \draw[gray!30, thin] (0100) -- (0101);
-%   \draw[gray!30, thin] (0010) -- (0011);
-%   \draw[gray!30, thin] (1010) -- (1011);
-%   \draw[gray!30, thin] (1110) -- (1111);
-%   \draw[gray!30, thin] (0110) -- (0111);
-
-%   % Hamilton Cycle (BrickRed, ultra thick)
-%   \draw[BrickRed, ultra thick] (0000) -- (0100) -- (0110) -- (0010) -- (0011) -- (0111) -- (0101) -- (0001) -- (1001) -- (1000) -- (1100) -- (1101) -- (1111) -- (1011) -- (1010) -- (1110) -- cycle;
-
-%   % Nodes (small dots)
-%   \foreach \p in {0000,1000,1100,0100,0010,1010,1110,0110,0001,1001,1101,0101,0011,1011,1111,0111}
-%     \filldraw[fill=white, draw=black] (\p) circle (2pt);
-% \end{tikzpicture}
-% \end{center}
-% \end{math-stroke}
-
-
-\begin{math-stroke}[Der vierdimensionale Hyperwürfel \texorpdfstring{$Q_4$}{Q\_4}]
-\begin{center}
-\begin{tikzpicture}[scale=1.5, thick, >=stealth]
-  % \begin{ai-tikz-planner-invisible-content}
-  % 1. Background: Projektion des Tesseracts (Q_4) mit strukturell getrennten Dimensionen. Der innere 3D-Würfel ist in Blau (blue) gezeichnet, der äußere in Teal (teal).
-  % 2. Visual Hierarchy: Nicht-zyklische Kanten sind dünn, gestrichelt und farblich dezent gehalten (blue!35 bzw. teal!35).
-  % 3. Foreground Layering & Shading: Ecken werden zuerst als benannte Kreise (n0000 bis n1111) gezeichnet. Der rote Pfad (Hamilton-Kreis / Gray-Code) wird danach im Vordergrund über die Ecken gelegt. Der Pfad ist farblich schattiert (red im inneren Würfel, orange!80!red im äußeren Würfel, purple für die Ebenen-Wechsel-Übergänge).
-  % 4. Legend: Eine detaillierte Legende am Fuß der Grafik erklärt den Farbcode und den mathematisch korrekten 4-Bit Gray-Code.
-  % \end{ai-tikz-planner-invisible-content}
-  
-  % Inner Cube Coordinates
-  \coordinate (0000) at (-0.5,-0.5,-0.5);
-  \coordinate (1000) at (0.5,-0.5,-0.5);
-  \coordinate (1100) at (0.5,0.5,-0.5);
-  \coordinate (0100) at (-0.5,0.5,-0.5);
-  \coordinate (0010) at (-0.3,-0.3,0.5);
-  \coordinate (1010) at (0.7,-0.3,0.5);
-  \coordinate (1110) at (0.7,0.7,0.5);
-  \coordinate (0110) at (-0.3,0.7,0.5);
-  
-  % Outer Cube Coordinates
-  \coordinate (0001) at (-1.5,-1.5,-1.5);
-  \coordinate (1001) at (1.5,-1.5,-1.5);
-  \coordinate (1101) at (1.5,1.5,-1.5);
-  \coordinate (0101) at (-1.5,1.5,-1.5);
-  \coordinate (0011) at (-1.0,-1.0,1.5);
-  \coordinate (1011) at (2.0,-1.0,1.5);
-  \coordinate (1111) at (2.0,2.0,1.5);
-  \coordinate (0111) at (-1.0,2.0,1.5);
-
-  % 1. Non-cycle edges (dashed, thin)
-  % Inner Cube (blue!35)
-  \draw[blue!35, dashed, line width=1.1pt] (0000) -- (1000);
-  \draw[blue!35, dashed, line width=1.1pt] (0100) -- (1100);
-  \draw[blue!35, dashed, line width=1.1pt] (0010) -- (1010);
-  \draw[blue!35, dashed, line width=1.1pt] (0110) -- (1110);
-  \draw[blue!35, dashed, line width=1.1pt] (0000) -- (0010);
-  \draw[blue!35, dashed, line width=1.1pt] (1000) -- (1010);
-  
-  % Outer Cube (teal!35)
-  \draw[teal!35, dashed, line width=1.1pt] (0001) -- (1001);
-  \draw[teal!35, dashed, line width=1.1pt] (0101) -- (1101);
-  \draw[teal!35, dashed, line width=1.1pt] (0011) -- (1011);
-  \draw[teal!35, dashed, line width=1.1pt] (0111) -- (1111);
-  \draw[teal!35, dashed, line width=1.1pt] (0001) -- (0011);
-  \draw[teal!35, dashed, line width=1.1pt] (1001) -- (1011);
-  
-  % Connecting Edges (gray!35)
-  \draw[gray!35, dashed, line width=1.1pt] (0000) -- (0001);
-  \draw[gray!35, dashed, line width=1.1pt] (1000) -- (1001);
-  \draw[gray!35, dashed, line width=1.1pt] (1100) -- (1101);
-  \draw[gray!35, dashed, line width=1.1pt] (0100) -- (0101);
-  \draw[gray!35, dashed, line width=1.1pt] (1110) -- (1111);
-  \draw[gray!35, dashed, line width=1.1pt] (0110) -- (0111);
-
-  % 2. Vertices (Styled circles) - Drawn BEFORE the cycle paths
-  % Outer Cube Ecken (teal)
-  \foreach \p in {0001,1001,1101,0101,0011,1011,1111,0111}
-    \node (n\p) [circle, draw=teal, fill=white, line width=1.2pt, inner sep=2.5pt] at (\p) {};
-    
-  % Inner Cube Ecken (blue)
-  \foreach \p in {0000,1000,1100,0100,0010,1010,1110,0110}
-    \node (n\p) [circle, draw=blue, fill=white, line width=1.4pt, inner sep=2.8pt] at (\p) {};
-
-  % 3. Hamilton Cycle / Gray-Code Path in Foreground (Bold, colored by dimension/transition)
-  % Inner Cube Path segments (red)
-  \draw[->, red, line width=2.4pt] (n0000) -- (n0100);
-  \draw[->, red, line width=2.4pt] (n0100) -- (n0110);
-  \draw[->, red, line width=2.4pt] (n0110) -- (n0010);
-  
-  \draw[->, red, line width=2.4pt] (n1010) -- (n1110);
-  \draw[->, red, line width=2.4pt] (n1110) -- (n1100);
-  \draw[->, red, line width=2.4pt] (n1100) -- (n1000);
-  \draw[->, red, line width=2.4pt] (n1000) -- (n0000);
-
-  % Outer Cube Path segments (orange!80!red)
-  \draw[->, orange!80!red, line width=2.4pt] (n0011) -- (n0111);
-  \draw[->, orange!80!red, line width=2.4pt] (n0111) -- (n0101);
-  \draw[->, orange!80!red, line width=2.4pt] (n0101) -- (n0001);
-  \draw[->, orange!80!red, line width=2.4pt] (n0001) -- (n1001);
-  \draw[->, orange!80!red, line width=2.4pt] (n1001) -- (n1101);
-  \draw[->, orange!80!red, line width=2.4pt] (n1101) -- (n1111);
-  \draw[->, orange!80!red, line width=2.4pt] (n1111) -- (n1011);
-
-  % Crossing / Transition Path segments (purple)
-  \draw[->, purple, line width=2.4pt] (n0010) -- (n0011);
-  \draw[->, purple, line width=2.4pt] (n1011) -- (n1010);
-
-  % 4. Explanatory Legend / Caption badge below
-  \node[draw=blue!60, fill=gray!10, rounded corners=4pt, inner xsep=10pt, inner ysep=6pt, font=\sffamily\small] at (0.25, -3.4) {
-    \begin{tabular}{cl}
-      \textbf{\textcolor{red}{Innerer Pfad:}} & Teil-Hamilton-Kreis im inneren Würfel \\
-      \textbf{\textcolor{orange!80!red}{Äußerer Pfad:}} & Teil-Hamilton-Kreis im äußeren Würfel \\
-      \textbf{\textcolor{purple}{Übergänge:}} & Ebenenwechsel (Crossing-Edges) zwischen den Dimensionen \\
-      \footnotesize \textbf{Gray-Code-Kette:} & \footnotesize $0000 \to 0100 \to 0110 \to 0010 \to 0011 \to 0111 \to 0101 \to 0001 \to {}$ \\
-      & \footnotesize $\to 1001 \to 1101 \to 1111 \to 1011 \to 1010 \to 1110 \to 1100 \to 1000 \to 0000$
-    \end{tabular}
-  };
-\end{tikzpicture}
-\end{center}
+\end{short-proof}
 \end{math-stroke}
 
+\section{Bipartite Graphen und der Heiratssatz}
+\subsection{Definition und Eigenschaften}
 
+\begin{spoken-clean}[00:54:05 - 00:55:02]
+Als letztes Thema möchte ich heute noch den sogenannten Heiratssatz besprechen, obwohl das ein sehr unglücklicher Name ist. Zuvor noch eine Definition, die auch auf dem Übungsblatt vorkommt: Ein Graph heißt bipartit. Bipartit ist ein lustiges Wort. Was heißt das? Man kann den Graphen in zwei Teile teilen, also man kann die Knotenmenge in zwei verschiedene Mengen aufteilen, sodass alle Kanten ausschließlich zwischen der einen Menge und der anderen Menge verlaufen.
 
-\begin{spoken-clean}[00:54:38 - 00:56:52]
-Solche Würfelstrukturen sind in vielen Bereichen der modernen Mathematik von großer Bedeutung. In der geometrischen Gruppentheorie war es in den letzten Jahren beispielsweise sehr populär, sogenannte kubische Komplexe zu untersuchen. Dabei nimmt man Würfel verschiedener Dimensionen, klebt sie nach bestimmten geometrischen Regeln zusammen und erhält dadurch mächtige Werkzeuge, um abstrakte Gruppen über die Kantengraphen dieser Komplexe zu studieren.
+Er heißt also bipartit, falls $V$ die disjunkte Vereinigung von zwei Teilmengen $U$ und $W$ ist --- disjunkte Vereinigung (geschrieben als $U \;\dot{\cup}\; W$) bedeutet, dass $V = U \cup W$ ist und der Durchschnitt $U \cap W = \emptyset$ leer ist ---, sodass die Kanten alle in der Menge $U \times W$ enthalten sind (d.\,h.\ $E \subseteq \{\{u, w\} \mid u \in U, w \in W\}$). Wir schreiben den Graphen dann einfach als $G = (U, W, E)$.
 
-Das ist natürlich nicht Teil dieser Vorlesung, aber es war für einige Jahre mein persönliches Steckenpferd, diese kubischen Komplexe auf mathematische Gruppen anzuwenden.
+Okay, wenn wir sagen, $G$ ist ein bipartiter Graph und wir schreiben ihn so, dann heißt das: Das eine ist die eine Knotenmenge, das andere die andere, und die Kanten gehen alle von Elementen hier zu Elementen da. Es gibt natürlich Graphen, die nicht bipartit sind --- das ist eine sehr spezielle Klasse von Graphen, die meisten sind es nicht. Es gibt dazu noch eine Übungsaufgabe, in der wir uns eine Verallgemeinerung davon anschauen, nämlich die Frage, wie ein Graph färbbar ist. Ein Graph ist genau dann bipartit, wenn er zweifärbbar ist. Das heißt, man kann allen Knoten eine Farbe --- blau oder rot --- geben, sodass nie zwei gleichfarbige Knoten durch eine Kante verbunden sind (d.\,h.\ es geht nie eine Kante von einem roten Knoten zu einem roten Knoten, sondern immer nur zu einem blauen). Gut, okay, das sind bipartite Graphen.
 \end{spoken-clean}
 
-\section{Bipartite Graphen}
-
-\subsection{Das Konzept bipartiter Graphen}
-
-\begin{spoken-clean}[00:56:52 - 00:58:30]
-Als letztes Thema für heute möchte ich mit Ihnen den sogenannten Heiratssatz besprechen --- auch wenn der Name historisch gesehen etwas unglücklich gewählt ist.
-
-Zuvor benötigen wir noch eine Definition, die Ihnen auch auf dem Übungsblatt begegnen wird: Wann heißt ein Graph bipartit? Bipartit bedeutet anschaulich, dass man die Knotenmenge so in zwei disjunkte Teilmengen aufteilen kann, dass alle Kanten des Graphen ausschließlich zwischen diesen beiden Mengen verlaufen.
-
-Formal heißt ein Graph bipartit, wenn sich die Knotenmenge $V$ als disjunkte Vereinigung zweier Teilmengen $U$ und $W$ schreiben lässt. Disjunkte Vereinigung bedeutet: $V = U \cup W$ und der Durchschnitt von $U$ und $W$ ist leer.
-\end{spoken-clean}
-
-\begin{math-stroke}
-\begin{definition}[Bipartiter Graph]\label[definition]{def:bipartit}
-Ein ungerichteter Graph $G = (V, E)$ heißt \newterm{bipartit}, falls sich seine Knotenmenge $V$ als disjunkte Vereinigung zweier Teilmengen $U$ und $W$ darstellen lässt:
+\begin{math-stroke}[Bipartite Graphen]
+\begin{definition}[Bipartiter Graph]\label{def:bipartiter-graph}
+Ein Graph $G = (V, E)$ heißt \newterm{bipartit}, wenn sich seine Knotenmenge $V$ als disjunkte Vereinigung zweier Teilmengen $U$ und $W$ darstellen lässt:
 \[
-V = U \;\dot{\cup}\; W \quad (\text{d.\,h. } V = U \cup W \text{ und } U \cap W = \emptyset)
+V = U \;\dot{\cup}\; W \quad (\text{d.\,h.\ } V = U \cup W \text{ und } U \cap W = \emptyset),
 \]
-sodass alle Kanten in $E$ ausschließlich zwischen $U$ und $W$ verlaufen:
+sodass alle Kanten $e \in E$ ausschließlich Knoten aus $U$ mit Knoten aus $W$ verbinden:
 \[
-E \subseteq \bigl\{ \{u, w\} \;\big|\; u \in U, w \in W \bigr\}
+E \subseteq \{ \{u, w\} \mid u \in U, \ w \in W \}.
 \]
-Wir schreiben einen solchen Graphen auch als Tripel $G = (U, W, E)$.
+Wir schreiben dafür auch $G = (U, W, E)$.
 \end{definition}
 
 \begin{center}
 \begin{tikzpicture}[scale=1.2, thick, >=stealth]
-  % \begin{ai-tikz-planner-invisible-content}
-  % 1. Background: Bipartiter Graph mit zwei disjunkten Spalten U und W.
-  % 2. Foreground: Kanten, die ausschließlich zwischen U und W verlaufen (keine internen Kanten).
-  % \end{ai-tikz-planner-invisible-content}
-  
-  % Column U (ForestGreen)
-  \coordinate (U1) at (0,2.5);
-  \coordinate (U2) at (0,1.5);
-  \coordinate (U3) at (0,0.5);
-  
-  % Column W (MidnightBlue)
-  \coordinate (W1) at (3,2.5);
-  \coordinate (W2) at (3,1.5);
-  \coordinate (W3) at (3,0.5);
-  
-  % Edges
-  \draw (U1) -- (W1);
-  \draw (U1) -- (W2);
-  \draw (U2) -- (W2);
-  \draw (U2) -- (W3);
-  \draw (U3) -- (W1);
-  \draw (U3) -- (W3);
-  
-  % Nodes
-  \filldraw[fill=white, draw=black] (U1) circle (3pt) node[left] {$u_1$};
-  \filldraw[fill=white, draw=black] (U2) circle (3pt) node[left] {$u_2$};
-  \filldraw[fill=white, draw=black] (U3) circle (3pt) node[left] {$u_3$};
-  
-  % Nodes (W)
-  \filldraw[fill=white, draw=black] (W1) circle (3pt) node[right] {$w_1$};
-  \filldraw[fill=white, draw=black] (W2) circle (3pt) node[right] {$w_2$};
-  \filldraw[fill=white, draw=black] (W3) circle (3pt) node[right] {$w_3$};
-  
-  % Labels
-  \node[above=0.3cm of U1, ForestGreen, font=\bfseries] {$U$};
-  \node[above=0.3cm of W1, MidnightBlue, font=\bfseries] {$W$};
+  % Set U (left)
+  \node[circle, draw, fill=MidnightBlue!10] (u1) at (0, 2) {$u_1$};
+  \node[circle, draw, fill=MidnightBlue!10] (u2) at (0, 1) {$u_2$};
+  \node[circle, draw, fill=MidnightBlue!10] (u3) at (0, 0) {$u_3$};
+  \node at (0, 2.6) {\textbf{$U$}};
+
+  % Set W (right)
+  \node[circle, draw, fill=ForestGreen!10] (w1) at (3, 2.5) {$w_1$};
+  \node[circle, draw, fill=ForestGreen!10] (w2) at (3, 1.5) {$w_2$};
+  \node[circle, draw, fill=ForestGreen!10] (w3) at (3, 0.5) {$w_3$};
+  \node[circle, draw, fill=ForestGreen!10] (w4) at (3, -0.5) {$w_4$};
+  \node at (3, 3.1) {\textbf{$W$}};
+
+  % Edges between U and W
+  \draw (u1) -- (w1);
+  \draw (u1) -- (w2);
+  \draw (u2) -- (w2);
+  \draw (u2) -- (w4);
+  \draw (u3) -- (w3);
+  \draw (u3) -- (w4);
 \end{tikzpicture}
 \end{center}
 \end{math-stroke}
 
-\begin{spoken-clean}[00:58:30 - 00:59:56]
-...sodass alle Kanten in der Menge $U \times W$ enthalten sind, was natürlich eine Teilmenge von $V \times V$ ist. Wir schreiben dann kurz: $G = (U, W, E)$.
+\subsection{Nachbarschaftsmengen in bipartiten Graphen}
 
-Wenn wir also sagen, $G$ ist ein bipartiter Graph und schreiben ihn in dieser Form, dann bedeutet das: $U$ ist die eine Knotenmenge, $W$ die andere, und alle Kanten verlaufen ausschließlich zwischen Elementen aus $U$ und Elementen aus $W$.
-
-Das ist eine sehr spezielle Struktur --- die meisten Graphen sind im Allgemeinen natürlich nicht bipartit.
+\begin{spoken-clean}[00:55:02 - 00:56:41]
+Das heißt, bei bipartiten Graphen spielt es oft keine so große Rolle mehr, ob sie gerichtet oder ungerichtet sind. Man weiß eigentlich für jede Kante genau, ob sie in $U$ anfängt und in $W$ aufhört, selbst wenn der Graph ungerichtet ist.
 \end{spoken-clean}
 
-% --- TEIL 3 ---
+\begin{spoken-clean}[00:56:41 - 00:59:04]
+Bipartite Graphen treten natürlich in der Praxis relativ häufig auf. Was weiß ich, wenn man zum Beispiel Brieffreunde zwischen Europa und Amerika betrachtet: Die Personen sind entweder in Europa oder in Amerika ansässig, aber sie schreiben sich Briefe nur über den Atlantik hinweg. Das wäre ein klassischer bipartiter Graph.
 
-\subsection{Bipartite Graphen und Färbbarkeit}
+Okay, machen wir noch eine Definition --- das ist eigentlich eher für ungerichtete Graphen. Für einen ungerichteten bipartiten Graphen $G = (U, W, E)$ definieren wir für eine Teilmenge $X \subseteq U$ die Nachbarschaftsmenge $E(X)$ als die Menge aller $y \in W$, für die ein $x \in X$ existiert, sodass $\{x, y\} \in E$ eine Kante ist. Und ganz ähnlich definieren wir auch $E(Y)$ für eine Teilmenge $Y \subseteq W$.
+\end{spoken-clean}
 
-\begin{math-stroke}
-\begin{theorem}[Zwei-Färbbarkeit bipartiter Graphen]\label[theorem]{thm:bipartit-faerbbarkeit}
-Ein ungerichteter Graph $G = (V, E)$ ist genau dann bipartit, wenn er zwei-färbbar ist. Das bedeutet, es existiert eine Färbungsfunktion $c \colon V \to \{\text{Rot}, \text{Blau}\}$, sodass für alle Kanten $\{u, v\} \in E$ gilt:
+\begin{math-stroke}[Nachbarschaftsmengen in bipartiten Graphen]
+\begin{definition}[Nachbarschaftsmenge]\label{def:nachbarschaftsmenge}
+Sei $G = (U, W, E)$ ein ungerichteter, bipartiter Graph. Für eine Teilmenge $X \subseteq U$ definieren wir die Nachbarschaftsmenge $E(X) \subseteq W$ durch:
 \[
-c(u) \neq c(v).
+E(X) := \{ y \in W \mid \exists x \in X \colon \{x, y\} \in E \}.
 \]
-\end{theorem}
+Analog definieren wir für eine Teilmenge $Y \subseteq W$ die Nachbarschaftsmenge $E(Y) \subseteq U$.
+\end{definition}
+\end{math-stroke}
 
-\begin{explanation-of-steps}[Bedeutung der Zwei-Färbbarkeit]
-In einem bipartiten Graphen $G = (U, W, E)$ können wir allen Knoten in $U$ die Farbe Rot und allen Knoten in $W$ die Farbe Blau zuweisen. Da per Definition alle Kanten ausschließlich zwischen $U$ und $W$ verlaufen, gibt es keine Kanten zwischen gleichfarbigen Knoten. Dies zeigt die Äquivalenz zur Zwei-Färbbarkeit.
+\begin{math-stroke}[Geometrische Veranschaulichung der Nachbarschaftsmenge]
+\begin{center}
+\begin{tikzpicture}[scale=1.2, >=stealth, thick]
+  % [AI-TIKZ-PLANNER: Bipartite Graph Neighborhood E(X)]
+  % 1. Background: Left column U (blue) and right column W (green).
+  % 2. Midground: Circle subset X in U and its corresponding neighborhood E(X) in W.
+  % 3. Foreground: Edges connecting elements of X to E(X), plus some outside edges.
+  
+  % Left column (U)
+  \node[circle, draw=MidnightBlue, fill=MidnightBlue!5, minimum size=0.6cm] (u1) at (0, 2) {$u_1$};
+  \node[circle, draw=MidnightBlue, fill=MidnightBlue!5, minimum size=0.6cm] (u2) at (0, 1) {$u_2$};
+  \node[circle, draw=MidnightBlue, fill=MidnightBlue!5, minimum size=0.6cm] (u3) at (0, 0) {$u_3$};
+  \node[circle, draw=MidnightBlue, fill=MidnightBlue!5, minimum size=0.6cm] (u4) at (0, -1) {$u_4$};
+  \node[circle, draw=MidnightBlue, fill=MidnightBlue!5, minimum size=0.6cm] (u5) at (0, -2) {$u_5$};
+  \node[MidnightBlue] at (0, 2.6) {\textbf{$U$}};
+
+  % Right column (W)
+  \node[circle, draw=ForestGreen, fill=ForestGreen!5, minimum size=0.6cm] (w1) at (3, 2) {$w_1$};
+  \node[circle, draw=ForestGreen, fill=ForestGreen!5, minimum size=0.6cm] (w2) at (3, 1) {$w_2$};
+  \node[circle, draw=ForestGreen, fill=ForestGreen!5, minimum size=0.6cm] (w3) at (3, 0) {$w_3$};
+  \node[circle, draw=ForestGreen, fill=ForestGreen!5, minimum size=0.6cm] (w4) at (3, -1) {$w_4$};
+  \node[circle, draw=ForestGreen, fill=ForestGreen!5, minimum size=0.6cm] (w5) at (3, -2) {$w_5$};
+  \node[ForestGreen] at (3, 2.6) {\textbf{$W$}};
+
+  % Edges
+  \draw[gray!50] (u1) -- (w1);
+  \draw[thick] (u2) -- (w1);
+  \draw[thick] (u2) -- (w2);
+  \draw[thick] (u3) -- (w2);
+  \draw[thick] (u3) -- (w3);
+  \draw[thick] (u4) -- (w3);
+  \draw[thick] (u4) -- (w4);
+  \draw[gray!50] (u5) -- (w5);
+
+  % Circle subset X (BrickRed)
+  \draw[dashed, BrickRed, ultra thick] (0, 0) ellipse (0.5cm and 1.4cm);
+  \node[BrickRed] at (-0.8, 0) {\textbf{$X$}};
+
+  % Circle subset E(X) (ForestGreen)
+  \draw[dashed, ForestGreen, ultra thick] (3, 0.5) ellipse (0.5cm and 1.9cm);
+  \node[ForestGreen] at (3.8, 1) {\textbf{$E(X)$}};
+\end{tikzpicture}
+\end{center}
+
+\begin{explanation-of-steps}[Bedeutung der Nachbarschaftsmenge]
+Die Nachbarschaftsmenge $E(X)$ (auch als \newterm{Schnitt} oder \newterm{Kantenbild} bezeichnet) besteht aus allen Knoten der Partition $W$, die über mindestens eine Kante mit einem Knoten aus der Teilmenge $X \subseteq U$ verbunden sind.
 \end{explanation-of-steps}
 \end{math-stroke}
 
-\begin{spoken-clean}[00:59:56 - 01:01:08]
-Bipartite Graphen treten in der Praxis erstaunlich häufig auf. Denken Sie beispielsweise an ein Netzwerk von Brieffreundschaften zwischen Menschen in Europa und Menschen in Amerika: Jede Person lebt entweder in Europa oder in Amerika, und Briefe werden definitionsgemäß nur über den Atlantik hinweg ausgetauscht. Das ist ein klassischer bipartiter Graph.
+\begin{spoken-clean}[00:56:47 - 00:58:37]
+Bipartit heißt also: Hier drüben haben wir alle Knoten aus $U$, dort drüben alle Knoten aus $W$. \inlinemetanote{zeigt auf die Zeichnung an der Tafel} Und gewisse davon sind miteinander verbunden --- was weiß ich, ein ganz normaler Graph eben.
+
+Wenn wir jetzt hier eine Teilmenge von $U$ haben, sagen wir $X$ zum Beispiel, dann schauen wir uns das $E(X)$ an. Das sind dann alle Knoten in $W$, die mit mindestens einem Knoten in $X$ verbunden sind. Und ganz ähnlich definieren wir auch $E(Y)$ für eine Teilmenge $Y \subseteq W$.
+
+Es geht hierbei um das folgende Problem, das ich kurz erklären möchte. \inlinemetanote{wischt die mittlere Tafel}
 \end{spoken-clean}
-
-\begin{math-stroke}[Beispiel eines bipartiten Graphen]
-\begin{example}[Brieffreunde-Netzwerk]\label[example]{ex:brieffreunde}
-Betrachte das Netzwerk von Brieffreunden zwischen Europa und Amerika. Wir definieren den Graphen $G = (U, W, E)$ durch:
-\begin{itemize}
-    \item \textbf{$U$:} Die Menge der Personen in Europa.
-    \item \textbf{$W$:} Die Menge der Personen in Amerika.
-    \item \textbf{$E$:} Die Menge der Kanten, wobei $\{u, w\} \in E$ bedeutet, dass $u \in U$ und $w \in W$ Brieffreunde sind.
-\end{itemize}
-Da Briefe nur über den Atlantik geschickt werden (keine Brieffreundschaften innerhalb Europas oder innerhalb Amerikas), ist dieser Graph bipartit.
-\end{example}
-\end{math-stroke}
-
-\begin{spoken-clean}[01:01:08 - 01:02:13]
-Machen wir noch eine Definition für ungerichtete bipartite Graphen. Bei bipartiten Graphen spielt die Unterscheidung zwischen gerichtet und ungerichtet ohnehin keine allzu große Rolle, da man für jede Kante durch die Aufteilung der Knotenmengen immer genau weiß, ob sie in $U$ beginnt und in $W$ endet.
-\end{spoken-clean}
-
-\begin{math-stroke}
-\begin{definition}[Bipartiter Graph]\label[definition]{def:bipartit-formal}
-Ein ungerichteter Graph $G = (V, E)$ heißt \newterm{bipartit}, falls sich seine Knotenmenge $V$ als disjunkte Vereinigung zweier Teilmengen $U$ und $W$ darstellen lässt:
-\[
-V = U \;\dot{\cup}\; W \quad (\text{d.\,h. } V = U \cup W \text{ und } U \cap W = \emptyset),
-\]
-sodass alle Kanten in $E$ ausschließlich zwischen $U$ und $W$ verlaufen:
-\[
-E \subseteq \bigl\{ \{u, w\} \;\big|\; u \in U, w \in W \bigr\}.
-\]
-Wir schreiben einen solchen Graphen auch als Tripel $G = (U, W, E)$.
-\end{definition}
-\end{math-stroke}
-
-\begin{spoken-clean}[01:02:13 - 01:03:23]
-Wir definieren nun für eine Teilmenge $X \subseteq U$ die Nachbarschaft $E(X)$ als die Menge aller Knoten $y \in W$, für die ein $x \in X$ existiert, sodass $\{x, y\}$ eine Kante im Graphen ist. Analog definieren wir die Nachbarschaft $E(Y)$ für eine Teilmenge $Y \subseteq W$.
-\end{spoken-clean}
-
-\begin{ai-global-state-checkpoint-invisible-content}
-% timestamp: 01:03:23
-% topic: Definition der Nachbarschaft in bipartiten Graphen
-% board_state: def:bipartit-formal, def:nachbarschaft-bipartit
-% next_goal: Visualisierung der Nachbarschaft und Einführung des Heiratssatzes
-% open_loops: none
-\end{ai-global-state-checkpoint-invisible-content}
-
-\begin{math-stroke}
-\begin{definition}[Nachbarschaft]\label[definition]{def:nachbarschaft-bipartit}
-Sei $G = (U, W, E)$ ein bipartiter Graph. Für eine Teilmenge von Knoten $X \subseteq U$ definieren wir die \newterm{Nachbarschaft} $E(X)$ (oft auch als $N(X)$ bezeichnet) als die Menge aller Knoten in $W$, die mit mindestens einem Knoten aus $X$ verbunden sind:
-\[
-E(X) := \bigl\{ y \in W \;\big|\; \exists x \in X \colon \{x, y\} \in E \bigr\}.
-\]
-Analog definieren wir die Nachbarschaft $E(Y)$ für eine Teilmenge $Y \subseteq W$.
-\end{definition}
-\end{math-stroke}
-
-\begin{spoken-clean}[01:03:23 - 01:04:39]
-Anschaulich bedeutet das: Auf der einen Seite haben wir die Knotenmenge $U$, auf der anderen Seite die Knotenmenge $W$, und dazwischen verlaufen die Kanten. Wenn wir nun eine Teilmenge $X \subseteq U$ betrachten, dann ist $E(X)$ die Menge all derjenigen Knoten in $W$, die mit mindestens einem Knoten aus $X$ durch eine Kante verbunden sind.
-\end{spoken-clean}
-
-\begin{math-stroke}[Visualisierung der Nachbarschaft]
-\begin{center}
-\begin{tikzpicture}[scale=1.3, thick, >=stealth]
-  % \begin{ai-tikz-planner-invisible-content}
-  % 1. Background: Bipartiter Graph mit zwei disjunkten Spalten U und W.
-  % 2. Midground: Teilmenge X in U (lila hinterlegt) und ihre Nachbarschaft E(X) in W (orange hinterlegt).
-  % 3. Foreground: Kanten, die von X nach E(X) verlaufen.
-  % \end{ai-tikz-planner-invisible-content}
-  
-  % Column U
-  \coordinate (U1) at (0,3);
-  \coordinate (U2) at (0,2);
-  \coordinate (U3) at (0,1);
-  \coordinate (U4) at (0,0);
-  
-  % Column W
-  \coordinate (W1) at (4,3);
-  \coordinate (W2) at (4,2);
-  \coordinate (W3) at (4,1);
-  \coordinate (W4) at (4,0);
-  
-  % Shading for X (lila)
-  \draw[fill=Fuchsia!10, draw=Fuchsia, dashed, rounded corners=5pt] (-0.4, 0.6) rectangle (0.4, 2.4);
-  \node[Fuchsia, left=0.5cm of U2] {\textbf{$X$}};
-  
-  % Shading for E(X) (orange)
-  \draw[fill=BurntOrange!10, draw=BurntOrange, dashed, rounded corners=5pt] (3.6, 0.6) rectangle (4.4, 3.4);
-  \node[BurntOrange, right=0.5cm of W2] {\textbf{$E(X)$}};
-  
-  % Edges
-  \draw[thick, Fuchsia] (U2) -- (W1);
-  \draw[thick, Fuchsia] (U2) -- (W2);
-  \draw[thick, Fuchsia] (U3) -- (W2);
-  \draw[thick, Fuchsia] (U3) -- (W3);
-  \draw[thick, gray!40] (U1) -- (W1);
-  \draw[thick, gray!40] (U4) -- (W4);
-  
-  % Nodes
-  \filldraw[fill=white, draw=black] (U1) circle (3pt) node[left] {$u_1$};
-  \filldraw[fill=white, draw=black] (U2) circle (3pt) node[left] {$u_2$};
-  \filldraw[fill=white, draw=black] (U3) circle (3pt) node[left] {$u_3$};
-  \filldraw[fill=white, draw=black] (U4) circle (3pt) node[left] {$u_4$};
-  
-  % Nodes (W)
-  \filldraw[fill=white, draw=black] (W1) circle (3pt) node[right] {$w_1$};
-  \filldraw[fill=white, draw=black] (W2) circle (3pt) node[right] {$w_2$};
-  \filldraw[fill=white, draw=black] (W3) circle (3pt) node[right] {$w_3$};
-  \filldraw[fill=white, draw=black] (W4) circle (3pt) node[right] {$w_4$};
-  
-  % Labels
-  \node[above=0.4cm of U1, ForestGreen, font=\bfseries] {$U$};
-  \node[above=0.35cm of W1, MidnightBlue, font=\bfseries] {$W$};
-\end{tikzpicture}
-\end{center}
-\end{math-stroke}
-
-\section{Der Heiratssatz von Hall}
 
 \subsection{Der Heiratssatz von Hall}
 
-\begin{spoken-clean}[01:04:39 - 01:05:58]
-Es geht dabei um folgendes Problem, das ich Ihnen kurz erklären möchte. Ich werde gar nicht erst versuchen zu begründen, weshalb dieses Resultat historisch 'Heiratssatz' genannt wurde --- denn diese Namensgebung beruht auf völlig veralteten, heteronormativen und binären Vorstellungen, die wir hier gar nicht weiter betrachten wollen. Der Satz stammt schließlich aus den 1950er Jahren.
+\begin{spoken-clean}[00:58:37 - 01:01:27]
+Ich sage jetzt schon gar nicht, weshalb das \qt{Heiratssatz} heißt, weil das auf vollständig veralteten, chauvinistischen, heteronormativen, monogamen Definitionen von Heirat und sehr binären Geschlechtsdefinitionen beruht. Das wollen wir uns gar nicht erst anschauen. Aber es ist eben ein Satz aus den 30er-Jahren (Philip Hall, 1935).
+
+Ich kann das Problem aber anders erklären, sagen wir als Geschenkeverteilung. Wir haben folgendes Problem: Hier haben wir Kinder, $A, B, C, D, E$ zum Beispiel. Und dort drüben gibt es Geschenke, $1, 2, 3, 4, 5, 6$, die diese Kinder gerne hätten. Jede dieser Personen hat gewisse Präferenzen: Zum Beispiel möchte $A$ gerne Geschenk $1$ oder $3$, $B$ möchte gerne $2, 4, 5$ oder $6$, $C$ möchte gerne $2$ oder $3$, $D$ möchte $1$ oder $4$, und so weiter.
+
+Das kennt man ja vom Kindergeburtstag: Jeder darf sich ein Geschenk aus dem Korb aussuchen, und jedes Kind hat vielleicht drei, vier Sachen, die es gerne hätte. Gibt es eine Möglichkeit, die Geschenke so zu verteilen, dass jedes Kind ein Geschenk bekommt, das es sich auch gewünscht hat?
+
+Die mathematische Frage lautet also: Gibt es eine injektive Funktion von dieser Menge $U$ (Kinder) zu jener Menge $W$ (Geschenke)? Wir wollen jedem Kind ein Geschenk zuordnen, allerdings unter der Bedingung, dass wir ein Kind nur mit einem Geschenk paaren dürfen, das im Graphen durch eine Kante verbunden ist (d.\,h.\ das auf der Präferenzliste steht). Das ist ein sehr klassisches Alltagsproblem --- vor allem bei großen Gruppen von Kindern und Geschenken. Es kann aber natürlich auch in vielen anderen Kontexten eine Rolle spielen, zum Beispiel bei der Zuweisung von Betreuerinnen für Masterarbeiten.
+
+Und die Frage ist: Wann hat dieses Problem eine Lösung? Für welche Graphen gibt es eine solche Injektion?
 \end{spoken-clean}
 
-\begin{spoken-clean}[01:05:58 - 01:07:08]
-Das mathematische Problem lässt sich aber sehr anschaulich erklären. Stellen wir uns vor, wir haben eine Gruppe von Personen, beispielsweise $A, B, C, D, E$, und eine Menge von Geschenken oder Objekten, die diese Personen gerne hätten. Jede Person hat bestimmte Präferenzen: $A$ möchte zum Beispiel das Geschenk $1$ oder $3$, $B$ hätte gerne $2, 4, 5$ oder $6$, $C$ bevorzugt $2$ oder $3$, $D$ möchte $1$, und so weiter. Solche Situationen kennt man ja vom Kindergeburtstag, wo jedes Kind sich ein Geschenk aus einem Korb aussuchen darf und jeder eine persönliche Wunschliste im Kopf hat.
-\end{spoken-clean}
-
-\begin{math-stroke}[Beispiel zum Heiratssatz]
+\begin{math-stroke}[Das Heiratsproblem als bipartiter Graph]
 \begin{center}
-\begin{tikzpicture}[scale=1.3, thick, >=stealth]
-  % \begin{ai-tikz-planner-invisible-content}
-  % 1. Background: Bipartiter Graph mit Personen A, B, C, D, E auf der linken Seite und Geschenken 1, 2, 3, 4, 5, 6 auf der rechten Seite.
-  % 2. Foreground: Präferenzkanten zwischen Personen und Geschenken.
-  % \end{ai-tikz-planner-invisible-content}
+\begin{tikzpicture}[scale=1.2, thick]
+  % [AI-TIKZ-PLANNER: Marriage Theorem Example (Gifts and Children)]
+  % 1. Background: Top row of gifts (pink) and bottom row of children (blue).
+  % 2. Foreground: Edges representing preferences.
   
-  % Left Column: Personen (A, B, C, D, E)
-  \coordinate (A) at (0,4);
-  \coordinate (B) at (0,3);
-  \coordinate (C) at (0,2);
-  \coordinate (D) at (0,1);
-  \coordinate (E) at (0,0);
-  
-  % Right Column: Geschenke (1, 2, 3, 4, 5, 6)
-  \coordinate (G1) at (4,4.5);
-  \coordinate (G2) at (4,3.6);
-  \coordinate (G3) at (4,2.7);
-  \coordinate (G4) at (4,1.8);
-  \coordinate (G5) at (4,0.9);
-  \coordinate (G6) at (4,0);
-  
+  % Top row (Gifts)
+  \node[circle, draw=Fuchsia, fill=Fuchsia!10, minimum size=0.6cm] (g1) at (0, 2) {$1$};
+  \node[circle, draw=Fuchsia, fill=Fuchsia!10, minimum size=0.6cm] (g2) at (1.2, 2) {$2$};
+  \node[circle, draw=Fuchsia, fill=Fuchsia!10, minimum size=0.6cm] (g3) at (2.4, 2) {$3$};
+  \node[circle, draw=Fuchsia, fill=Fuchsia!10, minimum size=0.6cm] (g4) at (3.6, 2) {$4$};
+  \node[circle, draw=Fuchsia, fill=Fuchsia!10, minimum size=0.6cm] (g5) at (4.8, 2) {$5$};
+  \node[circle, draw=Fuchsia, fill=Fuchsia!10, minimum size=0.6cm] (g6) at (6.0, 2) {$6$};
+  \node[Fuchsia] at (3.0, 2.6) {\textbf{Geschenke ($W$)}};
+
+  % Bottom row (Children)
+  \node[circle, draw=NavyBlue, fill=NavyBlue!10, minimum size=0.6cm] (cA) at (0.6, 0) {$A$};
+  \node[circle, draw=NavyBlue, fill=NavyBlue!10, minimum size=0.6cm] (cB) at (1.8, 0) {$B$};
+  \node[circle, draw=NavyBlue, fill=NavyBlue!10, minimum size=0.6cm] (cC) at (3.0, 0) {$C$};
+  \node[circle, draw=NavyBlue, fill=NavyBlue!10, minimum size=0.6cm] (cD) at (4.2, 0) {$D$};
+  \node[circle, draw=NavyBlue, fill=NavyBlue!10, minimum size=0.6cm] (cE) at (5.4, 0) {$E$};
+  \node[NavyBlue] at (3.0, -0.6) {\textbf{Kinder ($U$)}};
+
   % Edges (Preferences)
-  \draw (A) -- (G1);
-  \draw (A) -- (G3);
-  \draw (B) -- (G2);
-  \draw (B) -- (G4);
-  \draw (B) -- (G5);
-  \draw (B) -- (G6);
-  \draw (C) -- (G2);
-  \draw (C) -- (G3);
-  \draw (D) -- (G1);
-  \draw (D) -- (G4);
-  \draw (E) -- (G5);
-  
-  % Nodes (Personen)
-  \filldraw[fill=white, draw=black] (A) circle (3pt) node[left] {$A$};
-  \filldraw[fill=white, draw=black] (B) circle (3pt) node[left] {$B$};
-  \filldraw[fill=white, draw=black] (C) circle (3pt) node[left] {$C$};
-  \filldraw[fill=white, draw=black] (D) circle (3pt) node[left] {$D$};
-  \filldraw[fill=white, draw=black] (E) circle (3pt) node[left] {$E$};
-  
-  % Nodes (Geschenke)
-  \filldraw[fill=white, draw=black] (G1) circle (3pt) node[right] {$1$};
-  \filldraw[fill=white, draw=black] (G2) circle (3pt) node[right] {$2$};
-  \filldraw[fill=white, draw=black] (G3) circle (3pt) node[right] {$3$};
-  \filldraw[fill=white, draw=black] (G4) circle (3pt) node[right] {$4$};
-  \filldraw[fill=white, draw=black] (G5) circle (3pt) node[right] {$5$};
-  \filldraw[fill=white, draw=black] (G6) circle (3pt) node[right] {$6$};
-  
-  % Labels
-  \node[above=0.3cm of A, ForestGreen, font=\bfseries] {Personen};
-  \node[above=0.3cm of G1, MidnightBlue, font=\bfseries] {Geschenke};
+  \draw (cA) -- (g1); \draw (cA) -- (g3);
+  \draw (cB) -- (g2); \draw (cB) -- (g4); \draw (cB) -- (g5); \draw (cB) -- (g6);
+  \draw (cC) -- (g2); \draw (cC) -- (g3);
+  \draw (cD) -- (g1); \draw (cD) -- (g4);
+  \draw (cE) -- (g2); \draw (cE) -- (g3); \draw (cE) -- (g5);
 \end{tikzpicture}
 \end{center}
+
+\begin{explanation-of-steps}[Mathematische Formulierung]
+Das Problem besteht darin, eine injektive Auswahlfunktion (ein \newterm{Matching}) $\pi \colon U \to W$ zu finden, sodass für jedes Kind $u \in U$ das zugeordnete Geschenk $\pi(u) \in W$ in seiner Präferenzmenge liegt, d.\,h.\ $\{u, \pi(u)\} \in E$.
+\end{explanation-of-steps}
 \end{math-stroke}
 
-\begin{spoken-clean}[01:07:08 - 01:08:20]
-Gibt es nun eine Möglichkeit, die Geschenke so zu verteilen, dass am Ende jede Person ein Objekt erhält, das auf ihrer Wunschliste steht? Mathematisch formuliert lautet die Frage: Gibt es eine injektive Abbildung von der Personenmenge in die Objektmenge, bei der wir jeder Person ein Element zuordnen, das mit ihr durch eine Kante verbunden ist? Das ist ein sehr klassisches und praktisches Verteilungsproblem.
+\begin{spoken-clean}[01:01:27 - 01:04:12]
+Der Heiratssatz gibt uns eine notwendige und hinreichende Bedingung. Denn wenn natürlich alle Kinder dasselbe Geschenk wollen, kann es keine solche Injektion geben, das ist völlig klar.
+
+Der Heiratssatz von Philip Hall --- einem bekannten Gruppentheoretiker --- besagt Folgendes: Sei $G = (V, E)$ ein endlicher, ungerichteter, bipartiter Graph. Dann sind die folgenden Aussagen äquivalent: \inlinemetanote{schreibt an die Tafel}
+
+\textbf{(a)} Es existiert eine Injektion $\pi \colon A \to B$, sodass für alle $a \in A$ gilt: $\{a, \pi(a)\} \in E$ (d.\,h.\ das zugeordnete Element ist durch eine Kante verbunden).
+
+\textbf{(b)} Für alle Teilmengen $X \subseteq A$ gilt die Hall-Bedingung: $|X| \le |E(X)|$.
+
+Manche Leute formulieren das anschaulich so: Zwei Elemente $a \in A$ und $b \in B$ heißen befreundet, falls eine Kante $\{a, b\} \in E$ existiert. Eine solche Injektion $\pi$ nennt man dann eine \qt{Heiratsfunktion}. Die Frage ist also: Kann man alle Elemente von $A$ monogam mit Elementen von $B$ verheiraten, sodass nur befreundete Paare verheiratet werden? Und diese Hall-Bedingung ist dafür sowohl notwendig als auch hinreichend.
 \end{spoken-clean}
 
-\begin{spoken-clean}[01:08:20 - 01:09:40]
-Das betrifft nicht nur Kindergeburtstage, sondern kann in vielen realen Szenarien eine Rolle spielen --- beispielsweise bei der Zuteilung von Masterarbeitsplätzen an Studierende. Die zentrale Frage lautet: Unter welchen Bedingungen besitzt dieses Problem für einen gegebenen Graphen eine Lösung? Wann existiert eine solche Injektion? Der Heiratssatz liefert uns hierfür eine präzise notwendige und hinreichende Bedingung. Denn wenn beispielsweise alle Personen dasselbe einzige Objekt wollen, kann es offensichtlich keine Lösung geben.
-\end{spoken-clean}
-
-\begin{ai-global-state-checkpoint-invisible-content}
-% timestamp: 01:07:18
-% topic: Einführung des Heiratssatzes von Hall
-% board_state: def:nachbarschaft-bipartit, ex:platonische-koerper
-% next_goal: Formulierung des Heiratssatzes (Hall)
-% open_loops: none
-\end{ai-global-state-checkpoint-invisible-content}
-
-\begin{spoken-clean}[01:09:40 - 01:11:00]
-Der Heiratssatz --- formuliert von dem Gruppentheoretiker Philip Hall --- gibt uns hierauf die Antwort. Wir schreiben das einmal formal auf: Sei $G = (A, B, E)$ ein endlicher, ungerichteter, bipartiter Graph. Dann sind die folgenden Aussagen äquivalent: \textbf{(a)} Es existiert eine Injektion $\pi \colon A \to B$, sodass für alle $a \in A$ gilt, dass $\{a, \pi(a)\}$ eine Kante ist. Und \textbf{(b)} für alle Teilmengen $X \subseteq A$ gilt die Hall-Bedingung: $|X| \le |E(X)|$.
-\end{spoken-clean}
-
-\begin{math-stroke}
-\begin{theorem}[Heiratssatz von Hall]\label[theorem]{thm:heiratssatz}
+\begin{math-stroke}[Der Heiratssatz von Hall]
+\begin{theorem}[Heiratssatz von Hall]\label{thm:heiratssatz-hall}
 Sei $G = (A, B, E)$ ein endlicher, ungerichteter, bipartiter Graph. Dann sind die folgenden Aussagen äquivalent:
 \begin{enumerate}[label=\textbf{(\alph*)}]
     \item Es existiert eine Injektion $\pi \colon A \to B$, sodass für alle $a \in A$ gilt:
     \[
     \{a, \pi(a)\} \in E.
     \]
-    \item Für alle Teilmengen $X \subseteq A$ gilt die Hall-Bedingung:
-    \[
+    \item Für alle Teilmengen $X \subseteq A$ gilt die \newterm{Hall-Bedingung}:
+    \begin{equation}\label{eq:hall-bedingung}
     |X| \le |E(X)|.
-    \]
+    \end{equation}
 \end{enumerate}
 \end{theorem}
-
-\begin{explanation-of-steps}[Interpretation der Hall-Bedingung]
-Die Bedingung \textbf{(b)} besagt anschaulich, dass jede Gruppe von Personen $X \subseteq A$ insgesamt mindestens so viele verschiedene Geschenke (bzw. Partner) in $B$ bevorzugen muss, wie es Personen in der Gruppe gibt. Ist diese Bedingung für auch nur eine einzige Teilmenge verletzt (d.\,h. $|X| > |E(X)|$), so können offensichtlich nicht alle Personen aus $X$ gleichzeitig ein bevorzugtes Geschenk erhalten. Hall zeigte, dass diese offensichtlich notwendige Bedingung auch hinreichend ist.
-\end{explanation-of-steps}
 \end{math-stroke}
-
-\begin{spoken-clean}[01:11:00 - 01:12:30]
-Manche Autoren verwenden zur Veranschaulichung diese Begrifflichkeiten: Zwei Elemente $a$ und $b$ heißen befreundet, wenn zwischen ihnen eine Kante existiert, und eine solche injektive Abbildung $\pi$ wird dann als Heiratsfunktion bezeichnet. Die Frage lautet also, ob man alle Elemente aus $A$ monogam mit Elementen aus $B$ verheiraten kann, sodass nur befreundete Paare entstehen. Diese Bedingung ist sowohl notwendig als auch hinreichend.
-\end{spoken-clean}
-
-\begin{math-stroke}
-\begin{definition}[Heiratsfunktion / Matching]\label[definition]{def:matching}
-Sei $G = (A, B, E)$ ein bipartiter Graph.
-\begin{itemize}
-    \item Eine Kante $\{a, b\} \in E$ repräsentiert eine \newterm{Freundschaft} zwischen $a \in A$ und $b \in B$.
-    \item Eine Injektion $\pi \colon A \to B$ mit $\{a, \pi(a)\} \in E$ für alle $a \in A$ heißt eine \newterm{Heiratsfunktion} (oder ein \newterm{vollständiges Matching} von $A$ nach $B$).
-\end{itemize}
-\end{definition}
-\end{math-stroke}
-
-\subsection{Beweis des Heiratssatzes}
 
 \begin{proof}[Beweis des Heiratssatzes von Hall]
-\begin{spoken-clean}[01:12:30 - 01:14:50]
-Wir nehmen an, es existiert eine Heiratsfunktion $\pi \colon A \to B$. Sei $X \subseteq A$ eine beliebige Teilmenge. Da $\pi$ eine Injektion ist, gilt für die Mächtigkeit des Bildes von $X$: $|X| = |\pi(X)|$. Da für jedes $x \in X$ gilt, dass $\{x, \pi(x)\} \in E$ ist, liegt das Bild von $X$ per Definition vollständig in der Nachbarschaft von $X$: $\pi(X) \subseteq E(X)$. Daraus folgt unmittelbar für die Mächtigkeiten: $|X| = |\pi(X)| \le |E(X)|$. Dies zeigt, dass die Hall-Bedingung \textbf{(b)} eine notwendige Bedingung für die Existenz einer Heiratsfunktion ist.
+
+\begin{spoken-clean}[01:04:12 - 01:06:32]
+Kommen wir zum Beweis. \inlinemetanote{schreibt an die Tafel}
+
+Die Richtung \textbf{(a)} $\implies$ \textbf{(b)} ist relativ klar: Wenn wir wissen, dass eine solche Injektion $\pi$ existiert, dann ist für jede Teilmenge $X \subseteq A$ die Kardinalität $|X|$ gleich der Kardinalität des Bildes $|\pi(X)|$. Da alle Elemente im Bild $\pi(X)$ über Kanten mit Elementen aus $X$ verbunden sind, ist dieses Bild eine Teilmenge der Nachbarschaftsmenge $E(X)$. Daraus folgt sofort: $|X| = |\pi(X)| \le |E(X)|$. Und das gilt für alle Teilmengen $X \subseteq A$. Es ist also offensichtlich, dass die Bedingung notwendig ist.
+
+Der eigentlich interessante Teil des Satzes ist die Rückrichtung \textbf{(b)} $\implies$ \textbf{(a)}, also dass die Bedingung auch hinreichend ist. Wir beweisen dies per vollständiger Induktion nach der Anzahl der Elemente in $A$ (d.\,h.\ nach $n = |A|$). \inlinemetanote{schreibt an die Tafel}
+
+Wir nehmen an, die Aussage sei für alle Graphen mit $|A| = n$ bereits bewiesen, und wollen sie nun für $|A| = n+1$ zeigen. Dazu unterscheiden wir zwei Fälle.
 \end{spoken-clean}
 
-\begin{ai-global-state-checkpoint-invisible-content}
-% timestamp: 01:12:31
-% topic: Beweis des Heiratssatzes (Hinrichtung)
-% board_state: thm:heiratssatz, def:matching
-% next_goal: Induktionsbeweis der Rückrichtung (b) => (a)
-% open_loops: none
-\end{ai-global-state-checkpoint-invisible-content}
-
-\begin{math-stroke}
-\textbf{Hinrichtung (\texorpdfstring{\textbf{(a)} $\implies$ \textbf{(b)}}{a -> b}):}
-Wir nehmen an, es existiert eine Heiratsfunktion $\pi \colon A \to B$. Sei $X \subseteq A$ eine beliebige Teilmenge.
-        
-Da $\pi$ eine Injektion ist, gilt für die Mächtigkeit des Bildes von $X$:
+\begin{math-stroke}[Beweis der Notwendigkeit und Induktionsanfang]
+\begin{short-proof}[Hinrichtung \texorpdfstring{$\mathbf{(a) \implies (b)}$}{(a) => (b)}]
+Sei $\pi \colon A \to B$ eine Injektion mit $\{a, \pi(a)\} \in E$ für alle $a \in A$. Für eine beliebige Teilmenge $X \subseteq A$ gilt aufgrund der Injektivität von $\pi$:
 \[
 |X| = |\pi(X)|.
 \]
-Da für jedes $x \in X$ gilt, dass $\{x, \pi(x)\} \in E$ ist, liegt das Bild von $X$ per Definition vollständig in der Nachbarschaft von $X$:
-\[
-\pi(X) \subseteq E(X).
-\]
-Daraus folgt unmittelbar für die Mächtigkeiten:
+Da für jedes $x \in X$ gilt, dass $\pi(x) \in E(X)$ (da $\{x, \pi(x)\} \in E$), folgt $\pi(X) \subseteq E(X)$. Somit gilt:
 \[
 |X| = |\pi(X)| \le |E(X)|.
 \]
-Dies zeigt, dass die Hall-Bedingung \textbf{(b)} eine notwendige Bedingung für die Existenz einer Heiratsfunktion ist.
+Dies zeigt die Notwendigkeit der Hall-Bedingung.
+\end{short-proof}
+
+\begin{short-proof}[Rückrichtung \texorpdfstring{$\mathbf{(b) \implies (a)}$}{(b) => (a)} --- Induktionsanfang]
+Wir führen den Beweis mittels vollständiger Induktion nach $n = |A|$:
+\par\vspace{1ex}\noindent
+\textbf{Induktionsanfang ($n = 1$):} Sei $A = \{a_1\}$. Die Bedingung \eqref{eq:hall-bedingung} für $X = A$ liefert:
+\[
+1 = |A| \le |E(A)| \implies |E(A)| \ge 1.
+\]
+Es existiert also mindestens ein $b_1 \in B$ mit $\{a_1, b_1\} \in E$. Die Abbildung $\pi(a_1) := b_1$ ist eine wohldefinierte Injektion.
+\end{short-proof}
 \end{math-stroke}
 
-\begin{spoken-clean}[01:14:50 - 01:16:15]
-Es ist klar, dass wenn so eine Heiratsfunktion existiert, dann muss diese Bedingung erfüllt sein. Ansonsten... ja, sonst geht's nicht. Jetzt das, was eigentlich der wichtige Satz ist, ist, dass das auch hinreichend ist. Also wenn diese Bedingung erfüllt ist, dann gibt es eine solche Funktion. Okay, und jetzt um zu zeigen, dass (b) impliziert (a)... Da machen wir jetzt Induktion, und zwar nach der Anzahl Elemente in $A$.
+\subsubsection{Induktionsschritt: Fall 1}
+
+\begin{spoken-clean}[01:06:32 - 01:08:47]
+\textbf{Fall 1:} Für alle echten Teilmengen $\emptyset \neq X \subsetneq A$ gilt die strikte Ungleichung $|X| < |E(X)|$.
+
+Die Hall-Bedingung sagt uns im Allgemeinen nur, dass $|X| \le |E(X)|$ ist. In diesem ersten Fall nehmen wir aber an, dass für jede echte Teilmenge sogar die strikte Ungleichung gilt.
+
+In diesem Fall wählen wir eine beliebige Kante $\{a', b'\} \in E$. Wir betrachten nun die reduzierten Mengen $A' := A \setminus \{a'\}$ und $B' := B \setminus \{b'\}$ sowie die induzierte Kantenmenge $E'$, die alle Kanten aus $E$ enthält, die zwischen $A'$ und $B'$ verlaufen. Das sind genau die Kanten, die weder mit $a'$ noch mit $b'$ inzident sind.
 \end{spoken-clean}
 
-\begin{spoken-clean}[01:16:15 - 01:17:20]
-Wir nehmen jetzt an, (b) ist erfüllt, und wir machen jetzt Induktion über die Anzahl Elemente von $A$ und zeigen, dass es jeweils so eine... so eine Funktion gibt. Okay, also falls $n = 1$ ist, ist der Fall klar. Ich meine, wenn es nur ein Element hat in $A$, okay, dann muss es mindestens eine Kante geben, die von $A$ weggeht. Wenn es das gibt, dann gibt es eine solche Funktion. Okay, also wenn das erfüllt ist, dann gibt es mindestens eine Kante, das heißt es gibt auch eine Funktion.
+\begin{spoken-clean}[01:08:47 - 01:10:52]
+Wenn wir jetzt irgendeine Teilmenge $X \subseteq A'$ betrachten, dann ist $X$ auch eine echte Teilmenge von $A$. Nach unserer Fall-1-Annahme gilt also $|X| < |E(X)|$. Daraus folgt direkt: $|X| \le |E(X)| - 1$.
+
+Da $E'(X)$ mindestens alle Nachbarn aus $E(X)$ außer eventuell $b'$ enthält, gilt $|E'(X)| \ge |E(X) \setminus \{b'\}| \ge |E(X)| - 1 \ge |X|$. Schlimmstenfalls verlieren wir durch das Weglassen von $b'$ also nur einen Nachbarn, sodass die Hall-Bedingung für den reduzierten Graphen immer noch erfüllt bleibt.
+
+Das bedeutet, dass der reduzierte Graph $G' = (A', B', E')$ die Hall-Bedingung ebenfalls erfüllt. Da $|A'| = n$ ist, existiert nach Induktionsvoraussetzung eine Injektion $\pi' \colon A' \to B'$ mit $\{a, \pi'(a)\} \in E'$ für alle $a \in A'$.
+
+Wir können diese Abbildung nun zu einer Funktion $\pi \colon A \to B$ fortsetzen, indem wir definieren: $\pi(a) := b'$, falls $a = a'$ ist, und $\pi(a) := \pi'(a)$ andernfalls. Diese Abbildung ist offensichtlich injektiv und erfüllt die Bedingung \textbf{(a)} für den gesamten Graphen.
 \end{spoken-clean}
 
-\begin{spoken-clean}[01:17:20 - 01:18:30]
-Das heißt, wir müssen nun den Induktionsschritt von $n$ auf $n+1$ vollziehen. Wir nehmen also an, die Behauptung sei für alle Graphen bewiesen, bei denen die Knotenmenge $A$ höchstens $n$ Elemente enthält. Nun müssen wir den Satz für $n+1$ beweisen.
-\end{spoken-clean}
-
-\begin{spoken-clean}[01:18:30 - 01:20:00]
-Dazu betrachten wir zwei Fälle. Der erste Fall ist dadurch charakterisiert, dass für alle echten Teilmengen $X \subsetneq A$ die Mächtigkeit $|X|$ nicht nur kleiner gleich $|E(X)|$ ist --- was wir ohnehin durch die Hall-Bedingung wissen ---, sondern sogar strikt kleiner ist: $|X| < |E(X)|$. Die Voraussetzung gibt uns also $|X| \le |E(X)|$, aber im ersten Fall nehmen wir an, dass für jede echte Teilmenge sogar die strikte Ungleichung gilt.
-\end{spoken-clean}
-
-\begin{spoken-clean}[01:20:00 - 01:21:30]
-In diesem Fall wählen wir eine beliebige Kante $\{a', b'\} \in E$. Wir definieren nun die reduzierten Mengen $A' := A \setminus \{a'\}$ und $B' := B \setminus \{b'\}$.
-\end{spoken-clean}
-
-\begin{ai-global-state-checkpoint-invisible-content}
-% timestamp: 01:17:43
-% topic: Induktionsbeweis des Heiratssatzes (Fallunterscheidung)
-% board_state: thm:heiratssatz, proof:euler-forward
-% next_goal: Beweis von Fall 1 (Strikte Ungleichung)
-% open_loops: none
-\end{ai-global-state-checkpoint-invisible-content}
-
-\begin{spoken-clean}[01:21:30 - 01:22:50]
-Nun betrachten wir die verbleibenden Kanten zwischen diesen beiden Mengen. Wir definieren $E'$ als die Menge der Kanten, die von $A'$ nach $B'$ verlaufen --- also alle ursprünglichen Kanten aus $E$ ohne diejenigen, die an $a'$ oder $b'$ angrenzen.
-\end{spoken-clean}
-
-\begin{spoken-clean}[01:22:50 - 01:24:30]
-Für jede Teilmenge $X \subseteq A'$ gilt nach unserer Annahme $|X| < |E(X)|$. Da es sich um ganze Zahlen handelt, folgt daraus $|X| \le |E(X)| - 1$. Dies ist wiederum kleiner gleich der Mächtigkeit von $E(X) \setminus \{b'\}$. Wir betrachten also alle Nachbarn von $X$ in $B$, ziehen aber eventuell den Knoten $b'$ ab. Das ist aber genau die Nachbarschaft $E'(X)$ im reduzierten Graphen --- also alle Nachbarn von $X$, die in $B'$ liegen.
-\end{spoken-clean}
-
-\begin{spoken-clean}[01:24:30 - 01:26:00]
-Das bedeutet, dass die Hall-Bedingung auch für den reduzierten Graphen $G' = (A', B', E')$ erfüllt ist. Da $|A'| = n$ ist, folgt nach der Induktionsvoraussetzung, dass eine injektive Heiratsfunktion $\pi' \colon A' \to B'$ existiert.
-\end{spoken-clean}
-
-\begin{spoken-clean}[01:26:00 - 01:27:20]
-Für diese gilt natürlich $\{a, \pi'(a)\} \in E'$ für alle $a \in A'$. Nun können wir diese Abbildung zu einer Funktion $\pi \colon A \to B$ für den gesamten Graphen erweitern. Wir definieren einfach: $\pi(a) := b'$, falls $a = a'$ ist, und $\pi(a) := \pi'(a)$ andernfalls. Diese Abbildung ist injektiv und erfüllt die gewünschte Kantenbedingung aus \textbf{(a)}.
-\end{spoken-clean}
-
-\begin{ai-global-state-checkpoint-invisible-content}
-% timestamp: 01:23:55
-% topic: Abschluss des Beweises für Fall 1
-% board_state: thm:heiratssatz, proof:euler-forward
-% next_goal: Zusammenfassung und Abschluss der Vorlesung
-% open_loops: none
-\end{ai-global-state-checkpoint-invisible-content}
-
-\begin{spoken-clean}[01:27:20 - 01:28:40]
-Das beendet den Beweis für diesen ersten Fall. Schauen Sie sich den Beweis zu Hause noch einmal in Ruhe an --- er ist nicht allzu schwer, aber mathematisch äußerst elegant, wie hier alles perfekt aufgeht. Ein wirklich schöner Induktionsbeweis mit einer klugen Fallunterscheidung. Dem Heiratssatz werden Sie in der diskreten Mathematik immer wieder begegnen; es ist ein sehr berühmtes Resultat mit vielen verschiedenen Beweisvarianten. Wenn Sie im Internet danach suchen, finden Sie im Handumdrehen ein Dutzend unterschiedliche Zugänge. Gut, so weit für heute zur Graphentheorie.
-\end{spoken-clean}
-
-\begin{math-stroke}
-\textbf{Rückrichtung (\texorpdfstring{\textbf{(b)} $\implies$ \textbf{(a)}}{b -> a}):}
-Wir beweisen die Aussage mittels vollständiger Induktion nach $n := |A|$.
-        
-\textbf{Induktionsanfang ($n = 1$):} \\
-Sei $A = \{a'\}$. Da $\emptyset \neq A \subseteq A$, gilt nach der Hall-Bedingung \textbf{(b)}:
+\begin{math-stroke}[Induktionsschritt: Fall 1]
+\begin{short-proof}[Beweis von Fall 1]
+\textbf{Fall 1: Strikte Ungleichung für alle echten Teilmengen.}
+Es gelte $|X| < |E(X)|$ für alle echten Teilmengen $\emptyset \neq X \subsetneq A$.
+\par\vspace{1ex}\noindent
+Wähle eine beliebige Kante $\{a', b'\} \in E$. Wir definieren den reduzierten Graphen $G' = (A', B', E')$ durch:
+\begin{align*}
+A' &:= A \setminus \{a'\} \\
+B' &:= B \setminus \{b'\} \\
+E' &:= E \cap (A' \times B')
+\end{align*}
+Für jede Teilmenge $X \subseteq A'$ gilt, da $X$ eine echte Teilmenge von $A$ ist ($|X| < |A|$):
 \[
-1 = |A| \le |E(A)| \implies E(A) \neq \emptyset.
+|X| \le |E(X)| - 1.
 \]
-Es existiert also mindestens ein Element $b' \in B$ mit $\{a', b'\} \in E$. Wir definieren die Abbildung $\pi \colon A \to B$ durch $\pi(a') := b'$. Diese Abbildung ist trivialerweise injektiv und erfüllt $\{a', \pi(a')\} \in E$.
-        
-\textbf{Induktionsschritt ($n \to n+1$):} \\
-Wir nehmen an, die Behauptung gilt für alle bipartiten Graphen mit $|A| \le n$. Sei nun $G = (A, B, E)$ ein bipartiter Graph mit $|A| = n+1$, der die Hall-Bedingung \textbf{(b)} erfüllt. Wir unterscheiden zwei Fälle:
-        
-\textbf{Fall 1: Für alle echten Teilmengen $\emptyset \neq X \subsetneq A$ gilt die strikte Ungleichung $|X| < |E(X)|$.}
-\begin{enumerate}[label=\textbf{(\arabic*)}]
-    \item \textbf{Wahl einer Kante:} Wir wählen eine beliebige Kante $\{a', b'\} \in E$ mit $a' \in A$ und $b' \in B$.
-    \item \textbf{Konstruktion des reduzierten Graphen:} Wir definieren die reduzierten Mengen:
-    \[
-    A' := A \setminus \{a'\}, \quad B' := B \setminus \{b'\}
-    \]
-    sowie die eingeschränkte Kantenmenge $E' := E \cap (A' \times B')$. Der reduzierte Graph ist $G' = (A', B', E')$ mit $|A'| = n$.
-    \item \textbf{Verifikation der Hall-Bedingung für $G'$:} Sei $X \subseteq A'$ eine beliebige Teilmenge.
-    \begin{itemize}
-        \item Falls $X = \emptyset$, gilt trivialerweise $|X| = 0 \le |E'(X)|$.
-        \item Falls $X \neq \emptyset$, ist $X \subsetneq A$ eine echte Teilmenge von $A$ (da $a' \notin X$). Nach der Annahme von Fall 1 gilt:
-        \[
-        |X| < |E(X)| \implies |X| \le |E(X)| - 1.
-        \]
-        Da $b'$ das einzige Element ist, das in $B$ aber nicht in $B'$ liegt, gilt für die Nachbarschaft $E'(X)$ von $X$ im reduzierten Graphen $G'$:
-        \[
-        |E'(X)| \ge |E(X) \setminus \{b'\}| \ge |E(X)| - 1 \ge |X|.
-        \]
-        Somit erfüllt der reduzierte Graph $G'$ ebenfalls die Hall-Bedingung.
-    \end{itemize}
-    \item \textbf{Anwendung der Induktionsvoraussetzung:} Da $|A'| = n$, existiert nach Induktionsannahme eine Injektion $\pi' \colon A' \to B'$ mit $\{a, \pi'(a)\} \in E'$ für alle $a \in A'$.
-    \item \textbf{Konstruktion der Gesamtinjektion:} Wir definieren $\pi \colon A \to B$ durch:
-    \[
-    \pi(a) := \begin{cases}
-    b' & \text{falls } a = a' \\
-    \pi'(a) & \text{falls } a \neq a'
-    \end{cases}
-    \]
-    Da $\pi'$ injektiv ist und ihr Bild vollständig in $B'$ liegt (somit $b' \notin \operatorname{Im}(\pi')$), ist auch $\pi$ eine injektive Abbildung. Zudem gilt nach Konstruktion $\{a, \pi(a)\} \in E$ für alle $a \in A$.
-\end{enumerate}
-        
-\textbf{Fall 2: Es existiert eine echte Teilmenge $\emptyset \neq A_1 \subsetneq A$ mit $|A_1| = |E(A_1)|$.}
-\begin{enumerate}[label=\textbf{(\arabic*)}]
-    \item \textbf{Aufteilung des Graphen:} Wir definieren $B_1 := E(A_1)$ und betrachten den Teilgraphen $G_1 = (A_1, B_1, E_1)$ mit $E_1 := E \cap (A_1 \times B_1)$. Da $|A_1| \le n$ und $G_1$ die Hall-Bedingung erbt, existiert nach Induktionsannahme eine Injektion $\pi_1 \colon A_1 \to B_1$ mit $\{a, \pi_1(a)\} \in E_1$ für alle $a \in A_1$. Da $|A_1| = |B_1|$, ist $\pi_1$ sogar eine Bijektion.
-    \item \textbf{Betrachtung des Komplements:} Wir definieren die Komplementärmengen:
-    \[
-    A_2 := A \setminus A_1, \quad B_2 := B \setminus B_1
-    \]
-    und den Graphen $G_2 = (A_2, B_2, E_2)$ mit $E_2 := E \cap (A_2 \times B_2)$.
-    \item \textbf{Verifikation der Hall-Bedingung für $G_2$:} Sei $X \subseteq A_2$ eine beliebige Teilmenge. Wir müssen zeigen, dass $|X| \le |E_2(X)|$ gilt.
-    Betrachte die Vereinigung $X \cup A_1 \subseteq A$. Da $G$ die Hall-Bedingung erfüllt, gilt:
-    \[
-    |X \cup A_1| \le |E(X \cup A_1)| = |E(X) \cup E(A_1)|.
-    \]
-    Da $X$ und $A_1$ disjunkt sind, gilt $|X \cup A_1| = |X| + |A_1\|$. Zudem lässt sich die Nachbarschaft aufteilen in:
-    \[
-    E(X) \cup E(A_1) = E_2(X) \;\dot{\cup}\; E(A_1) = E_2(X) \;\dot{\cup}\; B_1.
-    \]
-    Daraus folgt für die Mächtigkeiten:
-    \begin{explanation-of-steps}[Aufteilung der Nachbarschaften]
-    Warum ist $E(X) \cup E(A_1) = E_2(X) \;\dot{\cup}\; B_1$? Die Menge $E(X)$ enthält Nachbarn von $X$, die teils in $B_1$ und teils in $B_2$ liegen. Die Nachbarn in $B_2$ bilden genau die Menge $E_2(X)$. Die Nachbarn in $B_1$ werden durch die Vereinigung mit $B_1$ absorbiert. Da $B_1$ und $B_2$ disjunkt sind, ist auch $E_2(X) \subseteq B_2$ disjunkt zu $B_1$.
-    \end{explanation-of-steps}
-    \[
-    |X| + |A_1| \le |E_2(X)| + |B_1|.
-    \]
-    Da nach Voraussetzung dieses Falles $|A_1| = |B_1|$ gilt, kürzen sich diese Terme weg und wir erhalten:
-    \[
-    |X| \le |E_2(X)|.
-    \]
-    Somit erfüllt auch $G_2$ die Hall-Bedingung.
-    \item \textbf{Zusammenführung der Teillösungen:} Da $|A_2| < |A| = n+1$, existiert nach Induktionsannahme eine Injektion $\pi_2 \colon A_2 \to B_2$ mit $\{a, \pi_2(a)\} \in E_2$ für alle $a \in A_2$.
-    Wir definieren die Gesamtinjektion $\pi \colon A \to B$ durch:
-    \[
-    \pi(a) := \begin{cases}
-    \pi_1(a) & \text{falls } a \in A_1 \\
-    \pi_2(a) & \text{falls } a \in A_2
-    \end{cases}
-    \]
-    Da $\pi_1 \colon A_1 \to B_1$ und $\pi_2 \colon A_2 \to B_2$ injektiv sind und ihre Bildmengen $B_1$ und $B_2$ disjunkt sind, ist $\pi$ eine wohldefinierte Injektion auf ganz $A$, die die Kantenbedingung erfüllt.
-\end{enumerate}
-Dies schließt den Induktionsbeweis für beide Fälle ab.
+Da $E'(X) \ge E(X) \setminus \{b'\}$, folgt:
+\[
+|E'(X)| \ge |E(X)| - 1 \ge |X|.
+\]
+Somit erfüllt der Teilgraph $G'$ die Hall-Bedingung. Nach Induktionsvoraussetzung existiert eine Injektion $\pi' \colon A' \to B'$ mit $\{a, \pi'(a)\} \in E'$ für alle $a \in A'$.
+\par\vspace{1ex}\noindent
+Wir definieren die Abbildung $\pi \colon A \to B$ durch:
+\[
+\pi(a) := \begin{cases}
+b' & \text{falls } a = a' \\
+\pi'(a) & \text{falls } a \in A'
+\end{cases}
+\]
+Diese Abbildung $\pi$ ist injektiv und erfüllt $\{a, \pi(a)\} \in E$ für alle $a \in A$.
+\end{short-proof}
+\end{math-stroke}
+
+\subsubsection{Induktionsschritt: Fall 2}
+
+\begin{spoken-clean}[01:10:52 - 01:12:42]
+Okay, dieser erste Fall ist also relativ klar: Wir haben unsere Knoten in $A$ und unsere Knoten in $B$. Wir nehmen einfach eine Kante heraus, und dank der starken Fall-1-Bedingung erfüllt der verbleibende Teilgraph immer noch die Hall-Bedingung. Wir erhalten per Induktion eine Injektion für den Rest und setzen diese durch die herausgenommene Kante fort. Soweit, so gut.
+
+Schauen wir uns nun \textbf{Fall 2} an: Wir befinden uns nicht im ersten Fall. Das heißt, es gilt nicht für alle echten Teilmengen $X \subsetneq A$, dass $|X| < |E(X)|$ ist. Da die Hall-Bedingung für den Gesamtgraphen gilt, bedeutet dies, dass eine echte Teilmenge $\emptyset \neq A_1 \subsetneq A$ existiert, für die Gleichheit gilt:
+\[
+|A_1| = |E(A_1)|.
+\]
+\end{spoken-clean}
+
+\begin{spoken-clean}[01:12:42 - 01:15:02]
+Wir haben also hier unsere Menge $A$ und dort unsere Menge $B$. Nun gibt es eine echte Teilmenge $A_1 \subsetneq A$, deren Nachbarschaftsmenge $E(A_1)$ genau gleich groß ist wie $A_1 selbst$.
+
+Wir definieren nun $B_1 := E(A_1) \subseteq B$. Die verbleibenden Mengen bezeichnen wir mit $A_2 := A \setminus A_1$ und $B_2 := B \setminus B_1$.
+
+Das heißt, alle restlichen Knoten in $A$ bilden die Menge $A_2$, und alle restlichen Knoten in $B$ bilden die menge $B_2$. Entsprechend definieren wir die induzierten Kantenmengen: $E_1$ enthält alle Kanten zwischen $A_1$ und $B_1$, und $E_2$ enthält alle Kanten zwischen $A_2$ und $B_2$.
+\end{spoken-clean}
+
+\begin{math-stroke}[Induktionsschritt: Fall 2 Partitionierung]
+\begin{center}
+\begin{tikzpicture}[scale=1.2, thick]
+  % [AI-TIKZ-PLANNER: Proof Case 2 (Partitioning of A and B)]
+  % 1. Background: Split rectangles for A and B.
+  % 2. Midground: Partition lines separating A1/A2 and B1/B2.
+  % 3. Foreground: Mapping arrows showing the induction steps.
+  
+  % Set A
+  \draw[thick, MidnightBlue, fill=MidnightBlue!5] (0,0) rectangle (2,4);
+  \draw[dashed, MidnightBlue, thick] (0,2) -- (2,2);
+  \node at (1,3) {\textbf{$A_1$}};
+  \node at (1,1) {\textbf{$A_2$}};
+  \node[MidnightBlue] at (1, 4.3) {\large $A$};
+
+  % Set B
+  \draw[thick, ForestGreen, fill=ForestGreen!5] (5,0) rectangle (7,4);
+  \draw[dashed, ForestGreen, thick] (5,2) -- (7,2);
+  \node at (6,3) {\textbf{$B_1 = E(A_1)$}};
+  \node at (6,1) {\textbf{$B_2$}};
+  \node[ForestGreen] at (6, 4.3) {\large $B$};
+
+  % Mapping arrows
+  \draw[->, ultra thick, RoyalBlue] (2.2,3) -- (4.8,3) node[midway, above] {$\pi_1$};
+  \draw[->, ultra thick, ForestGreen] (2.2,1) -- (4.8,1) node[midway, above] {$\pi_2$};
+  \draw[->, dashed, gray, line width=1.2pt] (2.2,2.8) -- (4.8,1.2);
+  \node[gray, rotate=-31, above] at (3.5,2.1) {\footnotesize keine Kanten};
+\end{tikzpicture}
+\end{center}
+\end{math-stroke}
+
+\begin{spoken-clean}[01:15:02 - 01:17:32]
+Nun wollen wir auf diese Teilmengen die Induktionsvoraussetzung anwenden. Wir wissen, dass $A_1$ eine echte Teilmenge von $A$ ist. Da $|A_1| < |A| = n+1$ gilt, hat $A_1$ höchstens $n$ Elemente. Da die Hall-Bedingung für den Gesamtgraphen $G$ gilt, gilt sie insbesondere auch für jede Teilmenge von $A_1$. Nach Induktionsvoraussetzung existiert daher eine Injektion $\pi_1 \colon A_1 \to B_1$ mit $\{a, \pi_1(a)\} \in E_1$ für alle $a \in A_1$.
+
+Jetzt müssen wir noch zeigen, dass der verbleibende Teilgraph $G_2 = (A_2, B_2, E_2)$ ebenfalls die Hall-Bedingung erfüllt. Angenommen, dies sei nicht der Fall. Dann existiert eine Teilmenge $X \subseteq A_2$, für die gilt:
+\[
+|X| > |E_2(X)|.
+\]
+\end{spoken-clean}
+
+\begin{spoken-clean}[01:17:32 - 01:20:02]
+Wir betrachten nun die disjunkte Vereinigung $A_1 \cup X \subseteq A$. Da $A_1$ und $X$ disjunkt sind, gilt für die Kardinalität:
+\[
+|A_1 \cup X| = |A_1| + |X|.
+\]
+Nach unserer Annahme für Fall 2 gilt $|A_1| = |E(A_1)|$, und nach der Widerspruchsannahme gilt $|X| > |E_2(X)|$. Setzen wir das ein, erhalten wir:
+\[
+|A_1| + |X| > |E(A_1)| + |E_2(X)|.
+\]
+Da $E(A_1) \subseteq B_1$ und $E_2(X) \subseteq B_2$ disjunkt sind, ist die Summe ihrer Kardinalitäten genau gleich der Kardinalität ihrer Vereinigung:
+\[
+|E(A_1)| + |E_2(X)| = |E(A_1) \cup E_2(X)|.
+\]
+Da alle Kanten, die von $A_1 \cup X$ ausgehen, entweder in $B_1$ (was genau $E(A_1)$ entspricht) oder in $B_2$ (was $E_2(X)$ entspricht) landen müssen, ist $E(A_1 \cup X) \supseteq E(A_1) \cup E_2(X)$. Daraus folgt:
+\[
+|E(A_1) \cup E_2(X)| \le |E(A_1 \cup X)|.
+\]
+\end{spoken-clean}
+
+\begin{spoken-clean}[01:20:02 - 01:22:32]
+Zusammengenommen erhalten wir also:
+\[
+|A_1 \cup X| > |E(A_1 \cup X)|.
+\]
+Dies steht jedoch im direkten Widerspruch zur Hall-Bedingung für den Gesamtgraphen $G$, von der wir wissen, dass sie für alle Teilmengen erfüllt sein muss.
+
+Unsere Widerspruchsannahme war also falsch, und der Teilgraph $G_2 = (A_2, B_2, E_2)$ erfüllt die Hall-Bedingung ebenfalls. Da $|A_2| \le n$ ist, existiert nach Induktionsvoraussetzung eine Injektion $\pi_2 \colon A_2 \to B_2$ mit $\{a, \pi_2(a)\} \in E_2$ für alle $a \in A_2$.
+
+Nun können wir diese beiden Abbildungen zusammensetzen: Wir definieren die Abbildung $\pi \colon A \to B$ durch $\pi(a) := \pi_1(a)$, falls $a \in A_1$ ist, und $\pi(a) := \pi_2(a)$ andernfalls. Da $B_1$ und $B_2$ disjunkt sind, ist diese zusammengesetzte Abbildung ebenfalls injektiv und erfüllt $\{a, \pi(a)\} \in E$ für alle $a \in A$. Dies beendet den Beweis.
+\end{spoken-clean}
+
+\begin{math-stroke}[Induktionsschritt: Fall 2 Widerspruchsbeweis]
+\begin{short-proof}[Beweis von Fall 2]
+\textbf{Fall 2: Existenz einer scharfen Schranke für eine echte Teilmenge.}
+Es existiere eine echte Teilmenge $\emptyset \neq A_1 \subsetneq A$ mit $|A_1| = |E(A_1)|$.
+\par\vspace{1ex}\noindent
+Wir definieren die disjunkten Partitionen:
+\begin{align*}
+B_1 &:= E(A_1) \\
+A_2 &:= A \setminus A_1 \\
+B_2 &:= B \setminus B_1
+\end{align*}
+Sowie die induzierten Kantenmengen $E_1 := E \cap (A_1 \times B_1)$ und $E_2 := E \cap (A_2 \times B_2)$.
+\par\vspace{1ex}\noindent
+Da $|A_1| < |A|$, existiert nach Induktionsvoraussetzung eine Injektion $\pi_1 \colon A_1 \to B_1$ mit $\{a, \pi_1(a)\} \in E_1$ für alle $a \in A_1$.
+\par\vspace{1ex}\noindent
+Wir zeigen nun, dass der Teilgraph $G_2 = (A_2, B_2, E_2)$ ebenfalls die Hall-Bedingung erfüllt. Angenommen, dies sei nicht der Fall. Dann existiert eine Teilmenge $X \subseteq A_2$ mit:
+\begin{equation}\label{eq:contradiction-assumption}
+|X| > |E_2(X)|.
+\end{equation}
+Wir betrachten die disjunkte Vereinigung $A_1 \cup X \subseteq A$. Es gilt:
+\begin{align}
+|A_1 \cup X| &= |A_1| + |X| \nonumber \\
+&> |E(A_1)| + |E_2(X)| \quad \text{(wegen \eqref{eq:contradiction-assumption} und } |A_1| = |E(A_1)|) \nonumber \\
+&= |E(A_1) \cup E_2(X)|. \label{eq:union-ineq}
+\end{align}
+Da alle Kanten von $A_1 \cup X$ entweder in $B_1 = E(A_1)$ oder in $B_2$ landen müssen, gilt $E(A_1 \cup X) \supseteq E(A_1) \cup E_2(X)$. Daraus folgt mit \eqref{eq:union-ineq}:
+\[
+|A_1 \cup X| > |E(A_1 \cup X)|.
+\]
+Dies steht im Widerspruch zur Hall-Bedingung für den Gesamtgraphen $G$. Somit erfüllt $G_2$ die Hall-Bedingung, und nach Induktionsvoraussetzung existiert eine Injektion $\pi_2 \colon A_2 \to B_2$ mit $\{a, \pi_2(a)\} \in E_2$ für alle $a \in A_2$.
+\par\vspace{1ex}\noindent
+Die zusammengesetzte Abbildung $\pi \colon A \to B$ mit:
+\[
+\pi(a) := \begin{cases}
+\pi_1(a) & \text{falls } a \in A_1 \\
+\pi_2(a) & \text{falls } a \in A_2
+\end{cases}
+\]
+ist injektiv und erfüllt $\{a, \pi(a)\} \in E$ für alle $a \in A$.
+\end{short-proof}
 \end{math-stroke}
 \end{proof}
 
+\begin{spoken-clean}[01:24:49 - 01:26:33]
+Ja, schauen Sie sich den Beweis nochmals in Ruhe an --- er ist nicht so schwierig, aber wirklich elegant, wie das alles aufgeht. Ein sehr schöner Induktionsbeweis mit diesen beiden Fallunterscheidungen.
+
+Sie sind diesem Satz vielleicht auch schon einmal begegnet. Es ist ein sehr berühmtes Resultat, für das es viele verschiedene Beweise gibt --- wenn Sie im Internet nach \qt{Beweise des Heiratssatzes} suchen, finden Sie bestimmt sehr schnell zehn verschiedene Ansätze und Varianten.
+
+Gut, so weit zur Graphentheorie. Machen Sie bitte die Übungsaufgaben; es sind ein paar nette Aufgaben zur Graphentheorie dabei, um einfach mit dieser Art von Mathematik etwas vertrauter zu werden. Nächste Woche machen wir dann mit elementarer Zahlentheorie weiter.
+
+Vielen Dank und eine schöne Woche!
+\inlinemetanote{Die Studenten applaudieren, der Dozent packt seine Unterlagen ein}
+\end{spoken-clean}
+
+\begin{didactic-insight}[Die mathematische Tiefe des Heiratssatzes]
+Der Heiratssatz von Hall (1935) ist ein zentrales Resultat der diskreten Mathematik und der Kombinatorik. Er ist äquivalent zu vielen anderen fundamentalen Sätzen, wie dem \newterm{Max-Flow-Min-Cut-Theorem} von Ford und Fulkerson, dem \newterm{Satz von Menger} über disjunkte Pfade und dem \newterm{Satz von Dilworth} über Antiketten in Halbordnungen. Die hier gezeigte Induktionsmethode über die Kardinalität der Knotenmenge verdeutlicht die strukturelle Eleganz kombinatorischer Beweise.
+\end{didactic-insight}
+
 \begin{nice-box}[Zusammenfassung der Schlüsselkonzepte]
-In dieser Vorlesung haben wir wichtige Grundlagen der Graphentheorie und deren praktische Anwendungen kennengelernt:
-\begin{itemize}
-    \item \textbf{Handschlaglemma:} Die Summe aller Knotengrade in einem Graphen ist stets doppelt so groß wie die Anzahl der Kanten ($\sum \deg(v) = 2|E|$). Daraus folgt, dass die Anzahl der Knoten mit ungeradem Grad immer gerade sein muss.
-    \item \textbf{Euler-Linien und Euler-Graphen:} Ein zusammenhängender Graph besitzt genau dann eine geschlossene Euler-Linie (einen geschlossenen Kantenzug, der jede Kante exakt einmal enthält), wenn jeder Knotengrad gerade ist. Dies löst unter anderem das historische Königsberger Brückenproblem und das Dominoproblem.
-    \item \textbf{Hamilton-Kreise und Hamilton-Graphen:} Ein Hamilton-Kreis ist ein geschlossener Weg, der jeden Knoten des Graphen genau einmal besucht. Im Gegensatz zu Euler-Graphen ist die Bestimmung der Hamiltonizität im Allgemeinen ein NP-schweres Problem. Wichtige Beispiele sind die Kantengraphen platonischer Körper und Hyperwürfel (deren Hamilton-Kreise den Gray-Codes entsprechen).
-    \item \textbf{Bipartite Graphen:} Ein Graph ist bipartit, wenn sich seine Knotenmenge in zwei disjunkte Teilmengen $U$ und $W$ aufteilen lässt, sodass Kanten nur zwischen $U$ und $W$ verlaufen. Dies ist äquivalent zur Zwei-Färbbarkeit des Graphen.
-    \item \textbf{Heiratssatz von Hall:} Ein bipartiter Graph $G = (A, B, E)$ besitzt genau dann ein vollständiges Matching (eine Heiratsfunktion) von $A$ nach $B$, wenn für jede Teilmenge $X \subseteq A$ die Hall-Bedingung $|X| \le |E(X)|$ erfüllt ist.
-\end{itemize}
+In dieser Vorlesung haben wir vier fundamentale Themenbereiche der Graphentheorie behandelt:
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item \textbf{Das Handschlaglemma:} In jedem endlichen Graphen ist die Anzahl der Knoten mit ungeradem Grad stets gerade. Dies folgt direkt aus der Tatsache, dass die Summe aller Knotengrade genau das Doppelte der Kantenanzahl beträgt.
+    \item \textbf{Euler-Graphen:} Ein zusammenhängender Graph besitzt genau dann eine geschlossene Euler-Linie (einen Kantenzug, der jede Kante exakt einmal enthält), wenn jeder Knoten einen geraden Grad aufweist.
+    \item \textbf{Hamilton-Graphen:} Ein Graph ist hamiltonsch, wenn er einen Kreis besitzt, der jeden Knoten exakt einmal besucht. Wir haben gezeigt, dass der $k$-dimensionale Hyperwürfel $Q_k$ stets hamiltonsch ist, was äquivalent zur Existenz eines zyklischen Gray-Codes ist.
+    \item \textbf{Der Heiratssatz von Hall:} Ein bipartiter Graph $G = (A, B, E)$ besitzt genau dann ein perfektes Matching (eine Injektion von $A$ nach $B$ entlang der Kanten), wenn für jede Teilmenge $X \subseteq A$ die Hall-Bedingung $|X| \le |E(X)|$ erfüllt ist.
+\end{enumerate}
 \end{nice-box}
+
+% [SYSTEM] Refinement complete

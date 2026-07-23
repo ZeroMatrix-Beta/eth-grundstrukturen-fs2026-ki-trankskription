@@ -5,7 +5,6 @@
 % ==========================================
 
 \usepackage[utf8]{inputenc}
-\DeclareUnicodeCharacter{00DF}{ss}
 \usepackage[T1]{fontenc}
 
 % --- FONT CONFIGURATION ---
@@ -15,6 +14,8 @@
 \renewcommand{\sfdefault}{lmss}
 
 \usepackage[swissgerman]{babel} 
+\usepackage{newunicodechar}
+\newunicodechar{ß}{ss}
 % \usepackage[final,babel=true,expansion=false]{microtype} % Auskommentiert zur Einsparung von TeX-Speicher
 \usepackage{csquotes}
 
@@ -969,37 +970,42 @@ breakable
 \cleardoublepage
 
 
+\include{content/week1-02-17-25-tuesday.tex}
 
-\include{content/week1-step4-02-17-25-tuesday-all-offset-final.tex}
+\include{content/week2-02-24-25-tuesday.tex}
 
-\include{content/week2-step4-02-24-25-tuesday-all-offset-final.tex}
+\include{content/week3-03-03-25-tuesday.tex}
 
-\include{content/week3-step4-03-03-25-tuesday-all-offset-final.tex}
+\include{content/week4-03-10-25-tuesday.tex}
 
-\include{content/week4-step5-03-10-25-tuesday-all-offset-last_try.tex}
+\include{content/week5-03-17-25-tuesday.tex}
 
-\include{content/week5-step4-03-17-25-tuesday-all-offset-final.tex}
+\include{content/week6-03-24-25-tuesday.tex}
 
-\include{content/week6-step4-03-24-25-tuesday-all-offset-final.tex}
-
-\include{content/week7-step4-03-31-25-tuesday-all-offset-final.tex}
+\include{content/week7-03-31-25-tuesday.tex}
 
 
 % Easter Break
 
-\include{content/week8-step4-04-14-25-tuesday-all-offset-final.tex}
 
-\include{content/week9-step4-04-21-25-tuesday-all-offset-final.tex}
+\include{content/week8-04-14-25-tuesday.tex}
+
+\include{content/week9-04-21-25-tuesday.tex}
+
+% \include{content/week10-04-28-25-tuesday.tex}
 
 \include{content/week10-step4-04-28-25-tuesday-all-offset-final.tex}
 
-\include{content/week11-step4-05-05-25-tuesday-all-offset-final.tex}
+\include{content/week11-05-05-25-tuesday.tex}
 
-\include{content/week12-step4-05-12-25-tuesday-all-offset-final-copy8.tex}
+%\include{content/week11-step4-05-05-25-tuesday-all-offset-final.tex}
 
-\include{content/week13-step4-05-19-25-tuesday-all-offset-copy-1-offset-final-copy1.tex}
+\include{content/week12-05-12-25-tuesday.tex}
 
-\include{content/week14-step4-05-26-25-tuesday-all-offset-final.tex}
+\include{content/week13-05-19-25-tuesday.tex}
+
+\include{content/week14-05-26-25-tuesday.tex}
+
 
 
 \end{document}

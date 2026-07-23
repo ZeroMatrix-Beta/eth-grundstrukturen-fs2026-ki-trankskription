@@ -23,7 +23,7 @@
 % Processed on: 2026-07-18 13:10:32
 % ==========================================
 
-\lecturechapter{Dienstag}{19. Mai}{19. Mai 2025}{Äquivalenzrelationen modulo \texorpdfstring{$n$}{n}, Diffie-Hellman, Chinesischer Restsatz und RSA}
+\lecturechapter[13]{Dienstag}{19. Mai}{19. Mai 2025}{Äquivalenzrelationen modulo \texorpdfstring{$n$}{n}, Diffie-Hellman, Chinesischer Restsatz und RSA}
 % Old chapter title: Äquivalenzrelationen modulo $n$, Diffie-Hellman und Einheiten in $\mathbb{Z}_n$
 
 \begin{nice-box}[Vorlesungsübersicht \& Kontext]
@@ -177,7 +177,6 @@ Dazu müssen wir zeigen, dass wenn wir $([a] + [b]) + [c]$ rechnen, dies dasselb
 \begin{short-proof}[Beweis der Ringeigenschaften von $\mathbb{Z}_n$]
 Die Ringaxiome für $\mathbb{Z}_n$ vererben sich direkt von den entsprechenden Eigenschaften des Rings der ganzen Zahlen $(\mathbb{Z}, +, \cdot, 0, 1)$ über die Homomorphieeigenschaft der surjektiven Quotientenabbildung $\pi$.
 
-\par\vspace{1ex}\noindent
 Exemplarisch weisen wir das \textbf{Assoziativgesetz der Addition} nach. Seien $[a], [b], [c] \in \mathbb{Z}_n$:
 \begin{align*}
 ([a] + [b]) + [c] &= [a + b] + [c] && \text{(per Definition der Addition in $\mathbb{Z}_n$)} \\
@@ -345,7 +344,6 @@ Der Beweis folgt unmittelbar aus der Proposition: Wir wissen, dass $\mathbb{Z}_n
 \begin{short-proof}[Beweis von Proposition \ref{prop:inverses-zn}]
 Sei $d := \operatorname{ggT}(a, n)$.
 
-\par\vspace{1ex}\noindent
 \textbf{Richtung $(\implies)$:}
 Angenommen, $[a]$ ist invertierbar in $\mathbb{Z}_n$. Dann existiert ein $[b] \in \mathbb{Z}_n$ mit $[a] \cdot [b] = [1]$. Nach Definition der Multiplikation bedeutet dies:
 \[
@@ -357,7 +355,6 @@ d \mid (a \cdot b - k \cdot n) \implies d \mid 1.
 \]
 Da $d \in \mathbb{N}_{>0}$, folgt zwingend $d = 1$.
 
-\par\vspace{1ex}\noindent
 \textbf{Richtung $(\impliedby)$:}
 Angenommen, $\operatorname{ggT}(a, n) = 1$. Nach dem Lemma von Bézout (\cref{prop:ggt-bezout}) existieren ganze Zahlen $b, \ell \in \mathbb{Z}$, sodass gilt:
 \[
@@ -657,7 +654,6 @@ Seien $m_1, \dots, m_r \in \mathbb{N}_{\ge 2}$ paarweise teilerfremde natürlich
 \]
 Sei $M := m_1 \cdot m_2 \cdots m_r$ das Produkt dieser Moduln und seien Reste $a_1, \dots, a_r \in \mathbb{Z}$ gegeben mit $0 \le a_i < m_i$ für jedes $i \in \{1, \dots, r\}$.
 
-\par\vspace{1ex}\noindent
 Dann existiert eine eindeutige Lösung $x \in \mathbb{Z}$ im Intervall $0 \le x < M$, welche das folgende System simultaner Kongruenzen erfüllt:
 \begin{equation}\label{eq:chinesischer-restsatz}
 x \equiv a_i \pmod{m_i} \quad \text{für alle } i \in \{1, \dots, r\}.
@@ -948,13 +944,11 @@ Aus \eqref{eq:rsa-private-key-def} folgt die Existenz eines $k \in \mathbb{N}$ m
 \[
 c^d \equiv (m^e)^d \equiv m^{e \cdot d} \equiv m^{k \cdot \varphi(n) + 1} \equiv (m^{\varphi(n)})^k \cdot m \pmod n.
 \]
-\par\vspace{1ex}\noindent
 \textbf{Fall 1 ($\operatorname{ggT}(m, n) = 1$):}
 Nach dem Satz von Euler (\cref{thm:satz-von-euler}) gilt $m^{\varphi(n)} \equiv 1 \pmod n$. Einsetzen liefert direkt:
 \[
 c^d \equiv (1)^k \cdot m \equiv m \pmod n.
 \]
-\par\vspace{1ex}\noindent
 \textbf{Fall 2 ($\operatorname{ggT}(m, n) \neq 1$):}
 Da $n = p \cdot q$ mit Primzahlen $p \neq q$, gilt ohne Einschränkung der Allgemeinheit $p \mid m$ und $q \nmid m$.
 \begin{itemize}

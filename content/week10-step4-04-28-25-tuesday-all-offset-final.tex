@@ -1,335 +1,320 @@
 % ==========================================
 % LatexRefinement Step Output: step4-04-28-25-tuesday-all-offset-final.tex
-% Model: gemini-3-flash-preview
-% Temperature: 0.36
+% Model: gemini-3.6-flash
+% Temperature: 0.33
 % TopP: 0.95
 % TopK: 40
 % MaxOutputTokens: 65535
 % ThinkingBudget: 32765
 % ThinkingLevel: HIGH
-% Prompt Tokens: 35'650
-% Candidates Tokens: 18'915 (inkl. Thinking Tokens)
+% Prompt Tokens: 59'616
+% Candidates Tokens: 22'283 (inkl. Thinking Tokens)
 % Cached Tokens: 0
-% Processed on: 2026-07-11 12:20:54
+% Processed on: 2026-07-22 20:17:49
 % ==========================================
 
-\lecturechapter{Dienstag}{28. Apr}{28. April 2026}{Einführung in die Graphentheorie}
+% Primary Language: German
+% End of the video: 01:25:38
 
-\begin{nice-box}[Kontext der Vorlesung \& Syllabus]
-In dieser Vorlesung beginnen wir mit einem neuen großen Thema: der Graphentheorie. Nach dem Abschluss des Kapitels über das Auswahlaxiom und Kardinalzahlen lassen wir die formalen Logikstrukturen vorerst hinter uns und widmen uns den anschaulichen, diskreten Strukturen der Graphen.
+\lecturechapter[10]{Dienstag}{28. Apr}{28. April 2026}{Einführung in die Graphentheorie}
 
-\textbf{Syllabus:}
-\begin{enumerate}[label=\textbf{(\arabic*)}]
-    \item \textbf{Historischer Kontext:} Leonhard Euler und das Königsberger Brückenproblem.
-    \item \textbf{Grundbegriffe:} Formale Definition von Graphen, Knoten, Kanten und Adjazenz.
-    \item \textbf{Graphentypen:} Gerichtete vs. ungerichtete Graphen, Schlingen, Mehrfachkanten und schlichte Graphen.
-    \item \textbf{Adjazenzmatrix:} Matrixdarstellung von Graphen und ihre Eigenschaften.
-    \item \textbf{Knotengrade:} Definition des Grades in Digraphen (Halbgrade) und ungerichteten Graphen.
-    \item \textbf{Spezielle Graphen:} Reguläre Graphen, vollständige Graphen ($K_n$) und Teilgraphen.
-    \item \textbf{Pfade und Züge:} Definition von Pfeilzügen, Bahnen, Wirbeln, Kantenzügen, Wegen und Kreisen.
-    \item \textbf{Kombinatorik:} Pfadzählung mittels Potenzen der Adjazenzmatrix.
-\end{enumerate}
+\begin{nice-box}[Vorlesungsüberblick \& Kontext]
+In dieser Vorlesung schließt der Dozent das Kapitel über das Auswahlaxiom und die Kardinalzahlen ab und leitet in die \newterm{Graphentheorie} ein.
+
+\textbf{Zentrale Themen der Vorlesung:}
+\begin{itemize}
+    \item \textbf{Historischer Hintergrund:} Das Königsberger Brückenproblem und Leonhard Eulers Paritätsargument.
+    \item \textbf{Formalisierung von Graphen:} Knoten, Kanten, gerichtete und ungerichtete Graphen, Schlingen, Mehrfachkanten und schlichte Graphen.
+    \item \textbf{Die Adjazenzmatrix:} Formalisierung, algebraische Eigenschaften (Spur, Symmetrie) und Anwendung bei Multigraphen.
+    \item \textbf{Gradbegriffe \& Graphenklassen:} Halbgrade in Digraphen, Knotengrad im ungerichteten Fall, reguläre und vollständige Graphen ($K_n$) sowie induzierte Teilgraphen.
+    \item \textbf{Wege, Züge \& Matrixpotenzen:} Pfeil- und Kantenzüge, Bahnen, Wege, Wirbel, Kreise und Pfeilfolgen sowie der Beweis von Proposition~\ref{prop:adjazenzmatrix-potenz-pfeilfolgen} ($A^k$ als Pfadzähler).
+\end{itemize}
 \end{nice-box}
 
-\section{Einführung und historischer Kontext}
+\section{Organisatorisches und Überblick}
 
-\begin{spoken-clean}[00:00:00 - 00:01:07]
-Okay, hallo. Hallo zusammen und herzlich willkommen zur nächsten Woche von Grundstrukturen.
+\begin{spoken-clean}[00:00:00 - 00:01:08]
+Hallo zusammen und herzlich willkommen zur nächsten Woche von Grundstrukturen.
 
-Wie ich das letzte Mal gesagt habe, schließen wir das Kapitel über das Auswahlaxiom und Kardinalzahlen jetzt ab. Im Skript sehen Sie dazu noch zwei Kapitel über Nichtstandard-Analysis; die werden wir überspringen. Die sind \qt{nicht so standard}, aber es ist ein witziges Thema, falls Sie Lust haben, dort einmal reinzuschauen.
+Wie ich das letzte Mal gesagt habe, schließen wir das Kapitel über das Auswahlaxiom und Kardinalzahlen jetzt ab. Im Skript sehen Sie, da gibt es noch zwei Kapitel über Nichtstandard-Analysis, die werden wir überspringen. Die sind nicht so standard. \inlinemetanote{lacht} Aber wenn Sie Lust haben, da reinzuschauen: Es ist ein witziges Thema.
 
-Es geht darum, Nichtstandard-Modelle der reellen Zahlen zu konstruieren. Auf diesen Nichtstandard-Modellen kann man dennoch Analysis betreiben und diese Modelle dann wiederum verwenden, um Aussagen über die Standard-Analysis zu treffen. Es ist ein lustiges Thema. Ja?
+Es geht darum, Nichtstandardmodelle von den reellen Zahlen zu konstruieren; und dann kann man auf diesen Nichtstandardmodellen dennoch Analysis machen und diese Nichtstandardmodelle auch wieder verwenden, um Aussagen über die Standard-Analysis zu machen. Es ist ein witziges Thema, ja.
 \end{spoken-clean}
 
 \begin{student-interaction}[Studentenfrage]
-Wenn wir das überspringen, ist das dann noch examensrelevant?
+Wenn wir das überspringen, ist das dann immer noch examensrelevant?
 \end{student-interaction}
 
-\begin{spoken-clean}[00:01:07 - 00:01:25]
-Nein, es ist nicht examensrelevant. Das Skript ist etwas länger als eine zweistündige Vorlesung, deswegen darf da jeder ein bisschen seine Auswahl treffen. Vielleicht werden wir noch ein paar Sachen machen, die nicht im Skript stehen; die werde ich Ihnen dann aber dazu geben.
+\begin{spoken-clean}[00:01:08 - 00:03:08]
+Nein, ist nicht examensrelevant. Das Skript ist etwas länger als eine zweistündige Vorlesung, deswegen darf da jeder ein bisschen seine Auswahl treffen. Und vielleicht werden wir noch ein paar Sachen machen, die nicht im Skript sind; die werde ich Ihnen dann aber dazugeben.
 
-Schauen Sie sich das ruhig an, wenn Sie sich für diese Sachen interessieren. Das ist lustig, und Sie können dazu auch noch weiterlesen, zum Beispiel im Buch von Lorenz Halbeisen und Regula Krapf.
+Schauen Sie sich das an, wenn Sie sich für diese Sachen interessieren. Das ist lustig; Sie können auch weiterlesen, zum Beispiel im Buch von Lorenz Halbeisen und Regula Krapf.
+
+Aber ja, wir machen jetzt direkt weiter im Kapitel über die Graphentheorie. Damit lassen wir jetzt vorerst einmal diese Logikgeschichten zurück --- obwohl, die lässt man natürlich nie zurück, weil natürlich die ganze Mathematik auf der Logik und auf Zermelo-Fraenkel aufbaut. Im Hintergrund verwenden wir diese ganzen Sachen natürlich immer noch: Man kann immer noch Signaturen anschauen und dann das Ganze entsprechend formulieren und so weiter. Und man kann auch alle Beweise, die wir führen, formalisieren und auf Zermelo-Fraenkel zurückführen. Das ist etwas, was Leute machen, zum Beispiel mit der Sprache Lean.
+
+Um natürlich einigermaßen voranzukommen, werden wir die Sachen jetzt in --- wie soll ich sagen --- alltäglicher mathematischer Sprache diskutieren. Es geht also darum, dass Sie ein paar Grundbegriffe lernen: jetzt eben zuerst ein bisschen sehr elementare Graphentheorie, danach noch etwas sehr elementare Zahlentheorie, wahrscheinlich noch etwas über endliche Körper und, wenn wir Zeit haben, noch ein bisschen elementare Gruppentheorie. Einfach damit Sie da gewisse Sachen lernen, für die Sie in anderen Vorlesungen keine Zeit haben, und auch damit Sie ein bisschen einen Blick dafür bekommen, was es so gibt in der Mathematik. Und auch hier ist überall wieder wichtig, dass Sie die Übungen lösen; denn es geht darum, dass Sie lernen, saubere mathematische Argumente zu führen, was Sie nachher können sollten.
 \end{spoken-clean}
 
-\begin{spoken-clean}[00:01:25 - 00:03:08]
-Wir machen jetzt direkt weiter im Kapitel über die Graphentheorie. Damit lassen wir vorerst auch einmal diese Logikgeschichten zurück --- obwohl man die natürlich nie ganz zurücklässt, weil die gesamte Mathematik auf der Logik und auf Zermelo-Fraenkel aufbaut. Im Hintergrund verwenden wir diese ganzen Sachen natürlich immer noch: Man kann sich weiterhin Signaturen anschauen und das Ganze entsprechend formulieren. Man kann auch alle Beweise, die wir führen, formalisieren und auf Zermelo-Fraenkel zurückführen. Das ist etwas, was Leute machen, zum Beispiel mit der Sprache \emph{Lean}.
+\section{Einführung in die Graphentheorie}
 
-Um jedoch einigermaßen voranzukommen, werden wir die Dinge jetzt in --- wie soll ich sagen --- alltäglicher mathematischer Sprache diskutieren. Es geht also darum, dass Sie ein paar Grundbegriffe lernen: jetzt eben ein bisschen sehr elementare Graphentheorie, danach noch etwas sehr elementare Zahlentheorie, wahrscheinlich auch noch etwas über endliche Körper und, wenn wir Zeit haben, noch ein bisschen elementare Gruppentheorie.
-
-Das dient einfach dazu, dass Sie gewisse Sachen lernen, für die Sie in anderen Vorlesungen keine Zeit haben, und damit Sie einen Einblick kriegen in das, was es in der Mathematik so alles gibt. Auch hier ist es überall wieder wichtig, dass Sie die Übungen lösen, denn es geht darum, dass Sie lernen, saubere mathematische Argumente zu führen --- das ist es, was Sie am Ende können sollten.
-\end{spoken-clean}
-
-\subsection{Das Königsberger Brückenproblem}
+\subsection{Historischer Hintergrund: Das Königsberger Brückenproblem}
 
 \begin{spoken-clean}[00:03:08 - 00:05:40]
-Gut, jetzt aber zur Graphentheorie. Ein bisschen Geschichte: Da gehen wir jetzt etwas weiter zurück als zu den Leuten, denen wir bisher begegnet sind. Wir gehen zurück zu Leonhard Euler, dem Sie bestimmt auch schon begegnet sind. Er war gewissermaßen ein Schweizer Mathematiker --- er wurde $1707$ in Basel geboren. Das war also noch sehr früh in der Mathematik.
+Gut, jetzt aber zur Graphentheorie. Ein bisschen Geschichte: Da gehen wir jetzt etwas weiter zurück, als wir das bis jetzt hatten bei den Leuten, denen wir begegnet sind.
 
-Damals, gab es natürlich noch keine ETH, aber es gab schon seit Langem die Universität Basel; das ist auch der Ort, an dem er studiert hat. Zu jener Zeit waren die Bernoullis an der Uni Basel. Das ist eine ganze Familiengeneration, die über mehrere Generationen hinweg denselben Lehrstuhl innehatte. Sie waren sehr einflussreich in der Entwicklung der Mathematik und der Physik.
+Da gehen wir zurück zu Leonhard Euler, dem Sie bestimmt auch schon begegnet sind. Gewissermaßen auch ein Schweizer Mathematiker eigentlich --- also $1707$ in Basel geboren, noch sehr früh in der Mathematik. Damals gab es natürlich noch keine ETH, aber es gab natürlich schon seit Langem die Universität Basel, und das ist auch dort, wo er studiert hat. Damals waren die Bernoullis an der Uni Basel; das ist eine ganze Familiengeneration, die hatten immer wieder Lehrstühle, also über mehrere Generationen denselben Lehrstuhl, und die waren sehr einflussreich in der Entwicklung der Mathematik und der Physik.
 
-Euler ging damals, ich glaube Samstagnachmittags, zu Johann Bernoulli, der ihm dann ein paar Sachen erklärte. Ich glaube, Johann Bernoulli hatte nicht viel Zeit; er hat ihm viele Sachen zu lesen gegeben. Aber Euler hat einmal geschrieben, dass es wunderbar war: Er hat oft nur wenige Fragen gestellt, und die Art und Weise, wie Bernoulli ihm diese Sachen beantwortet hat, hat ihm sofort auch viele andere Fragen geklärt.
+Jeweils am Samstagnachmittag ging Euler, glaube ich, zu --- was war es, Johann Bernoulli? ---, und der hat ihm dann ein paar Sachen erklärt oder so. Ich glaube, Johann Bernoulli hatte nicht viel Zeit und hat ihm viele Sachen zu lesen gegeben, aber Euler hat einmal geschrieben, dass es wunderbar war: Er hat ein paar wenige Fragen gestellt, und die Art und Weise, wie Bernoulli ihm diese Sachen beantwortet hat, hat ihm direkt viele andere Fragen sofort geklärt.
 
-Euler hat sich, glaube ich, auch für eine Physikprofessur in Basel beworben, die er aber nicht kriegte, weil er noch sehr jung war. Dann ist er halt weggegangen und leider akademisch nie mehr in die Schweiz zurückgekehrt. Er hat dann eine Professur in Sankt Petersburg bekommen --- ich glaube, damals war noch ein anderer Bernoulli dort ---, war dann eine Zeit lang in Berlin und schließlich wieder in Sankt Petersburg.
+Ja, er hat sich, glaube ich, als er noch sehr jung war, für eine Physik-Professur in Basel beworben, die er aber nicht bekommen hat. Dann ist er weg und leider nie mehr in die Schweiz zurückgekehrt --- akademisch. Er hat dann eine Professur in Sankt Petersburg bekommen --- damals war, glaube ich, noch ein anderer Bernoulli dort ---, war eine Zeit lang in Berlin und dann wieder in Sankt Petersburg.
 
-Ich glaube, man kann fast nicht unterschätzen, wie wichtig Euler für viele moderne Begriffe in der Mathematik war; er hat viele Gebiete eigentlich fast neu erfunden. Eines davon ist die Graphentheorie. Es begann mit dem folgenden Problem --- gewissermaßen war das vielleicht sogar die Erfindung der Topologie.
+Ich glaube, man kann fast nicht unterschätzen, wie wichtig Euler für viele moderne Begriffe in der Mathematik war; er hat viele Gebiete eigentlich fast neu erfunden. Und eines davon ist eben, dass er die Graphentheorie erfunden hat. Das begann mit dem folgenden Problem... Gewissermaßen kann man auch fast sagen, dass das die Erfindung der Topologie war.
 \end{spoken-clean}
 
-\begin{spoken-clean}[00:05:40 - 00:08:08]
-Es ist das Königsberger Brückenproblem. Königsberg lag damals in Preußen, gehörte also im weitesten Sinne zu Deutschland; heutzutage heißt die Stadt Kaliningrad. So sieht das aus: Es gibt eine Insel und diese zwei Flüsse, die dort zusammenkommen. Die Stadt hat diese vier Teile, und dort gab es diese Brücken --- wie viele waren es? Sieben Brücken in der Stadt.
+\begin{meta-note}[Projizierter Inhalt: Leonhard Euler]
+Der Dozent projiziert ein Porträt von Leonhard Euler ($1707$--$1783$) und erläutert dessen historischen und mathematischen Hintergrund.
+\end{meta-note}
 
-Die Leute sind dort natürlich gerne spazieren gegangen, und in der Stadt kursierte diese Knobelaufgabe oder die Frage: Gibt es einen Spaziergang, sodass man am Sonntagnachmittag in einer Art und Weise durch die Stadt laufen kann, dass man zwar über alle Brücken läuft, aber über jede Brücke nur einmal? Genau einmal. Und die Frage ist auch: Wenn ja, kann man das so machen, dass man am selben Ort wieder aufhört, an dem man angefangen hat?
+\begin{spoken-clean}[00:05:40 - 00:08:07]
+Das war das Königsberger Brückenproblem. Das war Königsberg im damaligen Preußen --- gehört im weitesten Sinne zu Deutschland, heutzutage heißt die Stadt Kaliningrad. Okay, das sieht so aus, wie es aussieht: Es gibt so eine Insel und zwei Flüsse, die da zusammenkommen. Die Stadt hat diese vier Teile, und da gab es diese Brücken --- wie viele Brücken? Sieben Brücken in der Stadt.
 
-Bei sieben Brücken kann man sich gut vorstellen: Wenn viele Leute in der Stadt darüber nachdenken und es eine solche Möglichkeit gäbe, dann wäre wahrscheinlich schon jemand darauf gekommen. Aber wie Sie wahrscheinlich schon gehört haben, gibt es für dieses Problem keine Lösung. Die Frage ist natürlich: Weshalb?
+Die Leute sind dort gerne spazieren gegangen, und in der Stadt kursierte so diese Knobelaufgabe oder diese Frage: Gibt es einen Spaziergang, sodass man in dieser Stadt --- also am Sonntagnachmittag --- so spazieren gehen kann, dass man zwar über alle Brücken läuft, aber über jede Brücke nur einmal? Genau einmal. Und die Frage ist auch: Wenn ja, kann man das so machen, dass man am selben Ort wieder aufhört, wo man anfängt?
 
-Einer dieser Herrscher hat Euler in einem Brief nach dieser Sache gefragt. Euler hat zuerst geantwortet: \qt{Ja, spannende Frage}, aber er sagte auch direkt, dass das eigentlich nichts mit Mathematik zu tun habe. Das könne eigentlich jeder lösen, der mit gesundem Verstand denken könne; dazu brauche man gar keine Mathematiker. Er hat dann natürlich trotzdem weitergedacht und das Problem schließlich gelöst.
+Bei sieben Brücken kann man sich gut vorstellen: Wenn da viele Leute in der Stadt darüber nachdenken und es eine solche Möglichkeit gäbe, dann wäre wahrscheinlich jemand darauf gekommen. Aber wie Sie vielleicht auch schon gehört haben: Für das Problem gibt es keine Lösung. Die Frage ist natürlich: weshalb?
 
-Der wesentliche Teil hier ist einfach diese Abstraktion, die Euler vorgenommen hat. Er hat gesagt: Okay, wir betrachten diese vier zusammenhängenden Landteile --- diese Insel hier, dann den oberen Teil und diese zwei weiteren Teile --- ganz abstrakt und sehen sie als verbunden durch Brücken an. Da gibt es eine Brücke, dort eine, und hier gibt es jeweils zwei Brücken.
-
-Wenn man das so betrachtet, spielt es gar keine Rolle, wie lang diese Wege sind oder wie das genau aussieht. Das Wichtige ist einfach: Wie sind diese vier Knoten miteinander verbunden? Wenn wir darauf abstrahieren, kennen Sie das Argument: Wenn es einen Weg gäbe, bei dem man wieder am selben Ort zurückkommt, dann muss man bei jedem dieser Knoten, in den man hineinkommt, auch wieder hinausgehen. Das heißt, Kanten kommen immer in Paaren vor. An jedem dieser Knoten müsste die Anzahl der Kanten, die von ihm ausgehen, also gerade sein.
-
-Aber hier haben wir drei, dort fünf, hier drei und dort drei --- das sind alles ungerade Zahlen. Also kann kein solcher geschlossener Pfad existieren. Wenn ein Pfad mit unterschiedlichem Anfangs- und Endpunkt existieren würde, müsste der Grad überall gerade sein, außer eben am Anfangs- und Endpunkt. Aber hier ist der Grad überall ungerade, das heißt, es gibt auch keinen solchen Weg. Das war die Lösung des Königsberger Brückenproblems.
+Einer dieser Herren hat das, glaube ich, in einem Brief an Euler gefragt, und Euler hat zuerst geantwortet: \qt{Ja, spannende Frage, aber...} Er sagt so direkt, das habe gar nichts mit Mathematik zu tun; das könne eigentlich jeder... Ist eigentlich kein mathematisches Problem: Jeder, der mit gesundem Verstand denken kann, kann das lösen, da braucht man gar keine Mathematiker. Aber er hat dann trotzdem weitergedacht und das Problem gelöst.
 \end{spoken-clean}
 
-\begin{math-stroke}[Das Königsberger Brückenproblem]
-\begin{ai-tikz-planner-invisible-content}
-% 1. Background: Vier Landmassen (Knoten) dargestellt als Kreise.
-% 2. Midground: Sieben Brücken (Kanten) verbinden die Knoten.
-% 3. Annotations: Beschriftungen für die Landmassen (A, B, C, D) und Grade der Knoten.
-\end{ai-tikz-planner-invisible-content}
+\begin{meta-note}[Projizierter Inhalt: Das Königsberger Brückenproblem]
+Der Dozent zeigt einen historischen Stadtplan von Königsberg mit den sieben hervorgehobenen Brücken über die Pregel.
+\end{meta-note}
+
+\begin{spoken-clean}[00:08:07 - 00:09:33]
+Aber der wesentliche Teil hier ist einfach diese Abstraktion, die Euler dann eben gemacht hat. Er hat gesagt: Okay, nehmen wir diese vier zusammenhängenden Landteile --- also diese eine Insel, dann den oberen Teil, da noch einen Teil, da noch einen Teil ---, wir schauen uns die jetzt einfach ganz abstrakt an, und die sind verbunden mit Brücken. Da gibt es eine Brücke, da gibt es eine Brücke, da gibt es eine Brücke, und da gibt es je zwei Brücken.
+
+Wenn man das so anschaut... da spielt es gar keine Rolle... Das Wichtige ist einfach: Wie sind diese vier Knoten miteinander verbunden? Aber wie lange diese Wege sind oder wie das genau aussieht, spielt keine Rolle. Wir können darauf abstrahieren. Und dann --- Sie kennen das Argument: Wenn es einen Weg gäbe, sodass man wieder an denselben Ort zurückkommt, dann kommt man in jeden dieser Knoten: Wenn man reinkommt, geht man auch wieder raus. Das heißt, das kommt immer in Paaren. An jedem dieser Knoten muss also die Anzahl der Kanten, die von diesem Knoten ausgehen, gerade sein.
+
+Aber hier haben wir $3$, hier haben wir $5$, hier haben wir $3$, hier haben wir $3$. Die sind alle nicht einmal gerade! \inlinemetanote{lacht} Es kann also kein geschlossener Pfad existieren. Wenn einer existieren würde, der vielleicht einen anderen Anfangs- als Endpunkt hätte, wäre es wieder überall gerade außer am Anfangs- und Endpunkt. Aber das ist überall ungerade; das heißt, es gibt auch keinen Weg, bei dem man irgendwo anfängt. Okay, das war die Lösung des Königsberger Brückenproblems.
+\end{spoken-clean}
+
+\begin{math-stroke}[Das Königsberger Brückenproblem als Graph]
 \begin{center}
-\begin{tikzpicture}[scale=1.5, auto, node distance=2.5cm, thick,
-  node/.style={circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=8mm}]
-  
-  \node[node] (A) at (0, 1.2) {$A$};
-  \node[node] (B) at (-2, 0) {$B$};
-  \node[node] (C) at (2, 0) {$C$};
-  \node[node] (D) at (0, -1.2) {$D$};
-  
-  % Brücken (Kanten)
-  \path
-    (B) edge[bend left=30, BrickRed] (A)
-    (B) edge[bend right=30, BrickRed] (A)
-    (C) edge[bend left=30, BrickRed] (A)
-    (C) edge[bend right=3030, BrickRed] (A)
-    (B) edge[BrickRed] (D)
-    (C) edge[BrickRed] (D)
-    (A) edge[BrickRed] (D);
-    
-  % Grad-Annotationen
-  \node[left=0.2cm of B, MidnightBlue] {$\deg(B) = 3$};
-  \node[right=0.2cm of C, MidnightBlue] {$\deg(C) = 3$};
-  \node[above=0.2cm of A, MidnightBlue] {$\deg(A) = 5$};
-  \node[below=0.2cm of D, MidnightBlue] {$\deg(D) = 3$};
+\begin{tikzpicture}[scale=1.2, >=stealth, node distance=2.5cm, main node/.style={circle, draw, fill=MidnightBlue!10, font=\sffamily\bfseries}]
+  \node[main node] (A) at (0, 2) {$A$};
+  \node[main node] (B) at (0, 0) {$B$};
+  \node[main node] (C) at (0, -2) {$C$};
+  \node[main node] (D) at (3, 0) {$D$};
+
+  % Edges between A and B (2 bridges)
+  \draw[thick, BrickRed] (A) to[bend left=30] node[left] {\footnotesize $e_1$} (B);
+  \draw[thick, BrickRed] (A) to[bend right=30] node[right] {\footnotesize $e_2$} (B);
+
+  % Edges between B and C (2 bridges)
+  \draw[thick, BrickRed] (B) to[bend left=30] node[left] {\footnotesize $e_3$} (C);
+  \draw[thick, BrickRed] (B) to[bend right=30] node[right] {\footnotesize $e_4$} (C);
+
+  % Single edges to D
+  \draw[thick, BrickRed] (A) to[bend left=20] node[above right] {\footnotesize $e_5$} (D);
+  \draw[thick, BrickRed] (B) -- node[above] {\footnotesize $e_6$} (D);
+  \draw[thick, BrickRed] (C) to[bend right=20] node[below right] {\footnotesize $e_7$} (D);
+
+  % Node Degrees
+  \node[above=0.2cm of A, ForestGreen] {\footnotesize $\operatorname{deg}(A) = 3$};
+  \node[left=0.5cm of B, ForestGreen] {\footnotesize $\operatorname{deg}(B) = 5$};
+  \node[below=0.2cm of C, ForestGreen] {\footnotesize $\operatorname{deg}(C) = 3$};
+  \node[right=0.2cm of D, ForestGreen] {\footnotesize $\operatorname{deg}(D) = 3$};
 \end{tikzpicture}
 \end{center}
 
-\begin{explanation-of-steps}[Eulersches Brückenargument]
-Euler abstrahierte die vier Landmassen als Knoten (Punkte) und die sieben Brücken als Kanten (Linien). Ein zulässiger Spaziergang entspricht einem Pfad, der jede Kante genau einmal traversiert (ein sogenannter \newterm{Eulerweg} bzw. eine \newterm{Eulertour}, falls Start- und Endpunkt identisch sind).
-
-\textbf{Das Paritätsargument:}
+\begin{explanation-of-steps}[Eulersches Paritätsargument für den Königsberger Multigraphen]
+Die vier Landmassen werden als Knoten $V = \{A, B, C, D\}$ modelliert, die sieben Brücken als Kanten.
 \begin{itemize}
-    \item Bei jedem Betreten und Verlassen eines inneren Knotens werden genau zwei Kanten verbraucht (eine Eingangs- und eine Ausgangskante).
-    \item Daher muss der Grad (die Anzahl der anliegenden Kanten) jedes inneren Knotens eines geschlossenen Eulerwegs gerade sein.
-    \item Da im Königsberger Graphen alle vier Knoten ungeraden Grad besitzen 
-    \[(\deg(A)=5, \deg(B)=3, \deg(C)=3, \deg(D)=3),\] 
-    existiert weder eine Eulertour noch ein Eulerweg.
+    \item \textbf{Geschlossener Eulerweg:} Bei jedem Betreten eines Knotens muss dieser über eine andere Kante wieder verlassen werden. Jeder Durchgang verbraucht somit $2$ Kanten. Ein geschlossener Eulerweg setzt voraus, dass der Grad jedes Knotens $\operatorname{deg}(v)$ gerade ist.
+    \item \textbf{Offener Eulerweg:} Ein offener Eulerweg erlaubt genau zwei Knoten mit ungeradem Grad (Start- und Endknoten).
+    \item \textbf{Ergebnis:} Da alle vier Knoten ungeraden Grad besitzen ($\operatorname{deg}(A)=3, \operatorname{deg}(B)=5, \operatorname{deg}(C)=3, \operatorname{deg}(D)=3$), existiert weder ein geschlossener noch ein offener Eulerweg.
 \end{itemize}
 \end{explanation-of-steps}
 \end{math-stroke}
 
-\begin{spoken-clean}[00:08:08 - 00:13:02]
-Das ist einerseits vielleicht ein erster Schritt Richtung Topologie --- Euler hat ja noch andere Sachen gemacht, die in diese Richtung gehen ---, andererseits aber auch die Geburtsstunde der Graphentheorie. Das ist ein wichtiger Begriff der diskreten Mathematik: was ein Graph eigentlich ist. Wir werden das gleich sehen: Das sind einfach Knoten, die mit Kanten verbunden sind, und es geht um die Frage, welche Knoten durch Kanten verbunden sind.
+\subsection{Moderne Anwendungen von Graphen}
 
-Wie Sie sich vorstellen können, sind solche Graphen in vielen Gebieten der Mathematik sehr wichtig, etwa in der Gruppentheorie oder in der Wahrscheinlichkeitsrechnung. Aber auch außerhalb der Mathematik, zum Beispiel in der Informatik bei Computersystemen, tauchen Graphen auf: Dort hat man viele Knoten und Verbindungen dazwischen, und es stellt sich die Frage, wie man sich dort bewegen kann. Auch bei Paket- oder Postverteilern sind das immer Graphen. Die Welt ist ja vielleicht sogar diskret; man könnte in gewissen physikalischen Vorstellungen sagen: Jedes Elementarteilchen ist ein Punkt, und diese Punkte haben eine gewisse Wechselwirkung --- das sind dann einfach Graphen. Unsere Welt wäre demnach einfach ein großer diskreter Graph. Wer weiß.
+\begin{spoken-clean}[00:09:33 - 00:11:42]
+Genau, das ist einerseits vielleicht so ein bisschen der erste Schritt Richtung Topologie --- Euler hat noch andere Sachen gemacht, die in Richtung Topologie gehen. Aber die andere Art ist eben auch die Graphentheorie. Das ist ein wichtiger Begriff aus der diskreten Mathematik: Was ein Graph ist --- wir werden das gleich sehen ---, das sind einfach Knoten verbunden mit Kanten, und es stellt sich die Frage: Welche Knoten sind durch Kanten verbunden?
 
-Graphentheorie ist jedenfalls ein wichtiges Gebiet der diskreten Mathematik, und heutzutage begegnen uns Graphen in vielen Kontexten. Wenn wir zum Beispiel in eine Stadt gehen, dann ist dort der Metroplan ein Graph. Dabei spielt es keine Rolle, ob die Distanzen korrekt abgebildet werden; wichtig ist einzig, welche Stationen durch eine Metrolinie miteinander verbunden sind.
+Wie Sie sich vorstellen können, sind solche Graphen oder solche Objekte sehr wichtig in vielen Gebieten der Mathematik: in der Gruppentheorie, aber auch in der Wahrscheinlichkeitstheorie, in vielen Bereichen tauchen Graphen auf. Aber auch außerhalb der Mathematik, zum Beispiel in der Informatik: Computersysteme, das sind natürlich viele Knoten und Verbindungen dazwischen, und die Frage ist, wie man da laufen kann; oder Paket- und Postausträger oder so, all das sind immer Graphen. Die Welt ist ja vielleicht sogar diskret: Man könnte in gewissen physikalischen Vorstellungen sogar sagen: Okay, jedes Elementarteilchen ist ein Punkt, und die haben eine gewisse Wirkung; das sind einfach gewisse Graphen. Das heißt, unsere Welt ist einfach ein großer diskreter Graph --- wer weiß.
 
-Ein weiteres Beispiel, das wir vielleicht mit einer positiven Antwort aus dem Kindergarten kennen, ist das \qt{Haus vom Nikolaus}. Die Frage ist: Kann man diesen Graphen in einem Stück zeichnen? Und die Antwort hier ist ja, oder? \qt{Das ist das Haus vom Ni-ko-laus.} Und das vom Weihnachtsmann ist nebenan... ah, vielleicht habe ich da etwas Falsches gesagt. Irgendwie so geht das doch, oder? Das haben wir im Kindergarten gelernt. Auch das ist wieder ein Beispiel für einen Graphen mit seinen Knoten. Anders als beim Königsberger Brückenproblem kann man das hier in einem Zug lösen. Wenn wir also eine Stadt mit den entsprechenden Brücken hätten, könnten Sie dort einen solchen Spaziergang machen.
+Okay, aber Graphentheorie ist ein wichtiges Gebiet der diskreten Mathematik. Und wir kennen heutzutage natürlich Graphen in vielen Kontexten. Zum Beispiel wenn wir in eine Stadt gehen, dann ist da der Metroplan; und da spielt es gar keine Rolle, dass das in irgendeiner Art und Weise die Distanzen korrekt abbildet, sondern einzig was wichtig ist, ist: Welche Stationen sind miteinander durch eine Metrolinie verbunden? Und das ist eigentlich auch einfach ein Beispiel für einen Graphen.
+\end{spoken-clean}
 
-Wir kennen also eigentlich schon vieles aus der Graphentheorie.
+\begin{meta-note}[Projizierter Inhalt: London Tube Map]
+Der Dozent zeigt den U-Bahn-Netzplan von London (\emph{London Tube Map}) als klassisches Beispiel eines topologischen Graphen.
+\end{meta-note}
+
+\begin{spoken-clean}[00:11:42 - 00:13:00]
+Noch ein Beispiel: Das Königsberger Brückenproblem kennen wir vielleicht auch als positive Antwort aus dem Kindergarten. Kennen Sie das Haus vom Nikolaus? Das ist so die Frage: Kann man diesen Graphen hier in einem Zug zeichnen? Und die Antwort hier ist ja, oder? Wie geht das? Das ist das Haus vom Ni-ko-laus, oder?
+
+Und das vom Weih-nachts-mann ist ne-ben-dran. Ah, vielleicht habe ich etwas Falsches gesagt. Irgendwie so, so geht das doch, das hatte man im Kindergarten. Auch wieder ein Beispiel für einen Graphen: Da hat man all die Knoten, und anders als beim Königsberger Brückenproblem kann man das hier in einem Zug lösen. Wenn Sie eine Stadt mit entsprechenden Brücken hätten, dann könnten Sie so einen Spaziergang machen.
+
+Okay, also wir kennen eigentlich schon viel von der Graphentheorie.
 \end{spoken-clean}
 
 \begin{math-stroke}[Das Haus vom Nikolaus]
-\begin{ai-tikz-planner-invisible-content}
-% 1. Background: Fünf Knoten, die die Ecken des Hauses darstellen.
-% 2. Midground: Acht Kanten, die die Wände, das Dach und die Diagonalen darstellen.
-% 3. Annotations: Knotennummern für die formale Definition.
-\end{ai-tikz-planner-invisible-content}
 \begin{center}
-\begin{tikzpicture}[scale=1.5, thick,
-  node/.style={circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=6mm}]
-  
-  \node[node] (1) at (0,0) {$1$};
-  \node[node] (2) at (2,0) {$2$};
-  \node[node] (3) at (2,2) {$3$};
-  \node[node] (4) at (0,2) {$4$};
-  \node[node] (5) at (1,3) {$5$};
-  
-  % Kanten
-  \draw[MidnightBlue] (1) -- (2);
-  \draw[MidnightBlue] (2) -- (3);
-  \draw[MidnightBlue] (3) -- (4);
-  \draw[MidnightBlue] (4) -- (1);
-  \draw[MidnightBlue] (1) -- (3);
-  \draw[MidnightBlue] (2) -- (4);
-  \draw[MidnightBlue] (4) -- (5);
-  \draw[MidnightBlue] (3) -- (5);
-  
+\begin{tikzpicture}[scale=1.2, >=stealth, main node/.style={circle, draw, fill=MidnightBlue!10, inner sep=2pt}]
+  \node[main node] (1) at (0,0) {$1$};
+  \node[main node] (2) at (2,0) {$2$};
+  \node[main node] (3) at (2,2) {$3$};
+  \node[main node] (4) at (0,2) {$4$};
+  \node[main node] (5) at (1,3.2) {$5$};
+
+  \draw[thick, BrickRed] (1) -- (2) node[midway, below] {\tiny 1};
+  \draw[thick, BrickRed] (2) -- (4) node[midway, above left] {\tiny 2};
+  \draw[thick, BrickRed] (4) -- (3) node[midway, above] {\tiny 3};
+  \draw[thick, BrickRed] (3) -- (1) node[midway, below left] {\tiny 4};
+  \draw[thick, BrickRed] (1) -- (4) node[midway, left] {\tiny 5};
+  \draw[thick, BrickRed] (4) -- (5) node[midway, above left] {\tiny 6};
+  \draw[thick, BrickRed] (5) -- (3) node[midway, above right] {\tiny 7};
+  \draw[thick, BrickRed] (3) -- (2) node[midway, right] {\tiny 8};
 \end{tikzpicture}
 \end{center}
 
-\begin{explanation-of-steps}[Eulerweg im Haus vom Nikolaus]
-Das Haus vom Nikolaus besitzt genau zwei Knoten mit ungeradem Grad ($\deg(1)=3$ und $\deg(2)=3$), während alle anderen Knoten geraden Grad besitzen ($\deg(3)=4, \deg(4)=4, \deg(5)=2$).
-
-Nach dem Satz von Euler-Hierholzer existiert daher ein offener Eulerweg (ein Kantenzug, der jede Kante genau einmal enthält), welcher zwingend an einem der ungeraden Knoten (z.\,B. $1$) beginnen und am anderen ungeraden Knoten ($2$) enden muss. Ein geschlossener Eulerweg (Eulertour) existiert hingegen nicht.
+\begin{explanation-of-steps}[Eulerweg beim Haus vom Nikolaus]
+Das Haus vom Nikolaus ist ein Graph mit $5$ Knoten und $8$ Kanten. Die Knoten $1$ und $2$ haben jeweils den ungeraden Grad $3$, während die Knoten $3, 4, 5$ den geraden Grad $4$ bzw. $2$ besitzen. Daher existiert ein \emph{offener Eulerweg} mit Start in Knoten $1$ (oder $2$) und Ende in Knoten $2$ (oder $1$).
 \end{explanation-of-steps}
 \end{math-stroke}
 
-\begin{spoken-clean}[00:13:02 - 00:13:36]
-Machen wir das Ganze vielleicht etwas systematischer und definieren alles sauber. Ich habe einen Teil der heutigen Vorlesung als Beamer-Präsentation vorbereitet. Das mache ich normalerweise nicht, aber wenn man so viele Definitionen hat, die alle sehr einfach sind, ist es etwas mühsam und zeitaufwendig, sie alle an die Tafel zu schreiben. Schauen wir uns das also lieber auf dem Beamer an.
+\subsection{Formalisierung und Grundbegriffe}
 
-So, sehen Sie das gut so? Gut.
+\begin{spoken-clean}[00:13:00 - 00:14:08]
+Genau, aber machen wir das Ganze vielleicht etwas systematischer und definieren das alles sauber. Ich habe jetzt einen Teil der heutigen Vorlesung auf Beamer vorbereitet. Mache ich normalerweise nicht, aber wenn man so viele Definitionen hat, die alle sehr einfach sind, dann ist das etwas mühsam, die alle an die Tafel zu schreiben, man braucht viel Zeit. Schauen wir uns das also auf dem Beamer an.
+
+Sehen Sie das gut so? Gut.
+
+Also, was ist ein Graph? Ein Graph ist einfach eine Menge $V$ von sogenannten Knoten zusammen mit einer Teilmenge $E \subseteq V \times V$ oder mehreren Teilmengen $E_0, \dots, E_k \subseteq V \times V$, den sogenannten Kanten. Wir schreiben $G = (V, E)$ respektive $G = (V, E_0, \dots, E_k)$.
 \end{spoken-clean}
 
-\begin{meta-note}[Projizierter Inhalt: Grundbegriffe der Graphentheorie]
-Der Dozent schaltet den Projektor ein und zeigt die Folie \textbf{\qt{Grundbegriffe der Graphentheorie}} mit der formalen Definition eines Graphen:
-\begin{definition}[Graph]
-Ein \newterm{Graph} ist eine Menge $V$, deren Elemente wir \newterm{Knoten} nennen, zusammen mit einer Teilmenge $E \subseteq V \times V$ (oder mehreren Teilmengen $E_0, \dots, E_k \subseteq V \times V$), den sogenannten \newterm{Kanten}. Wir schreiben $G = (V, E)$, respektive $G = (V, E_0, \dots, E_k)$.
-\end{definition}
-\end{meta-note}
+\begin{math-stroke}
+\begin{definition}[Graph]\label[definition]{def:graph-grundbegriff}
+Ein \newterm{Graph} ist ein Paar $G = (V, E)$, bestehend aus einer nichtleeren Menge $V$ von \newterm{Knoten} (Vertices) und einer Teilmenge $E \subseteq V \times V$ von \newterm{Kanten} (Edges). 
 
-\subsection{Definition eines Graphen}
-
-\begin{spoken-clean}[00:13:36 - 00:16:52]
-Was ist also ein Graph? Ein Graph ist einfach eine Menge $V$, deren Elemente wir Knoten nennen, zusammen mit einer Teilmenge des kartesischen Produkts von $V$ mit sich selbst. Betrachten wir zuerst einmal diese Definition: Das sind die sogenannten Kanten.
-
-Wir haben also $V$, unsere Knoten (englisch: \emph{vertices}, deswegen $V$). Und nun betrachten wir $V \times V$, also die geordneten Paare von Knoten; das sind unsere Kanten. Wir können uns das so vorstellen: Nehmen wir zum Beispiel die Knoten $1, 2, 3, 4$. Wir können sagen, zwischen zwei Knoten ziehen wir eine Kante. Das ist dann die Kante, die durch $1$ und $4$ gegeben ist. Sie führt von $1$ nach $4$, wenn wir sagen, es ist die Kante $\langle 1, 4 \rangle$.
-
-Hier könnte eine Kante von $4$ nach $3$ führen, eine von $3$ nach $2$ und so weiter. Nach dieser Definition können wir jedoch nicht zwei Kanten von $4$ nach $3$ haben, weil es nur ein geordnetes Paar $\langle 4, 3 \rangle$ gibt. Das ist ein wichtiger Punkt. So sieht also nach dieser Definition ein Graph aus: Wir haben Knoten und betrachten die Kanten, die zwischen diesen Knoten liegen.
-
-Was wir aber auch machen können: Wir können sagen, es gibt mehrere dieser Teilmengen, etwa $E_0$ bis $E_k$ von $V \times V$. Dann schreiben wir $G$ als $V$ zusammen mit all diesen Kantenmengen. So können wir natürlich mehrere Kanten haben. Hier könnten wir zum Beispiel sagen: Wir haben $E_0$, das ist diese Kante hier, und dann noch $E_1$, das ist diese Kante hier. Dann haben wir maximal zwei Kanten zwischen zwei Knoten. So lässt sich das definieren. Das ist die Definition eines Graphen.
-\end{spoken-clean}
-
-\begin{math-stroke}[Formale Definition eines Graphen]
-\begin{definition}[Graph]\label[definition]{def:graph}
-Ein \newterm{Graph} ist ein Paar $G = (V, E)$ (oder allgemeiner $G = (V, E_0, \dots, E_k)$), wobei:
-\begin{itemize}
-    \item $V$ eine nichtleere Menge von \newterm{Knoten} (engl. \newterm{vertices}) ist.
-    \item $E \subseteq V \times V$ eine Menge von geordneten Paaren ist, welche die \newterm{Kanten} (engl. \newterm{edges}) repräsentieren.
-    \item Falls Mehrfachkanten erlaubt sind, betrachten wir mehrere disjunkte Kantenmengen $E_0, \dots, E_k \subseteq V \times V$.
-\end{itemize}
+Falls mehrere Kantenrelationen vorliegen, schreibt man $G = (V, E_0, \dots, E_k)$ mit $E_0, \dots, E_k \subseteq V \times V$.
 \end{definition}
 \end{math-stroke}
 
-\subsection{Adjazenz und ungerichtete Graphen}
+\begin{spoken-clean}[00:14:08 - 00:16:00]
+Wir haben $V$, einfach eine Menge --- $V$ auf Englisch ist \qt{vertices}, deswegen $V$. Und jetzt schauen wir $V \times V$ an: Das sind wirklich die geordneten Tupel von Paaren von Knoten, und das sind unsere Kanten. So können wir uns das vorstellen: Nehmen wir zum Beispiel diese hier. Wir können sagen, wir haben hier die Knoten $1, 2, 3, 4$.
 
-\begin{spoken-clean}[00:16:52 - 00:20:32]
-Hier gibt es auch noch ein bisschen Terminologie: Wir sagen, zwei Knoten $x, y \in V$ heißen \newterm{adjazent}, falls das Paar $\langle x, y \rangle$ in $E$ enthalten ist. Sie liegen also nebeneinander --- ein bisschen snobistisch ausgedrückt.
+Und jetzt können wir sagen: Okay, zwischen den zweien machen wir eine Kante. Das ist einfach die Kante gegeben durch $1$ und $4$. Das geht jetzt aber von $1$ nach $4$, wenn wir sagen, das ist die Kante $\langle 1, 4 \rangle$. Dann können wir hier zum Beispiel eine Kante von $4$ nach $3$ machen, also $\langle 4, 3 \rangle$, und hier von $3$ nach $2$, also $\langle 3, 2 \rangle$. Aber wir können jetzt hier nicht zwei Kanten von $4$ nach $3$ machen, weil es nur ein geordnetes Tupel von $4$ nach $3$ gibt.
 
-Das Nächste ist vielleicht ein bisschen verwirrend, aber wir sagen: Falls $E$ symmetrisch ist --- man kann $E$ ja auch als Relationssymbol auffassen, also als Teilmenge von $V \times V$ ---, dann ist der Graph \newterm{ungerichtet}. Das heißt, falls $\langle x, y \rangle$ in $E$ ist, dann ist auch $\langle y, x \rangle$ in $E$. In diesem Fall identifizieren wir einfach $\langle x, y \rangle$ mit $\langle y, x \rangle$ und schreiben das als ungerichtete Menge $\{x, y\}$, die in $E$ liegt.
-
-Ein ungerichteter Graph ist eigentlich wie ein gerichteter Graph, bei dem man die Richtungen nicht unterscheidet. Lassen Sie sich von dieser Unterscheidung nicht zu stark verwirren; sie dient einfach der Einfachheit. Beim Königsberger Brückenproblem darf man auf den Brücken natürlich in beide Richtungen laufen. Man kann sowohl von hier nach dort als auch umgekehrt gehen. Ganz korrekt müsste man also sagen: Wir haben zwei Kanten, eine für jede Richtung. Das wäre wie eine Brücke mit Gegenverkehr.
-
-Man kann aber auch sagen: Anstatt alle Kanten doppelt zu zeichnen, was etwas mühsam ist, zeichnen wir sie nur einfach ein und sagen, man darf in beide Richtungen laufen. Das Königsberger Brückenproblem wäre also ein Beispiel für einen ungerichteten Graphen.
-
-Machen wir das noch einmal sauber: Beim Königsberger Graphen hätten wir die Knoten $1, 2, 3, 4$. Unsere Kanten wären hier ungerichtet, zum Beispiel $\{1, 4\}$. Dann hätten wir noch $\{3, 4\}$, $\{2, 3\}$ und $\{1, 2\}$. Und dann gäbe es vielleicht noch eine Menge $E_1$, die nochmals $\{3, 4\}$ und $\{2, 3\}$ enthält. Das wäre die formale Definition für diesen Fall.
+Okay, das ist schon ein bisschen eine Sache, aber so sieht jetzt einmal mit dieser Definition ein Graph aus. Wir haben einfach Knoten, und dann schauen wir uns Kanten an, die zwischen diesen Knoten liegen.
 \end{spoken-clean}
 
-\begin{student-interaction}[Studentenfrage]
-Ich habe eine kurze Frage: Macht das nicht eigentlich Eulers Argument kaputt? Weil man jetzt, wenn man einen ungerichteten Weg hin und zurück laufen kann... man muss ja irgendwie codieren, dass man jede Brücke nur einmal verwenden darf.
-\end{student-interaction}
-
-\begin{spoken-clean}[00:20:32 - 00:21:11]
-Nur einmal, genau.
-\end{spoken-clean}
-
-\begin{student-interaction}[Studentenfrage continued]
-Ja, wie sehe ich das? Für mich sieht es so aus, als hätte man einfach eine Brücke hin und eine Brücke zurück.
-\end{student-interaction}
-
-\begin{spoken-clean}[00:21:11 - 00:22:54]
-Nein, hier haben wir jede Brücke nur noch einmal. Ein ungerichtetes Edge besteht zwar eigentlich aus zwei Tupeln, aber wir sagen: Wenn es ungerichtet ist, dann identifizieren wir die beiden und haben nur noch ein Objekt.
-
-Ah, ich sehe gerade, wir haben da auch eine Kante vergessen, oder? $\{1, 2\}$ und $\{1, 3\}$ haben wir noch vergessen. Okay, dieser hier ist nicht derselbe wie jener dort. So viel zur Definition. Es ist ein bisschen mühsam, wenn man eine Definition nur als Definition sieht, aber es ist genau das, was Sie sich intuitiv unter einem Graphen vorstellen; es ist nicht so kompliziert.
-\end{spoken-clean}
-
-\begin{math-stroke}[Ungerichtete Graphen und Adjazenz]
-\begin{definition}[Adjazenz]\label[definition]{def:adjazenz}
-Zwei Knoten $x, y \in V$ heißen \newterm{adjazent} (benachbart), falls $\langle x, y \rangle \in E$ (bei gerichteten Graphen) bzw. $\{x, y\} \in E$ (bei ungerichteten Graphen).
-\end{definition}
-
-\begin{definition}[Ungerichteter Graph]\label[definition]{def:ungerichteter-graph}
-Ein Graph $G = (V, E)$ heißt \newterm{ungerichtet}, falls die Relation $E \subseteq V \times V$ symmetrisch ist:
+\begin{math-stroke}[Geordnete Kantenpaare (Gerichteter Graph)]
+Sei $V = \{1, 2, 3, 4\}$ die Knotenmenge. Eine gerichtete Kantenmenge als Teilmenge des kartesischen Produkts $E \subseteq V \times V$ ist z.\,B.:
 \[
-\forall x, y \in V \colon \langle x, y \rangle \in E \iff \langle y, x \rangle \in E.
+E = \bigl\{ \langle 1, 4 \rangle, \langle 4, 3 \rangle, \langle 3, 2 \rangle \bigr\}.
 \]
-In diesem Fall identifizieren wir die geordneten Paare $\langle x, y \rangle$ und $\langle y, x \rangle$ und schreiben sie als ungeordnete Paare (Mengen):
-\[
-\{x, y\} \in E.
-\]
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2, ->, >=stealth, thick, node/.style={circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=6mm}]
+  \node[node] (n1) at (0, 3) {$1$};
+  \node[node] (n2) at (0, 2) {$2$};
+  \node[node] (n3) at (0, 1) {$3$};
+  \node[node] (n4) at (0, 0) {$4$};
+
+  \path
+    (n1) edge[bend right=40] (n4)
+    (n4) edge (n3)
+    (n3) edge (n2);
+\end{tikzpicture}
+\end{center}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:16:00 - 00:17:26]
+Gut, jetzt kommt da noch etwas... Ah, hier gibt es noch ein bisschen Terminologie: Wir sagen, zwei Knoten $x, y \in V$ heißen adjazent, falls $(x, y) \in E$. Sie liegen nebeneinander, etwas snobistisch ausgedrückt.
+
+Das Nächste ist ein bisschen verwirrend --- oder auch nicht verwirrend: Wir sagen, falls $E$ symmetrisch ist --- also $E$ kann man ja als ein Relationssymbol auffassen ---: Wir sagen jetzt, ein Graph $G = (V, E)$ ist ungerichtet, falls $E$ symmetrisch ist, d.\,h. falls gilt: $(x, y) \in E$ genau dann, wenn $(y, x) \in E$. In diesem Fall identifizieren wir $(x, y)$ mit $(y, x)$ und schreiben $\{x, y\} \in E$.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{definition}[Adjazenz und Ungerichteter Graph]\label[definition]{def:adjazenz-ungerichtet}
+\begin{itemize}
+    \item \textbf{Adjazenz:} Zwei Knoten $x, y \in V$ heißen \newterm{adjazent}, falls $(x, y) \in E$.
+    \item \textbf{Ungerichteter Graph:} Ein Graph $G = (V, E)$ heißt \newterm{ungerichtet}, falls die Relation $E$ symmetrisch ist, d.\,h.:
+    \[
+    (x, y) \in E \iff (y, x) \in E.
+    \]
+    In diesem Fall identifizieren wir das geordnete Paar $(x, y)$ mit $(y, x)$ und schreiben prägnant $\{x, y\} \in E$.
+\end{itemize}
 \end{definition}
 
 \begin{didactic-insight}[Formale Reduktion von Kanten]
-Das \qt{Identifizieren} von $\langle x, y \rangle$ und $\langle y, x \rangle$ zu der Menge $\{x, y\}$ ist ein informeller, aber in der Graphentheorie allgegenwärtiger Schritt. Formal bedeutet dies, dass wir die Kantenmenge $E$ nicht mehr als Teilmenge des kartesischen Produkts $V \times V$ betrachten, sondern als Menge von $1$- und $2$-elementigen Teilmengen von $V$ (also als Teilmenge von $\mathcal{P}(V)$). Diese formale Substitution vereinfacht die Notation drastisch, da die Reihenfolge der Knoten irrelevant wird.
+Das \qt{Identifizieren} von $(x, y)$ und $(y, x)$ zu der Menge $\{x, y\}$ ist ein informeller, aber in der Graphentheorie allgegenwärtiger Schritt. Formal bedeutet dies, dass wir die Kantenmenge $E$ nicht mehr als Teilmenge des kartesischen Produkts $V \times V$ betrachten, sondern als Menge von $1$- und $2$-elementigen Teilmengen von $V$ (also als Teilmenge von $\mathcal{P}(V)$). Diese formale Substitution vereinfacht die Notation drastisch, da die Reihenfolge der Knoten irrelevant wird.
 \end{didactic-insight}
 \end{math-stroke}
 
-\subsection{Schlingen, Multigraphen und schlichte Graphen}
+\begin{spoken-clean}[00:17:26 - 00:20:32]
+Ein ungerichteter Graph ist eigentlich wie ein gerichteter Graph, aber man darf sich von dieser Unterscheidung nicht zu sehr verwirren lassen. Das ist einfach der Einfachheit halber.
 
-\begin{spoken-clean}[00:22:54 - 00:25:30]
-Wir sagen, ein Graph ist \newterm{gerichtet} oder ein \newterm{Digraph}, falls er nicht ungerichtet ist. Okay. Wunderbar, an Definitionen muss man sich ein bisschen gewöhnen.
-
-Oft sagt man anstatt \qt{gerichtet} auch \qt{Digraph} --- weshalb Digraph? Eben weil es zwei verschiedene Richtungen gibt. Es hängt sehr stark vom Gebiet ab, in dem Sie arbeiten; ich würde sagen, man verwendet fast öfter ungerichtete Graphen als gerichtete.
-
-Eine Kante der Form $\langle x, x \rangle$ heißt \newterm{Schlinge}. Es spricht nichts dagegen, so etwas zu haben. Das ist dann einfach eine solche Kante. Wenn es ein gerichteter Graph ist, würde man das einfach als $\langle x, x \rangle$ bezeichnen. Das ist natürlich dasselbe wie $\{x\}$. Eine Schlinge in einem gerichteten Graphen würde man so bezeichnen.
-
-Hier müssen wir aufpassen: Eine Schlinge hat keine Richtung; man kann sie sich so oder so vorstellen, es bleibt $\langle x, x \rangle$. Ein Graph $G$ heißt \newterm{schlingenfrei}, falls er keine Schlingen hat.
-
-Falls wir einen Graphen mit mehreren Kanten zwischen zwei Knoten haben --- wie beim Königsberger Graphen ---, dann nennen wir diese \newterm{Mehrfachkanten}. Hier gibt es zum Beispiel zwei Kanten zwischen zwei Knoten. Den Begriff braucht man aber vor allem, um das Gegenteil zu definieren: Ein Graph ohne Schlingen und ohne Mehrfachkanten heißt \newterm{schlicht}. Ein schlichter Graph ist also einfach ein Graph, der beides nicht hat.
+Im Königsberger Brückenproblem darf man natürlich in beide Richtungen laufen, also sowohl von hier nach hier laufen als auch von hier nach hier. Dann würden wir ganz korrekt sagen: Okay, dann haben wir zwei Kanten, eine, die in diese Richtung geht, und eine, die in diese Richtung geht. Und auch hier haben wir eine, die hierhin geht, und eine, die wieder zurückgeht --- wie eine Brücke mit Gegenverkehr. Und anstatt dass wir alle Kanten doppelt hinzeichnen, was etwas mühsam ist, sagen wir einfach: Okay, wir schreiben die nur einfach hin, dafür darf man in beide Richtungen laufen.
 \end{spoken-clean}
 
-\begin{math-stroke}[Schlingen, Mehrfachkanten und schlichte Graphen]
-\begin{definition}[Schlinge]\label[definition]{def:schlinge}
-Eine Kante der Form $\langle x, x \rangle$ (bzw. $\{x, x\} = \{x\}$) heißt \newterm{Schlinge} (engl. \newterm{loop}).
-\end{definition}
+\begin{student-interaction}[Studentenfrage]
+Macht das nicht eigentlich Eulers Argument kaputt? Weil, wenn man bei einem ungerichteten Weg hin- und zurücklaufen kann, also... man muss ja irgendwie codieren, dass man ihn nur einmal benutzen darf.
+\end{student-interaction}
 
-\begin{definition}[Mehrfachkanten]\label[definition]{def:mehrfachkanten}
-Existieren zwischen zwei Knoten $x, y \in V$ mehr als eine Kante, so sprechen wir von \newterm{Mehrfachkanten} (engl. \newterm{multiple edges}). Ein solcher Graph wird auch als \newterm{Multigraph} bezeichnet.
-\end{definition}
+\begin{spoken-clean}[00:20:32 - 00:21:12]
+Nein, jetzt haben wir jede Brücke nur noch einmal. Aber es sind ja eigentlich ungerichtete Kanten, das heißt, wir identifizieren die beiden Richtungen und haben nur noch eine ungerichtete Kante pro Brücke.
+\end{spoken-clean}
 
-\begin{definition}[Schlichter Graph]\label[definition]{def:schlichter-graph}
-Ein Graph $G = (V, E)$ heißt \newterm{schlicht} (oder \newterm{einfach}, engl. \newterm{simple graph}), falls er weder Schlingen noch Mehrfachkanten besitzt.
-\end{definition}
+\begin{student-interaction}[Studentenfrage]
+Und was ist mit $E_0$ und $E_1$?
+\end{student-interaction}
+
+\begin{spoken-clean}[00:21:12 - 00:22:55]
+Ah, einfach damit wir hier zwei Brücken haben können, ja genau! Wir haben da noch eine vergessen, oder? \inlinemetanote{korrigiert die Skizze an der Tafel} $\{1, 2\}$ und $\{1, 3\}$ haben wir noch vergessen. Weil dieser hier ist nicht derselbe wie dieser hier.
+
+Einfach so viel noch zur Definition. Es ist ein bisschen mühsam, wenn man die Definition so sieht, aber es ist genau das, was Sie sich unter einem Graphen vorstellen.
+\end{spoken-clean}
+
+\begin{math-stroke}[Formalisierung des Königsberger Multigraphen]
+Für den Königsberger Graph mit $V = \{1, 2, 3, 4\}$ wählen wir zwei Kantenmengen $E_0, E_1$, um Mehrfachbrücken abzubilden:
+\begin{align*}
+E_0 &= \bigl\{ \{1, 4\}, \{3, 4\}, \{2, 3\}, \{1, 2\} \bigr\}, \\
+E_1 &= \bigl\{ \{3, 4\}, \{2, 3\}, \{1, 3\} \bigr\}.
+\end{align*}
 \end{math-stroke}
 
-\subsection{Die Adjazenzmatrix}
+\begin{spoken-clean}[00:22:55 - 00:25:32]
+Gut, das ist für einen ungerichteten Graphen.
 
-\begin{spoken-clean}[00:25:30 - 00:28:30]
-Schauen wir uns noch ein paar Beispiele an --- oder machen wir direkt weiter. Ich glaube, zu den Beispielen muss man nicht mehr viel sagen, das ist klar: Dieser Graph hier ist schlicht, jener dort ist wegen der Mehrfachkante nicht schlicht. Dieser hier ist wieder schlicht, aber der dort wegen der Schlinge nicht.
+Dann sagen wir: Ein Graph heißt gerichtet oder ein Digraph, falls er nicht ungerichtet ist. Okay... was heißt \qt{Nicht-Definitionen} halt... \inlinemetanote{lacht} Und oft, anstatt gerichtet, sagt man auch ein Digraph. Weshalb Digraph? Halt eben, weil es zwei verschiedene Richtungen gibt, quasi.
 
-Die nächste Definition ist etwas ganz Nettes: Sei $G = (V, E)$ ein \newterm{endlicher Graph}. Ein endlicher Graph ist es dann, wenn es nur endlich viele Knoten gibt. Wenn es nur endlich viele Knoten gibt, dann gibt es auch nur endlich viele Kanten.
+Und das hängt sehr stark vom Gebiet ab, wo Sie arbeiten. Ich würde fast sagen, meistens verwendet man öfters ungerichtete Graphen als gerichtete Graphen.
 
-Einem solchen Graphen können wir eine Matrix zuordnen, die \newterm{Adjazenzmatrix}. Wir bezeichnen sie als $A(G)$ und schreiben ihre Einträge als $a_{ij}$. Dazu müssen wir $V$ zuerst durchnummerieren: $V = \{v_1, \dots, v_n\}$. Wir sagen nun: $a_{ij}$ ist $1$, falls es eine Kante von $v_i$ nach $v_j$ gibt, und $0$ sonst.
+Dann: Eine Kante von der Form $(x, x) \in E$ heißt Schlinge. Es spricht also nichts dagegen, dass man hier eine Kante der Form $(x, x)$ hat. Das ist dann einfach eine solche Kante, und diese heißen Schlingen. Wenn es ein gerichteter Graph ist, würde man das einfach so bezeichnen. Eine Schlinge hat keine Richtung.
+
+Und entsprechend heißt ein Graph $G$ schlingenfrei, falls er keine Schlingen besitzt.
+
+Falls $G = (V, E_0, \dots, E_k)$, so kann es zwischen zwei Knoten mehrere Kanten geben, die verschieden sind. Solche Kanten heißen Mehrfachkanten.
+
+Und ein Graph ohne Schlingen und ohne Mehrfachkanten heißt schlicht. Ein schlichter Graph ist einfach ein Graph, wo man das nicht hat und Mehrfachkanten auch nicht haben kann.
 \end{spoken-clean}
 
-\begin{didactic-insight}[Die Brücke zur Linearen Algebra: Warum Matrizen in der Graphentheorie?]
-Die Einführung der Adjazenzmatrix ist weit mehr als eine bloße tabellarische Auflistung von Kanten. Sie schlägt eine fundamentale Brücke zur Linearen Algebra:
+\begin{math-stroke}
+\begin{definition}[Digraph, Schlinge, Mehrfachkanten und Schlichter Graph]\label[definition]{def:graphen-klassifikation}
 \begin{itemize}
-    \item \textbf{Pfadzählung:} Ein zentrales Resultat besagt, dass der Eintrag $(i,j)$ der $k$-ten Potenz der Adjazenzmatrix, also $A(G)^k$, exakt der Anzahl aller gerichteten Kantenfolgen der Länge $k$ vom Knoten $v_i$ zum Knoten $v_j$ entspricht.
-    \item \textbf{Spektrale Graphentheorie:} Die Eigenwerte der Adjazenzmatrix (das sogenannte Spektrum des Graphen) kodieren tiefgreifende strukturelle Eigenschaften des Graphen, wie etwa seine Konnektivität, chromatische Zahl oder ob er bipartit ist.
+    \item \textbf{Digraph (Gerichteter Graph):} Ein Graph $G$ heißt \newterm{gerichtet} oder \newterm{Digraph}, falls er nicht ungerichtet ist.
+    \item \textbf{Schlinge:} Eine Kante der Form $(x, x) \in E$ heißt \newterm{Schlinge}. Ein Graph heißt \newterm{schlingenfrei}, falls er keine Schlingen besitzt.
+    \item \textbf{Mehrfachkanten:} Falls $G = (V, E_0, \dots, E_k)$, so kann es zwischen zwei Knoten mehrere verschiedene Kanten geben. Solche Kanten heißen \newterm{Mehrfachkanten}.
+    \item \textbf{Schlichter Graph:} Ein Graph ohne Schlingen und ohne Mehrfachkanten heißt \newterm{schlicht}.
 \end{itemize}
-\end{didactic-insight}
+\end{definition}
 
-\begin{spoken-clean}[00:28:30 - 00:31:12]
-Ein Graph mit nur einer Kanten relation hat also eine Adjazenzmatrix, in der es nur $1$ und $0$ gibt, je nachdem, ob die Knoten verbunden sind oder nicht.
-
-Machen wir ein Beispiel: Wir haben den Graphen mit den Knoten $1, 2, 3, 4$ und Kanten von $1$ nach $2$, von $2$ nach $3$, von $3$ nach $4$ und von $4$ nach $1$. Was wäre die Adjazenzmatrix dieses Graphen? Von $1$ nach $1$ gibt es nichts. Von $1$ nach $2$ gibt es eine Kante, sonst nichts. Von $2$ gibt es nur eine Kante nach $3$. Von $3$ gibt es eine nach $4$, und von $4$ gibt es eine nach $1$.
-
-Falls wir mehrere Kanten zwischen zwei Knoten haben, ist es analog: Wir zählen einfach, wie viele Kanten es dazwischen gibt. Falls wir $G$ als $(V, E_0, \dots, E_k)$ schreiben --- wir haben also verschiedene Kantenmengen, aber immer noch endlich viele ---, dann ist die Adjazenzmatrix $A(G)$ definiert als die Summe von $\ell = 0$ bis $k$ über $A(G_\ell)$. Der Eintrag $a_{ij}$ ist dann einfach die Anzahl der Kanten von $v_i$ nach $v_j$.
-\end{spoken-clean}
-
-\begin{math-stroke}[Beispiele für schlichte Graphen und Adjazenzmatrix]
+\textbf{Beispiele für Schlichtheit an der Tafel:}
 \begin{center}
-\begin{tabular}{c c c c}
+\setlength{\tabcolsep}{16pt}
+\begin{tabular}{c c}
     \begin{tikzpicture}[scale=0.8, thick]
         \node[circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=4mm] (A) at (0,0) {};
         \node[circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=4mm] (B) at (1.5,0) {};
@@ -340,7 +325,8 @@ Falls wir mehrere Kanten zwischen zwei Knoten haben, ist es analog: Wir zählen 
         \node[circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=4mm] (B) at (1.5,0) {};
         \draw[MidnightBlue] (A) to[bend left=30] (B);
         \draw[MidnightBlue] (A) to[bend right=30] (B);
-    \end{tikzpicture} &
+    \end{tikzpicture} \\[4pt]
+    \text{schlicht} & \text{nicht schlicht (Mehrfachkante)} \\[12pt]
     \begin{tikzpicture}[scale=0.8, thick]
         \node[circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=4mm] (A) at (0,0) {};
         \node[circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=4mm] (B) at (1,1) {};
@@ -352,43 +338,61 @@ Falls wir mehrere Kanten zwischen zwei Knoten haben, ist es analog: Wir zählen 
         \node[circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=4mm] (B) at (1.5,0) {};
         \draw[MidnightBlue] (A) -- (B);
         \path (A) edge[out=135, in=225, distance=1cm, loop, MidnightBlue] (A);
-    \end{tikzpicture} \\
-    \text{schlicht} & \text{nicht schlicht (Mehrfachkante)} & \text{schlicht} & \text{nicht schlicht (Schlinge)}
+    \end{tikzpicture} \\[4pt]
+    \text{schlicht} & \text{nicht schlicht (Schlinge)}
 \end{tabular}
 \end{center}
+\end{math-stroke}
 
+\section{Die Adjazenzmatrix}
 
-\begin{definition}[Adjazenzmatrix]\label[definition]{def:adjazenzmatrix}
-Sei $G = (V, E)$ ein endlicher Graph mit durchnummerierten Knoten $V = \{v_1, \dots, v_n\}$. Die \newterm{Adjazenzmatrix} $A(G) = (a_{ij})_{1 \le i, j \le n}$ ist eine $n \times n$-Matrix definiert durch:
+\subsection{Definition und Beispiele der Adjazenzmatrix}
+
+\begin{spoken-clean}[00:25:32 - 00:28:49]
+Gut, dann die nächste Definition: Sei $G = (V, E)$ ein endlicher Graph, d.\,h. $|V|$ ist endlich. Die Adjazenzmatrix $A(G) = (a_{ij})$ ist eine $n \times n$-Matrix, wobei $V = \{v_1, \dots, v_n\}$, gegeben durch:
 \[
+a_{ij} = \begin{cases} 1 & \text{falls } (v_i, v_j) \in E, \\ 0 & \text{sonst.} \end{cases}
+\]
+Für $V = \{v_1, \dots, v_n\}$ nummerieren wir die Knoten durch und sagen: $a_{ij}$ ist $1$, falls es eine Kante von $v_i$ nach $v_j$ gibt, und $0$ sonst.
+
+So ein Graph mit nur einer Kantenrelation ist also einfach durch eine Adjazenzmatrix gegeben, in der es immer Einsen und Nullen gibt.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:28:49 - 00:30:10]
+Machen wir ein Beispiel: Nehmen wir den Graphen mit $V = \{1, 2, 3, 4\}$, und wir haben hier eine Kante von $1$ nach $2$, eine von $2$ nach $3$, eine von $3$ nach $4$ und eine von $4$ nach $1$.
+
+Was wäre die Adjazenzmatrix von diesem Graphen? Von $1$ nach $1$ gibt es nichts. Von $1$ nach $2$ gibt es etwas, und sonst wieder nichts. Dann von $2$ nach... das Einzige von $2$ aus gibt es eine Kante nach $3$, aber sonst nichts. Von $3$ gibt es eine nach $4$, aber sonst nichts. Und von $4$ gibt es eine nach $1$.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{definition}[Adjazenzmatrix]\label[definition]{def:adjazenzmatrix}
+Sei $G = (V, E)$ ein endlicher Graph mit nummerierter Knotenmenge $V = \{v_1, \dots, v_n\}$. Die \newterm{Adjazenzmatrix} $A(G) = (a_{ij}) \in M_{n \times n}(\mathbb{R})$ ist definiert durch:
+\begin{equation}\label{eq:adjazenzmatrix-def}
 a_{ij} := \begin{cases}
-1 & \text{falls } \langle v_i, v_j \rangle \in E \text{ (bzw. } \{v_i, v_j\} \in E\text{)}, \\
+1 & \text{falls } (v_i, v_j) \in E, \\
 0 & \text{sonst.}
 \end{cases}
-\]
-Für einen Multigraphen $G = (V, E_0, \dots, E_k)$ ist $a_{ij} = \sum_{\ell=0}^k a_{ij}^{(\ell)}$ die Anzahl der Kanten von $v_i$ nach $v_j$:
-\[
-A(G) := \sum_{\ell=0}^k A(G_\ell).
-\]
+\end{equation}
 \end{definition}
 
-\textbf{Beispiel für einen gerichteten Graphen und seine Adjazenzmatrix:}
+\begin{example}[Adjazenzmatrix eines gerichteten 4-Zyklus]
+\label[example]{ex:adjazenzmatrix-4-zyklus}
+Sei $V = \{1, 2, 3, 4\}$ und $E = \{ (1,2), (2,3), (3,4), (4,1) \}$.
+
 \begin{center}
-\begin{tikzpicture}[scale=1.2, ->, >=stealth, thick,
-  node/.style={circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=6mm}]
-  
-  \node[node] (n1) at (0, 1.5) {$1$};
-  \node[node] (n2) at (1.5, 1.5) {$2$};
-  \node[node] (n3) at (1.5, 0) {$3$};
-  \node[node] (n4) at (0, 0) {$4$};
-  
-  \path
-    (n1) edge[MidnightBlue] (n2)
-    (n2) edge[MidnightBlue] (n3)
-    (n3) edge[MidnightBlue] (n4)
-    (n4) edge[MidnightBlue] (n1);
+\begin{tikzpicture}[scale=1.2, >=stealth, node distance=1.8cm]
+  \node[circle, draw, fill=MidnightBlue!10] (n1) at (0, 1.5) {$1$};
+  \node[circle, draw, fill=MidnightBlue!10] (n2) at (1.5, 1.5) {$2$};
+  \node[circle, draw, fill=MidnightBlue!10] (n3) at (1.5, 0) {$3$};
+  \node[circle, draw, fill=MidnightBlue!10] (n4) at (0, 0) {$4$};
+
+  \draw[->, thick] (n1) -- (n2);
+  \draw[->, thick] (n2) -- (n3);
+  \draw[->, thick] (n3) -- (n4);
+  \draw[->, thick] (n4) -- (n1);
 \end{tikzpicture}
 \end{center}
+
 Die zugehörige Adjazenzmatrix lautet:
 \[
 A(G) = \begin{pmatrix}
@@ -396,596 +400,709 @@ A(G) = \begin{pmatrix}
 0 & 0 & 1 & 0 \\
 0 & 0 & 0 & 1 \\
 1 & 0 & 0 & 0
-\end{pmatrix}
+\end{pmatrix}.
 \]
+\end{example}
 \end{math-stroke}
 
-\begin{spoken-clean}[00:31:12 - 00:32:57]
-Falls wir mehrere Kanten zwischen zwei Knoten haben, ist es analog: Wir zählen einfach, wie viele Kanten es dazwischen gibt.
+\begin{spoken-clean}[00:30:10 - 00:33:00]
+Okay, und dann ist noch die Frage, falls wir mehrere Kanten zwischen zwei Knoten haben: Wenn wir also in dem anderen Fall sind, dann ist das analog. Dann zählen wir einfach: Wie viele gibt es dazwischen?
 
-Falls wir $G$ als $(V, E_1, \dots, E_k)$ schreiben --- wir haben also verschiedene Kantenmengen, aber immer noch endlich viele ---, dann ist die Adjazenzmatrix $A(G)$ definiert als die Summe von $\ell = 1$ bis $k$ über $A(G_\ell)$. Der Eintrag $a_{ij}$ ist dann einfach die Anzahl der Kanten von $v_i$ nach $v_j$.
+Okay, wenn wir $G$ schreiben als $V$ mit $E_1$ bis $E_k$, also verschiedene Kantenmengen haben, aber auch $|V|$ endlich ist: In dem Fall definieren wir den Graphen $G_\ell$ als den Graphen mit Knotenmenge $V$ und nehmen jetzt einfach nur die Relation $E_\ell$ dazu.
+
+Und dann definieren wir die Adjazenzmatrix von $G$ als die Summe aller Adjazenzmatrizen von $G_\ell$. Das heißt mit anderen Worten: Im Prinzip zählen wir einfach, wie viele Kanten vom Knoten $i$ zum Knoten $j$ gehen. Okay?
+
+Machen wir noch ein Beispiel, was weiß ich: Nehmen wir $1, 2$, und wir haben hier zwei Kanten. Wenn wir das $G$ nennen, wir haben eine Kante so und eine Kante so. Dann ist die entsprechende Adjazenzmatrix von $G$: Von $1$ nach $1$ gibt es keinen, von $1$ nach $2$ gibt es $2$, von $2$ nach $1$ gibt es keinen und von $2$ nach $2$ gibt es auch keinen. Okay? Und das ist einfach... ja, wie wir sehen, ist das einfach:
+\[
+\begin{pmatrix} 0 & 2 \\ 0 & 0 \end{pmatrix} = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} + \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}.
+\]
 \end{spoken-clean}
 
 \begin{math-stroke}[Adjazenzmatrix für Multigraphen]
-Falls $G = (V, E_1, \dots, E_k)$ ein Multigraph mit endlich vielen Kantenmengen ist, definieren wir für jede Kantenmenge $E_\ell$ den Teilgraphen $G_\ell = (V, E_\ell)$. Die Adjazenzmatrix $A(G)$ ist dann die Summe der einzelnen Adjazenzmatrizen:
-\begin{equation}
-A(G) := \sum_{\ell=1}^k A(G_\ell)
+Falls $G = (V, E_1, \dots, E_k)$ ein Multigraph mit $|V|$ endlich ist, setzt man $G_\ell := (V, E_\ell)$ für $\ell \in \{1, \dots, k\}$ und definiert:
+\begin{equation}\label{eq:adjazenzmatrix-multigraph-summe}
+A(G) := \sum_{\ell=1}^k A(G_\ell).
 \end{equation}
-Der Eintrag $a_{ij}$ entspricht somit genau der Anzahl der Kanten, die vom Knoten $v_i$ zum Knoten $v_j$ führen.
-\end{math-stroke}
 
-\begin{spoken-clean}[00:32:57 - 00:34:42]
-Schauen wir uns noch ein etwas komplizierteres Beispiel an; das steht auch im Skript. Wenn wir diesen Graphen hier betrachten: Von $1$ nach $1$ gibt es keine Kanten, dort steht also eine $0$. Von $1$ nach $2$ gibt es eine. Von $1$ nach $3$ gibt es keine, ebenso wenig nach $4$. Es gibt aber noch eine nach $5$ und eine nach $6$.
-
-Von $2$ nach $1$ gibt es eine. Von $2$ nach $2$ gibt es keine, ebenso wenig nach $3$ oder $4$. Von $2$ nach $5$ gibt es eine, nach $6$ keine. Von $3$ nach $1$ gibt es keine, nach $2$ gibt es eine. Von $3$ nach $3$ gibt es eine Schlinge, und von $3$ nach $4$ gibt es zwei Kanten. Und so weiter. Das müssen wir jetzt nicht alles aufschreiben.
-\end{spoken-clean}
-
-\begin{math-stroke}[Komplexeres Beispiel eines gerichteten Multigraphen]
-Wir betrachten den Graphen $G$ mit sechs Knoten $V = \{1, 2, 3, 4, 5, 6\}$, wie er auf der Folie projiziert wird:
+\begin{example}[Parallele gerichtete Kanten]
+Sei $G$ der Graph auf $V = \{1, 2\}$ mit zwei parallelen gerichteten Kanten von $1$ nach $2$:
 
 \begin{center}
-\begin{tikzpicture}[scale=1.5, ->, >=stealth, thick,
-  node/.style={circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=7mm}]
-  \begin{ai-tikz-planner-invisible-content}
-  % 1. Background: Sechs Knoten kreisförmig angeordnet.
-  % 2. Midground: Kanten mit Pfeilen, inklusive einer Schlinge an Knoten 3 und Doppelbindung zwischen 3 und 4.
-  \end{ai-tikz-planner-invisible-content}
-  \node[node] (n1) at (0, 2) {$1$};
-  \node[node] (n2) at (2, 2) {$2$};
-  \node[node] (n3) at (3, 1) {$3$};
-  \node[node] (n4) at (2, 0) {$4$};
-  \node[node] (n5) at (0, 0) {$5$};
-  \node[node] (n6) at (-1, 1) {$6$};
-  
+\begin{tikzpicture}[scale=1.2, ->, >=stealth, node/.style={circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=6mm}]
+  \node[node] (n1) at (0, 0) {$1$};
+  \node[node] (n2) at (2, 0) {$2$};
+
   \path
-    (n1) edge[bend left=15, MidnightBlue] (n2)
-    (n2) edge[bend left=15, MidnightBlue] (n1)
-    (n1) edge[MidnightBlue] (n5)
-    (n6) edge[MidnightBlue] (n1)
-    (n6) edge[MidnightBlue] (n5)
-    (n6) edge[MidnightBlue] (n2)
-    (n2) edge[MidnightBlue] (n5)
-    (n3) edge[MidnightBlue] (n2)
-    (n3) edge[out=45, in=-45, distance=0.8cm, loop, MidnightBlue] (n3)
-    (n3) edge[bend left=15, MidnightBlue] (n4)
-    (n3) edge[bend right=15, MidnightBlue] (n4)
-    (n4) edge[MidnightBlue] (n3)
-    (n4) edge[bend left=15, MidnightBlue] (n5)
-    (n5) edge[bend left=15, MidnightBlue] (n4)
-    (n5) edge[MidnightBlue] (n3);
+    (n1) edge[bend left=30] (n2)
+    (n1) edge[bend right=30] (n2);
 \end{tikzpicture}
 \end{center}
 
-Die an der Tafel unvollständig skizzierte Adjazenzmatrix $A(G)$ lautet:
+Die Adjazenzmatrix berechnet sich zu:
 \[
-A(G) = \begin{pmatrix}
-0 & 1 & 0 & 0 & 1 & 1 \\
-1 & 0 & 0 & 0 & 1 & 0 \\
-0 & 1 & 1 & 2 & 0 & 0 \\
-\vdots & \vdots & \vdots & \vdots & \vdots & \vdots
-\end{pmatrix}
+A(G) = \begin{pmatrix} 0 & 2 \\ 0 & 0 \end{pmatrix} = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} + \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}.
 \]
-
-\begin{explanation-of-steps}[Vollständige Adjazenzmatrix]
-Unter Berücksichtigung aller Kanten des projizierten Graphen ergibt sich die vollständige Adjazenzmatrix:
-\[
-A(G) = \begin{pmatrix}
-0 & 1 & 0 & 0 & 1 & 1 \\
-1 & 0 & 0 & 0 & 1 & 0 \\
-0 & 1 & 1 & 2 & 0 & 0 \\
-0 & 0 & 1 & 0 & 1 & 0 \\
-0 & 0 & 1 & 1 & 0 & 0 \\
-1 & 1 & 0 & 0 & 1 & 0
-\end{pmatrix}
-\]
-\end{explanation-of-steps}
+\end{example}
 \end{math-stroke}
 
-\begin{spoken-clean}[00:34:42 - 00:35:22]
-Ist das klar? Gut. Machen wir weiter mit ein paar Bemerkungen, die relativ einfach aus der Definition folgen. Wenn $A(G)$ die Adjazenzmatrix ist...
+\begin{spoken-clean}[00:33:00 - 00:34:51]
+Schauen wir uns hier noch ein etwas komplizierteres Beispiel an, das ist auch im Skript. Wenn wir diesen Graphen hier anschauen:
+
+Okay, da haben wir sechs Knoten. Das heißt, was ist da die Adjazenzmatrix? Von $1$ nach $1$ gibt es keine Kanten, das heißt, da ist $0$. Von $1$ nach $2$ gibt es eine. Von $1$ nach $3$ gibt es keine. Dann gibt es auch keine nach $4$, es gibt aber noch eine nach $5$ und eine nach $6$.
+
+Von $2$ nach $1$ gibt es eine. Von $2$ nach $2$ gibt es keine. Von $2$ nach $3$ gibt es keine. Von $2$ nach $4$ gibt es keine. Von $2$ nach $5$ gibt es eine. Von $2$ nach $6$ gibt es keine.
+
+Von $3$ nach $1$ gibt es keine. Von $3$ nach $2$... ja, müssen wir jetzt nicht alles durchmachen. Hier gibt es noch eine von $3$ nach $3$, von $3$ nach $4$ gibt es $2$... Okay, und so weiter. Das müssen wir nicht mehr hinschreiben. Ist das klar? Gut.
 \end{spoken-clean}
 
-\begin{math-stroke}[Eigenschaften der Adjazenzmatrix]
-\begin{remark}[Eigenschaften der Adjazenzmatrix]\label[remark]{rem:adjazenzmatrix-eigenschaften}
-Sei $G = (V, E)$ ein endlicher Graph und $A(G) = (a_{ij})$ seine Adjazenzmatrix.
+\begin{math-stroke}[Komplexeres Beispiel eines gerichteten Multigraphen]
+\begin{meta-note}[Projizierte Folie: Beispielgraph]
+Die Folie zeigt einen gerichteten Graphen mit $6$ Knoten $\{1, 2, 3, 4, 5, 6\}$, einer Schlinge an Knoten $3$, sowie Doppel Kanten zwischen $3$ und $4$ bzw. $5$ und $4$.
+\end{meta-note}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2, ->, >=stealth, node/.style={circle, draw, fill=MidnightBlue!10, font=\bfseries}]
+  \node[node] (n1) at (0, 2) {$1$};
+  \node[node] (n2) at (2, 2) {$2$};
+  \node[node] (n3) at (3.5, 0.8) {$3$};
+  \node[node] (n4) at (2, -0.5) {$4$};
+  \node[node] (n5) at (0, -0.5) {$5$};
+  \node[node] (n6) at (-1.2, 0.8) {$6$};
+
+  \draw[thick] (n1) to[bend left=15] (n2);
+  \draw[thick] (n2) to[bend left=15] (n1);
+  \draw[thick] (n1) -- (n5);
+  \draw[thick] (n1) -- (n6);
+  \draw[thick] (n2) -- (n5);
+  \draw[thick] (n6) -- (n5);
+  \draw[thick] (n3) to[bend left=15] (n2);
+  \draw[thick] (n3) to[out=30, in=-30, looseness=5] (n3);
+  \draw[thick] (n3) to[bend left=15] (n4);
+  \draw[thick] (n3) to[bend right=15] (n4);
+  \draw[thick] (n5) to[bend left=15] (n4);
+  \draw[thick] (n4) to[bend left=15] (n5);
+\end{tikzpicture}
+\end{center}
+
+Die zugehörige $6 \times 6$-Adjazenzmatrix lautet:
+\[
+A(G) = \begin{pmatrix}
+0 & 1 & 0 & 0 & 1 & 1 \\
+1 & 0 & 0 & 0 & 1 & 0 \\
+0 & 1 & 1 & 2 & 0 & 0 \\
+\vdots & & & & & \vdots
+\end{pmatrix}.
+\]
+\end{math-stroke}
+
+\begin{spoken-clean}[00:34:51 - 00:37:48]
+Können wir vielleicht noch kurz den Graphen vom Königsberger Brückenproblem durchrechnen. Wie hatten wir die Nummerierung? $1, 2, 3, 4$, und da hatten wir so etwas. Das war $G$. Was ist jetzt da die Adjazenzmatrix?
+
+Okay, das ist jetzt ein ungerichteter Graph. Aber dem können wir doch auch eine Adjazenzmatrix zuordnen. Und das ist genau dieselbe, wie wenn wir sagen: Die Kante von $1$ nach $2$ ist jetzt auch eine Kante von $2$ nach $1$. Und dann passt alles wieder.
+
+Das heißt, hier haben wir eine $4 \times 4$-Matrix: Von $1$ nach $1$ gibt es keine, von $1$ nach $2$ gibt es $2$, von $1$ nach $3$ keine, von $1$ nach $4$ eine. Von $2$ nach $1$ gibt es $2$, von $2$ nach $2$ keine, von $2$ nach $3$ $2$, von $2$ nach $4$ eine. Von $3$ nach $1$ gibt es keine, von $3$ nach $2$ gibt es $2$, von $3$ nach $3$ gibt es keine, von $3$ nach $4$ gibt es eine. Und von $4$ gibt es eine nach $1$, eine nach $2$, eine nach $3$, und nach $4$ gibt es keine.
+
+Okay, macht auch Sinn. Auch für ungerichtete Graphen ist das sehr klar.
+
+Okay, alles klar bei der Adjazenzmatrix? Wenn man die Adjazenzmatrix hat, dann hat man eigentlich alle wesentlichen Informationen. Und wie Sie wissen, schaut man sich ja immer gerne Matrizen an, weil man die lineare Algebra gut verstanden hat. Sie haben vielleicht schon ein bisschen bemerkt: Ein Großteil der Mathematik besteht eigentlich darin, alles auf die lineare Algebra zurückzuführen.
+
+Man hat die meisten Sachen nicht verstanden; eine der wenigen Sachen, die man gut verstanden hat, ist die lineare Algebra. Deswegen hat man im ersten Jahr schon einen ganzen Kurs darüber. In der Analysis geht es eigentlich darum, irgendetwas, was man nicht verstanden hat, durch lineare Abbildungen zu approximieren, und das hat man dann verstanden. Und Sie werden auch in anderen Bereichen der Mathematik sehen: Man hat irgendetwas, was man nicht verstanden hat, man versucht Vektorräume dazuzuordnen, und die hat man verstanden, und dann kann man das Problem lösen. Ja, Mathematik besteht vielleicht daraus, Probleme auf lineare Algebra zu reduzieren, und dann kann man die Probleme lösen.
+\end{spoken-clean}
+
+\begin{math-stroke}[Adjazenzmatrix des Königsberger Graphen]
+Für den ungerichteten Königsberger Multigraphen $G$ mit $V = \{1, 2, 3, 4\}$:
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2, >=stealth, node/.style={circle, draw, fill=MidnightBlue!10, font=\bfseries}]
+  \node[node] (n1) at (0, 2) {$1$};
+  \node[node] (n2) at (0, 0) {$2$};
+  \node[node] (n3) at (0, -2) {$3$};
+  \node[node] (n4) at (2.5, 0) {$4$};
+
+  \draw[thick] (n1) to[bend left=25] (n2);
+  \draw[thick] (n1) to[bend right=25] (n2);
+  \draw[thick] (n2) to[bend left=25] (n3);
+  \draw[thick] (n2) to[bend right=25] (n3);
+  \draw[thick] (n1) -- (n4);
+  \draw[thick] (n2) -- (n4);
+  \draw[thick] (n3) -- (n4);
+\end{tikzpicture}
+\end{center}
+
+erhält man die symmetrische $4 \times 4$-Adjazenzmatrix:
+\[
+A(G) = \begin{pmatrix}
+0 & 2 & 0 & 1 \\
+2 & 0 & 2 & 1 \\
+0 & 2 & 0 & 1 \\
+1 & 1 & 1 & 0
+\end{pmatrix}.
+\]
+\end{math-stroke}
+
+\begin{didactic-insight}[Die Brücke zur Linearen Algebra: Warum Matrizen in der Graphentheorie?]
+Die Einführung der Adjazenzmatrix ist weit mehr als eine bloße tabellarische Auflistung von Kanten. Sie schlägt eine fundamentale Brücke zur Linearen Algebra:
+\begin{itemize}
+    \item \textbf{Pfadzählung:} Ein zentrales Resultat besagt, dass der Eintrag $(i,j)$ der $k$-ten Potenz der Adjazenzmatrix, also $A(G)^k$, exakt der Anzahl aller gerichteten Kantenfolgen der Länge $k$ vom Knoten $v_i$ zum Knoten $v_j$ entspricht.
+    \item \textbf{Spektrale Graphentheorie:} Die Eigenwerte der Adjazenzmatrix (das sogenannte Spektrum des Graphen) kodieren tiefgreifende strukturelle Eigenschaften des Graphen, wie etwa seine Konnektivität, chromatische Zahl oder ob er bipartit ist.
+\end{itemize}
+\end{didactic-insight}
+
+\subsection{Eigenschaften der Adjazenzmatrix}
+
+\begin{spoken-clean}[00:37:48 - 00:39:45]
+Vielleicht noch ein paar Bemerkungen, die relativ einfach aus der Definition folgen: Wenn $A(G) = (a_{ij})$ die Adjazenzmatrix ist, dann sind die $a_{ij}$ alle größer gleich $0$ und ganze Zahlen --- in $\omega$, wenn Sie wollen. Okay, das heißt, es ist eine ganzzahlige Matrix aus nicht-negativen Zahlen.
+
+Jetzt, was können wir über Schlingenfreiheit sagen? $G$ ist schlingenfrei genau dann, wenn $a_{ii} = 0$ gilt für alle $i$. Okay, das ist, wenn es keine Kante von einem Knoten zu sich selbst gibt. Wenn aber $a_{ii} = 0$ für alle $i$ gilt, dann folgt daraus, dass die Spur dieser Matrix $0$ ist.
+
+Und wenn die Spur der Adjazenzmatrix $0$ ist, das heißt, die Summe all dieser $a_{ii}$ ist $0$ --- aber die $a_{ii}$ sind ja alle nicht-negativ ---, dann ist die einzige Möglichkeit, dass die Spur $0$ sein kann, dass $a_{ii} = 0$ für alle $i$ ist. Das heißt: $G$ ist schlingenfrei genau dann, wenn die Spur der Adjazenzmatrix $0$ ist. Man sieht also an der Spur der Matrix direkt, ob der Graph schlingenfrei ist oder nicht.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{remark}[Eigenschaften der Eintragsmatrix]
+Sei $A(G) = (a_{ij})$ die Adjazenzmatrix eines Graphen $G$:
 \begin{enumerate}[label=\textbf{(\roman*)}]
-    \item \textbf{Nichtnegativität:} Alle Einträge der Adjazenzmatrix sind nichtnegative ganze Zahlen:
+    \item $a_{ij} \ge 0$ und $a_{ij} \in \mathbb{N}_0$ für alle $i, j$ (nicht-negative Ganzzahligkeit).
+    \item $G$ ist schlingenfrei genau dann, wenn $a_{ii} = 0$ für alle $i$.
+    \item Da $a_{ii} \ge 0$, gilt:
     \[
-    a_{ij} \ge 0 \quad \text{und} \quad a_{ij} \in \mathbb{N}_0 \quad (\text{bzw. } \omega).
-    \]
-    \item \textbf{Schlingenfreiheit:} Der Graph $G$ ist schlingenfrei genau dann, wenn alle Diagonalelemente der Adjazenzmatrix null sind:
-    \[
-    G \text{ ist schlingenfrei} \iff a_{ii} = 0 \quad \forall i \in \{1, \dots, n\}.
-    \]
-    Dies ist äquivalent dazu, dass die Spur der Matrix verschwindet:
-    \[
-    \operatorname{Sp}(A(G)) = \sum_{i=1}^n a_{ii} = 0.
+    G \text{ ist schlingenfrei} \iff \operatorname{Spur}(A(G)) = \sum_{i=1}^n a_{ii} = 0.
     \]
 \end{enumerate}
 \end{remark}
 \end{math-stroke}
 
-\begin{spoken-clean}[00:35:22 - 00:37:30]
-Wie sieht man an der Adjazenzmatrix, ob der Graph ungerichtet ist oder nicht? Noch eine weitere Bemerkung: Der Graph $G$ ist ungerichtet genau dann, wenn die Matrix symmetrisch ist. Das ist klar: Das ist der Fall, wenn für jede Kante $v_i \to v_j$ auch $v_j \to v_i$ eine Kante ist. Und das ist äquivalent dazu, dass die Matrix symmetrisch ist.
+\begin{spoken-clean}[00:39:45 - 00:41:27]
+Als Nächstes: Wie sieht man an der Adjazenzmatrix, ob der Graph ungerichtet ist oder nicht?
+
+Noch eine weitere Bemerkung: Der Graph $G$ ist ungerichtet genau dann, wenn $A(G)$... ja?
 \end{spoken-clean}
 
-\begin{spoken-clean}[00:37:30 - 00:39:52]
-Das heißt, $G$ ist ungerichtet genau dann, wenn die Adjazenzmatrix symmetrisch ist. Man sieht also an der Symmetrie der Matrix direkt, ob der Graph ungerichtet ist oder nicht.
+\begin{student-interaction}[Studentenantwort]
+...wenn sie symmetrisch ist.
+\end{student-interaction}
+
+\begin{spoken-clean}[00:41:27 - 00:41:30]
+Genau, wenn sie symmetrisch ist. Ist klar, $A(G)$ ist dann symmetrisch. Okay, das heißt... ja, genau, das macht Sinn.
+
+Das heißt, $G$ ist ungerichtet, wenn für jede Kante $(v_1, v_2)$ auch $(v_2, v_1)$ wieder eine Kante ist; das ist aber äquivalent dazu, dass die Matrix symmetrisch ist.
 \end{spoken-clean}
 
-\begin{math-stroke}[Symmetrie ungerichteter Graphen]
-\begin{remark}[Symmetrie]\label[remark]{rem:symmetrie-adjazenz}
+\begin{math-stroke}
+\begin{proposition}[Symmetrie der Adjazenzmatrix]\label[proposition]{prop:adjazenzmatrix-symmetrie}
 Ein Graph $G$ ist ungerichtet genau dann, wenn seine Adjazenzmatrix $A(G)$ symmetrisch ist:
 \[
-G \text{ ist ungerichtet} \iff A(G) = A(G)^T \iff a_{ij} = a_{ji} \quad \forall i, j \in \{1, \dots, n\}.
-\]
-\end{remark}
-\end{math-stroke}
-
-\section{Knotengrad (Degree)}
-\subsection{Knotengrad in gerichteten Graphen (Digraphen)}
-
-\begin{spoken-clean}[00:39:52 - 00:42:57]
-Machen wir noch ein paar weitere Definitionen an der Tafel, und danach machen wir eine Pause.
-
-Sei $G = (V, E)$ ein Digraph, also ein gerichteter Graph. Für einen Knoten $x \in V$ definieren wir zuerst einmal $\Gamma^+(x)$. Das definieren wir als die Menge aller Knoten $y \in V$, sodass $\langle x, y \rangle$ eine Kante ist. Das sind quasi alle... wenn Sie hier $x$ haben, dann schreiben wir alle $y$ auf, sodass es eine Kante von $x$ nach $y$ gibt. Das ist diese Menge hier.
-
-Analog ist $\Gamma^-(x)$ die Menge aller $y \in V$, sodass $\langle y, x \rangle$ eine Kante ist. Das sind also alle $y$, von denen eine Kante nach $x$ führt.
-
-Gut, und dann definieren wir den \newterm{positiven Halbgrad} $\deg^+(x)$ als die Kardinalität von $\Gamma^+(x)$. Und den \newterm{negativen Halbgrad} $\deg^-(x)$ als die Kardinalität von $\Gamma^-(x)$.
-\end{spoken-clean}
-
-\begin{spoken-clean}[00:42:57 - 00:45:02]
-Und was ist dann der \newterm{Grad} von $x$? Den definieren wir als die Summe vom positiven und dem negativen Halbgrad. Das ist also die Anzahl der Kanten, die mit $x$ verbunden sind. Schauen wir uns dazu ein kurzes Beispiel an, bevor wir Pause machen: Wenn $x$ eine Schlinge hat, was ist dann der Grad von $x$?
-
-Zwei, genau! Weil wir hier eine Kante haben, die einmal hinausgeht und einmal hineinkommt; sie wird also zweimal gezählt. Das macht Sinn und ist genau das, was wir haben wollen.
-\end{spoken-clean}
-
-\begin{math-stroke}[Halbgrade und Grad in Digraphen]
-\begin{definition}[Halbgrade und Grad]\label[definition]{def:halbgrade-grad}
-Sei $G = (V, E)$ ein Digraph. Für einen Knoten $v \in V$ definieren wir:
-\begin{itemize}
-    \item \textbf{Ausgangsnachbarschaft:} $\Gamma^+(v) := \{ w \in V \mid \langle v, w \rangle \in E \}$
-    \item \textbf{Eingangsnachbarschaft:} $\Gamma^-(v) := \{ u \in V \mid \langle u, v \rangle \in E \}$
-    \item \textbf{Ausgangsgrad (positiver Halbgrad):} $\deg^+(v) := |\Gamma^+(v)|$
-    \item \textbf{Eingangsgrad (negativer Halbgrad):} $\deg^-(v) := |\Gamma^-(v)|$
-    \item \textbf{Grad:} $\deg(v) := \deg^+(v) + \deg^-(v)$
-\end{itemize}
-\end{definition}
-
-\begin{center}
-\begin{tikzpicture}[scale=1.2, ->, >=stealth, thick,
-  node/.style={circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=6mm}]
-  \begin{ai-tikz-planner-invisible-content}
-  % 1. Background: Zentraler Knoten x.
-  % 2. Midground: Ausgehende Kanten zu y1, y2, y3.
-  \end{ai-tikz-planner-invisible-content}
-  \node[node] (x) at (0,0) {$x$};
-  \node[node] (y1) at (1.5, 0.8) {$y_1$};
-  \node[node] (y2) at (1.8, 0) {$y_2$};
-  \node[node] (y3) at (1.5, -0.8) {$y_3$};
-  
-  \draw[MidnightBlue] (x) -- (y1);
-  \draw[MidnightBlue] (x) -- (y2);
-  \draw[MidnightBlue] (x) -- (y3);
-  
-  \node[right=0.2cm of y2, MidnightBlue] {$\Gamma^+(x) = \{y_1, y_2, y_3\}$};
-\end{tikzpicture}
-\end{center}
-\end{math-stroke}
-
-\begin{lecture-break}[Pause]
-Der Dozent kündigt eine kurze Pause an. Die Vorlesung wird nach der Pause mit der Definition des Knotengrads für ungerichtete Graphen fortgesetzt.
-\end{lecture-break}
-
-\subsection{Knotengrad in ungerichteten Graphen}
-
-\begin{spoken-clean}[00:45:02 - 00:47:12]
-Wir machen langsam weiter. Wir hatten vor der Pause die Definition des Grades für gerichtete Graphen gesehen. Wenn unser Graph ungerichtet ist, dann definieren wir $\Gamma(x)$ --- dort gibt es kein $\Gamma^+$ und $\Gamma^-$ mehr --- einfach als die Menge aller $y \in V$, sodass $\{x, y\} \in E$ ist.
-
-In diesem Fall definieren wir den Grad von $x$ so, dass wir das Richtige erhalten: Uns interessiert die Richtung nicht mehr, weil sie dieselbe ist. Wenn wir so einen Graphen haben --- ungerichteter Graph ---, wollen wir einfach, dass dieser Knoten hier Grad $4$ hat. Das ist im Prinzip einfach die Anzahl der $y$, sodass $\{x, y\}$ eine Kante ist, also die Anzahl der Kanten, die von hier ausgehen. Das definieren wir als die Kardinalität von $\Gamma(x)$.
-\end{spoken-clean}
-
-\begin{spoken-clean}[00:47:12 - 00:49:12]
-Was wir jetzt noch für ein Problem haben, ist die Schlinge. Wenn wir so etwas haben, wird das im Moment nur einmal gezählt. Wir hätten aber gerne, dass das auch im ungerichteten Fall Grad $2$ hat.
-
-Deswegen müssen wir, wenn es eine Schlinge gibt, diese noch einmal dazuzählen. Das ist diese technische Definition im Skript: die Menge aller $x \in V$, sodass $\{x\}$ eine Kante ist. Da $x$ gegeben ist, besteht diese Menge entweder aus $x$ oder sie ist leer. Das heißt, wir müssen entweder $0$ oder $1$ zusätzlich addieren.
-
-Das ist die Definition des Grades für ungerichtete Graphen. Sowohl für gerichtete als auch für ungerichtete Graphen gilt: Falls unser Graph von der Form $G = (V, E_0, \dots, E_k)$ ist, kann man das wieder genau gleich definieren, indem man die Summe über alle Teilgraphen nimmt.
-\end{spoken-clean}
-
-\begin{math-stroke}[Grad in ungerichteten Graphen und Multigraphen]
-\begin{definition}[Ungerichteter Knotengrad]\label[definition]{def:ungerichteter-grad}
-Sei $G = (V, E)$ ein ungerichteter Graph. Für einen Knoten $x \in V$ definieren wir:
-\begin{itemize}
-    \item \textbf{Nachbarschaft:} $\Gamma(x) := \{ y \in V \mid \{x, y\} \in E \}$
-    \item \textbf{Grad:} 
-    \begin{equation}
-    \deg(x) := |\Gamma(x)| + \left| \{ y \in V \mid \{y\} \in E \land y = x \} \right|
-    \end{equation}
-\end{itemize}
-\end{definition}
-
-\begin{explanation-of-steps}[Kompensation für Schlingen]
-Die Addition des Terms $\left| \{ y \in V \mid \{y\} \in E \land y = x \} \right|$ stellt sicher, dass eine Schlinge $\{x\}$ am Knoten $x$ doppelt zum Grad beiträgt (einmal als ausgehende und einmal als eingehende Kante), was der anschaulichen geometrischen Vorstellung entspricht.
-\end{explanation-of-steps}
-
-\textbf{Erweiterung auf Multigraphen:}
-Für einen Multigraphen $G = (V, E_0, \dots, E_k)$ definieren wir den Grad analog als Summe der Grade in den einzelnen Kantenrelationen:
-\begin{align}
-    \deg_G(x) &:= \sum_{\ell=0}^k \deg_{G_\ell}(x) \\
-    \deg^+_G(x) &:= \sum_{\ell=0}^k \deg^+_{G_\ell}(x) \\
-    \deg^-_G(x) &:= \sum_{\ell=0}^k \deg^-_G(x)
-\end{align}
-\end{math-stroke}
-
-\section{Spezielle Graphenklassen}
-\subsection{Reguläre Graphen}
-
-\begin{spoken-clean}[00:49:12 - 00:52:42]
-Das ist einfach so definiert, damit es das ergibt, was man möchte. Machen wir die folgende Definition: Ein ungerichteter Graph heißt \newterm{regulär vom Grad $r$}, falls der Grad von $x$ gleich $r$ ist für alle $x \in V$. Das heißt also: Falls alle Knoten denselben Grad haben, ist der Graph regulär.
-
-Zum Beispiel ist dieser Graph hier regulär vom Grad $2$. Oder wir können uns einen unendlichen Graphen anschauen: Wenn man zum Beispiel hier beginnt und von einem Knoten drei Kanten weggehen lässt, und dann gehen von den nächsten Knoten jeweils wieder zwei weg... das geht dann immer so weiter. Das ist ein sogenannter \newterm{Baum}, der ist auch regulär vom Grad $3$.
-\end{spoken-clean}
-
-\begin{math-stroke}[Reguläre Graphen]
-\begin{definition}[Regulärer Graph]\label[definition]{def:regulaerer-graph}
-Ein ungerichteter Graph $G = (V, E)$ heißt \newterm{regulär vom Grad $r$} (oder kurz \newterm{$r$-regulär}), falls alle seine Knoten denselben Grad $r$ besitzen:
-\[
-\forall x \in V \colon \deg(x) = r.
-\]
-\end{definition}
-
-\textbf{Beispiele regulärer Graphen:}
-\begin{center}
-\begin{tabular}{c c}
-    \begin{tikzpicture}[scale=1.2, thick,
-      node/.style={circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=6mm}]
-      \begin{ai-tikz-planner-invisible-content}
-      % 1. Background: Vier Knoten als Quadrat.
-      % 2. Midground: Kanten im Kreis (2-regulär).
-      \end{ai-tikz-planner-invisible-content}
-      \node[node] (1) at (0,1.5) {$1$};
-      \node[node] (2) at (1.5,1.5) {$2$};
-      \node[node] (3) at (1.5,0) {$3$};
-      \node[node] (4) at (0,0) {$4$};
-      \draw[MidnightBlue] (1) -- (2) -- (3) -- (4) -- (1);
-    \end{tikzpicture} &
-    \begin{tikzpicture}[scale=1.0, thick,
-      node/.style={circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=4mm}]
-      \begin{ai-tikz-planner-invisible-content}
-      % 1. Background: Unendlicher Baum regulär vom Grad 3 (Cayley-Baum).
-      \end{ai-tikz-planner-invisible-content}
-      \node[node] (c) at (0,0) {};
-      \node[node] (n1) at (90:0.8) {};
-      \node[node] (n2) at (210:0.8) {};
-      \node[node] (n3) at (330:0.8) {};
-      \draw[MidnightBlue] (c) -- (n1) (c) -- (n2) (c) -- (n3);
-      \node[node] (n11) at (60:1.5) {};
-      \node[node] (n12) at (120:1.5) {};
-      \node[node] (n21) at (180:1.5) {};
-      \node[node] (n22) at (240:1.5) {};
-      \node[node] (n31) at (300:1.5) {};
-      \node[node] (n32) at (0:1.5) {};
-      \draw[MidnightBlue] (n1) -- (n11) (n1) -- (n12);
-      \draw[MidnightBlue] (n2) -- (n21) (n2) -- (n22);
-      \draw[MidnightBlue] (n3) -- (n31) (n3) -- (n32);
-    \end{tikzpicture} \\
-    \text{2-regulärer Graph $C_4$} & \text{3-regulärer unendlicher Baum}
-        \end{tabular}
-        \end{center}
-\end{math-stroke}
-
-\subsection{Vollständige Graphen}
-
-\begin{spoken-clean}[00:52:42 - 00:56:27]
-Ein ungerichteter Graph $G = (V, E)$ heißt \newterm{vollständig}, falls für alle $x, y \in V$ gilt: $x \neq y \implies \{x, y\} \in E$. Das heißt, falls alle Knoten miteinander verbunden sind, ist der Graph vollständig.
-
-Wenn wir eine Menge von Knoten gegeben haben, gibt es nur einen vollständigen Graphen, weil wir alle möglichen Kanten dazunehmen müssen, die keine Schlingen sind. Wir führen eine Notation ein: Wir sagen, $K_n$ ist der vollständige schlichte Graph mit $n$ Knoten. Machen wir das doch so wie im Skript. Für Lorenz Halbeisen ist \qt{vollständig} nicht unbedingt schlicht, aber wir legen fest, dass $K_n$ der vollständige schlichte Graph mit $n$ Knoten ist.
-
-Zum Beispiel wäre das hier $K_3$: Er hat drei Knoten und ist vollständig. $K_4$ können wir auch zeichnen: Wir haben vier Knoten und müssen jeden mit jedem verbinden. Also verbinden wir diese hier, dann den dort mit jenem, mit diesem und mit dem anderen. Und fertig. Das ist $K_4$. Es gibt auch $K_5$, den zu zeichnen wird etwas schwierig, ohne dass sich Kanten überschneiden, aber man kann es machen.
-
-Noch eine Bemerkung: Ich behaupte, $K_n$ ist immer regulär. Von welchem Grad? Genau, $n-1$. Da der $K_n$ schlicht ist, gibt es keine Schlingen. Von jedem Punkt aus muss eine Kante zu jedem anderen Knoten gehen. Das sind also genau $n-1$ Kanten, die von jedem Knoten ausgehen.
-\end{spoken-clean}
-
-\begin{math-stroke}[Das Konzept des vollständigen Graphen]
-\begin{definition}[Vollständiger Graph]\label[definition]{def:vollstaendiger-graph}
-Ein ungerichteter, schlichter Graph $G = (V, E)$ heißt \newterm{vollständig}, falls alle Paare verschiedener Knoten durch eine Kante verbunden sind:
-\[
-\forall x, y \in V \colon x \neq y \implies \{x, y\} \in E.
-\]
-Wir bezeichnen den vollständigen schlichten Graphen mit $n$ Knoten als $K_n$.
-\end{definition}
-
-\textbf{Beispiele vollständiger Graphen:}
-\begin{center}
-\begin{tabular}{c c}
-    \begin{tikzpicture}[scale=1.2, thick,
-      node/.style={circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=6mm}]
-      \begin{ai-tikz-planner-invisible-content}
-      % 1. Background: Drei Knoten als Dreieck (K_3).
-      \end{ai-tikz-planner-invisible-content}
-      \node[node] (1) at (90:0.8) {$1$};
-      \node[node] (2) at (210:0.8) {$2$};
-      \node[node] (3) at (330:0.8) {$3$};
-      \draw[MidnightBlue] (1) -- (2) -- (3) -- (1);
-    \end{tikzpicture} &
-    \begin{tikzpicture}[scale=1.2, thick,
-      node/.style={circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=6mm}]
-      \begin{ai-tikz-planner-invisible-content}
-      % 1. Background: Vier Knoten als Quadrat mit Diagonalen (K_4).
-      \end{ai-tikz-planner-invisible-content}
-      \node[node] (1) at (45:1.0) {$1$};
-      \node[node] (2) at (135:1.0) {$2$};
-      \node[node] (3) at (225:1.0) {$3$};
-      \node[node] (4) at (315:1.0) {$4$};
-      \draw[MidnightBlue] (1) -- (2) -- (3) -- (4) -- (1);
-      \draw[MidnightBlue] (1) -- (3);
-      \draw[MidnightBlue] (2) -- (4);
-    \end{tikzpicture} \\
-    \text{Vollständiger Graph $K_3$} & \text{Vollständiger Graph $K_4$}
-\end{tabular}
-\end{center}
-
-\begin{proposition}[Regularität vollständiger Graphen]\label[proposition]{prop:k_n-regulaer}
-Der vollständige schlichte Graph $K_n$ ist regulär vom Grad $n-1$:
-\[
-\forall v \in V(K_n) \colon \deg(v) = n-1.
+G \text{ ungerichtet} \iff A(G) = A(G)^T.
 \]
 \end{proposition}
 \end{math-stroke}
 
-\subsection{Teilgraphen (Subgraphen)}
+\section{Knotengrad in Graphen}
+% Old section name: 3.3 Knotengrad in Gerichteten Graphen (Halbgrade) & 3.4 Knotengrad in Ungerichteten Graphen
 
-\begin{spoken-clean}[00:56:27 - 00:58:25]
-Heute haben wir viele Definitionen gesehen; das war etwas mühsam, mit all diesen neuen Konzepten, aber nichts davon ist schwierig, es ist einfach viel. Versuchen Sie doch, die Übungen zu machen; das sind ganz nette Knobelaufgaben.
+\subsection{Knotengrad in Gerichteten Graphen (Halbgrade)}
 
-Wir kommen zur nächsten Definition: Wir nehmen an, dass wir Graphen $G = (V, E)$ und $G' = (V', E')$ haben, sodass $V' \subseteq V$ und $E' \subseteq E$ gilt. Dann ist $G'$ ein \newterm{Teilgraph} von $G$. Wir schreiben $G' \subseteq G$.
+\begin{spoken-clean}[00:41:30 - 00:43:00]
+Okay, dann machen wir noch ein paar weitere Definitionen an der Tafel, und danach machen wir Pause.
 
-Das ist also klar: Wir nehmen eine Teilmenge von Knoten, und alle Kanten in unserem Graphen $G'$ müssen auch Kanten in $G$ sein. Das ist ein Teilgraph.
+Folgende Definition: Sei $G = (V, E)$ ein Digraph, also ein gerichteter Graph. Für einen Knoten $x$ von $G$ definieren wir zuerst einmal $\Gamma^+(x)$. Das definieren wir als alle Knoten $y \in V$, sodass $(x, y)$ eine Kante ist. Okay, das sind quasi alle... Wenn Sie hier $x$ haben, schauen wir alle $y$ an, sodass es hier eine Kante von $x$ nach $y$ gibt. Das ist diese Menge hier.
+
+Und analog ist $\Gamma^-(x)$ die Menge aller $y \in V$, sodass $(y, x)$ wieder eine Kante ist. Okay, das heißt, das sind alle $y$, sodass es eine Kante von $y$ nach $x$ gibt.
 \end{spoken-clean}
 
-\begin{math-stroke}[Teilgraphen]
-\begin{definition}[Teilgraph]\label[definition]{def:teilgraph}
-Seien $G = (V, E)$ und $G' = (V', E')$ zwei Graphen. $G'$ heißt ein \newterm{Teilgraph} (oder \newterm{Subgraph}) von $G$, falls gilt:
-\[
-V' \subseteq V \quad \text{und} \quad E' \subseteq E.
-\]
-Wir schreiben dafür $G' \subseteq G$.
+\begin{math-stroke}
+\begin{definition}[Nachbarschaftsmengen im Digraphen]\label[definition]{def:digraph-nachbarschaft}
+Sei $G = (V, E)$ ein gerichteter Graph (Digraph) und $x \in V$ ein Knoten.
+\begin{itemize}
+    \item \textbf{Positiver Nachbereich (Ausgangsnachbarn):}
+    \[
+    \Gamma^+(x) := \bigl\{ y \in V \big| (x, y) \in E \bigr\}
+    \]
+    \item \textbf{Negativer Nachbereich (Eingangsnachbarn):}
+    \[
+    \Gamma^-(x) := \bigl\{ y \in V \big| (y, x) \in E \bigr\}
+    \]
+\end{itemize}
 \end{definition}
 \end{math-stroke}
 
-\begin{spoken-clean}[00:58:25 - 01:01:14]
-Wenn wir nun einfach eine Menge von Knoten $U$ haben, können wir den größten Teilgraphen in $G$ betrachten, der nur diese Knoten hat. Das heißt, wir nehmen alle Kanten aus $G$ dazu, die Knoten in $U$ verbinden. Das ist der \newterm{von $U$ erzeugte Teilgraph}.
+\begin{spoken-clean}[00:43:00 - 00:45:02]
+Gut, und dann definieren wir den positiven Halbgrad $\operatorname{deg}^+(x)$ als die Kardinalität von $\Gamma^+(x)$. Das ist der positive Halbgrad. Und entsprechend den negativen Halbgrad als die Kardinalität von $\Gamma^-(x)$ --- negativer Halbgrad.
 
-Gleichzeitig können wir das auch für Kanten definieren: Wenn $F$ eine Teilmenge der Kanten $E$ ist, dann definieren wir den \newterm{von $F$ erzeugten Teilgraph}. Das ist der Teilgraph mit den Knoten, die in diesen Kanten vorkommen. Das ist also die Vereinigung aller Knoten $x, y$ in $V$, sodass $\{x, y\}$ in $F$ liegt. Als Kanten nehmen wir natürlich genau die Kanten aus $F$.
+Und dann werden wir den Grad von $x$ definieren als die Summe vom positiven und dem negativen Halbgrad. Das ist genau die Anzahl der Kanten, die von $x$ ausgehen oder reingehen.
+
+Wir müssen noch schauen: Noch kurz ein Beispiel, bevor wir Pause machen. Wenn $x$ von dieser Form ist: $x$, und es gibt hier einfach eine Schlinge --- was ist dann der Grad von $x$? Ja?
 \end{spoken-clean}
 
-\begin{math-stroke}[Erzeugte Teilgraphen]
-\begin{definition}[Knoteninduzierter Teilgraph]\label[definition]{def:knoteninduzierter-teilgraph}
-Sei $G = (V, E)$ ein Graph und $U \subseteq V$ eine Teilmenge der Knoten. Der von $U$ \newterm{induzierte Teilgraph} (oder \newterm{erzeugte Teilgraph}) $G[U] = (U, E_U)$ hat die Knotenmenge $U$ und die Kantenmenge:
+\begin{student-interaction}[Studentenantwort]
+2.
+\end{student-interaction}
+
+\begin{spoken-clean}[00:45:02 - 00:45:03]
+2, genau! Weil wir haben hier: Einmal geht es raus und einmal geht es rein, es wird zweimal gezählt. Macht auch Sinn, ist das, was wir gerne hätten. Gut.
+
+Ja, dann machen wir Pause.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{definition}[Halbgrade und Grad im Digraphen]\label[definition]{def:digraph-halbgrade}
+Sei $G = (V, E)$ ein Digraph und $x \in V$.
+\begin{itemize}
+    \item \textbf{Positiver Halbgrad (Ausgangsgrad):} $\operatorname{deg}^+(x) := |\Gamma^+(x)|$.
+    \item \textbf{Negativer Halbgrad (Eingangsgrad):} $\operatorname{deg}^-(x) := |\Gamma^-(x)|$.
+    \item \textbf{Gesamtgrad:} $\operatorname{deg}(x) := \operatorname{deg}^+(x) + \operatorname{deg}^-(x)$.
+\end{itemize}
+\end{definition}
+
+\begin{example}[Schlinge an einem Knoten]
+Besitzt ein Knoten $x$ eine Schlinge $(x, x) \in E$, so gilt $x \in \Gamma^+(x)$ und $x \in \Gamma^-(x)$. Die Schlinge erhöht sowohl $\operatorname{deg}^+(x)$ als auch $\operatorname{deg}^-(x)$ um $1$, womit sie insgesamt mit $2$ zum Gesamtschild $\operatorname{deg}(x)$ beiträgt.
+\end{example}
+\end{math-stroke}
+
+\begin{lecture-break}[Vorlesungspause]
+Der Dozent kündigt eine kurze Pause an. Das Video wird nach der Pause bei Zeitstempel 00:45:03 fortgesetzt.
+\end{lecture-break}
+
+\subsection{Knotengrad in Ungerichteten Graphen}
+
+\begin{spoken-clean}[00:45:03 - 00:47:17]
+Wir machen langsam weiter. Wir hatten vor der Pause noch die Definition des Grades für gerichtete Graphen gesehen.
+
+Wenn unser Graph ungerichtet ist, dann definieren wir $\Gamma(x)$ --- da gibt es kein $\Gamma^+$ und $\Gamma^-$ mehr --- als alle $y \in V$, sodass $\{x, y\} \in E$ ist. Und in dem Fall definieren wir jetzt den Grad von $x$ als...
+
+Okay, und damit wir hier das Richtige kriegen: Hier wollen wir einfach wieder wissen, wie viele Kanten von dort ausgehen. Da interessiert uns die Richtung nicht mehr, weil das dasselbe ist. Wenn wir jetzt so einen Graphen haben... ja gut, das ist nicht das beste Beispiel... Wenn wir so etwas haben, einen ungerichteten Graphen, wollen wir einfach, dass dieser Knoten hier Grad $4$ hat. Nämlich einfach die Anzahl aller Kanten, die von hier aus weggehen. Das definieren wir als die Kardinalität von diesem $\Gamma(x)$.
+
+Aber das Problem, das wir jetzt dabei noch ein bisschen haben, ist, wenn wir eine Schlinge haben. Wenn wir so etwas haben, wird das im Moment nur einmal gezählt. Wir hätten aber gerne, dass das hier im ungerichteten Fall Grad $2$ hat. Und deswegen müssen wir eigentlich, wenn es eine Schlinge gibt, die einfach noch dazuzählen. Das ist ein bisschen diese technische Definition im Skript: Das ist die Menge von allen $z \in V$, sodass $z = x$ und $\{x, z\} \in E$. Aber okay, $x$ ist ja gegeben. Das heißt, diese Menge hier besteht entweder aus $\{x\}$ oder sie ist leer. Das heißt, entweder $0$ oder $1$ müssen wir noch dazuzählen.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{definition}[Nachbarschaft und Grad im ungerichteten Graphen]\label[definition]{def:ungerichtet-grad}
+Sei $G = (V, E)$ ein ungerichteter Graph und $x \in V$.
+\begin{itemize}
+    \item \textbf{Nachbarschaftsmenge:} $\Gamma(x) := \bigl\{ y \in V \big| \{x, y\} \in E \bigr\}$.
+    \item \textbf{Knotengrad:} Der \newterm{Grad} $\operatorname{deg}(x)$ zählt die Anzahl der in $x$ inzidenten Kantenenden, wobei Schlingen doppelt gezählt werden:
+    \begin{equation}\label{eq:ungerichtet-grad-def}
+    \operatorname{deg}(x) := |\Gamma(x)| + \bigl| \{ z \in V \mid z = x \land \{x, z\} \in E \} \bigr|.
+    \end{equation}
+\end{itemize}
+\end{definition}
+\end{math-stroke}
+
+\begin{spoken-clean}[00:47:17 - 00:49:17]
+Okay, das ist die Definition von Grad für ungerichtete Graphen. Und sowohl für gerichtete als auch für ungerichtete Graphen: Falls unser Graph von der Form $G = (V, E_0, \dots, E_k)$ ist, kann man das wieder genau gleich definieren, aber wir nehmen wieder die Summe von all den Teilgraphen, die wir vorher definiert hatten.
+
+Dann definiert man analog: Der Grad $\operatorname{deg}_G(x)$ ist dann einfach $\operatorname{deg}_{G_0}(x) + \dots + \operatorname{deg}_{G_k}(x)$. Und ähnlich für den positiven Grad $\operatorname{deg}_G^+(x)$...
+\end{spoken-clean}
+
+\begin{math-stroke}[Gradbestimmung in Multigraphen]
+Falls $G = (V, E_0, \dots, E_k)$ ein Multigraph ist, summiert sich der Grad über alle Kantenrelationen $G_\ell = (V, E_\ell)$:
+\begin{align}
+\operatorname{deg}_G(x) &:= \sum_{\ell=0}^k \operatorname{deg}_{G_\ell}(x), \label{eq:multigraph-grad-gesamte} \\
+\operatorname{deg}_G^+(x) &:= \sum_{\ell=0}^k \operatorname{deg}_{G_\ell}^+(x), \quad \operatorname{deg}_G^-(x) := \sum_{\ell=0}^k \operatorname{deg}_{G_\ell}^-(x). \nonumber
+\end{align}
+\end{math-stroke}
+
+\section{Spezielle Graphenklassen}
+
+\subsection{Reguläre Graphen}
+
+\begin{spoken-clean}[00:49:17 - 00:51:35]
+Okay, klar, das gibt genau das, was man möchte.
+
+Okay, dann machen wir noch die folgende Definition: Ein ungerichteter Graph $G = (V, E)$ heißt regulär vom Grad $r$, falls der Grad von $x$ gleich $r$ ist für alle $x \in V$. Okay, also einfach, falls der Grad überall derselbe ist.
+
+Da vielleicht noch ein paar Beispiele: Dieser Graph hier zum Beispiel ist regulär vom Grad $2$.
+
+Oder wir können zum Beispiel so einen unendlichen Graphen anschauen: Man beginnt zum Beispiel hier, dann lässt man von einem Knoten drei Kanten weggehen, und von jedem dieser Knoten lässt man wieder zwei weggehen, und wieder zwei weggehen... Das geht dann immer so weiter. So ein sogenannter Baum, der ist auch regulär vom Grad $3$.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{definition}[Regulärer Graph]\label[definition]{def:regulaerer-graph}
+Ein ungerichteter Graph $G = (V, E)$ heißt \newterm{regulär} vom Grad $r$ ($r$-regulär), falls jeder Knoten den Grad $r$ besitzt:
+\begin{equation}\label{eq:regulaer-def}
+\forall x \in V \colon \operatorname{deg}(x) = r.
+\end{equation}
+\end{definition}
+
+\begin{examples}[Reguläre Graphen]
+\label[examples]{exm:regulaere-graphen}
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+    \item \textbf{Kreisgraph / Quadrat ($\mathbf{C_4}$):} Der Quadratgraph ist $2$-regulär:
+    \begin{center}
+    \begin{tikzpicture}[scale=1.0, node/.style={circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=5mm}]
+      \node[node] (n1) at (0, 1) {};
+      \node[node] (n2) at (1, 1) {};
+      \node[node] (n3) at (1, 0) {};
+      \node[node] (n4) at (0, 0) {};
+      \draw[thick] (n1) -- (n2) -- (n3) -- (n4) -- (n1);
+    \end{tikzpicture}
+    \end{center}
+    \item \textbf{Unendlicher 3-regulärer Baum:} Ein unendlicher Verzweigungsbaum, bei dem von jedem Knoten $3$ Kanten ausgehen, ist $3$-regulär.
+\end{enumerate}
+\end{examples}
+\end{math-stroke}
+
+\subsection{Vollständige Graphen}
+
+\begin{spoken-clean}[00:51:35 - 00:54:44]
+Und wir sagen noch: Ein ungerichteter Graph $G = (V, E)$ heißt vollständig, falls für alle $x, y \in V$ mit $x \neq y$ gilt: $\{x, y\} \in E$. Okay, das heißt, falls alle Knoten miteinander verbunden sind, ist der Graph vollständig. Also zum Beispiel so etwas: Hier haben wir drei Knoten, und jeder von diesen Knoten ist noch mit den anderen zwei verbunden.
+
+Okay, und diese Definition... das ist die Definition aus dem Skript, aber in der Regel möchte man eigentlich keine Schlingen im vollständigen Graphen.
+
+Als Notation: Für eine gegebene Knotenmenge haben wir im Wesentlichen nur einen vollständigen schlichten Graphen, weil wir alle Kanten dazunehmen müssen, die keine Schlingen sind. Wir machen die Notation: Wir sagen $K_n$ ist der vollständige, schlichte Graph mit $n$ Knoten.
+
+Das hier wäre zum Beispiel $K_3$: Er hat drei Knoten und ist vollständig. $K_4$ können wir einfach zeichnen: Da haben wir vier Knoten, jetzt müssen wir jeden mit jedem verbinden. Die müssen wir verbinden, den da müssen wir mit dem verbinden, mit dem verbinden und mit dem verbinden. Den da müssen wir noch mit dem verbinden... und das ist fertig. Okay, das ist $K_4$. Oder es gibt noch $K_5$. Bei $K_5$ wird es etwas schwierig, das zu zeichnen, ohne dass sich die Kanten schneiden, aber das kann man dann auch.
+
+Und vielleicht noch eine Bemerkung: Ich behaupte, $K_n$ ist immer regulär von welchem Grad? Ja?
+\end{spoken-clean}
+
+\begin{student-interaction}[Studentenantwort]
+$n-1$.
+\end{student-interaction}
+
+\begin{spoken-clean}[00:54:44 - 00:54:45]
+Genau, $n-1$. Da $K_n$ schlicht ist, gibt es keine Schlingen. Von jedem Punkt aus muss eine Kante zu jedem anderen Knoten gehen, das heißt, es gibt genau $n-1$ Kanten, die von jedem Knoten weggehen. $K_n$ ist also regulär vom Grad $n-1$.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{definition}[Vollständiger Graph]\label[definition]{def:vollstaendiger-graph}
+Ein ungerichteter Graph $G = (V, E)$ heißt \newterm{vollständig}, falls alle verschiedenen Knotenpaare durch eine Kante verbunden sind:
 \[
-E_U := \{ \{x, y\} \in E \mid x, y \in U \} \quad (\text{bzw. } \langle x, y \rangle \in E \text{ für Digraphen}).
+\forall x, y \in V \text{ mit } x \neq y \implies \{x, y\} \in E.
+\]
+Der vollständige, schlichte Graph mit $n$ Knoten wird mit \newterm{$K_n$} bezeichnet.
+\end{definition}
+
+\begin{examples}[Die vollständigen Graphen $K_3$ und $K_4$]
+\begin{center}
+\begin{tikzpicture}[scale=1.2, node/.style={circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=5mm}]
+  % K_3
+  \begin{scope}[shift={(0,0)}]
+    \node[node] (a) at (90:0.8) {};
+    \node[node] (b) at (210:0.8) {};
+    \node[node] (c) at (330:0.8) {};
+    \draw[thick] (a) -- (b) -- (c) -- (a);
+    \node at (0, -0.9) {$K_3$};
+  \end{scope}
+
+  % K_4
+  \begin{scope}[shift={(4,0)}]
+    \node[node] (1) at (-0.7,0.7) {};
+    \node[node] (2) at (0.7,0.7) {};
+    \node[node] (3) at (0.7,-0.7) {};
+    \node[node] (4) at (-0.7,-0.7) {};
+    \draw[thick] (1) -- (2) -- (3) -- (4) -- (1);
+    \draw[thick] (1) -- (3);
+    \draw[thick] (2) -- (4);
+    \node at (0, -1.1) {$K_4$};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+\end{examples}
+
+\begin{remark}[Regularität von $K_n$]
+Der vollständige schlichte Graph $K_n$ ist $(n-1)$-regulär, da von jedem Knoten genau eine Kante zu den verbleibenden $n-1$ Knoten verläuft.
+\end{remark}
+\end{math-stroke}
+
+\subsection{Teilgraphen und Erzeugte Teilgraphen}
+
+\begin{spoken-clean}[00:56:56 - 00:58:54]
+Ich mache wieder die nächste Definition: Wir nehmen jetzt an, dass wir Graphen $G = (V, E)$ und $G' = (V', E')$ haben, sodass $V' \subseteq V$ und $E' \subseteq E$ ist. Dann ist $G'$ ein Teilgraph von $G$. Wir schreiben $G' \subseteq G$.
+
+Das ist auch klar: Wir nehmen einfach eine Teilmenge von Knoten, und alle Kanten in unserem Graphen $G'$ müssen auch Kanten in $G$ sein.
+
+Gleichzeitig können wir auch, wenn wir einfach eine Menge von Knoten haben... Sei $U \subseteq V$. Der von $U$ erzeugte Teilgraph $G_U$ (oder $G|_U$) in $G$ ist der Graph mit Knoten $U$ und den Kanten $\{x, y\} \in E$, sodass $x, y \in U$ sind. Das heißt, wir nehmen alle Kanten dazu, die Knoten in $U$ verbinden.
+\end{spoken-clean}
+
+\begin{spoken-clean}[00:58:54 - 01:01:13]
+Und gleichzeitig, wenn $F \subseteq E$ eine Teilmenge von Kanten ist: Der von $F$ erzeugte Teilgraph $G_F$ in $G$ ist der Teilgraph mit den Kanten $F$ und als Knoten einfach alle Knoten, die in diesen Kanten vorkommen. Das ist die Vereinigung von allen $\{x, y\}$, sodass $\{x, y\} \in F$ ist.
+
+Gut, das ist ein Teilgraph.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{definition}[Teilgraph]\label[definition]{def:teilgraph-formal}
+Seien $G = (V, E)$ und $G' = (V', E')$ Graphen. $G'$ heißt \newterm{Teilgraph} von $G$ (geschrieben $G' \subseteq G$), falls gilt:
+\[
+V' \subseteq V \quad \text{und} \quad E' \subseteq E.
+\]
+\end{definition}
+
+\begin{definition}[Knoteninduzierter Teilgraph]\label[definition]{def:knoteninduzierter-teilgraph}
+Sei $G = (V, E)$ ein Graph und $U \subseteq V$. Der von $U$ \newterm{erzeugte (induzierte) Teilgraph} $G|_U \subseteq G$ (oder $G_U \subseteq G$) ist der Graph mit Knotenmenge $U$ und Kantenmenge:
+\[
+\bigl\{ \{x, y\} \in E \big| x, y \in U \bigr\}.
 \]
 \end{definition}
 
 \begin{definition}[Kanteninduzierter Teilgraph]\label[definition]{def:kanteninduzierter-teilgraph}
-Sei $G = (V, E)$ ein Graph und $F \subseteq E$ eine Teilmenge der Kanten. Der von $F$ \newterm{erzeugte Teilgraph} $G[F] = (V_F, F)$ hat die Kantenmenge $F$ und die Knotenmenge $V_F$, welche aus allen Endknoten der Kanten in $F$ besteht:
+Sei $G = (V, E)$ ein Graph und $F \subseteq E$. Der von $F$ \newterm{erzeugte Teilgraph} $G_F \subseteq G$ ist der Teilgraph von $G$ mit Kantenmenge $F$ und Knotenmenge:
 \[
-V_F := \bigcup_{\{x, y\} \in F} \{x, y\} \quad (\text{bzw. } \bigcup_{\langle x, y \rangle \in F} \{x, y\}).
+\bigcup \bigl\{ \{x, y\} \in V \big| \{x, y\} \in F \bigr\}.
 \]
 \end{definition}
 \end{math-stroke}
 
-\subsection{Pfeilzüge in gerichteten Graphen}
+\section{Wege, Pfade und Züge in Graphen}
 
-\begin{spoken-clean}[01:01:14 - 01:07:24]
-Wir kommen nun zu den \newterm{Pfeilzügen}. Pfeilzüge beziehen sich auf Digraphen, da Pfeile eine Richtung haben. Wir sagen: Wenn wir einen Digraphen $(V, E)$ haben und $H$ eine nichtleere, endliche Kantenteilmenge ist, sodass $|H| = \ell$ gilt --- es gibt also genau $\ell$ Kanten in dieser Teilmenge --- und $H$ von der Form $\langle x_0, x_1 \rangle, \langle x_1, x_2 \rangle, \dots$ ist, wobei der Endpunkt einer Kante der Anfangspunkt der nächsten ist, dann heißt der durch $H$ erzeugte Teilgraph ein \newterm{Pfeilzug} von $x_0$ nach $x_\ell$ der Länge $\ell$.
+\subsection{Pfeilzüge, Bahnen und Wirbel (Gerichtete Graphen)}
 
-Ich mache dazu ein Bild: Bei einem Pfeilzug beginnen wir bei $x_0$, gehen zu $x_1$, dann zu $x_2$, bis wir irgendwann bei $x_\ell$ ankommen. Dieser Teilgraph ist dann der Pfeilzug.
+\begin{spoken-clean}[01:01:13 - 01:03:04]
+Gut. Jetzt machen wir noch mehr Definitionen! Dazu würde ich wieder den Beamer verwenden.
 
-Hier muss man bemerken: In dieser Definition müssen diese Kanten alle verschieden sein, da die Kanten genau die Menge $H$ bilden; es müssen also $\ell$ verschiedene Kanten sein. Was jedoch nicht verlangt wird, ist, dass die Knoten verschieden sind. Man darf mehrmals über denselben Knoten gehen. Erlaubt ist zum Beispiel so etwas. Das ist okay, solange die Kanten verschieden sind.
+Da geht es jetzt um Pfeilzüge. Wir machen das zuerst für Digraphen, weil Pfeile eine Richtung haben.
 
-Es gibt zwei verschiedene Arten von Pfeilzügen: Die einen sind \newterm{offene Pfeilzüge}, bei denen Anfangs- und Endpunkt verschieden sind, und die anderen sind \newterm{geschlossen}, falls man wieder zum Ursprung zurückkehrt, der Anfangspunkt also derselbe ist wie der Endpunkt.
+Wir sagen: Wenn wir einen Digraphen $G = (V, E)$ haben und $H \subseteq E$ eine nicht-leere, endliche Kantenteilmenge ist, sodass für ein $\ell \ge 1$ gilt: $|H| = \ell$ und $H = \{ (x_0, x_1), (x_1, x_2), \dots, (x_{\ell-1}, x_\ell) \}$, also immer der Endpunkt einer Kante der Anfangspunkt der nächsten ist, dann heißt der durch $H$ erzeugte Teilgraph $G_H$ Pfeilzug von $x_0$ nach $x_\ell$ der Länge $\ell$.
 
-Falls die Knoten $x_i$ paarweise verschieden sind, heißt das Ganze eine \newterm{Bahn}. Eine Bahn der Länge $\ell$ zwischen $x_0$ und $x_\ell$. Es macht Sinn, dass sie die Länge $\ell$ hat, weil $\ell$ Kanten vorkommen. Falls alle Knoten außer dem Anfangs- und Endpunkt verschieden sind, nennt man es einen \newterm{Wirbel}. Das ist wie ein Kreis, der eine Richtung hat.
+Ich mache da vielleicht noch ein Bild... \inlinemetanote{zeichnet eine Skizze an die Tafel}
 \end{spoken-clean}
 
-\begin{math-stroke}[Pfeilzüge in gerichteten Graphen]
-\begin{definition}[Pfeilzug]\label[definition]{def:pfeilzug}
-Sei $G = (V, E)$ ein Digraph und sei $H \subseteq E$ eine nichtleere, endliche Kantenteilmenge, sodass für ein $\ell \ge 1$ gilt: $|H| = \ell$ und
-\[
-H = \{ \langle x_0, x_1 \rangle, \langle x_1, x_2 \rangle, \dots, \langle x_{\ell-1}, x_\ell \rangle \}.
-\]
-Der durch $H$ erzeugte Teilgraph $G[H]$ heißt \newterm{Pfeilzug} von $x_0$ nach $x_\ell$ der Länge $\ell$.
+\begin{spoken-clean}[01:03:04 - 01:04:52]
+Also ein Pfeilzug: Sagen wir, wir beginnen hier bei $x_0$, dann $x_1$, $x_2$, bis wir irgendwann bei $x_\ell$ ankommen... und dieser Teilgraph ist dann der Pfeilzug.
+
+Hier bemerken wir: In dieser Definition müssen diese Kanten alle verschieden sein, weil die Kanten genau die Menge $H$ bilden. Es müssen also $\ell$ verschiedene Kanten sein.
+
+Was aber nicht gefordert wird, ist, dass die Knoten verschieden sind. Man darf also mehrmals durch denselben Knoten gehen. Erlaubt ist zum Beispiel so etwas: \inlinemetanote{skizziert einen Knoten mit mehrfachem Durchgang} Das ist okay. Einfach die Kanten müssen alle verschieden sein. Das ist ein Pfeilzug.
+
+Es gibt zwei verschiedene Arten von Pfeilzügen: Die einen sind offene Pfeilzüge, das heißt, falls $x_0 \neq x_\ell$, und geschlossene, falls $x_0 = x_\ell$.
+
+Falls die $x_i$ paarweise verschieden sind, so heißt $G_H$ Bahn der Länge $\ell$ zwischen $x_0$ und $x_\ell$. Falls $x_0 = x_\ell$, die $x_i$ ansonsten aber paarweise verschieden sind, so heißt $G_H$ Wirbel.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{definition}[Pfeilzug, Bahn und Wirbel]\label[definition]{def:pfeilzug}
+Sei $G = (V, E)$ ein Digraph und sei $H \subseteq E$ eine nicht-leere, endliche Kantenteilmenge, sodass für ein $\ell \ge 1$ gilt: $|H| = \ell$ und $H = \{ (x_0, x_1), (x_1, x_2), \dots, (x_{\ell-1}, x_\ell) \}$. Der durch $H$ erzeugte Teilgraph $G_H$ heißt \newterm{Pfeilzug} von $x_0$ nach $x_\ell$ der Länge $\ell$.
+
+Der Pfeilzug $G_H$ heißt:
 \begin{itemize}
-    \item Ein Pfeilzug heißt \newterm{offen}, falls $x_0 \neq x_\ell$.
-    \item Ein Pfeilzug heißt \newterm{geschlossen}, falls $x_0 = x_\ell$.
+    \item \textbf{offener Pfeilzug}, falls $x_0 \neq x_\ell$,
+    \item \textbf{geschlossener Pfeilzug}, falls $x_0 = x_\ell$.
 \end{itemize}
+
+Falls die $x_i$ paarweise verschieden sind, so heißt $G_H$ \newterm{Bahn} der Länge $\ell$ zwischen $x_0$ und $x_\ell$.
+Falls $x_0 = x_\ell$, die $x_i$ ansonsten aber paarweise verschieden sind, so heißt $G_H$ \newterm{Wirbel}.
 \end{definition}
 
 \begin{center}
-\begin{tikzpicture}[scale=1.2, ->, >=stealth, thick,
-  node/.style={circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=6mm}]
-  \begin{ai-tikz-planner-invisible-content}
-  % 1. Background: Pfad von x0 bis xl.
-  \end{ai-tikz-planner-invisible-content}
-  \node[node] (x0) at (0,0) {$x_0$};
-  \node[node] (x1) at (1.5,0.5) {$x_1$};
-  \node[node] (x2) at (3,0) {$x_2$};
-  \node[node] (xl) at (4.5,0.5) {$x_\ell$};
-  
-  \path
-    (x0) edge[MidnightBlue] (x1)
-    (x1) edge[MidnightBlue] (x2)
-    (x2) edge[dashed, MidnightBlue] (xl);
+\begin{tikzpicture}[scale=1.2, ->, >=stealth, node/.style={circle, draw, fill=MidnightBlue!10, inner sep=1.5pt}]
+  \node[node] (x0) at (0,0) {\tiny $x_0$};
+  \node[node] (x1) at (1,0.5) {\tiny $x_1$};
+  \node[node] (x2) at (2,0.2) {\tiny $x_2$};
+  \node[node] (xl) at (4,0.8) {\tiny $x_\ell$};
+
+  \draw[thick] (x0) -- (x1);
+  \draw[thick] (x1) -- (x2);
+  \draw[thick, dashed] (x2) -- (xl);
 \end{tikzpicture}
 \end{center}
+\end{math-stroke}
 
-\begin{definition}[Bahn und Wirbel]\label[definition]{def:bahn-wirbel}
-Sei $G[H]$ ein Pfeilzug der Länge $\ell$ von $x_0$ nach $x_\ell$:
+\subsection{Kantenzüge, Wege und Kreise (Ungerichtete Graphen)}
+
+\begin{spoken-clean}[01:04:52 - 01:06:39]
+Gut, das sind Pfeilzüge. Dann gibt es Kantenzüge, und das ist eigentlich genau dieselbe Definition, diesmal einfach für... oh je, oh je... \inlinemetanote{bemerkt Tippfehler auf der Folie} Okay, das muss man fast korrigieren jetzt... \inlinemetanote{korrigiert die Projektionsfolie am Laptop}
+
+Wenn wir mit ungerichteten Graphen arbeiten, dann heißt das Ganze Kantenzüge anstatt Pfeilzüge. Gut, jetzt haben wir das auch. Das war so falsch, solche Tippfehler darf man nicht stehen lassen. \inlinemetanote{lacht}
+
+Also, wenn wir einen ungerichteten Graphen haben und eine nicht-leere, endliche Kantenteilmenge $H$, sodass für ein $\ell \ge 1$ gilt $|H| = \ell$ und $H = \{ \{x_0, x_1\}, \{x_1, x_2\}, \dots, \{x_{\ell-1}, x_\ell\} \}$, dann heißt der durch $H$ erzeugte Teilgraph $G_H$ Kantenzug von $x_0$ nach $x_\ell$ der Länge $\ell$.
+
+Und auch hier wieder: Ein Kantenzug heißt offen oder geschlossen.
+
+Und anstelle von Bahn und Wirbel sagen wir Weg oder Kreis. Das sind einfach zwei verschiedene Welten, aber es ist für ungerichtete Graphen genau dieselbe Definition, einfach eine andere Notation.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{definition}[Kantenzug, Weg und Kreis]\label[definition]{def:kantenzug}
+Sei $G = (V, E)$ ein ungerichteter Graph und sei $H \subseteq E$ eine nicht-leere, endliche Kantenteilmenge, sodass für ein $\ell \ge 1$ gilt: $|H| = \ell$ und $H = \{ \{x_0, x_1\}, \{x_1, x_2\}, \dots, \{x_{\ell-1}, x_\ell\} \}$. Der durch $H$ erzeugte Teilgraph $G_H$ heißt \newterm{Kantenzug} von $x_0$ nach $x_\ell$ der Länge $\ell$.
+
+Der Kantenzug $G_H$ heißt:
 \begin{itemize}
-    \item Falls die Knoten $x_0, \dots, x_\ell$ paarweise verschieden sind, so heißt $G[H]$ eine \newterm{Bahn} der Länge $\ell$ zwischen $x_0$ und $x_\ell$.
-    \item Falls $x_0 = x_\ell$ und die Knoten $x_0, \dots, x_{\ell-1}$ paarweise verschieden sind, so heißt $G[H]$ ein \newterm{Wirbel} der Länge $\ell$.
+    \item \textbf{offener Kantenzug}, falls $x_0 \neq x_\ell$,
+    \item \textbf{geschlossener Kantenzug}, falls $x_0 = x_\ell$.
 \end{itemize}
+
+Falls die $x_i$ paarweise verschieden sind, so heißt $G_H$ \newterm{Weg} der Länge $\ell$ zwischen $x_0$ und $x_\ell$.
+Falls $x_0 = x_\ell$, die $x_i$ ansonsten aber paarweise verschieden sind, so heißt $G_H$ \newterm{Kreis}.
 \end{definition}
 \end{math-stroke}
 
-\subsection{Kantenzüge in ungerichteten Graphen}
-
-\begin{spoken-clean}[01:07:24 - 01:10:00]
-Dann gibt es \newterm{Kantenzüge}, und das ist genau dieselbe Definition, jetzt einfach für ungerichtete Graphen. Oh je, oh je --- das muss man fast korrigieren. Wenn wir mit ungerichteten Graphen arbeiten, heißt das Ganze Kantenzug anstatt Pfeilzug. Schreiben wir das auf.
-
-Manchmal schleichen sich Tippfehler ein, die darf man nicht stehen lassen. Wenn wir also einen ungerichteten Graphen haben und eine nichtleere, endliche Kantenteilmenge $H$, sodass für ein $\ell \ge 1$ gilt: $|H| = \ell$ und $H = \{ \{x_0, x_1\}, \{x_1, x_2\}, \dots, \{x_{\ell-1}, x_\ell\} \}$. Dann heißt der durch $H$ erzeugte Teilgraph $G[H]$ ein \newterm{Kantenzug} von $x_0$ nach $x_\ell$ der Länge $\ell$.
+\begin{spoken-clean}[01:06:39 - 01:07:32]
+Da können wir das noch kurz aufschreiben. Wir haben hier gerichtet und ungerichtet:
+\inlinemetanote{schreibt die Gegenüberstellungstabelle an die Tafel}
 \end{spoken-clean}
 
-\begin{spoken-clean}[01:10:00 - 01:14:24]
-Auch hier wieder: Ein Kantenzug heißt offen oder geschlossen. Und anstelle von \qt{Bahn} und \qt{Wirbel} sagen wir bei ungerichteten Graphen \newterm{Weg} oder \newterm{Kreis}. Das sind einfach zwei verschiedene Welten der Notation, aber für ungerichtete Graphen ist es genau dieselbe Definition. Das können wir noch kurz aufschreiben.
-\end{spoken-clean}
-
-\begin{math-stroke}[Kantenzüge in ungerichteten Graphen]
-\begin{definition}[Kantenzug]\label[definition]{def:kantenzug}
-Sei $G = (V, E)$ ein ungerichteter Graph und sei $H \subseteq E$ eine nichtleere, endliche Kantenteilmenge, sodass für ein $\ell \ge 1$ gilt: $|H| = \ell$ und
-\[
-H = \{ \{x_0, x_1\}, \{x_1, x_2\}, \dots, \{x_{\ell-1}, x_\ell\} \}.
-\]
-Der durch $H$ erzeugte Teilgraph $G[H]$ heißt \newterm{Kantenzug} von $x_0$ nach $x_\ell$ der Länge $\ell$.
-\begin{itemize}
-    \item Ein Kantenzug heißt \newterm{offen}, falls $x_0 \neq x_\ell$.
-    \item Ein Kantenzug heißt \newterm{geschlossen}, falls $x_0 = x_\ell$.
-\end{itemize}
-\end{definition}
-
-\begin{definition}[Weg und Kreis]\label[definition]{def:weg-kreis}
-Sei $G[H]$ ein Kantenzug der Länge $\ell$ von $x_0$ nach $x_\ell$:
-\begin{itemize}
-    \item Falls die Knoten $x_0, \dots, x_\ell$ paarweise verschieden sind, so heißt $G[H]$ ein \newterm{Weg} der Länge $\ell$ zwischen $x_0$ und $x_\ell$.
-    \item Falls $x_0 = x_\ell$ und die Knoten $x_0, \dots, x_{\ell-1}$ paarweise verschieden sind, so heißt $G[H]$ ein \newterm{Kreis} der Länge $\ell$.
-\end{itemize}
-\end{definition}
-
-\textbf{Vergleich der Terminologie:}
+\begin{math-stroke}[Übersichtstabelle: Gerichtete vs. Ungerichtete Begriffe]
 \begin{center}
-\begin{tabular}{l l}
+\begin{tabular}{l | l}
     \toprule
-    \textbf{Gerichtete Graphen (Digraphen)} & \textbf{Ungerichtete Graphen} \\
+    \textbf{Gerichtet (Digraph)} & \textbf{Ungerichtet} \\
     \midrule
     Pfeilzug & Kantenzug \\
-    Bahn & Weg \\
-    Wirbel & Kreis \\
+    Bahn     & Weg \\
+    Wirbel   & Kreis \\
     \bottomrule
 \end{tabular}
 \end{center}
 \end{math-stroke}
 
-\section{Kombinatorische Eigenschaften und Pfadzählung}
-\subsection{Pfadzählung mittels Adjazenzmatrix}
+\subsection{Pfeilfolgen}
 
-\begin{spoken-clean}[01:14:24 - 01:17:18]
-Gut, und nun endlich einmal ein nettes Resultat, damit wir nicht nur Definitionen haben: die Proposition 9.1 (\cref{prop:pfadzaehlung-adjazenz}).
+\begin{spoken-clean}[01:07:32 - 01:08:48]
+Gut, und das nächste Konzept sind noch Pfeilfolgen.
 
-Sie besagt: Wenn wir einen endlichen Graphen haben --- sei $V = \{v_1, \dots, v_n\}$ eine Menge von Knoten und $G$ ein endlicher Graph mit dieser Knotenmenge, potenziell mit Mehrfachkanten, und er soll gerichtet sein ---, dann betrachten wir die Adjazenzmatrix $A = A(G)$.
+Das ist wieder eine zusätzliche Definition: Wenn wir einen Digraphen haben, also wieder einen gerichteten Graphen, dann sagen wir: Eine Folge der Länge $\ell$ von Kanten $(x_0, x_1), (x_1, x_2), \dots, (x_{\ell-1}, x_\ell)$, in der Kanten auch mehrfach vorkommen können, heißt eine Pfeilfolge von $x_0$ nach $x_\ell$ der Länge $\ell$.
 
-Da es eine quadratische Matrix ist, können wir sie mit sich selbst multiplizieren, also Potenzen davon bilden. Wir schreiben $A^k$ als die Matrix mit den Einträgen $a_{ij}^{(k)}$. Die Aussage der Proposition ist nun, dass $a_{ij}^{(k)}$ genau die Anzahl der verschiedenen Pfeilzüge von $v_i$ nach $v_j$ der Länge $k$ ist.
+Genau, eine Pfeilfolge ist also sehr ähnlich wie ein Pfeilzug, nur dürfen hier die Kanten auch mehrfach vorkommen.
 \end{spoken-clean}
 
-\begin{math-stroke}[Pfadzählung mittels Adjazenzmatrix]
-\begin{proposition}\label[proposition]{prop:pfadzaehlung-adjazenz}
-Sei $G = (V, E_0, \dots, E_m)$ ein Digraph mit Adjazenzmatrix $A = A(G)$. Für jedes $k \in \mathbb{N}$ bezeichne $A^k = (a_{ij}^{(k)})$ die $k$-te Potenz der Adjazenzmatrix. Dann ist der Eintrag $a_{ij}^{(k)}$ exakt die Anzahl der verschiedenen Pfeilzüge von $v_i$ nach $v_j$ der Länge $k$.
+\begin{math-stroke}
+\begin{definition}[Pfeilfolge]\label[definition]{def:pfeilfolge}
+Sei $G = (V, E_0, \dots, E_k)$ ein Digraph. Eine Folge der Länge $\ell$ von Kanten $(x_0, x_1), (x_1, x_2), \dots, (x_{\ell-1}, x_\ell)$, in der Kanten auch mehrfach vorkommen können, heißt eine \newterm{Pfeilfolge} von $x_0$ nach $x_\ell$ der Länge $\ell$.
+\end{definition}
+\end{math-stroke}
+
+\section{Anzahl der Pfeilfolgen und die Adjazenzmatrix}
+
+\subsection{Pfadzählung mittels Matrixpotenzen (Proposition~\ref{prop:adjazenzmatrix-potenz-pfeilfolgen})}
+
+\begin{spoken-clean}[01:08:48 - 01:11:54]
+Und jetzt endlich einmal noch ein nettes Resultat! Dass wir endlich einmal noch ein Resultat haben und nicht nur Definitionen.
+
+Das ist Proposition~\ref{prop:adjazenzmatrix-potenz-pfeilfolgen}. Die sagt aus: Sei $V = \{v_1, \dots, v_n\}$ und $G = (V, E_0, \dots, E_k)$ ein Digraph mit Adjazenzmatrix $A = A(G)$.
+
+Schreibe $A^k = (a_{ij}^{(k)})$. Dann ist $a_{ij}^{(k)}$ die Anzahl der verschiedenen Pfeilfolgen von $v_i$ nach $v_j$ der Länge $k$.
+
+Okay, das heißt: Indem wir diese Matrix mit sich selbst multiplizieren, erhalten wir eine nette kombinatorische Interpretation dafür, was diese Einträge der Matrix bedeuten.
+\end{spoken-clean}
+
+\begin{math-stroke}
+\begin{proposition}\label[proposition]{prop:adjazenzmatrix-potenz-pfeilfolgen}
+Sei $V = \{v_1, \dots, v_n\}$ und $G = (V, E_0, \dots, E_k)$ ein Digraph mit Adjazenzmatrix $A = A(G)$. Schreibe $A^k = (a_{ij}^{(k)})$.
+
+Dann ist $a_{ij}^{(k)}$ die Anzahl der verschiedenen Pfeilfolgen von $v_i$ nach $v_j$ der Länge $k$.
 \end{proposition}
 \end{math-stroke}
 
-\begin{spoken-clean}[01:17:18 - 01:21:54]
-Das heißt, indem wir diese Matrix mit sich selbst multiplizieren, erhalten wir eine nette kombinatorische Interpretation der Matrixeinträge.
+\begin{spoken-clean}[01:11:54 - 01:14:32]
+Vielleicht schauen wir uns kurz noch ein paar ganz einfache Beispiele an.
 
-Schauen wir uns dazu ein paar ganz einfache Beispiele an. Wenn wir zwei Knoten haben und zwei Kanten von $1$ nach $2$ sowie eine Kante von $2$ nach $1$, dann ist die Adjazenzmatrix $A$: Es gibt keine Kante von $1$ zu sich selbst, zwei von $1$ nach $2$, eine von $2$ nach $1$ und keine von $2$ zu sich selbst.
+Wenn wir hier zum Beispiel zwei Knoten haben und zwei Kanten von $1$ nach $2$ gehen sowie eine Kante von $2$ nach $1$:
 
-Für $k=1$ ist das natürlich schon per Definition so: Es gibt zwei Möglichkeiten, von $1$ nach $2$ zu laufen, und eine, von $2$ nach $1$ zu laufen. Wenn wir nun $A^2$ ausrechnen, erhalten wir die Matrix mit den Einträgen $2, 0, 0, 2$.
+Was ist die Adjazenzmatrix? Das ist $A = \begin{pmatrix} 0 & 2 \\ 1 & 0 \end{pmatrix}$. Es gibt keine Kante von $1$ zu sich selbst, es gibt $2$ von $1$ nach $2$, es gibt $1$ von $2$ nach $1$ und keine von $2$ zu sich selbst.
 
-Daran sehen wir: Um von $1$ zu sich selbst zu laufen, gibt es bei Länge $2$ genau zwei Möglichkeiten, nämlich über eine der beiden Hin-Kanten und die Rück-Kante. Um von $2$ zu sich selbst zu laufen, gibt es ebenfalls zwei Möglichkeiten. Es gibt jedoch keine Möglichkeit, mit einem Pfeilzug der Länge $2$ von $1$ nach $2$ oder von $2$ nach $1$ zu gelangen.
+Wir sehen hier: Für $k=1$ gilt das natürlich schon per Definition: Es gibt $2$ Möglichkeiten, von $1$ nach $2$ zu laufen, und $1$ Möglichkeit, von $2$ nach $1$ zu laufen.
 
-$A^3$ ist dann wieder $0, 4, 2, 0$. Wir sehen: Mit einem Pfeilzug der Länge $3$ kommen wir nur von $1$ nach $2$ oder von $2$ nach $1$. Es gibt vier Möglichkeiten, von $1$ nach $2$ zu gelangen: Zuerst kann man eine der zwei Kanten wählen, dann gibt es eine Möglichkeit zurückzukommen, und dann hat man wieder zwei Möglichkeiten für den Hinweg. Das ergibt insgesamt vier. Um von $2$ nach $1$ zu laufen, gibt es bei Länge $3$ nur zwei Möglichkeiten, da es auf dem Hinweg eine, dann zwei und schließlich wieder nur eine Möglichkeit gibt. Macht das einigermaßen Sinn?
+Wenn wir jetzt $A^2$ ausrechnen, dann erhalten wir $\begin{pmatrix} 2 & 0 \\ 0 & 2 \end{pmatrix}$. Und da sehen wir: Um von $1$ zu sich selbst zu laufen, gibt es $2$ Möglichkeiten, nämlich $1 \to 2 \to 1$. Und um von $2$ zu sich selbst zu laufen, gibt es auch $2$ Möglichkeiten. Aber es gibt keine Möglichkeit, von $1$ nach $2$ mit einer Pfeilfolge der Länge $2$ zu laufen.
+
+Und ähnlich ist $A^3 = \begin{pmatrix} 0 & 4 \\ 2 & 0 \end{pmatrix}$. Da sehen wir wieder: Okay, wenn man eine Pfeilfolge der Länge $3$ nimmt, kommt man wieder nur von $1$ nach $2$ und von $2$ nach $1$. Und es gibt genau $4$ Möglichkeiten, von $1$ nach $2$ zu gehen. Hingegen gibt es um von $2$ nach $1$ mit Länge $3$ zu laufen nur $2$ Möglichkeiten.
 \end{spoken-clean}
 
-\begin{math-stroke}[Beispiel zur Pfadzählung]
-Wir betrachten den Digraphen $G = (V, E_0, E_1)$ mit $V = \{1, 2\}$ und den Kantenrelationen, sodass zwei Kanten von $1$ nach $2$ und eine Kante von $2$ nach $1$ existieren:
+\begin{math-stroke}
+\begin{example}[Matrixpotenzen für 2-Knoten-Digraphen]
+\label[example]{ex:matrixpotenzen-2knoten}
+Sei $V = \{1, 2\}$ und $E$ bestehe aus zwei Kanten von $1$ nach $2$ sowie einer Kante von $2$ nach $1$:
 
 \begin{center}
-\begin{tikzpicture}[scale=1.5, ->, >=stealth, thick,
-  node/.style={circle, draw, fill=MidnightBlue!10, inner sep=0pt, minimum size=8mm}]
-  \begin{ai-tikz-planner-invisible-content}
-  % 1. Background: Zwei Knoten 1 und 2.
-  % 2. Midground: Zwei Kanten von 1 nach 2 (gebogen), eine Kante von 2 nach 1 (gebogen).
-  \end{ai-tikz-planner-invisible-content}
-  \node[node] (n1) at (0,0) {$1$};
-  \node[node] (n2) at (2,0) {$2$};
-  
-  \path
-    (n1) edge[bend left=40, MidnightBlue] (n2)
-    (n1) edge[bend left=10, MidnightBlue] (n2)
-    (n2) edge[bend left=45, BurntOrange] (n1);
+\begin{tikzpicture}[scale=1.2, ->, >=stealth, node/.style={circle, draw, fill=MidnightBlue!10, font=\bfseries}]
+  \node[node] (1) at (0,0) {$1$};
+  \node[node] (2) at (2.5,0) {$2$};
+
+  \draw[thick] (1) to[bend left=30] (2);
+  \draw[thick] (1) to[bend left=70] (2);
+  \draw[thick] (2) to[bend left=30] (1);
 \end{tikzpicture}
 \end{center}
 
-Die Adjazenzmatrix $A$ und ihre Potenzen $A^2$ und $A^3$ lauten:
-\[
-A = \begin{pmatrix}
-0 & 2 \\
-1 & 0
-\end{pmatrix}, \quad
-A^2 = \begin{pmatrix}
-2 & 0 \\
-0 & 2
-\end{pmatrix}, \quad
-A^3 = \begin{pmatrix}
-0 & 4 \\
-2 & 0
-\end{pmatrix}
-\]
-
-\begin{explanation-of-steps}[Kombinatorische Verifikation]
-\begin{itemize}
-    \item \textbf{Länge 1 ($A$):} Es gibt $a_{12} = 2$ Kanten von $1$ nach $2$ und $a_{21} = 1$ Kante von $2$ nach $1$.
-    \item \textbf{Länge 2 ($A^2$):} Es gibt $a_{11}^{(2)} = 2$ geschlossene Pfeilzüge von $1$ nach $1$ (jeweils eine der beiden Hin-Kanten kombiniert mit der Rück-Kante).
-    \item \textbf{Länge 3 ($A^3$):} Es gibt $a_{12}^{(3)} = 4$ Pfeilzüge von $1$ nach $2$ (Wahl der ersten Kante: 2 Möglichkeiten, Rückweg: 1 Möglichkeit, Wahl der dritten Kante: 2 Möglichkeiten $\implies 2 \cdot 1 \cdot 2 = 4$).
-\end{itemize}
-\end{explanation-of-steps}
+Die Adjazenzmatrix und ihre ersten Potenzen lauten:
+\begin{align*}
+A &= \begin{pmatrix} 0 & 2 \\ 1 & 0 \end{pmatrix}, \\[6pt]
+A^2 &= \begin{pmatrix} 0 & 2 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} 0 & 2 \\ 1 & 0 \end{pmatrix} = \begin{pmatrix} 2 & 0 \\ 0 & 2 \end{pmatrix}, \\[6pt]
+A^3 &= A^2 \cdot A = \begin{pmatrix} 2 & 0 \\ 0 & 2 \end{pmatrix} \begin{pmatrix} 0 & 2 \\ 1 & 0 \end{pmatrix} = \begin{pmatrix} 0 & 4 \\ 2 & 0 \end{pmatrix}.
+\end{align*}
+\end{example}
 \end{math-stroke}
 
-\begin{spoken-clean}[01:21:54 - 01:25:38]
-Das ist es, was ein Pfeilzug ist. Der Beweis der Proposition folgt per Induktion nach $k$.
+\subsection{Induktionsbeweis von Proposition~\ref{prop:adjazenzmatrix-potenz-pfeilfolgen}}
 
-Okay, wir waren heute etwas langsamer als gedacht, aber das ist nicht schlimm; wir machen nächste Woche mit den Graphen fertig. Vielen Dank und eine gute Woche!
+\begin{proof}[Beweis von Proposition \ref{prop:adjazenzmatrix-potenz-pfeilfolgen}]
+\begin{spoken-clean}[01:14:32 - 01:17:39]
+Der Beweis folgt per Induktion nach $k$.
+
+Für $k = 1$ ist das genau gemäß der Definition der Adjazenzmatrix $A(G)$.
+
+Induktionsschritt: Wir nehmen an, die Aussage stimmt für $k$, und wir müssen sie für $k+1$ beweisen.
+
+Per Induktionsannahme wissen wir: Für $1 \le i, \ell \le n$ ist $a_{i\ell}^{(k)}$ die Anzahl der Pfeilfolgen der Länge $k$ von $v_i$ nach $v_\ell$.
+
+Für $1 \le i, j, \ell \le n$ ist $a_{i\ell}^{(k)} \cdot a_{\ell j}^{(1)}$ die Anzahl der Pfeilfolgen der Länge $k+1$ von $v_i$ nach $v_j$ via $v_\ell$ im letzten Schritt.
 \end{spoken-clean}
 
-\begin{math-stroke}[Beweis der Proposition \ref{prop:pfadzaehlung-adjazenz}]
-\begin{short-proof}[Beweis per Induktion nach $k$]
-Sei $G = (V, E_0, \dots, E_m)$ ein Digraph mit $V = \{v_1, \dots, v_n\}$ und Adjazenzmatrix $A = (a_{ij})$.
+\begin{spoken-clean}[01:17:39 - 01:19:44]
+Okay, wenn wir also nur die Pfeilfolgen anschauen, die von $v_i$ nach $v_j$ gehen und im letzten Schritt über $v_\ell$ gehen sollen, dann ist das genau das Produkt. Hier können wir eine der $a_{i\ell}^{(k)}$ Pfeilfolgen auswählen, und dann haben wir hier nochmals $a_{\ell j}^{(1)}$ Möglichkeiten.
 
-\textbf{Induktionsanfang ($k=1$):}
-Nach Definition der Adjazenzmatrix ist $a_{ij}^{(1)} = a_{ij}$ die Anzahl der Kanten von $v_i$ nach $v_j$. Da ein Pfeilzug der Länge $1$ genau einer Kante entspricht, ist die Aussage für $k=1$ wahr.
+Und somit erhalten wir, dass die Anzahl der Pfeilfolgen von $v_i$ nach $v_j$ der Länge $k+1$ genau die Summe von $\ell=1$ bis $n$ über $a_{i\ell}^{(k)} \cdot a_{\ell j}^{(1)}$ ist:
+\[
+a_{ij}^{(k+1)} = \sum_{\ell=1}^n a_{i\ell}^{(k)} a_{\ell j}^{(1)}.
+\]
+Das ist per Definition genau die Matrixmultiplikation $A^{k+1} = A^k \cdot A$. Das beweist die Proposition.
+\end{spoken-clean}
 
-\textbf{Induktionsschritt ($k \to k+1$):}
-Wir nehmen an, die Aussage gilt für $k \in \mathbb{N}$, d.\,h. $a_{il}^{(k)}$ ist die Anzahl der Pfeilzüge von $v_i$ nach $v_l$ der Länge $k$.
+\begin{math-stroke}[Induktionsbeweis von Proposition~\ref{prop:adjazenzmatrix-potenz-pfeilfolgen}]
+\textbf{Induktionsanfang ($k=1$):} Für $k=1$ gilt $A^1 = A$. Nach Definition der Adjazenzmatrix ist $a_{ij}^{(1)}$ die Anzahl der Kanten (Pfeilfolgen der Länge 1) von $v_i$ nach $v_j$.
 
-Wir betrachten die Matrixpotenz $A^{k+1} = A^k \cdot A$. Nach Definition der Matrixmultiplikation gilt für den Eintrag $a_{ij}^{(k+1)}$:
-\begin{equation}\label{eq:matrix-mult-step}
-a_{ij}^{(k+1)} = \sum_{l=1}^n a_{il}^{(k)} \cdot a_{lj}
-\end{equation}
-Jeder Pfeilzug der Länge $k+1$ von $v_i$ nach $v_j$ besteht aus einem Pfeilzug der Länge $k$ von $v_i$ zu einem Zwischenknoten $v_l$, gefolgt von einer Kante (Pfeilzug der Länge $1$) von $v_l$ nach $v_j$.
+\textbf{Induktionsschritt ($k \to k+1$):} 
+Wir nehmen an, die Behauptung gilt für $k \ge 1$.
+Seien $v_i, v_j \in V$. Jede Pfeilfolge der Länge $k+1$ von $v_i$ nach $v_j$ besteht aus einer Pfeilfolge der Länge $k$ von $v_i$ zu einem Zwischenknoten $v_\ell$ und einer anschließenden Kante von $v_\ell$ nach $v_j$.
 
-Nach Induktionsvoraussetzung gibt es genau $a_{il}^{(k)}$ solche Pfeilzüge der Länge $k$ und $a_{lj}$ Kanten von $v_l$ nach $v_j$. Da diese Entscheidungen unabhängig voneinander sind, gibt es nach dem Produktprinzip genau $a_{il}^{(k)} \cdot a_{lj}$ Pfade der Länge $k+1$, die über den spezifischen Zwischenknoten $v_l$ führen.
+Nach Induktionsvoraussetzung gibt es genau $a_{i\ell}^{(k)}$ Pfeilfolgen der Länge $k$ von $v_i$ nach $v_\ell$, und nach Definition gibt es $a_{\ell j}^{(1)}$ Kanten von $v_\ell$ nach $v_j$.
+Nach der Pfadregel gibt es über den festen Knoten $v_\ell$ somit genau:
+\[
+a_{i\ell}^{(k)} \cdot a_{\ell j}^{(1)}
+\]
+Pfeilfolgen der Länge $k+1$.
+Summiert man über alle möglichen Zwischenknoten $v_\ell \in \{v_1, \dots, v_n\}$, so ergibt sich die Gesamtzahl aller Pfeilfolgen der Länge $k+1$ von $v_i$ nach $v_j$:
+\[
+\sum_{\ell=1}^n a_{i\ell}^{(k)} a_{\ell j}^{(1)} = (A^k \cdot A)_{ij} = a_{ij}^{(k+1)}.
+\]
+Dies schließt den Induktionsbeweis ab.
+\end{math-stroke}
+\end{proof}
 
-Da die Zwischenknoten $v_l$ für $l \in \{1, \dots, n\}$ disjunkt sind, liefert die Summation über alle möglichen Zwischenknoten $l$ in Gleichung \eqref{eq:matrix-mult-step} die Gesamtzahl aller Pfeilzüge der Länge $k+1$ von $v_i$ nach $v_j$. Dies beendet den Induktionsbeweis.
-\end{short-proof}
+\begin{spoken-clean}[01:19:44 - 01:25:38]
+Im Skript haben wir noch ein komplizierteres Beispiel, das ganz nett ist: den Graphen, den wir vorher gesehen haben.
+
+Wenn man da die Adjazenzmatrix hoch $4$ rechnet, dann erhält man diese Matrix. Und aus dieser Matrix kann man jetzt tatsächlich ablesen, wie viele mögliche Pfeilfolgen es zwischen je zwei von diesen Knoten gibt.
+
+Zum Beispiel vom Knoten $6$ zum Knoten $5$: Das ist hier diese Zahl da unten, und da wissen wir jetzt, es gibt $4$.
+
+Gut. Wir waren heute etwas langsamer als gedacht, aber das ist nicht schlimm; wir machen nächste Woche noch mit den Graphen fertig. Vielen Dank und ein schönes Wochenende! \inlinemetanote{Vorlesung endet; Studenten klatschen}
+\end{spoken-clean}
+
+\begin{math-stroke}[Komplexes Beispiel für $A^4$]
+\begin{meta-note}[Projizierte Folie: $A^4$ für einen 6-Knoten-Digraphen]
+Für den vorhin projizierten Digraphen mit $6$ Knoten ergibt die Berechnung der vierten Potenz der Adjazenzmatrix:
+\[
+A^4 = \begin{pmatrix}
+5 & 7 & 4 & 7 & 5 & 1 \\
+3 & 6 & 3 & 7 & 4 & 2 \\
+4 & 9 & 3 & 14 & 7 & 7 \\
+1 & 3 & 2 & 3 & 1 & 1 \\
+1 & 4 & 1 & 11 & 4 & 6 \\
+3 & 4 & 1 & 5 & 4 & 2
+\end{pmatrix}.
+\]
+Der Eintrag $a_{6,5}^{(4)} = 4$ bestätigt, dass es genau $4$ verschiedene Pfeilfolgen der Länge $4$ vom Knoten $6$ zum Knoten $5$ gibt.
+\end{meta-note}
 \end{math-stroke}
 
 \begin{nice-box}[Zusammenfassung der Kernkonzepte]
-In dieser Einführung in die Graphentheorie haben wir folgende wesentliche Punkte behandelt:
 \begin{itemize}
-    \item \textbf{Abstraktion:} Graphen erlauben es, komplexe topologische Probleme (wie das Königsberger Brückenproblem) auf rein kombinatorische Strukturen (Knoten und Kanten) zu reduzieren.
-    \item \textbf{Struktur:} Wir unterscheiden zwischen gerichteten Graphen (Digraphen) und ungerichteten Graphen sowie zwischen schlichten Graphen und Multigraphen (mit Schlingen oder Mehrfachkanten).
-    \item \textbf{Algebraisierung:} Die Adjazenzmatrix bietet eine mächtige Methode, um strukturelle Eigenschaften eines Graphen (wie die Anzahl der Pfade einer bestimmten Länge) mittels Matrixalgebra zu berechnen.
-    \item \textbf{Terminologie:} Die Unterscheidung zwischen Zügen (Kanten können wiederholt werden), Wegen/Bahnen (Knoten sind verschieden) und Kreisen/Wirbeln (geschlossene Wege) ist fundamental für die weitere Theorie.
+    \item \textbf{Graph \& Kantenrelationen:} Ein Graph $G = (V, E)$ besteht aus einer Knotenmenge $V$ und Kanten $E \subseteq V \times V$. Man unterscheidet gerichtete Graphen (Digraphen), ungerichtete Graphen ($E$ symmetrisch), Schlingen ($(x,x) \in E$), Mehrfachkanten (Multigraphen) und schlichte Graphen (schlingen- und mehrfachkantenfrei).
+    \item \textbf{Adjazenzmatrix $A(G)$:} Für $V = \{v_1, \dots, v_n\}$ gibt $a_{ij}$ die Anzahl der Kanten von $v_i$ nach $v_j$ an. $A(G)$ ist symmetrisch genau dann, wenn $G$ ungerichtet ist, und $G$ ist schlingenfrei genau dann, wenn $\operatorname{Spur}(A(G)) = 0$.
+    \item \textbf{Knotengrad \& Halbgrade:} In Digraphen unterscheiden wir den Ausgangsgrad $\operatorname{deg}^+(x)$ und Eingangsgrad $\operatorname{deg}^-(x)$. Im ungerichteten Fall zählt $\operatorname{deg}(x)$ die inzidenten Kantenenden, wobei Schlingen doppelt zählen.
+    \item \textbf{Spezielle Graphenklassen:} Ein $r$-regulärer Graph besitzt an jedem Knoten den Grad $r$. Der vollständige schlichte Graph $K_n$ besitzt alle Kanten ohne Schlingen und ist $(n-1)$-regulär.
+    \item \textbf{Züge, Wege \& Pfade:} Pfeilzüge (Digraphen) und Kantenzüge (ungerichtet) bestehen aus paarweise verschiedenen Kanten. Sind zusätzlich die Knoten paarweise verschieden, spricht man von Bahnen bzw. Wegen (offen) oder Wirbeln bzw. Kreisen (geschlossen).
+    \item \textbf{Matrixpotenzen \& Pfadanzahl (Proposition~\ref{prop:adjazenzmatrix-potenz-pfeilfolgen}):} Der Eintrag $a_{ij}^{(k)}$ der $k$-ten Matrixpotenz $A^k$ entspricht exakt der Anzahl aller Pfeilfolgen der Länge $k$ vom Knoten $v_i$ zum Knoten $v_j$.
 \end{itemize}
 \end{nice-box}
