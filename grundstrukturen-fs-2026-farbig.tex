@@ -15,7 +15,7 @@
 
 \usepackage[swissgerman]{babel} 
 \usepackage{newunicodechar}
-\newunicodechar{ß}{ss}
+\DeclareUnicodeCharacter{00DF}{ss}
 % \usepackage[final,babel=true,expansion=false]{microtype} % Auskommentiert zur Einsparung von TeX-Speicher
 \usepackage{csquotes}
 
@@ -383,10 +383,19 @@ bookmarksopen=true
 % Math operators
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\frei}{frei}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\ggT}{ggT}
+\DeclareMathOperator{\kgV}{kgV}
 
-% Custom text commands
+% Custom text commands & transcript anchors
 \newcommand{\newterm}[1]{\textcolor{BrickRed}{\glqq}\textcolor{TextBoldColor}{\textit{#1}}\textcolor{BrickRed}{\grqq}} 
 \newcommand{\inlinemetanote}[1]{\textit{[\textcolor{TextMetaNote}{#1}]}}
+% Spoken protocol anchors: (...) for minor spoken additions, [...] for major editorial context
+\newcommand{\spokenminor}[1]{\textcolor{TextMetaNote}{(#1)}}
+\newcommand{\spokenmajor}[1]{\textcolor{TextMetaNote}{[#1]}}
 
 % Custom Theorem Style
 \newtheoremstyle{purplethm}%
@@ -443,6 +452,22 @@ bookmarksopen=true
 
 \newcommand{\qt}[1]{\textit{\textcolor{BrickRed}{\glqq}#1\textcolor{BrickRed}{\grqq}}}
 
+\crefname{theorem}{Satz}{Sätze}
+\Crefname{theorem}{Satz}{Sätze}
+\crefname{lemma}{Lemma}{Lemmata}
+\Crefname{lemma}{Lemma}{Lemmata}
+\crefname{definition}{Definition}{Definitionen}
+\Crefname{definition}{Definition}{Definitionen}
+\crefname{corollary}{Korollar}{Korollare}
+\Crefname{corollary}{Korollar}{Korollare}
+\crefname{proposition}{Proposition}{Propositionen}
+\Crefname{proposition}{Proposition}{Propositionen}
+\crefname{example}{Beispiel}{Beispiele}
+\Crefname{example}{Beispiel}{Beispiele}
+\crefname{examples}{Beispiel}{Beispiele}
+\Crefname{examples}{Beispiel}{Beispiele}
+\crefname{exercise}{Übung}{Übungen}
+\Crefname{exercise}{Übung}{Übungen}
 \crefname{axiom}{Axiom}{Axiome}
 \Crefname{axiom}{Axiom}{Axiome}
 \crefname{axioms}{Axiome}{Axiome}
